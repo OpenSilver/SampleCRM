@@ -1,0 +1,20 @@
+﻿<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="SimpleCRM.ShowData" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+    mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+    Title="Show Data"
+    Style="{StaticResource PageStyle}">
+
+    <Grid x:Name="LayoutRoot">
+        <sdk:DataGrid Width="200" x:Name="studentgrid" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}" />
+                <DataGridTextColumn Header="StudentName" Binding="{Binding Path=StudentName}"/>
+                <DataGridTextColumn Header="StudentAge" Binding="{Binding Path=StudentAge}"/>
+            </DataGrid.Columns>
+        </sdk:DataGrid>
+    </Grid>
+
+</navigation:Page>

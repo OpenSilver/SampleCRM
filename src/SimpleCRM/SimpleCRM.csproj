@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SimpleCRM</SccProjectName>
+    <SccProvider>SimpleCRM</SccProvider>
+    <SccAuxPath>SimpleCRM</SccAuxPath>
+    <SccLocalPath>SimpleCRM</SccLocalPath>
+    <Configurations>Debug;Release;</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+	<LinkedOpenRiaServerProject>..\SimpleCRM.Web\SimpleCRM.Web.csproj</LinkedOpenRiaServerProject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>OPENSILVER</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove="Assets\Styles.xaml" />
+    <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
+    <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
+    <None Remove="Views\AddData.xaml" />
+    <None Remove="Views\DeleteData.xaml" />
+    <None Remove="Views\ErrorWindow.xaml" />
+    <None Remove="Views\MyPage.xaml" />
+    <None Remove="Views\ShowData.xaml" />
+    <None Remove="Views\UpdateData.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\AddData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\DeleteData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\ErrorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\MyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\ShowData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\UpdateData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <PackageReference Include="OpenSilver" Version="1.2.1" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="1.2.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="1.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generated_Code\" />
+  </ItemGroup>
+  
+</Project>

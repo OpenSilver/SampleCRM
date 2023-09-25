@@ -1,2 +1,0 @@
-# SimpleCRM
-SimpleCRM
