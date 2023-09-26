@@ -40,9 +40,9 @@
                     <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/ShowData" TargetName="ContentFrame" Content="Show Data"/>
 									 
-                    <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
+                    <!--<Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>-->
 
-                    <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
+                    <!--<HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/AddData" TargetName="ContentFrame" Content="Add Data"/>
                     
                     <Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}"/>
@@ -51,7 +51,7 @@
                                      NavigateUri="/UpdateData" TargetName="ContentFrame" Content="Update Data"/>
                     <Rectangle x:Name="Divider3" Style="{StaticResource DividerStyle}"/>
                     <HyperlinkButton x:Name="Link4" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/DeleteData" TargetName="ContentFrame" Content="Delete Data"/>
+                                     NavigateUri="/DeleteData" TargetName="ContentFrame" Content="Delete Data"/>-->
                 </StackPanel>
             </Border>
 

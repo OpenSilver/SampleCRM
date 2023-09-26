@@ -6,30 +6,30 @@
     <edmx:StorageModels>
     <Schema Namespace="WCFriadbModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="WCFriadbModelStoreContainer">
-          <EntitySet Name="students" EntityType="WCFriadbModel.Store.students" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Categories" EntityType="WCFriadbModel.Store.Categories" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
         </EntityContainer>
-        <EntityType Name="students">
+        <EntityType Name="Categories">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="CategoryID" />
           </Key>
-          <Property Name="StudentName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="StudentAge" Type="int" Nullable="false" />
-          <Property Name="ID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="true" />
+          <Property Name="CategoryID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WCFriadbModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="WCFriadbEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-          <EntitySet Name="students" EntityType="WCFriadbModel.student" />
+          <EntitySet Name="Categories" EntityType="WCFriadbModel.Category" />
         </EntityContainer>
-        <EntityType Name="student">
+        <EntityType Name="Category">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="CategoryID" />
           </Key>
-          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Type="Int32" Name="StudentAge" Nullable="false" />
-          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="true" Unicode="false" FixedLength="false" />
+          <Property Type="Int64" Name="CategoryID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -37,10 +37,10 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WCFriadbModelStoreContainer" CdmEntityContainer="WCFriadbEntities">
-          <EntitySetMapping Name="students"><EntityTypeMapping TypeName="WCFriadbModel.student"><MappingFragment StoreEntitySet="students">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentAge" ColumnName="StudentAge" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="WCFriadbModel.Category"><MappingFragment StoreEntitySet="Categories">
+            <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
@@ -62,8 +62,8 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="StudentModel">
-        <EntityTypeShape EntityType="WCFriadbModel.student" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" IsExpanded="true" />
+      <Diagram Name="SimpleCRMModel">
+        <EntityTypeShape EntityType="WCFriadbModel.Category" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

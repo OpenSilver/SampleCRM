@@ -21,13 +21,13 @@ namespace SimpleCRM
 {
     public partial class ShowData : Page
     {
-        StudentDomainContext context = new StudentDomainContext();
+        CategoriesDomainContext context = new CategoriesDomainContext();
         public ShowData()
         {
             InitializeComponent();
-            EntityQuery<student> query = context.GetStudentsQuery();
-            LoadOperation<student> loadOp = this.context.Load(query);
-            studentgrid.ItemsSource = loadOp.Entities;
+            EntityQuery<Category> query = context.GetCategoriesQuery();
+            LoadOperation<Category> loadOp = this.context.Load(query);
+            categoriesGrid.ItemsSource = loadOp.Entities;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

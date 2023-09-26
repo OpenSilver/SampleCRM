@@ -8,11 +8,12 @@
     Style="{StaticResource PageStyle}">
 
     <Grid x:Name="LayoutRoot">
-        <sdk:DataGrid Width="200" x:Name="studentgrid" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False">
+        <sdk:DataGrid Width="200" x:Name="categoriesGrid" 
+                      Height="300" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}" />
-                <DataGridTextColumn Header="StudentName" Binding="{Binding Path=StudentName}"/>
-                <DataGridTextColumn Header="StudentAge" Binding="{Binding Path=StudentAge}"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding Path=CategoryID}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Desc" Binding="{Binding Path=Description}"/>
             </DataGrid.Columns>
         </sdk:DataGrid>
     </Grid>

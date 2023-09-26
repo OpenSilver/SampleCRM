@@ -68,29 +68,29 @@ namespace SimpleCRM.Web
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<student> students
+        public ObjectSet<Category> Categories
         {
             get
             {
-                if ((_students == null))
+                if ((_Categories == null))
                 {
-                    _students = base.CreateObjectSet<student>("students");
+                    _Categories = base.CreateObjectSet<Category>("Categories");
                 }
-                return _students;
+                return _Categories;
             }
         }
-        private ObjectSet<student> _students;
+        private ObjectSet<Category> _Categories;
 
         #endregion
 
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the students EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Categories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTostudents(student student)
+        public void AddToCategories(Category category)
         {
-            base.AddObject("students", student);
+            base.AddObject("Categories", category);
         }
 
         #endregion
@@ -104,26 +104,24 @@ namespace SimpleCRM.Web
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WCFriadbModel", Name="student")]
+    [EdmEntityTypeAttribute(NamespaceName="WCFriadbModel", Name="Category")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class student : EntityObject
+    public partial class Category : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new student object.
+        /// Create a new Category object.
         /// </summary>
-        /// <param name="studentName">Initial value of the StudentName property.</param>
-        /// <param name="studentAge">Initial value of the StudentAge property.</param>
-        /// <param name="id">Initial value of the ID property.</param>
-        public static student Createstudent(global::System.String studentName, global::System.Int32 studentAge, global::System.Int32 id)
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="categoryID">Initial value of the CategoryID property.</param>
+        public static Category CreateCategory(global::System.String name, global::System.Int64 categoryID)
         {
-            student student = new student();
-            student.StudentName = studentName;
-            student.StudentAge = studentAge;
-            student.ID = id;
-            return student;
+            Category category = new Category();
+            category.Name = name;
+            category.CategoryID = categoryID;
+            return category;
         }
 
         #endregion
@@ -135,75 +133,75 @@ namespace SimpleCRM.Web
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String StudentName
+        public global::System.String Name
         {
             get
             {
-                return _StudentName;
+                return _Name;
             }
             set
             {
-                OnStudentNameChanging(value);
-                ReportPropertyChanging("StudentName");
-                _StudentName = StructuralObject.SetValidValue(value, false, "StudentName");
-                ReportPropertyChanged("StudentName");
-                OnStudentNameChanged();
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
             }
         }
-        private global::System.String _StudentName;
-        partial void OnStudentNameChanging(global::System.String value);
-        partial void OnStudentNameChanged();
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 StudentAge
+        public global::System.String Description
         {
             get
             {
-                return _StudentAge;
+                return _Description;
             }
             set
             {
-                OnStudentAgeChanging(value);
-                ReportPropertyChanging("StudentAge");
-                _StudentAge = StructuralObject.SetValidValue(value, "StudentAge");
-                ReportPropertyChanged("StudentAge");
-                OnStudentAgeChanged();
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true, "Description");
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
             }
         }
-        private global::System.Int32 _StudentAge;
-        partial void OnStudentAgeChanging(global::System.Int32 value);
-        partial void OnStudentAgeChanged();
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 ID
+        public global::System.Int64 CategoryID
         {
             get
             {
-                return _ID;
+                return _CategoryID;
             }
             set
             {
-                if (_ID != value)
+                if (_CategoryID != value)
                 {
-                    OnIDChanging(value);
-                    ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value, "ID");
-                    ReportPropertyChanged("ID");
-                    OnIDChanged();
+                    OnCategoryIDChanging(value);
+                    ReportPropertyChanging("CategoryID");
+                    _CategoryID = StructuralObject.SetValidValue(value, "CategoryID");
+                    ReportPropertyChanged("CategoryID");
+                    OnCategoryIDChanged();
                 }
             }
         }
-        private global::System.Int64 _ID;
-        partial void OnIDChanging(global::System.Int64 value);
-        partial void OnIDChanged();
+        private global::System.Int64 _CategoryID;
+        partial void OnCategoryIDChanging(global::System.Int64 value);
+        partial void OnCategoryIDChanged();
 
         #endregion
 

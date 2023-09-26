@@ -1,5 +1,4 @@
-﻿
-namespace SimpleCRM.Web
+﻿namespace SimpleCRM.Web
 {
     using System;
     using System.Collections.Generic;
@@ -17,8 +16,8 @@ namespace SimpleCRM.Web
 
     // The MetadataTypeAttribute identifies studentMetadata as the class
     // that carries additional metadata for the student class.
-    [MetadataTypeAttribute(typeof(student.studentMetadata))]
-    public partial class student
+    [MetadataTypeAttribute(typeof(Category.CategoryMetadata))]
+    public partial class Category
     {
 
         // This class allows you to attach custom attributes to properties
@@ -30,19 +29,18 @@ namespace SimpleCRM.Web
         //    [RegularExpression("[A-Z][A-Za-z0-9]*")]
         //    [StringLength(32)]
         //    public string Xyz { get; set; }
-        internal sealed class studentMetadata
+        internal sealed class CategoryMetadata
         {
-
             // Metadata classes are not meant to be instantiated.
-            private studentMetadata()
+            private CategoryMetadata()
             {
             }
 
-            public int ID { get; set; }
+            public int CategoryID { get; set; }
            
-            public int StudentAge { get; set; }
+            public string Name { get; set; }
 
-            public string StudentName { get; set; }
+            public string Description { get; set; }
         }
     }
 }

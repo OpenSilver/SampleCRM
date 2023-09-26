@@ -27,7 +27,7 @@ namespace SimpleCRM
             InitializeComponent();
 
 #if OPENSILVER
-            KnownTypesHelper.AddKnownType(typeof(student));
+            KnownTypesHelper.AddKnownType(typeof(Category));
             ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/");
             //DomainContext.DomainClientFactory = new OpenRiaServices.DomainServices.Client.Web.SoapDomainClientFactory()
             //{
