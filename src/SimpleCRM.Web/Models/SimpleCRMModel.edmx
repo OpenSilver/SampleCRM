@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SimpleCRMModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\oguz\source\repos\SimpleCRM\src\SimpleCRM.Web\database\SimpleCRM.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="integer" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Picture" Type="blob" />
+          <Property Name="Thumbnail" Type="blob" />
+        </EntityType>
+        <EntityType Name="CountryCodes">
+          <Key>
+            <PropertyRef Name="CountryCodeID" />
+          </Key>
+          <Property Name="CountryCodeID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="integer" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BirthDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ChildrenAtHome" Type="integer" />
+          <Property Name="City" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CreatedOn" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Education" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="IsHouseOwner" Type="integer" />
+          <Property Name="LastModifiedOn" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="NumberCarsOwned" Type="integer" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Picture" Type="blob" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SearchTerms" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Suffix" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Thumbnail" Type="blob" />
+          <Property Name="Title" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="TotalChildren" Type="integer" />
+          <Property Name="YearlyIncome" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="DbVersion">
+          <Key>
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="Version" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="OrderLine" />
+          </Key>
+          <Property Name="OrderID" Type="integer" Nullable="false" />
+          <Property Name="OrderLine" Type="integer" Nullable="false" />
+          <Property Name="Discount" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ProductID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Quantity" Type="integer" Nullable="false" />
+          <Property Name="TaxType" Type="integer" Nullable="false" />
+          <Property Name="UnitPrice" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="integer" Nullable="false" />
+          <Property Name="CustomerID" Type="integer" Nullable="false" />
+          <Property Name="DeliveredDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="LastModifiedOn" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="OrderDate" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="PaymentType" Type="integer" />
+          <Property Name="SearchTerms" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipCity" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipCountryCode" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipPhone" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipPostalCode" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipRegion" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ShipVia" Type="integer" />
+          <Property Name="ShippedDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Status" Type="integer" Nullable="false" />
+          <Property Name="TrackingNumber" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Status" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentTypes">
+          <Key>
+            <PropertyRef Name="PaymentTypeID" />
+          </Key>
+          <Property Name="PaymentTypeID" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="CategoryID" Type="integer" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CreatedOn" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="DealerPrice" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Discount" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="DiscountEndDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="DiscountStartDate" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="LastModifiedOn" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ListPrice" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Picture" Type="blob" />
+          <Property Name="SafetyStockLevel" Type="integer" Nullable="false" />
+          <Property Name="SearchTerms" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Size" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="StockUnits" Type="integer" Nullable="false" />
+          <Property Name="TaxType" Type="integer" Nullable="false" />
+          <Property Name="Thumbnail" Type="blob" />
+        </EntityType>
+        <EntityType Name="Shippers">
+          <Key>
+            <PropertyRef Name="ShipperID" />
+          </Key>
+          <Property Name="ShipperID" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="TaxTypes">
+          <Key>
+            <PropertyRef Name="TaxTypeID" />
+          </Key>
+          <Property Name="TaxTypeID" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Rate" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrderItems_0_0">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_1_0">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_0_0">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SimpleCRMModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" store:Type="Tables" />
+          <EntitySet Name="CountryCodes" EntityType="Self.CountryCodes" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" store:Type="Tables" />
+          <EntitySet Name="DbVersion" EntityType="Self.DbVersion" store:Type="Tables" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" store:Type="Tables" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" store:Type="Tables" />
+          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" store:Type="Tables" />
+          <EntitySet Name="Shippers" EntityType="Self.Shippers" store:Type="Tables" />
+          <EntitySet Name="TaxTypes" EntityType="Self.TaxTypes" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderItems_0_0" Association="Self.FK_OrderItems_0_0">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_1_0" Association="Self.FK_OrderItems_1_0">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_0_0" Association="Self.FK_Orders_0_0">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SimpleCRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="Thumbnail" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="CountryCodes">
+          <Key>
+            <PropertyRef Name="CountryCodeID" />
+          </Key>
+          <Property Name="CountryCodeID" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ChildrenAtHome" Type="Int64" />
+          <Property Name="City" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Education" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="IsHouseOwner" Type="Int64" />
+          <Property Name="LastModifiedOn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="NumberCarsOwned" Type="Int64" />
+          <Property Name="Occupation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Region" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SearchTerms" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Suffix" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Thumbnail" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="TotalChildren" Type="Int64" />
+          <Property Name="YearlyIncome" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_0_0" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="DbVersion">
+          <Key>
+            <PropertyRef Name="Version" />
+          </Key>
+          <Property Name="Version" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="OrderLine" />
+          </Key>
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="OrderLine" Type="Int64" Nullable="false" />
+          <Property Name="Discount" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductID" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="TaxType" Type="Int64" Nullable="false" />
+          <Property Name="UnitPrice" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_OrderItems_0_0" FromRole="OrderItems" ToRole="Products" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderItems_1_0" FromRole="OrderItems" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="DeliveredDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedOn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PaymentType" Type="Int64" />
+          <Property Name="SearchTerms" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipAddress" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCity" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCountryCode" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPhone" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPostalCode" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipRegion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ShipVia" Type="Int64" />
+          <Property Name="ShippedDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int64" Nullable="false" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Orders_0_0" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_1_0" FromRole="Orders" ToRole="OrderItems" />
+        </EntityType>
+        <EntityType Name="OrderStatus">
+          <Key>
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Status" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentTypes">
+          <Key>
+            <PropertyRef Name="PaymentTypeID" />
+          </Key>
+          <Property Name="PaymentTypeID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="Color" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DealerPrice" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiscountEndDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DiscountStartDate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedOn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ListPrice" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="SafetyStockLevel" Type="Int64" Nullable="false" />
+          <Property Name="SearchTerms" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="StockUnits" Type="Int64" Nullable="false" />
+          <Property Name="TaxType" Type="Int64" Nullable="false" />
+          <Property Name="Thumbnail" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_0_0" FromRole="Products" ToRole="OrderItems" />
+        </EntityType>
+        <EntityType Name="Shippers">
+          <Key>
+            <PropertyRef Name="ShipperID" />
+          </Key>
+          <Property Name="ShipperID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TaxTypes">
+          <Key>
+            <PropertyRef Name="TaxTypeID" />
+          </Key>
+          <Property Name="TaxTypeID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rate" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Orders_0_0">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_0_0">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_1_0">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SimpleCRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="CountryCodes" EntityType="Self.CountryCodes" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="DbVersion" EntityType="Self.DbVersion" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
+          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentTypes" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Shippers" EntityType="Self.Shippers" />
+          <EntitySet Name="TaxTypes" EntityType="Self.TaxTypes" />
+          <AssociationSet Name="FK_Orders_0_0" Association="Self.FK_Orders_0_0">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_0_0" Association="Self.FK_OrderItems_0_0">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_1_0" Association="Self.FK_OrderItems_1_0">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SimpleCRMModelStoreContainer" CdmEntityContainer="SimpleCRMEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="SimpleCRMModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountryCodes">
+            <EntityTypeMapping TypeName="SimpleCRMModel.CountryCodes">
+              <MappingFragment StoreEntitySet="CountryCodes">
+                <ScalarProperty Name="CountryCodeID" ColumnName="CountryCodeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SimpleCRMModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="ChildrenAtHome" ColumnName="ChildrenAtHome" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsHouseOwner" ColumnName="IsHouseOwner" />
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="NumberCarsOwned" ColumnName="NumberCarsOwned" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="SearchTerms" ColumnName="SearchTerms" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TotalChildren" ColumnName="TotalChildren" />
+                <ScalarProperty Name="YearlyIncome" ColumnName="YearlyIncome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DbVersion">
+            <EntityTypeMapping TypeName="SimpleCRMModel.DbVersion">
+              <MappingFragment StoreEntitySet="DbVersion">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="SimpleCRMModel.OrderItems">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderLine" ColumnName="OrderLine" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="SimpleCRMModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="SearchTerms" ColumnName="SearchTerms" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="ShipCity" ColumnName="ShipCity" />
+                <ScalarProperty Name="ShipCountryCode" ColumnName="ShipCountryCode" />
+                <ScalarProperty Name="ShipPhone" ColumnName="ShipPhone" />
+                <ScalarProperty Name="ShipPostalCode" ColumnName="ShipPostalCode" />
+                <ScalarProperty Name="ShipRegion" ColumnName="ShipRegion" />
+                <ScalarProperty Name="ShipVia" ColumnName="ShipVia" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderStatus">
+            <EntityTypeMapping TypeName="SimpleCRMModel.OrderStatus">
+              <MappingFragment StoreEntitySet="OrderStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTypes">
+            <EntityTypeMapping TypeName="SimpleCRMModel.PaymentTypes">
+              <MappingFragment StoreEntitySet="PaymentTypes">
+                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SimpleCRMModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DealerPrice" ColumnName="DealerPrice" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="DiscountEndDate" ColumnName="DiscountEndDate" />
+                <ScalarProperty Name="DiscountStartDate" ColumnName="DiscountStartDate" />
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="SafetyStockLevel" ColumnName="SafetyStockLevel" />
+                <ScalarProperty Name="SearchTerms" ColumnName="SearchTerms" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="StockUnits" ColumnName="StockUnits" />
+                <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippers">
+            <EntityTypeMapping TypeName="SimpleCRMModel.Shippers">
+              <MappingFragment StoreEntitySet="Shippers">
+                <ScalarProperty Name="ShipperID" ColumnName="ShipperID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxTypes">
+            <EntityTypeMapping TypeName="SimpleCRMModel.TaxTypes">
+              <MappingFragment StoreEntitySet="TaxTypes">
+                <ScalarProperty Name="TaxTypeID" ColumnName="TaxTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
