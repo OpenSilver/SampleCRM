@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(SolutionDir)packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('$(SolutionDir)packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -57,10 +58,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="OpenRiaServices.DomainServices.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
@@ -78,14 +79,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.117.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.117.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -120,16 +121,6 @@
       <DependentUpon>SimpleCRMModel.edmx</DependentUpon>
       <LastGenOutput>SimpleCRMModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\UsersModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UsersModel.edmx</DependentUpon>
-      <LastGenOutput>UsersModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\UsersModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UsersModel.edmx</DependentUpon>
-      <LastGenOutput>UsersModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -141,21 +132,6 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\aspnet_Applications.cs">
-      <DependentUpon>UsersModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\aspnet_Profile.cs">
-      <DependentUpon>UsersModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\aspnet_Roles.cs">
-      <DependentUpon>UsersModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\aspnet_Users.cs">
-      <DependentUpon>UsersModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\aspnet_UsersInRoles.cs">
-      <DependentUpon>UsersModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Categories.cs">
       <DependentUpon>SimpleCRMModel.tt</DependentUpon>
@@ -208,21 +184,6 @@
       <DependentUpon>SimpleCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UsersModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UsersModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UsersModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UsersModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UsersModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UsersModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CategoryService.cs" />
@@ -230,13 +191,6 @@
     <Compile Include="Services\UserRegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\UsersModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UsersModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\UsersModel.edmx.diagram">
-      <DependentUpon>UsersModel.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\SimpleCRMModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SimpleCRMModel.Designer.cs</LastGenOutput>
@@ -276,6 +230,16 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\build\OpenRiaServices.Server.targets" Condition="Exists('$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\build\OpenRiaServices.Server.targets')" />
   <Import Project="$(SolutionDir)packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('$(SolutionDir)packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
