@@ -16,7 +16,7 @@ The System.Data.SQLite DDEX provider does not support Visual Studio 2017 and 201
 ### Install latest Toolbox
 
 Once per Visual Studio edition (daily build at  [https://github.com/ErikEJ/SqlCeToolbox/wiki/Release-notes](https://github.com/ErikEJ/SqlCeToolbox/wiki/Release-notes)  )
-![Install Toolbox](devenv_BBCKiaX9nc)
+![Install Toolbox](devenv_BBCKiaX9nc.png)
 
 ### Install SQLite in GAC
 
@@ -33,7 +33,7 @@ Verify that the EF6 provider is installed in GAC from the Toolbox "About" dialog
 
 ![sqliteddex](27509099-19692314-58f5-11e7-8337-20fd50038bc9.png)
 
-![sqlitefullddex](devenv_QcjHrXqsjU)
+![sqlitefullddex](devenv_QcjHrXqsjU.png)
 
 If the EF6 provider is not in GAC, this may be due to an invalid entry in machine.config, located in the C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Config folder.
 
