@@ -29,6 +29,7 @@
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
     <None Remove="Views\About.xaml" />
+    <None Remove="Views\Categories.xaml" />
     <None Remove="Views\ErrorWindow.xaml" />
     <None Remove="Views\Home.xaml" />
     <None Remove="Views\Login\LoginForm.xaml" />
@@ -80,6 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Categories.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -94,7 +98,10 @@
   <ItemGroup>
     <Folder Include="Generated_Code\" />
     <Folder Include="Models\" />
-    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Categories.xaml" />
   </ItemGroup>
 
 </Project>

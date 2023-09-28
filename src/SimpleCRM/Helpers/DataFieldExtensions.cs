@@ -5,6 +5,7 @@ using System.Windows.Data;
 
 namespace SimpleCRM
 {
+
     /// <summary>
     ///     Provides extension methods for performing operations on a <see cref="DataField"/>.
     /// </summary>

@@ -30,19 +30,22 @@
 
                     <ContentControl Style="{StaticResource LogoIcon}" />
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}"
-                               Text="SilverLight WCF/Ria Demo" />
+                               Text="Simple CRM (OpenSilver/OpenRIA Bussiness Template Demo)" />
                 </StackPanel>
             </Border>
 
             <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
 
-                    <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}"
+                    <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame" Content="Home" />
+
+                    <HyperlinkButton x:Name="lnkCotegories" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Categories" TargetName="ContentFrame" Content="Categories" />
 
                     <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}" />
 
-                    <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}"
+                    <HyperlinkButton x:Name="lnkAbout" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/About" TargetName="ContentFrame" Content="About" />
                 </StackPanel>
             </Border>

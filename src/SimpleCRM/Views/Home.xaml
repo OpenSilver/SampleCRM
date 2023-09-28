@@ -7,7 +7,9 @@
                  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                  Style="{StaticResource PageStyle}">
     <StackPanel>
-        <TextBlock Text="Home Page" Style="{StaticResource HeaderTextStyle}" />
-        <DataGrid x:Name="gridCategories" />
+        <TextBlock Text="Home Page" 
+                   Style="{StaticResource HeaderTextStyle}" />
+        <TextBlock Text="This is a Simple CRM Application. Example for OpenSilver / OpenRIA Bussiness Application Template" 
+                   Style="{StaticResource ContentTextStyle}"/>
     </StackPanel>
 </navigation:Page>
