@@ -66,8 +66,7 @@
                   CommitButtonContent="Save"
                   CancelButtonContent="Cancel"
                   Header="Category Details"
-                  ItemsSource="{Binding CategoryCollection}"
-                  CurrentItem="{Binding SelectedCategory}">
+                  ItemsSource="{Binding CategoryCollection}">
             <DataForm.EditTemplate>
                 <DataTemplate>
                     <StackPanel>

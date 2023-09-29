@@ -7,11 +7,8 @@
              xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
              xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=OpenSilver.Controls.Navigation"
              mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
-
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
-
         <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
-
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
                               Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
@@ -22,9 +19,7 @@
                 </navigation:Frame.UriMapper>
             </navigation:Frame>
         </Border>
-
         <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
-
             <Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
                 <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
 
@@ -33,24 +28,62 @@
                                Text="Sample CRM (OpenSilver/OpenRIA Bussiness Template Demo)" />
                 </StackPanel>
             </Border>
-
             <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-
                     <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Home" TargetName="ContentFrame" Content="Home" />
-
-                    <HyperlinkButton x:Name="lnkCotegories" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Categories" TargetName="ContentFrame" Content="Categories" />
-
+                                     NavigateUri="/Home" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/Home.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Home" />
+                        </StackPanel>
+                    </HyperlinkButton>
                     <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}" />
-
-                    <HyperlinkButton x:Name="lnkAbout" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/About" TargetName="ContentFrame" Content="About" />
+                    <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Dashboard" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/Gauge.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Dashboard" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Categories" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/SiteMap.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Categories" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Customers" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/People.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Customers" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton x:Name="lnkOrders" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Orders" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/List.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Orders" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton x:Name="lnkProducts" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Products" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/Tag.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Products" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}" />
+                    <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Settings" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Assets/Setting.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="Settings" />
+                        </StackPanel>
+                    </HyperlinkButton>
                 </StackPanel>
             </Border>
         </Grid>
-
         <Border Style="{StaticResource LoginContainerStyle}">
             <login:LoginStatus />
         </Border>
