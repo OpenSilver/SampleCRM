@@ -2,24 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class Categories : Page, INotifyPropertyChanged
+    public partial class Categories: BasePage
     {
         private CategoryContext _categoryContext = new CategoryContext();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         private IEnumerable<Models.Categories> _categoryCollection = new ObservableCollection<Models.Categories>();
         public IEnumerable<Models.Categories> CategoryCollection
@@ -30,7 +22,21 @@ namespace SampleCRM.Web.Views
                 if (_categoryCollection != value)
                 {
                     _categoryCollection = value;
-                    OnPropertyChanged();
+                    base.OnPropertyChanged();
+                }
+            }
+        }
+
+        private Models.Categories _selectedCategory;
+        public Models.Categories SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set
+            {
+                if (_selectedCategory != value)
+                {
+                    _selectedCategory = value;
+                    base.OnPropertyChanged();
                 }
             }
         }

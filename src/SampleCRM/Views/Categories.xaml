@@ -1,4 +1,4 @@
-﻿<navigation:Page x:Class="SampleCRM.Web.Views.Categories"
+﻿<local:BasePage x:Class="SampleCRM.Web.Views.Categories"
                  xmlns:local="clr-namespace:SampleCRM.Web.Views"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,9 +7,9 @@
                  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
                  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                  Style="{StaticResource PageStyle}">
-    <navigation:Page.Resources>
+    <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
-    </navigation:Page.Resources>
+    </local:BasePage.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -24,6 +24,7 @@
         <DataGrid x:Name="gridCategories"  
                   Grid.Row="1"
                   ItemsSource="{Binding CategoryCollection}" 
+                  SelectedItem="{Binding SelectedCategory}"
                   AutoGenerateColumns="False"
                   CanUserReorderColumns="True" 
                   CanUserSortColumns="True" 
@@ -65,7 +66,8 @@
                   CommitButtonContent="Save"
                   CancelButtonContent="Cancel"
                   Header="Category Details"
-                  ItemsSource="{Binding CategoryCollection}">
+                  ItemsSource="{Binding CategoryCollection}"
+                  CurrentItem="{Binding SelectedCategory}">
             <DataForm.EditTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -90,4 +92,4 @@
         </StackPanel>
 
     </Grid>
-</navigation:Page>
+</local:BasePage>
