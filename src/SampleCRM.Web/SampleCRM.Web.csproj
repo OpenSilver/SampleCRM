@@ -187,7 +187,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\CountryCodesService.cs" />
+    <Compile Include="Services\CustomersService.cs" />
+    <Compile Include="Services\OrderItemsService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\OrderStatusService.cs" />
+    <Compile Include="Services\PaymentTypeService.cs" />
+    <Compile Include="Services\ProductsService.cs" />
     <Compile Include="Services\SampleCRMService.cs" />
+    <Compile Include="Services\ShippersService.cs" />
+    <Compile Include="Services\TaxTypesService.cs" />
     <Compile Include="Services\UserRegistrationService.cs" />
   </ItemGroup>
   <ItemGroup>

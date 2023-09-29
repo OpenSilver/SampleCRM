@@ -4,9 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <NoXamlPreprocessor>True</NoXamlPreprocessor>
     <OpenSilverType>4</OpenSilverType>
-	<PublishTrimmed>true</PublishTrimmed>
-	<!-- Uncomment to enable AOT compilation when publishing -->
-	<!--<RunAOTCompilation Condition="'$(IsSecondPass)'!='True'">true</RunAOTCompilation>-->
+    <PublishTrimmed>true</PublishTrimmed>
+    <!-- Uncomment to enable AOT compilation when publishing -->
+    <!--<RunAOTCompilation Condition="'$(IsSecondPass)'!='True'">true</RunAOTCompilation>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-     <DisableImplicitNamespaceImports>True</DisableImplicitNamespaceImports>
+    <DisableImplicitNamespaceImports>True</DisableImplicitNamespaceImports>
   </PropertyGroup>
 
   <ItemGroup>

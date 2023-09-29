@@ -9,6 +9,24 @@
     <StackPanel>
         <TextBlock Text="Home Page" 
                    Style="{StaticResource HeaderTextStyle}" />
+        <native:HtmlPresenter 
+            xmlns:native="using:CSHTML5.Native.Html.Controls" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            mc:Ignorable="native">
+            <p>
+                <strong>SampleCRM</strong> is a <strong>OpenSilver</strong> / Open RIA Services Business Application Template Demo Application. 
+                This application is a guidance how to implement <strong>RIA</strong> Domain Services, <stong>CRUD</stong> Operations over <stong>SQLite</stong> database along with XAML UI.
+            </p>
+            <p>
+                Open Ria Services simplifies the development of n-tier solutions for Rich Internet Applications (RIA)
+            </p>
+            <p>
+                A common problem when developing an n-tier RIA solution is coordinating application logic between the middle tier and the presentation tier.
+            </p>
+            <p>
+                To create the best user experience, you want your Open Ria Services client to be aware of the application logic that resides on the server, but you do not want to develop and maintain the application logic on both the presentation tier and the middle tier. Open Ria Services solves this problem by providing framework components, tools, and services that make the application logic on the server available to the Open Ria Services client without requiring you to manually duplicate that programming logic.
+            </p>
+        </native:HtmlPresenter>
         <TextBlock Text="This is a Sample CRM Application. Example for OpenSilver / OpenRIA Bussiness Application Template" 
                    Style="{StaticResource ContentTextStyle}"/>
     </StackPanel>

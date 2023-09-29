@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace SampleCRM.Web
 {
-    [EnableClientAccess()]
+    [EnableClientAccess]
     public class CategoryService : SampleCRMService
     {
         [Query]
