@@ -22,18 +22,22 @@ namespace SampleCRM.Web
         public void DeleteCategory(Categories category)
         {
             _context.Categories.Remove(category);
+            _context.SaveChanges();
         }
 
         [Insert]
         public void InsertCategory(Categories category)
         {
+            
             _context.Categories.AddOrUpdate(category);
+            _context.SaveChanges();
         }
 
         [Update]
         public void UpdateCategory(Categories category)
         {
             _context.Categories.AddOrUpdate(category);
+            _context.SaveChanges();
         }
     }
 }

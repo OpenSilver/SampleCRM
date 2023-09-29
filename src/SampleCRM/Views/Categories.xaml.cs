@@ -3,16 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
@@ -57,6 +51,14 @@ namespace SampleCRM.Web.Views
             var categoriesQuery = _categoryContext.GetCategoriesQuery();
             var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
             CategoryCollection = categoriesOp.Entities;
+#if DEBUG
+            Console.WriteLine("CategoryCollection:" + CategoryCollection.Count());
+            foreach (var item in CategoryCollection)
+            {
+                Console.WriteLine("Category Name:" + item.Name);
+                Console.WriteLine("Category PictureBytes:" + item.Picture.Length);
+            }
+#endif
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
