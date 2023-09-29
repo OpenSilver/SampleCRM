@@ -1,5 +1,8 @@
-# SimpleCRM
-**SimpleCRM** is a **OpenSilver** / Open RIA Services Business Application Template Demo Application. This application is a guidance how to implement RIA Domain Services, CRUD Operations over SQLite database along with XAML UI. 
+# SampleCRM
+**SampleCRM** is a **OpenSilver** / Open RIA Services Business Application Template Demo Application. This application is a guidance how to implement RIA Domain Services, CRUD Operations over SQLite database along with XAML UI. 
+
+## Database Diagram
+![Install Toolbox](images/SampleCRMEntityDesignerDiagram1.png)
 
 ## How To Setup Sqlite Providers for Visual Studio 2022
 
