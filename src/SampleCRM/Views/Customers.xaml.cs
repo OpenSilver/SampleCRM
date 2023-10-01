@@ -1,15 +1,13 @@
 ﻿using OpenRiaServices.DomainServices.Client;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
-   
+
     public partial class Customers : BasePage
     {
         private CustomersContext _customersContext = new CustomersContext();
@@ -24,7 +22,23 @@ namespace SampleCRM.Web.Views
                 if (_customersCollection != value)
                 {
                     _customersCollection = value;
-                    base.OnPropertyChanged();
+                    OnPropertyChanged();
+                    OnPropertyChanged("FilteredCustomersCollection");
+                }
+            }
+        }
+
+        public IEnumerable<Models.Customers> FilteredCustomersCollection
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_searchText))
+                {
+                    return _customersCollection;
+                }
+                else
+                {
+                    return _customersCollection.Where(x => x.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant()));
                 }
             }
         }
@@ -38,7 +52,22 @@ namespace SampleCRM.Web.Views
                 if (_selectedCustomer != value)
                 {
                     _selectedCustomer = value;
-                    base.OnPropertyChanged();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged("FilteredCustomersCollection");
+                    OnPropertyChanged();
                 }
             }
         }
@@ -68,19 +97,19 @@ namespace SampleCRM.Web.Views
             {
                 c.CountryName = countries.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
-//#if DEBUG
-//            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
-//            foreach (var item in CustomersCollection)
-//            {
-//                Console.WriteLine("Customer Name:" + item.FirstName);
-//                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
-//            }
-//#endif
+            //#if DEBUG
+            //            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
+            //            foreach (var item in CustomersCollection)
+            //            {
+            //                Console.WriteLine("Customer Name:" + item.FirstName);
+            //                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
+            //            }
+            //#endif
         }
 
-        private void grdCustomers_RowEditEnded(object sender, DataGridRowEditEndedEventArgs e)
+        private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            SearchText = string.Empty;
         }
     }
 }
