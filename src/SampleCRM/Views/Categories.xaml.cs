@@ -57,14 +57,14 @@ namespace SampleCRM.Web.Views
             var categoriesQuery = _categoryContext.GetCategoriesQuery();
             var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
             CategoryCollection = categoriesOp.Entities;
-//#if DEBUG
-//            Console.WriteLine("Categories Collection:" + CategoryCollection.Count());
-//            foreach (var item in CategoryCollection)
-//            {
-//                Console.WriteLine("Category Name:" + item.Name);
-//                Console.WriteLine("Category Picture Bytes:" + item.Picture.Length);
-//            }
-//#endif
+#if DEBUG
+            Console.WriteLine("Categories Collection:" + CategoryCollection.Count());
+            foreach (var item in CategoryCollection)
+            {
+                Console.WriteLine("Category Name:" + item.Name);
+                Console.WriteLine("Category Picture Bytes:" + item.Picture.Length);
+            }
+#endif
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using OpenRiaServices.DomainServices.Client;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
-
     public partial class Customers : BasePage
     {
         private CustomersContext _customersContext = new CustomersContext();
@@ -53,7 +53,19 @@ namespace SampleCRM.Web.Views
                 {
                     _selectedCustomer = value;
                     OnPropertyChanged();
+                    OnPropertyChanged("AnySelectedCustomer");
+#if DEBUG
+                    Console.WriteLine($"Customers, Customer: {value.FirstName} selected");
+#endif
                 }
+            }
+        }
+
+        public bool AnySelectedCustomer
+        {
+            get
+            {
+                return _selectedCustomer != null;
             }
         }
 
@@ -97,19 +109,26 @@ namespace SampleCRM.Web.Views
             {
                 c.CountryName = countries.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
-            //#if DEBUG
-            //            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
-            //            foreach (var item in CustomersCollection)
-            //            {
-            //                Console.WriteLine("Customer Name:" + item.FirstName);
-            //                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
-            //            }
-            //#endif
+#if DEBUG
+            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
+            foreach (var item in CustomersCollection)
+            {
+                Console.WriteLine("Customer Name:" + item.FirstName);
+                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
+            }
+#endif
         }
 
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
+        }
+
+        private void grdCustomers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+#if DEBUG
+            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+#endif
         }
     }
 }

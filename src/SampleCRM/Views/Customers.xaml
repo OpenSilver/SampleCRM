@@ -9,14 +9,16 @@
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
-        <local:CountryCodeToCountryNameConverter x:Name="countryCodeConverter" />
+        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
+        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -39,10 +41,10 @@
             </Button>
         </StackPanel>
 
-        <DataGrid x:Name="grdCustomers" 
+        <DataGrid x:Name="grdCustomers" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
                   ItemsSource="{Binding FilteredCustomersCollection}" 
-                  SelectedItem="{Binding SelectedCustomer}"
-                  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                  SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionChanged="grdCustomers_SelectionChanged"
                   HorizontalContentAlignment="Stretch"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
@@ -67,6 +69,51 @@
             </DataGrid.Columns>
 
         </DataGrid>
+
+        <TabControl Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" 
+                            Visibility="{Binding AnySelectedCustomer, Converter={StaticResource boolToVisibilityConverter}}">
+            <TabItem x:Name="tbCustomer" Header="Customer">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                        <ScrollViewer x:Name="customerCard" Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="6">
+                            <StackPanel>
+                                <Grid Margin="0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Width="128" Height="128" Margin="1" Grid.Column="0"
+                                        Source="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                                    <TextBlock Grid.Column="1" Margin="12,0,0,0" FontSize="18" VerticalAlignment="Center"
+                                        Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.FullName, Mode=OneWay}" />
+                                </Grid>
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Email" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.EmailAddress, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Customer ID" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CustomerID, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Phone" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.Phone, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Created On" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Last Update" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbOrders" Header="Orders"></TabItem>
+        </TabControl>
 
     </Grid>
 </local:BasePage>
