@@ -43,6 +43,7 @@
     <None Remove="Assets\People.png" />
     <None Remove="Assets\Plus.png" />
     <None Remove="Assets\Reload.png" />
+    <None Remove="Assets\Search.png" />
     <None Remove="Assets\Setting.png" />
     <None Remove="Assets\Settings.png" />
     <None Remove="Assets\SiteMap.png" />
@@ -119,6 +120,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Reload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Setting.png">
@@ -201,7 +205,6 @@
 
   <ItemGroup>
     <Folder Include="Generated_Code\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

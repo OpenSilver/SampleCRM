@@ -33,7 +33,7 @@
                     <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/Home.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/Home.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Home" />
                         </StackPanel>
                     </HyperlinkButton>
@@ -41,35 +41,35 @@
                     <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/Gauge.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/Gauge.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Dashboard" />
                         </StackPanel>
                     </HyperlinkButton>
                     <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Categories" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/SiteMap.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/SiteMap.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Categories" />
                         </StackPanel>
                     </HyperlinkButton>
                     <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/People.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/People.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Customers" />
                         </StackPanel>
                     </HyperlinkButton>
                     <HyperlinkButton x:Name="lnkOrders" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Orders" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/List.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/List.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Orders" />
                         </StackPanel>
                     </HyperlinkButton>
                     <HyperlinkButton x:Name="lnkProducts" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Products" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/Tag.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/Tag.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Products" />
                         </StackPanel>
                     </HyperlinkButton>
@@ -77,7 +77,7 @@
                     <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Settings" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/Setting.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <Image Source="/Assets/Setting.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
                             <TextBlock Text="Settings" />
                         </StackPanel>
                     </HyperlinkButton>

@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 
 namespace SampleCRM.Web.Views
 {
+
     /// <summary>
     /// Converts byte array to image using.
     /// </summary>

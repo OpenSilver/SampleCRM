@@ -9,9 +9,11 @@ using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
+   
     public partial class Customers : BasePage
     {
         private CustomersContext _customersContext = new CustomersContext();
+        private CountryCodesContext _countryCodesContext = new CountryCodesContext();
 
         private IEnumerable<Models.Customers> _customersCollection = new ObservableCollection<Models.Customers>();
         public IEnumerable<Models.Customers> CustomersCollection
@@ -57,16 +59,28 @@ namespace SampleCRM.Web.Views
             var customersQuery = _customersContext.GetCustomersQuery();
             var categoriesOp = await _customersContext.LoadAsync(customersQuery);
             CustomersCollection = categoriesOp.Entities;
-#if DEBUG
-            Console.WriteLine("CustomersCollection:" + CustomersCollection.Count());
-            foreach (var item in CustomersCollection)
+
+            var countryCodesquery = _countryCodesContext.GetCountriesQuery();
+            var countriesOp = await _countryCodesContext.LoadAsync(countryCodesquery);
+            var countries = countriesOp.Entities;
+
+            foreach (var c in CustomersCollection)
             {
-                Console.WriteLine("Customer Name:" + item.FirstName);
-                Console.WriteLine("Customer PictureBytes:" + item.Picture.Length);
+                c.CountryName = countries.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
-#endif
+//#if DEBUG
+//            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
+//            foreach (var item in CustomersCollection)
+//            {
+//                Console.WriteLine("Customer Name:" + item.FirstName);
+//                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
+//            }
+//#endif
         }
 
-        
+        private void grdCustomers_RowEditEnded(object sender, DataGridRowEditEndedEventArgs e)
+        {
+
+        }
     }
 }

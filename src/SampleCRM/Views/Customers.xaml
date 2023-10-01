@@ -9,6 +9,7 @@
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
+        <local:CountryCodeToCountryNameConverter x:Name="countryCodeConverter" />
     </local:BasePage.Resources>
 
     <Grid>
@@ -19,17 +20,57 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
         <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" Margin="5">
             <StackPanel Orientation="Horizontal">
-                <Image Source="Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" />
+                <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
                 <TextBlock Text="Add Customer" />
             </StackPanel>
         </Button>
-        
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
+            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" />
+            <Button x:Name="btnSearch">
+                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+            <Button x:Name="btnSearchCancel">
+                <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+        </StackPanel>
+
+        <DataGrid x:Name="grdCustomers" 
+                  ItemsSource="{Binding CustomersCollection}" 
+                  SelectedItem="{Binding SelectedCustomer}"
+                  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                  HorizontalContentAlignment="Stretch"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  CanUserReorderColumns="True" 
+                  CanUserSortColumns="True" 
+                  CanUserResizeColumns="True"
+                  RowEditEnded="grdCustomers_RowEditEnded">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Image" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
+                                Width="32" Height="32" Margin="5" Stretch="Fill" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" />
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
+                <DataGridTextColumn Header="Address" Binding="{Binding AddressLine1}" />
+                <DataGridTextColumn Header="Country" Binding="{Binding CountryName}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+
     </Grid>
 </local:BasePage>
