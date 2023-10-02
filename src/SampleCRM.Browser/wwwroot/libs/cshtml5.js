@@ -148,7 +148,10 @@ document.createElementSafe = function (tagName, id, parentElement, index) {
     const newElement = document.createElement(tagName);
 
     newElement.setAttribute('id', id);
-    newElement.setAttribute('xamlid', id);
+    Object.defineProperty(newElement, 'xamlid', {
+        value: id,
+        writable: false,
+    });
 
     if (typeof parentElement == 'string') {
         parentElement = document.getElementById(parentElement);
@@ -186,7 +189,7 @@ document.createTextBlockElement = function (id, parentElement, wrap) {
 
     if (newElement) {
         newElement.style['overflow'] = 'hidden';
-        newElement.style['textAlign'] = 'left';
+        newElement.style['textAlign'] = 'start';
         newElement.style['boxSizing'] = 'border-box';
         if (wrap) {
             newElement.style['overflowWrap'] = 'break-word';
@@ -202,7 +205,10 @@ document.createPopupRootElement = function (id, rootElement, pointerEvents) {
 
     const popupRoot = document.createElement('div');
     popupRoot.setAttribute('id', id);
-    popupRoot.setAttribute('xamlid', id);
+    Object.defineProperty(popupRoot, 'xamlid', {
+        value: id,
+        writable: false,
+    });
     popupRoot.style.position = 'absolute';
     popupRoot.style.width = '100%';
     popupRoot.style.height = '100%';
@@ -312,6 +318,13 @@ document.setDomStyle = function (id, propertyName, value) {
     element.style[propertyName] = value;
 }
 
+document.setStyleProperty = function (id, propertyName, value, priority) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.style.setProperty(propertyName, value, priority);
+    }
+};
+
 document.setDomTransform = function (id, value) {
     const element = document.getElementById(id);
     if (!element)
@@ -388,14 +401,15 @@ document.createInputManager = function (callback) {
         WHEEL: 7,
         KEYDOWN: 8,
         KEYUP: 9,
-        FOCUS: 10,
-        BLUR: 11,
-        KEYPRESS: 12,
-        INPUT: 13,
-        TOUCH_START: 14,
-        TOUCH_END: 15,
-        TOUCH_MOVE: 16,
-        WINDOW_BLUR: 17,
+        KEYPRESS: 10,
+        INPUT: 11,
+        TOUCH_START: 12,
+        TOUCH_END: 13,
+        TOUCH_MOVE: 14,
+        FOCUS_MANAGED: 15,
+        FOCUS_UNMANAGED: 16,
+        WINDOW_FOCUS: 17,
+        WINDOW_BLUR: 18,
     };
 
     const MODIFIERKEYS = {
@@ -405,6 +419,42 @@ document.createInputManager = function (callback) {
         SHIFT: 4,
         WINDOWS: 8,
     };
+
+    const FocusManager = (function () {
+        let _timeoutID = null;
+        let _isManagedFocusUpdate = false;
+
+        function startTimer() {
+            if (_timeoutID === null) {
+                _timeoutID = setTimeout(function () {
+                    _timeoutID = null;
+                    callback('', EVENTS.FOCUS_MANAGED, null);
+                });
+            }
+        };
+
+        return {
+            get isManagingFocus() {
+                return _isManagedFocusUpdate;
+            },
+            focus: function (element) {
+                if (!element) return false;
+
+                element.setAttribute('tabindex', 0);
+
+                _isManagedFocusUpdate = true;
+                element.focus({ preventScroll: true });
+                _isManagedFocusUpdate = false;
+
+                if (document.activeElement === element) {
+                    startTimer();
+                    return true;
+                }
+
+                return false;
+            },
+        };
+    })();
 
     let _modifiers = MODIFIERKEYS.NONE;
     let _mouseCapture = null;
@@ -425,8 +475,9 @@ document.createInputManager = function (callback) {
 
     function getClosestElementId(element) {
         while (element) {
-            if (element.hasAttribute('xamlid')) {
-                return element.getAttribute('xamlid');
+            const xamlid = element.xamlid;
+            if (xamlid) {
+                return xamlid;
             }
 
             element = element.parentElement;
@@ -456,15 +507,13 @@ document.createInputManager = function (callback) {
         document.addEventListener('mouseup', function (e) {
             if (!e.isHandled) {
                 const target = _mouseCapture;
-                if (target !== null) {
-                    switch (e.button) {
-                        case 0:
-                            callback(getClosestElementId(target), EVENTS.MOUSE_LEFT_UP, e);
-                            break;
-                        case 2:
-                            callback(getClosestElementId(target), EVENTS.MOUSE_RIGHT_UP, e);
-                            break;
-                    }
+                switch (e.button) {
+                    case 0:
+                        callback(getClosestElementId(target), EVENTS.MOUSE_LEFT_UP, e);
+                        break;
+                    case 2:
+                        callback(getClosestElementId(target), EVENTS.MOUSE_RIGHT_UP, e);
+                        break;
                 }
             }
         });
@@ -492,6 +541,8 @@ document.createInputManager = function (callback) {
 
         document.addEventListener('keyup', function (e) { setModifiers(e); });        
 
+        window.addEventListener('focus', function (e) { callback('', EVENTS.WINDOW_FOCUS, e); });
+
         window.addEventListener('blur', function (e) {
             callback('', EVENTS.WINDOW_BLUR, e);
             _modifiers = MODIFIERKEYS.NONE;
@@ -505,7 +556,32 @@ document.createInputManager = function (callback) {
             // Make sure the root div is keyboard focusable, so that we can tab into the app.
             root.tabIndex = Math.max(root.tabIndex, 0);
 
-            root.addEventListener('focusin', function (e) { callback(getClosestElementId(e.target), EVENTS.FOCUS, e); });
+            root.addEventListener('focusin', function (e) {
+                if (FocusManager.isManagingFocus) return;
+
+                // Unrequested focus update, either from user interaction or call to focus()
+                // method via interop or external javascript component.
+                if (root._ignoreFocus) return;
+
+                // Try to reconnect focused element to a known opensilver element
+                const xamlid = getClosestElementId(e.target);
+                if (xamlid) {
+                    callback(xamlid, EVENTS.FOCUS_UNMANAGED, e);
+                } else {
+                    // Root element received focus. Check if previous focused element belongs to
+                    // the app. If yes, then move focus here again silently.
+                    if (getClosestElementId(e.relatedTarget)) {
+                        root._ignoreFocus = true;
+                        e.relatedTarget.focus({ preventScroll: true });
+                        root._ignoreFocus = false;
+
+                        // Make sure that re-focus was successful.
+                        if (document.activeElement === e.relatedTarget) return;
+                    }
+
+                    callback('', EVENTS.FOCUS_UNMANAGED, e);
+                }
+            });
 
             root.addEventListener('mousemove', function (e) {
                 if (shouldIgnoreMouseEvent(e)) return;
@@ -517,7 +593,8 @@ document.createInputManager = function (callback) {
 
             root.addEventListener('wheel', function (e) {
                 e.isHandled = true;
-                callback(getClosestElementId(e.target), EVENTS.WHEEL, e);
+                const target = _mouseCapture || e.target;
+                callback(getClosestElementId(target), EVENTS.WHEEL, e);
             });
 
             root.addEventListener('mousedown', function (e) {
@@ -634,6 +711,9 @@ document.createInputManager = function (callback) {
         suppressContextMenu: function (value) {
             _suppressContextMenu = value;
         },
+        focus: function (element) {
+            return FocusManager.focus(element);
+        },
     };
 };
 
@@ -653,10 +733,10 @@ document.eventCallback = function (callbackId, args, sync) {
     }
 }
 
-document.getCallbackFunc = function (callbackId, sync, sliceArguments) {
+document.getCallbackFunc = function (callbackId, sync) {
     return function () {
         return document.eventCallback(callbackId,
-            (sliceArguments) ? Array.prototype.slice.call(arguments) : arguments,
+            Array.prototype.slice.call(arguments),
             sync);
     };
 }
@@ -1398,25 +1478,17 @@ var jsilConfig = {
     ]
 };
 
-window.elementsFromPointOpensilver = function (x, y, element) {
-    if (!element) element = document.body;
-    const elements = [];
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, null, false);
-    let currentNode = walker.currentNode;
-    while (currentNode) {
-        const xamlid = currentNode.getAttribute('xamlid');
-        if (xamlid && PerformHitTest(x, y, currentNode)) {
-            elements.push(xamlid);
+document.elementsFromPointOpenSilver = function (x, y) {
+    const ids = [];
+    const hitTestResults = document.elementsFromPoint(x, y);
+    for (const el of hitTestResults) {
+        const xamlid = el.xamlid;
+        if (xamlid) {
+            ids.push(xamlid);
         }
-        currentNode = walker.nextNode();
     }
-    return JSON.stringify(elements.reverse());
+    return JSON.stringify(ids);
 };
-
-function PerformHitTest(x, y, element) {
-    const rect = element.getBoundingClientRect();
-    return rect.x <= x && x <= rect.x + rect.width && rect.y <= y && y <= rect.y + rect.height;
-}
 
 //------------------------------
 // Just to check if client browser support touch
