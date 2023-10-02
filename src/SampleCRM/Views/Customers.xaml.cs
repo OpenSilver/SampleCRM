@@ -12,6 +12,8 @@ namespace SampleCRM.Web.Views
     {
         private CustomersContext _customersContext = new CustomersContext();
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
+        private OrderContext _orderContext = new OrderContext();
+
 
         private IEnumerable<Models.Customers> _customersCollection;
         public IEnumerable<Models.Customers> CustomersCollection
@@ -68,6 +70,7 @@ namespace SampleCRM.Web.Views
                     _selectedCustomer = value;
                     OnPropertyChanged();
                     OnPropertyChanged("AnySelectedCustomer");
+                    LoadOrdersOfCustomer();
 #if DEBUG
                     Console.WriteLine($"Customers, Customer: {value.FirstName} selected");
 #endif
@@ -100,6 +103,73 @@ namespace SampleCRM.Web.Views
             }
         }
 
+
+        private IEnumerable<Models.Orders> _ordersCollection;
+        public IEnumerable<Models.Orders> OrdersCollection
+        {
+            get { return _ordersCollection; }
+            set
+            {
+                if (_ordersCollection != value)
+                {
+                    _ordersCollection = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged("FilteredOrdersCollection");
+                }
+            }
+        }
+
+        public IEnumerable<Models.Orders> FilteredOrdersCollection
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_searchOrderText))
+                {
+                    return _ordersCollection;
+                }
+                else
+                {
+                    return _ordersCollection.Where(x => x.OrderID.ToString().Contains(_searchOrderText));
+                }
+            }
+        }
+
+        private Models.Orders _selectedOrder;
+        public Models.Orders SelectedOrder
+        {
+            get { return _selectedOrder; }
+            set
+            {
+                if (_selectedOrder != value)
+                {
+                    _selectedOrder = value;
+                    OnPropertyChanged();
+#if DEBUG
+                    Console.WriteLine($"Orders, Order: {value.OrderID} selected");
+#endif
+                }
+            }
+        }
+
+        private string _searchOrderText;
+        private bool _ordersTabSelected;
+
+        public string SearchOrderText
+        {
+            get { return _searchOrderText; }
+            set
+            {
+                if (_searchOrderText != value)
+                {
+                    _searchOrderText = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged("FilteredOrdersCollection");
+                    OnPropertyChanged("SelectedOrder");
+                }
+            }
+        }
+
+
         public Customers()
         {
             InitializeComponent();
@@ -119,7 +189,7 @@ namespace SampleCRM.Web.Views
 
             var countryCodesquery = _countryCodesContext.GetCountriesQuery();
             var countriesOp = await _countryCodesContext.LoadAsync(countryCodesquery);
-            var CountryCodes = countriesOp.Entities;
+            CountryCodes = countriesOp.Entities;
 
             foreach (var c in CustomersCollection)
             {
@@ -136,6 +206,33 @@ namespace SampleCRM.Web.Views
 #endif
         }
 
+        private async void LoadOrdersOfCustomer()
+        {
+            if (SelectedCustomer == null)
+                return;
+
+            if (!_ordersTabSelected)
+                return;
+
+            var customerId = SelectedCustomer.CustomerID;
+            var ordersQuery = _orderContext.GetOrdersOfCustomerQuery(customerId);
+            var ordersOp = await _orderContext.LoadAsync(ordersQuery);
+            OrdersCollection = ordersOp.Entities;
+
+            foreach (var o in OrdersCollection)
+            {
+                o.ShipCountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == o.ShipCountryCode)?.Name;
+            }
+
+#if DEBUG
+            Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
+            foreach (var item in OrdersCollection)
+            {
+                Console.WriteLine("Order Id:" + item.OrderID);
+            }
+#endif
+        }
+
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
@@ -148,9 +245,9 @@ namespace SampleCRM.Web.Views
 
         private void grdCustomers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            //#if DEBUG
-            //            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
-            //#endif
+#if DEBUG
+            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+#endif
         }
 
         private void formCustomer_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
@@ -177,6 +274,36 @@ namespace SampleCRM.Web.Views
                 grdCustomers.InvalidateArrange();
                 grdCustomers.InvalidateMeasure();
             }
+        }
+
+
+        private void btnOrderSearchCancel_Click(object sender, RoutedEventArgs e)
+        {
+            SearchOrderText = string.Empty;
+        }
+
+        private void tcDetails_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            var anySelected = e.AddedItems.Count > 0;
+            if (anySelected)
+            {
+                _ordersTabSelected = e.AddedItems.Contains(tbOrders);
+                if (_ordersTabSelected)
+                {
+                    LoadOrdersOfCustomer();
+                }
+            }
+            else
+            {
+                _ordersTabSelected = false;
+            }
+        }
+
+        private void grdOrders_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+#if DEBUG
+            Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+#endif
         }
     }
 }
