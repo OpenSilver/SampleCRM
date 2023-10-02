@@ -13,7 +13,7 @@ namespace SampleCRM.Web.Views
         private CustomersContext _customersContext = new CustomersContext();
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
 
-        private IEnumerable<Models.Customers> _customersCollection = new ObservableCollection<Models.Customers>();
+        private IEnumerable<Models.Customers> _customersCollection;
         public IEnumerable<Models.Customers> CustomersCollection
         {
             get { return _customersCollection; }
@@ -39,6 +39,20 @@ namespace SampleCRM.Web.Views
                 else
                 {
                     return _customersCollection.Where(x => x.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant()));
+                }
+            }
+        }
+
+        private IEnumerable<Models.CountryCodes> _countryCodes;
+        public IEnumerable<Models.CountryCodes> CountryCodes
+        {
+            get { return _countryCodes; }
+            set
+            {
+                if (_countryCodes != value)
+                {
+                    _countryCodes = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -103,11 +117,12 @@ namespace SampleCRM.Web.Views
 
             var countryCodesquery = _countryCodesContext.GetCountriesQuery();
             var countriesOp = await _countryCodesContext.LoadAsync(countryCodesquery);
-            var countries = countriesOp.Entities;
+            var CountryCodes = countriesOp.Entities;
 
             foreach (var c in CustomersCollection)
             {
-                c.CountryName = countries.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
+                c.CountryCodes = CountryCodes;
+                c.CountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
 #if DEBUG
             Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
@@ -126,9 +141,36 @@ namespace SampleCRM.Web.Views
 
         private void grdCustomers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-#if DEBUG
-            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
-#endif
+            //#if DEBUG
+            //            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+            //#endif
+        }
+
+        private void formCustomer_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+            if (e.EditAction == System.Windows.Controls.DataFormEditAction.Commit)
+            {
+                _customersContext.SubmitChanges(OnFormCustomerSubmitCompleted, null);
+            }
+        }
+
+        private void OnFormCustomerSubmitCompleted(SubmitOperation so)
+        {
+            if (so.HasError)
+            {
+                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                so.MarkErrorAsHandled();
+            }
+            else
+            {
+                OnPropertyChanged("SelectedCustomer");
+                OnPropertyChanged("CustomersCollection");
+                OnPropertyChanged("FilteredCustomersCollection");
+                grdCustomers.UpdateLayout();
+                grdCustomers.InvalidateArrange();
+                grdCustomers.InvalidateMeasure();
+                //LoadElements();
+            }
         }
     }
 }

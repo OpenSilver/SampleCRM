@@ -24,18 +24,21 @@ namespace SampleCRM.Web
         public void DeleteCustomer(Customers customer)
         {
             _context.Customers.Remove(customer);
+            _context.SaveChanges();
         }
 
         [Insert]
         public void InsertCustomer(Customers customer)
         {
             _context.Customers.AddOrUpdate(customer);
+            _context.SaveChanges();
         }
 
         [Update]
         public void UpdateCustomer(Customers customer)
         {
             _context.Customers.AddOrUpdate(customer);
+            _context.SaveChanges();
         }
     }
 }
