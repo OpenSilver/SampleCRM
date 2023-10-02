@@ -35,7 +35,10 @@
         </Button>
 
         <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay}" />
+            <Button x:Name="btnSearch" Click="btnSearch_Click">
+                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
             <Button x:Name="btnSearchCancel" Click="btnSearchCancel_Click">
                 <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
             </Button>

@@ -92,8 +92,10 @@ namespace SampleCRM.Web.Views
                 if (_searchText != value)
                 {
                     _searchText = value;
-                    OnPropertyChanged("FilteredCustomersCollection");
                     OnPropertyChanged();
+                    OnPropertyChanged("FilteredCustomersCollection");
+                    OnPropertyChanged("SelectedCustomer");
+                    OnPropertyChanged("AnySelectedCustomer");
                 }
             }
         }
@@ -139,6 +141,11 @@ namespace SampleCRM.Web.Views
             SearchText = string.Empty;
         }
 
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void grdCustomers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             //#if DEBUG
@@ -169,7 +176,6 @@ namespace SampleCRM.Web.Views
                 grdCustomers.UpdateLayout();
                 grdCustomers.InvalidateArrange();
                 grdCustomers.InvalidateMeasure();
-                //LoadElements();
             }
         }
     }
