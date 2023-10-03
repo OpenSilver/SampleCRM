@@ -23,10 +23,41 @@ namespace SampleCRM.Web.Models
         }
 
         public bool IsNew => CustomerID <= 0;
-        public bool IsEditMode { get; set; }
+
+        private bool _isEditMode;
+        public bool IsEditMode
+        {
+            get { return _isEditMode; }
+            set
+            {
+                if (_isEditMode != value)
+                {
+
+                    _isEditMode = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("IsEditMode"));
+                }
+            }
+        }
+
+        private string _countryName;
+        public string CountryName
+        {
+            get { return _countryName; }
+            set
+            {
+                if (_countryName != value)
+                {
+
+                    _countryName = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("CountryName"));
+                }
+            }
+        }
+
         public string FullName => $"{FirstName} {LastName}";
+
         public string Initials => String.Format("{0}{1}", $"{FirstName} "[0], $"{LastName} "[0]).Trim().ToUpper();
-        public string CountryName { get; set; }
+
         public string FullAddress => $"{AddressLine1} {AddressLine2}\n{City}, {Region} {PostalCode}\n{CountryName}";
     }
 }

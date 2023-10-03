@@ -305,15 +305,5 @@ namespace SampleCRM.Web.Views
             Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
         }
-
-        private void btnItemDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Deleting the customer will result deleting oll orders along with it and this can't be undone, are you sure?", MessageBoxButton.OKCancel);
-        }
-
-        private void btnItemEdit_Click(object sender, RoutedEventArgs e)
-        {
-            CustomerAddEditWindow.Show(SelectedCustomer);
-        }
     }
 }

@@ -64,20 +64,6 @@
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
                 <DataGridTextColumn Header="Address" Binding="{Binding AddressLine1}" />
                 <DataGridTextColumn Header="Country" Binding="{Binding CountryName}" />
-                <DataGridTemplateColumn Header="Action">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="btnItemEdit" Click="btnItemEdit_Click" Width="32" Height="32" Margin="2">
-                                    <Image Source="/Assets/Edit.png" Width="16" Height="16" Stretch="Fill" />
-                                </Button>
-                                <Button x:Name="btnItemDelete" Click="btnItemDelete_Click" Width="32" Height="32" Margin="2">
-                                    <Image Source="/Assets/Delete.png" Width="16" Height="16" Stretch="Fill" />
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -123,7 +109,7 @@
                         </ScrollViewer>
                     </Border>
                     <Border x:Name="customerDetails" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="LightGray">
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <DataForm x:Name="formCustomer"                   
                                       ItemsSource="{Binding FilteredCustomersCollection}" 
                                       CurrentItem="{Binding SelectedCustomer, Mode=TwoWay}"
@@ -131,7 +117,7 @@
                                       AutoGenerateFields="False"
                                       AutoEdit="True"
                                       AutoCommit="False"
-                                      CommandButtonsVisibility="Commit, Cancel">
+                                      CommandButtonsVisibility="Commit, Cancel, Delete">
                                 <DataForm.CommitButtonContent>
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="/Assets/Save.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
