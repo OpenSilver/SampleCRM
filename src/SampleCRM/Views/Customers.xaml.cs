@@ -1,9 +1,9 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
@@ -78,13 +78,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        public bool AnySelectedCustomer
-        {
-            get
-            {
-                return _selectedCustomer != null;
-            }
-        }
+        public bool AnySelectedCustomer => _selectedCustomer != null;
 
         private string _searchText;
         public string SearchText
@@ -97,8 +91,8 @@ namespace SampleCRM.Web.Views
                     _searchText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredCustomersCollection");
-                    OnPropertyChanged("SelectedCustomer");
-                    OnPropertyChanged("AnySelectedCustomer");
+                    //OnPropertyChanged("SelectedCustomer");
+                    //OnPropertyChanged("AnySelectedCustomer");
                 }
             }
         }
@@ -164,7 +158,7 @@ namespace SampleCRM.Web.Views
                     _searchOrderText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
-                    OnPropertyChanged("SelectedOrder");
+                    //OnPropertyChanged("SelectedOrder");
                 }
             }
         }
@@ -243,18 +237,22 @@ namespace SampleCRM.Web.Views
 
         }
 
-        private void grdCustomers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void grdCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 #if DEBUG
             Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
         }
 
-        private void formCustomer_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e)
         {
-            if (e.EditAction == System.Windows.Controls.DataFormEditAction.Commit)
+            if (e.EditAction == DataFormEditAction.Commit)
             {
                 _customersContext.SubmitChanges(OnFormCustomerSubmitCompleted, null);
+            }
+            else if(e.EditAction == DataFormEditAction.Cancel)
+            {
+                SelectedCustomer.IsEditMode = false;
             }
         }
 
@@ -282,7 +280,7 @@ namespace SampleCRM.Web.Views
             SearchOrderText = string.Empty;
         }
 
-        private void tcDetails_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var anySelected = e.AddedItems.Count > 0;
             if (anySelected)
@@ -299,11 +297,26 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private void grdOrders_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void grdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 #if DEBUG
             Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
         }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Deleting the customer will result deleting oll orders along with it and this can't be undone, are you sure?", MessageBoxButton.OKCancel);
+        }
+
+        //private void btnEdit_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    formCustomer.BeginEdit();
+        //}
+
+        //private void btnEdit_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    formCustomer.CancelEdit();
+        //}
     }
 }
