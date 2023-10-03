@@ -7,6 +7,27 @@ namespace SampleCRM.Web.Models
 {
     public partial class Customers : Entity
     {
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "FirstName" 
+                || e.PropertyName == "LastName")
+            {
+                RaisePropertyChanged("FullName");
+                RaisePropertyChanged("Initials");
+            } 
+            else if (e.PropertyName == "AddressLine1" 
+                || e.PropertyName == "AddressLine2"
+                || e.PropertyName == "City"
+                || e.PropertyName == "Region"
+                || e.PropertyName == "PostalCode"
+                || e.PropertyName == "CountryName")
+            {
+                RaisePropertyChanged("FullAddress");
+            }
+
+            base.OnPropertyChanged(e);
+        }
+
         private IEnumerable<Models.CountryCodes> _countryCodes;
         public IEnumerable<Models.CountryCodes> CountryCodes
         {
@@ -30,9 +51,9 @@ namespace SampleCRM.Web.Models
             get { return _isEditMode; }
             set
             {
+                
                 if (_isEditMode != value)
                 {
-
                     _isEditMode = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("IsEditMode"));
                 }

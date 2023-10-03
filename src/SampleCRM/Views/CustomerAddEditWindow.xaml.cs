@@ -1,14 +1,20 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
     public partial class CustomerAddEditWindow : ChildWindow
     {
-        public static void Show(Models.Customers customer)
+        private const double windowSizeMult = .85;
+
+        public static async Task<bool> Show(Models.Customers customer)
         {
             var window = new CustomerAddEditWindow(customer);
-            window.Show();
+            window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
+            window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
+            await window.ShowAndWait();
+            return window.DialogResult.GetValueOrDefault(false);
         }
 
         public CustomerAddEditWindow()
@@ -24,12 +30,23 @@ namespace SampleCRM.Web.Views
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            customerAddEditView.Save();
+            //DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void customerAddEditView_CustomerDeleted(object sender, System.EventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void customerAddEditView_CustomerAdded(object sender, System.EventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

@@ -27,7 +27,7 @@
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" Margin="5">
+        <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNewCustomer_Click">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
                 <TextBlock Text="Add Customer" />
@@ -180,7 +180,7 @@
                                                 <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Suffix" LabelPosition="Top">
                                                     <TextBox Text="{Binding Suffix, Mode=TwoWay}" />
                                                 </DataField>
-                                                <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Label="EMail Address" LabelPosition="Top">
+                                                <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Label="EMail Address" LabelPosition="Top">
                                                     <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" />
                                                 </DataField>
 
@@ -200,7 +200,7 @@
                                                 <DataField Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" Label="Region" LabelPosition="Top">
                                                     <TextBox Text="{Binding Region, Mode=TwoWay}" />
                                                 </DataField>
-                                                <DataField Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Label="Country" LabelPosition="Top">
+                                                <DataField Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="1" Label="Country" LabelPosition="Top">
                                                     <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
                                                           SelectedValuePath="CountryCodeID"
                                                           SelectedValue="{Binding CountryCode, Mode=TwoWay}"
@@ -246,7 +246,7 @@
 
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
                           ItemsSource="{Binding FilteredOrdersCollection}" 
-                          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedOrder, Mode=OneWay}"
                           SelectionChanged="grdOrders_SelectionChanged"
                           HorizontalContentAlignment="Stretch"
                           IsReadOnly="True"

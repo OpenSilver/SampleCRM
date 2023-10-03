@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -181,6 +182,19 @@ namespace SampleCRM.Web.Views
             var categoriesOp = await _customersContext.LoadAsync(customersQuery);
             CustomersCollection = categoriesOp.Entities;
 
+            await LoadCountryCodes();
+#if DEBUG
+            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
+            foreach (var item in CustomersCollection)
+            {
+                Console.WriteLine("Customer Name:" + item.FirstName);
+                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
+            }
+#endif
+        }
+
+        private async Task LoadCountryCodes()
+        {
             var countryCodesquery = _countryCodesContext.GetCountriesQuery();
             var countriesOp = await _countryCodesContext.LoadAsync(countryCodesquery);
             CountryCodes = countriesOp.Entities;
@@ -190,14 +204,6 @@ namespace SampleCRM.Web.Views
                 c.CountryCodes = CountryCodes;
                 c.CountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
-#if DEBUG
-            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
-            foreach (var item in CustomersCollection)
-            {
-                Console.WriteLine("Customer Name:" + item.FirstName);
-                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
-            }
-#endif
         }
 
         private async void LoadOrdersOfCustomer()
@@ -250,7 +256,7 @@ namespace SampleCRM.Web.Views
             {
                 _customersContext.SubmitChanges(OnFormCustomerSubmitCompleted, null);
             }
-            else if(e.EditAction == DataFormEditAction.Cancel)
+            else if (e.EditAction == DataFormEditAction.Cancel)
             {
                 SelectedCustomer.IsEditMode = false;
             }
@@ -306,7 +312,48 @@ namespace SampleCRM.Web.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Deleting the customer will result deleting oll orders along with it and this can't be undone, are you sure?", MessageBoxButton.OKCancel);
+            var result = MessageBox.Show("Are you sure to delete the customer and all orders belong that customer?", MessageBoxButton.OKCancel);
+            if (result != MessageBoxResult.OK)
+                return;
+
+            if (_customersContext.Customers.CanRemove)
+            {
+                _customersContext.Customers.Remove(SelectedCustomer);
+                _customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+            }
+            else
+            {
+                throw new AccessViolationException("RIA Service Delete Entity for Customer Context is denied");
+            }
+        }
+
+        private void OnDeleteSubmitCompleted(SubmitOperation so)
+        {
+            if (so.HasError)
+            {
+                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                so.MarkErrorAsHandled();
+            }
+            else
+            {
+                NavigationService.Refresh();
+            }
+        }
+
+        private async void btnNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var result = await CustomerAddEditWindow.Show(new Models.Customers
+            {
+                IsEditMode = true,
+                CountryCodes = CountryCodes,
+                CountryCode = CountryCodes.FirstOrDefault().CountryCodeID,
+                BirthDate = DateTime.Now.ToShortDateString()
+            });
+
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
 
         //private void btnEdit_Checked(object sender, RoutedEventArgs e)

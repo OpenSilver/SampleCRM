@@ -9,6 +9,7 @@
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BaseUserControl.Resources>
     <Grid>
@@ -26,10 +27,8 @@
                     <Image Margin="1" Width="132" Height="132"
                             Source="{Binding CustomerViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
                     <Button x:Name="btnEditPicture" Click="btnEditPicture_Click"
-                        BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center"
-                        Visibility="{Binding CustomerViewModel.IsEditMode, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
+                        Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
                         <Grid Width="132" Height="132">
-                            <Rectangle Fill="White" Opacity="0.75" />
                             <TextBlock Text="Edit" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                     </Button>
@@ -69,14 +68,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <ToggleButton x:Name="btnEdit" Margin="2" IsChecked="{Binding CustomerViewModel.IsEditMode, Mode=TwoWay}" 
-                              Checked="btnEdit_Checked" Unchecked="btnEdit_Unchecked">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/Edit.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                        <TextBlock Text="Edit" />
-                    </StackPanel>
-                </ToggleButton>
-                <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click">
+                <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" 
+                        Visibility="{Binding CustomerViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
                         <TextBlock Text="Delete" />
@@ -84,85 +77,156 @@
                 </Button>
             </StackPanel>
             <ScrollViewer x:Name="customerDetails" Grid.Row="1" VerticalScrollBarVisibility="Auto" BorderThickness="0,0,1,0" BorderBrush="LightGray">
-                <DataForm x:Name="formCustomer"                   
-                      CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                      EditEnded="formCustomer_EditEnded"
-                      AutoGenerateFields="False"
-                      AutoEdit="False"
-                      AutoCommit="False"
-                      CommandButtonsVisibility="Commit, Cancel">
-                    <DataForm.CommitButtonContent>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Save.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Save" />
-                        </StackPanel>
-                    </DataForm.CommitButtonContent>
-                    <DataForm.CancelButtonContent>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Cancel.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Cancel" />
-                        </StackPanel>
-                    </DataForm.CancelButtonContent>
-                    <DataForm.EditTemplate>
-                        <DataTemplate>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource FormsSection}" Text="Personal Information" />
+                    <DataForm x:Name="formPersonalInfo"                   
+                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
+                          EditEnded="formPersonalInfo_EditEnded"
+                          AutoGenerateFields="False"
+                          AutoEdit="True"
+                          AutoCommit="True"
+                          CommandButtonsVisibility="None">
+                        <DataForm.EditTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
 
-                                <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="First Name" LabelPosition="Top">
-                                    <TextBox Text="{Binding FirstName, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Last Name" LabelPosition="Top">
-                                    <TextBox Text="{Binding LastName, Mode=TwoWay}" />
-                                </DataField>
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="First Name" LabelPosition="Top">
+                                        <TextBox Text="{Binding FirstName, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Last Name" LabelPosition="Top">
+                                        <TextBox Text="{Binding LastName, Mode=TwoWay}" />
+                                    </DataField>
 
-                                <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Middle Name" LabelPosition="Top">
-                                    <TextBox Text="{Binding MiddleName, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Suffix" LabelPosition="Top">
-                                    <TextBox Text="{Binding Suffix, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Label="EMail Address" LabelPosition="Top">
-                                    <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" />
-                                </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Middle Name" LabelPosition="Top">
+                                        <TextBox Text="{Binding MiddleName, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Suffix" LabelPosition="Top">
+                                        <TextBox Text="{Binding Suffix, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Label="Title" LabelPosition="Top">
+                                        <TextBox Text="{Binding Title, Mode=TwoWay}" />
+                                    </DataField>
 
-                                <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Phone" LabelPosition="Top">
-                                    <TextBox Text="{Binding Phone, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Label="Address" LabelPosition="Top">
-                                    <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" />
-                                </DataField>
+                                    <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Email Address" LabelPosition="Top">
+                                        <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Label="Phone" LabelPosition="Top">
+                                        <TextBox Text="{Binding Phone, Mode=TwoWay}" />
+                                    </DataField>
+                                </Grid>
+                            </DataTemplate>
+                        </DataForm.EditTemplate>
+                    </DataForm>
 
-                                <DataField Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1" Label="Postal Code" LabelPosition="Top">
-                                    <TextBox Text="{Binding PostalCode, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Label="City" LabelPosition="Top">
-                                    <TextBox Text="{Binding City, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" Label="Region" LabelPosition="Top">
-                                    <TextBox Text="{Binding Region, Mode=TwoWay}" />
-                                </DataField>
-                                <DataField Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="1" Label="Country" LabelPosition="Top">
-                                    <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                      SelectedValuePath="CountryCodeID"
-                                      SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                      DisplayMemberPath="Name" />
-                                </DataField>
-                            </Grid>
-                        </DataTemplate>
-                    </DataForm.EditTemplate>
-                </DataForm>
+                    <TextBlock Style="{StaticResource FormsSection}" Text="Customer Address" />
+                    <DataForm x:Name="formAddress"                   
+                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
+                          EditEnded="formAddress_EditEnded"
+                          AutoGenerateFields="False"
+                          AutoEdit="True"
+                          AutoCommit="True"
+                          CommandButtonsVisibility="None">
+                        <DataForm.EditTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Address Line 1" LabelPosition="Top">
+                                        <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Address Line 2" LabelPosition="Top">
+                                        <TextBox Text="{Binding AddressLine2, Mode=TwoWay}" />
+                                    </DataField>
+                                    
+                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Label="City" LabelPosition="Top">
+                                        <TextBox Text="{Binding City, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Label="Region" LabelPosition="Top">
+                                        <TextBox Text="{Binding Region, Mode=TwoWay}" />
+                                    </DataField>
+
+                                    <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Postal Code" LabelPosition="Top">
+                                        <TextBox Text="{Binding PostalCode, Mode=TwoWay}" />
+                                    </DataField>
+
+                                    <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Label="Country" LabelPosition="Top">
+                                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                            SelectedValuePath="CountryCodeID"
+                                            SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                            DisplayMemberPath="Name" />
+                                    </DataField>
+                                </Grid>
+                            </DataTemplate>
+                        </DataForm.EditTemplate>
+                    </DataForm>
+
+                    <TextBlock Style="{StaticResource FormsSection}" Text="Customer Demographic" />
+                    <DataForm x:Name="formDemographic"                   
+                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
+                          EditEnded="formDemographic_EditEnded"
+                          AutoGenerateFields="False"
+                          AutoEdit="True"
+                          AutoCommit="True"
+                          CommandButtonsVisibility="None">
+                        <DataForm.EditTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Birth Date" LabelPosition="Top">
+                                        <TextBox Text="{Binding BirthDate, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Education" LabelPosition="Top">
+                                        <TextBox Text="{Binding Education, Mode=TwoWay}" />
+                                    </DataField>
+
+                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Occupation" LabelPosition="Top">
+                                        <TextBox Text="{Binding Occupation, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Yearly Income" LabelPosition="Top">
+                                        <NumericUpDown DecimalPlaces="2" Maximum="99999999" Minimum="0" Value="{Binding YearlyIncome, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Label="Marital Status" LabelPosition="Top">
+                                        <TextBox Text="{Binding MaritalStatus, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Label="TotalChildren" LabelPosition="Top">
+                                        <NumericUpDown DecimalPlaces="0" Maximum="10" Minimum="0" Value="{Binding TotalChildren, Mode=TwoWay}" />
+                                    </DataField>
+                                </Grid>
+                            </DataTemplate>
+                        </DataForm.EditTemplate>
+                    </DataForm>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>
