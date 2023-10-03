@@ -44,16 +44,11 @@
             </Button>
         </StackPanel>
 
-        <DataGrid x:Name="grdCustomers" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
-                  ItemsSource="{Binding FilteredCustomersCollection}" 
-                  SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+        <DataGrid x:Name="grdCustomers" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding FilteredCustomersCollection}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
                   SelectionChanged="grdCustomers_SelectionChanged"
-                  HorizontalContentAlignment="Stretch"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False"
-                  CanUserReorderColumns="True" 
-                  CanUserSortColumns="True" 
-                  CanUserResizeColumns="True">
+                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" />
                 <DataGridTemplateColumn Header="Image" IsReadOnly="True">
@@ -69,8 +64,21 @@
                 <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
                 <DataGridTextColumn Header="Address" Binding="{Binding AddressLine1}" />
                 <DataGridTextColumn Header="Country" Binding="{Binding CountryName}" />
+                <DataGridTemplateColumn Header="Action">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnItemEdit" Click="btnItemEdit_Click" Width="32" Height="32" Margin="2">
+                                    <Image Source="/Assets/Edit.png" Width="16" Height="16" Stretch="Fill" />
+                                </Button>
+                                <Button x:Name="btnItemDelete" Click="btnItemDelete_Click" Width="32" Height="32" Margin="2">
+                                    <Image Source="/Assets/Delete.png" Width="16" Height="16" Stretch="Fill" />
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-
         </DataGrid>
 
         <TabControl x:Name="tcDetails" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" 

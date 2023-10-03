@@ -15,7 +15,7 @@ namespace SampleCRM.Web.Models
             {
                 if (_countryCodes != value)
                 {
-                    
+
                     _countryCodes = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
                 }
@@ -23,8 +23,10 @@ namespace SampleCRM.Web.Models
         }
 
         public bool IsNew => CustomerID <= 0;
+        public bool IsEditMode { get; set; }
         public string FullName => $"{FirstName} {LastName}";
         public string Initials => String.Format("{0}{1}", $"{FirstName} "[0], $"{LastName} "[0]).Trim().ToUpper();
         public string CountryName { get; set; }
+        public string FullAddress => $"{AddressLine1} {AddressLine2}\n{City}, {Region} {PostalCode}\n{CountryName}";
     }
 }

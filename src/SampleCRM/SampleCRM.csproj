@@ -58,6 +58,8 @@
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
     <None Remove="Views\About.xaml" />
     <None Remove="Views\Categories.xaml" />
+    <None Remove="Views\CustomerAddEdit.xaml" />
+    <None Remove="Views\CustomerAddEditWindow.xaml" />
     <None Remove="Views\Customers.xaml" />
     <None Remove="Views\ErrorWindow.xaml" />
     <None Remove="Views\Home.xaml" />
@@ -198,6 +200,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\CustomerAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +237,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Customers.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerAddEditWindow.xaml" />
   </ItemGroup>
 
 </Project>
