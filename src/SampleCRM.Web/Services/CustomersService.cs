@@ -31,13 +31,14 @@ namespace SampleCRM.Web
         [Insert]
         public void InsertCustomer(Customers customer)
         {
-            //var validationResult = _context.Entry(customer).GetValidationResult();
-            //if (validationResult.ValidationErrors.Any())
-            //{
-            //    throw new ValidationException($"Validation Error in InsertCustomer: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
-            //}
 
             _context.Customers.Add(customer);
+            var validationResult = _context.Entry(customer).GetValidationResult();
+            if (validationResult.ValidationErrors.Any())
+            {
+                throw new ValidationException($"Validation Error in InsertCustomer: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
+            }
+
             _context.SaveChanges();
         }
 

@@ -36,7 +36,7 @@ namespace SampleCRM.Web.Views
                 if (_selectedCategory != value)
                 {
                     _selectedCategory = value;
-                    base.OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
