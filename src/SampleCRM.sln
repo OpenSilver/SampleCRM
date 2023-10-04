@@ -23,8 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{0DEC38
 		..\images\28006861-68840abe-6551-11e7-9da4-38c0b3cc0a8d.png = ..\images\28006861-68840abe-6551-11e7-9da4-38c0b3cc0a8d.png
 		..\images\devenv_BBCKiaX9nc.png = ..\images\devenv_BBCKiaX9nc.png
 		..\images\devenv_QcjHrXqsjU.png = ..\images\devenv_QcjHrXqsjU.png
+		..\images\devenv_Zq2v7KKtn2.png = ..\images\devenv_Zq2v7KKtn2.png
 		..\images\f2e04384-4397-11e7-8bef-d69743a4c222.png = ..\images\f2e04384-4397-11e7-8bef-d69743a4c222.png
 		..\images\SampleCRMEntityDesignerDiagram1.jpg = ..\images\SampleCRMEntityDesignerDiagram1.jpg
+		..\images\SampleCRMMockup1.png = ..\images\SampleCRMMockup1.png
 	EndProjectSection
 EndProject
 Global

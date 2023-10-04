@@ -1,8 +1,15 @@
 # SampleCRM
 **SampleCRM** is a **OpenSilver** / Open RIA Services Business Application Template Demo Application. This application is a guidance how to implement RIA Domain Services, CRUD Operations over SQLite database along with XAML UI. 
 
+## Screenshot
+![Mockup1](images/SampleCRMMockup1.png)
+
 ## Database Diagram
 ![Install Toolbox](images/SampleCRMEntityDesignerDiagram1.jpg)
+
+## Run & Test
+To test it, you need to run simultaneously the **.Web** project and the **.Browser** project
+![MultipleStartupProjects](images/devenv_Zq2v7KKtn2.png)
 
 ## How To Setup Sqlite Providers for Visual Studio 2022
 
