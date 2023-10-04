@@ -44,8 +44,8 @@ namespace SampleCRM.Web
         [Update]
         public void UpdateCustomer(Customers customer)
         {
-            _context.Customers.AddOrUpdate(customer);
             customer.LastModifiedOn = DateTime.Now.ToString();
+            _context.Customers.AddOrUpdate(customer);
             _context.SaveChanges();
         }
     }
