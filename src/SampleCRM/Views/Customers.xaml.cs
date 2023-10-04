@@ -179,8 +179,8 @@ namespace SampleCRM.Web.Views
         private async void LoadElements()
         {
             var customersQuery = _customersContext.GetCustomersQuery();
-            var categoriesOp = await _customersContext.LoadAsync(customersQuery);
-            CustomersCollection = categoriesOp.Entities;
+            var customersOp = await _customersContext.LoadAsync(customersQuery);
+            CustomersCollection = customersOp.Entities;
 
             await LoadCountryCodes();
 #if DEBUG

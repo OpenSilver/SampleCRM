@@ -2,7 +2,6 @@
 using OpenRiaServices.DomainServices.Server;
 using SampleCRM.Web.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
 using System.Linq;
 

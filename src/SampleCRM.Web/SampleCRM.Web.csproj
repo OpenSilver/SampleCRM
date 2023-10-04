@@ -136,6 +136,7 @@
     <Compile Include="Models\Categories.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CountModel.cs" />
     <Compile Include="Models\CountryCodes.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
@@ -188,6 +189,7 @@
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\CountryCodesService.cs" />
+    <Compile Include="Services\CountService.cs" />
     <Compile Include="Services\CustomersService.cs" />
     <Compile Include="Services\OrderItemsService.cs" />
     <Compile Include="Services\OrderService.cs" />
