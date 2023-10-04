@@ -1,0 +1,282 @@
+﻿<local:BasePage x:Class="SampleCRM.Web.Views.Customers"
+                 xmlns:local="clr-namespace:SampleCRM.Web.Views"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
+                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+                 Style="{StaticResource PageStyle}">
+    <local:BasePage.Resources>
+        <local:BinaryImageConverter x:Key="imgConverter" />
+        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
+        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+    </local:BasePage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNewCustomer_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
+                <TextBlock Text="Add Customer" />
+            </StackPanel>
+        </Button>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
+            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay}" />
+            <Button x:Name="btnSearch" Click="btnSearch_Click">
+                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+            <Button x:Name="btnSearchCancel" Click="btnSearchCancel_Click">
+                <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+        </StackPanel>
+
+        <DataGrid x:Name="grdCustomers" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch"
+                  ItemsSource="{Binding FilteredCustomersCollection}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                  SelectionChanged="grdCustomers_SelectionChanged"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Image" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
+                                Width="32" Height="32" Margin="5" Stretch="Fill" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" />
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" />
+                <DataGridTextColumn Header="Address" Binding="{Binding AddressLine1}" />
+                <DataGridTextColumn Header="Country" Binding="{Binding CountryName}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TabControl x:Name="tcDetails" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" 
+                            Visibility="{Binding AnySelectedCustomer, Converter={StaticResource boolToVisibilityConverter}}"
+                            SelectionChanged="tcDetails_SelectionChanged" >
+            <TabItem x:Name="tbCustomer" Header="Customer">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="customerCard" Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="6">
+                            <StackPanel>
+                                <Grid Margin="0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Width="128" Height="128" Margin="1" Grid.Column="0"
+                                        Source="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                                    <TextBlock Grid.Column="1" Margin="12,0,0,0" FontSize="18" VerticalAlignment="Center"
+                                        Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.FullName, Mode=OneWay}" />
+                                </Grid>
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Email" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.EmailAddress, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Customer ID" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CustomerID, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Phone" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.Phone, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Created On" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                                <TextBlock Style="{StaticResource CardHeader}" Text="Last Update" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <!--<ToggleButton x:Name="btnEdit" Margin="2" IsChecked="{Binding CustomerViewModel.IsEditMode, Mode=TwoWay}" 
+                                Checked="btnEdit_Checked" Unchecked="btnEdit_Unchecked">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Assets/Edit.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                                    <TextBlock Text="Edit" />
+                                </StackPanel>
+                            </ToggleButton>-->
+                            <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                                    <TextBlock Text="Delete" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <Border x:Name="customerDetails" Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <DataForm x:Name="formCustomer"                   
+                                      ItemsSource="{Binding FilteredCustomersCollection}" 
+                                      CurrentItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                                      EditEnded="formCustomer_EditEnded"
+                                      AutoGenerateFields="False"
+                                      AutoEdit="True"
+                                      AutoCommit="False"
+                                      CommandButtonsVisibility="Commit, Cancel">
+                                    <DataForm.CommitButtonContent>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Assets/Save.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                                            <TextBlock Text="Save" />
+                                        </StackPanel>
+                                    </DataForm.CommitButtonContent>
+                                    <DataForm.CancelButtonContent>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Assets/Cancel.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                                            <TextBlock Text="Cancel" />
+                                        </StackPanel>
+                                    </DataForm.CancelButtonContent>
+                                    <DataForm.EditTemplate>
+                                        <DataTemplate>
+                                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+
+                                                <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="First Name" LabelPosition="Top">
+                                                    <TextBox Text="{Binding FirstName, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Last Name" LabelPosition="Top">
+                                                    <TextBox Text="{Binding LastName, Mode=TwoWay}" />
+                                                </DataField>
+
+                                                <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Middle Name" LabelPosition="Top">
+                                                    <TextBox Text="{Binding MiddleName, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Suffix" LabelPosition="Top">
+                                                    <TextBox Text="{Binding Suffix, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Label="EMail Address" LabelPosition="Top">
+                                                    <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" />
+                                                </DataField>
+
+                                                <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Phone" LabelPosition="Top">
+                                                    <TextBox Text="{Binding Phone, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Label="Address" LabelPosition="Top">
+                                                    <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" />
+                                                </DataField>
+
+                                                <DataField Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1" Label="Postal Code" LabelPosition="Top">
+                                                    <TextBox Text="{Binding PostalCode, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Label="City" LabelPosition="Top">
+                                                    <TextBox Text="{Binding City, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" Label="Region" LabelPosition="Top">
+                                                    <TextBox Text="{Binding Region, Mode=TwoWay}" />
+                                                </DataField>
+                                                <DataField Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="1" Label="Country" LabelPosition="Top">
+                                                    <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                                          SelectedValuePath="CountryCodeID"
+                                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name" />
+                                                </DataField>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataForm.EditTemplate>
+                                </DataForm>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbOrders" Header="Orders">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnNewOrder" Grid.Column="0" Grid.Row="0" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
+                            <TextBlock Text="Add Order" />
+                        </StackPanel>
+                    </Button>
+
+                    <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
+                        <TextBox x:Name="txtOrderSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchOrderText, Mode=TwoWay}" />
+                        <Button x:Name="btnOrderSearch" Click="btnSearch_Click">
+                            <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+                        </Button>
+                        <Button x:Name="btnOrderSearchCancel" Click="btnOrderSearchCancel_Click">
+                            <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
+                        </Button>
+                    </StackPanel>
+
+                    <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                          ItemsSource="{Binding FilteredOrdersCollection}" 
+                          SelectedItem="{Binding SelectedOrder, Mode=OneWay}"
+                          SelectionChanged="grdOrders_SelectionChanged"
+                          HorizontalContentAlignment="Stretch"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          CanUserReorderColumns="True" 
+                          CanUserSortColumns="True" 
+                          CanUserResizeColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Id">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding OrderID}" VerticalContentAlignment="Center" />
+                                            <Button x:Name="btnShowOrder" Margin="1">
+                                                <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="Fill" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--<DataGridTextColumn Header="Id" Binding="{Binding OrderID}" IsReadOnly="True" />-->
+                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" />
+                            <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" />
+                            <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" />
+                            <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" />
+                            <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</local:BasePage>

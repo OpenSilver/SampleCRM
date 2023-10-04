@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleCRM", "SampleCRM\SampleCRM.csproj", "{6EF556A3-B2CD-410C-959D-C554D69C3FA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleCRM.Browser", "SampleCRM.Browser\SampleCRM.Browser.csproj", "{A882A5EF-495A-41AE-9403-9C4D0598948A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleCRM.Simulator", "SampleCRM.Simulator\SampleCRM.Simulator.csproj", "{867B4541-6491-48BD-9E33-82E51128471B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleCRM.Web", "SampleCRM.Web\SampleCRM.Web.csproj", "{A8AA986C-4AEF-489F-86EC-19029369765E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A025E6EE-BE63-44B8-AC42-5C4E603A95CF}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{0DEC3820-213D-4276-9710-D3753CD1B6DF}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\27509098-1967848c-58f5-11e7-937e-1a1236cd560e.png = ..\images\27509098-1967848c-58f5-11e7-937e-1a1236cd560e.png
+		..\images\27509099-19692314-58f5-11e7-8337-20fd50038bc9.png = ..\images\27509099-19692314-58f5-11e7-8337-20fd50038bc9.png
+		..\images\28006861-68840abe-6551-11e7-9da4-38c0b3cc0a8d.png = ..\images\28006861-68840abe-6551-11e7-9da4-38c0b3cc0a8d.png
+		..\images\devenv_BBCKiaX9nc.png = ..\images\devenv_BBCKiaX9nc.png
+		..\images\devenv_QcjHrXqsjU.png = ..\images\devenv_QcjHrXqsjU.png
+		..\images\devenv_Zq2v7KKtn2.png = ..\images\devenv_Zq2v7KKtn2.png
+		..\images\f2e04384-4397-11e7-8bef-d69743a4c222.png = ..\images\f2e04384-4397-11e7-8bef-d69743a4c222.png
+		..\images\SampleCRMEntityDesignerDiagram1.jpg = ..\images\SampleCRMEntityDesignerDiagram1.jpg
+		..\images\SampleCRMMockup1.png = ..\images\SampleCRMMockup1.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EF556A3-B2CD-410C-959D-C554D69C3FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF556A3-B2CD-410C-959D-C554D69C3FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF556A3-B2CD-410C-959D-C554D69C3FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF556A3-B2CD-410C-959D-C554D69C3FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A882A5EF-495A-41AE-9403-9C4D0598948A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A882A5EF-495A-41AE-9403-9C4D0598948A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A882A5EF-495A-41AE-9403-9C4D0598948A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A882A5EF-495A-41AE-9403-9C4D0598948A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{867B4541-6491-48BD-9E33-82E51128471B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867B4541-6491-48BD-9E33-82E51128471B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867B4541-6491-48BD-9E33-82E51128471B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867B4541-6491-48BD-9E33-82E51128471B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AA986C-4AEF-489F-86EC-19029369765E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AA986C-4AEF-489F-86EC-19029369765E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AA986C-4AEF-489F-86EC-19029369765E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AA986C-4AEF-489F-86EC-19029369765E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0DEC3820-213D-4276-9710-D3753CD1B6DF} = {A025E6EE-BE63-44B8-AC42-5C4E603A95CF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A95E64E2-2848-4CC6-A712-BE8F681F1E48}
+	EndGlobalSection
+EndGlobal
