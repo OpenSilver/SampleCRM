@@ -1,6 +1,7 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
 using SampleCRM.Web.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -24,21 +25,20 @@ namespace SampleCRM.Web
         [Delete]
         public void DeleteCustomer(Customers customer)
         {
-            _context.Customers.Remove(customer);
+            var dCustomer = _context.Customers.SingleOrDefault(x=>x.CustomerID == customer.CustomerID);
+            if (dCustomer == null)
+                return;
+
+            _context.Customers.Remove(dCustomer);
             _context.SaveChanges();
         }
 
         [Insert]
         public void InsertCustomer(Customers customer)
         {
-
+            customer.CustomerID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
+            customer.LastModifiedOn = customer.CreatedOn = DateTime.Now.ToString();
             _context.Customers.Add(customer);
-            var validationResult = _context.Entry(customer).GetValidationResult();
-            if (validationResult.ValidationErrors.Any())
-            {
-                throw new ValidationException($"Validation Error in InsertCustomer: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
-            }
-
             _context.SaveChanges();
         }
 
@@ -46,6 +46,7 @@ namespace SampleCRM.Web
         public void UpdateCustomer(Customers customer)
         {
             _context.Customers.AddOrUpdate(customer);
+            customer.LastModifiedOn = DateTime.Now.ToString();
             _context.SaveChanges();
         }
     }
