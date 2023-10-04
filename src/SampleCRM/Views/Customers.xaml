@@ -9,7 +9,6 @@
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
-        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
