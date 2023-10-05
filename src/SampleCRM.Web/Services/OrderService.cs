@@ -1,6 +1,7 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
 using SampleCRM.Web.Models;
+using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
@@ -29,19 +30,27 @@ namespace SampleCRM.Web
         [Delete]
         public void DeleteOrder(Orders order)
         {
-            _context.Orders.Remove(order);
+            var dorder = _context.Orders.SingleOrDefault(x => x.OrderID == order.OrderID);
+            if (dorder == null)
+                return;
+
+            _context.Orders.Remove(dorder);
         }
 
         [Insert]
         public void InsertOrder(Orders order)
         {
-            _context.Orders.AddOrUpdate(order);
-        }
+            order.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
+            order.LastModifiedOn = DateTime.Now.ToString();
+            _context.Orders.Add(order);
+            _context.SaveChanges();        }
 
         [Update]
         public void UpdateOrder(Orders order)
         {
+            order.LastModifiedOn = DateTime.Now.ToString();
             _context.Orders.AddOrUpdate(order);
+            _context.SaveChanges();
         }
     }
 }

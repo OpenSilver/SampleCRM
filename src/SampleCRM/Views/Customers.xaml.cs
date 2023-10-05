@@ -15,6 +15,7 @@ namespace SampleCRM.Web.Views
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
         private OrderContext _orderContext = new OrderContext();
 
+        private bool _ordersTabSelected;
 
         private IEnumerable<Models.Customers> _customersCollection;
         public IEnumerable<Models.Customers> CustomersCollection
@@ -147,8 +148,6 @@ namespace SampleCRM.Web.Views
         }
 
         private string _searchOrderText;
-        private bool _ordersTabSelected;
-
         public string SearchOrderText
         {
             get { return _searchOrderText; }
