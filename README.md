@@ -9,6 +9,7 @@
 
 ## Troubleshoot
 ![Install .NET Latest](images/Net7DownloadLatest.png)
+
 If this error is happening please install the latest version of the ASP.NET Core Hosting Bundle, available from Microsoft at: https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer
 
 ## Run & Test
