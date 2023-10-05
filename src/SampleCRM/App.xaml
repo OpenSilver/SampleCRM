@@ -10,6 +10,26 @@
                 <ResourceDictionary>
                     <app:NotOperatorValueConverter x:Key="NotOperatorValueConverter" />
                 </ResourceDictionary>
+
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_CommonResources.xaml"/>
+
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Button_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Card_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_CheckBox_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_ChildWindow_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_ComboBox_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_ContextMenu_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_DataGrid_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_DatePicker_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Expander_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Popup_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_PasswordBox_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_RadioButton_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_TabControl_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_TextBox_Styles.xaml"/>
+
+
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

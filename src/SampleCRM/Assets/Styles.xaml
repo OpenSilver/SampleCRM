@@ -8,18 +8,13 @@
     <!-- ******MAIN PAGE STYLES****** -->
     <!-- **************************** -->
     <!-- Primary Color Brushes -->
-    <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#FF484848"/>
-    <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="HighLightColorBrush" Color="#FF0097FC"/>
-    <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#FFEBF7FF"/>
-    <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#FF747474"/>
-    <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FF313131"/>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="MaterialDesign_Styles_Kit/MaterialDesign_CommonResources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
-    <!-- LayoutRoot Grid Style -->
-    <Style x:Key="LayoutRootGridStyle" TargetType="Grid">
-        <Setter Property="Background" Value="#FFFFFFFF"/>
-    </Style>
-
+    <!-- Icons -->
+    <StaticResource x:Name="PlusIconCode" x:Key="PlusIconCode22" />
+    <FontFamily x:Key="FontAwesome">ms-appx:///SampleCRM/Assets/fontawesome-webfont.ttf</FontFamily>
     <!-- Content Border Style -->
     <Style x:Key="ContentBorderStyle" TargetType="Border">
         <Setter Property="Background">
@@ -48,7 +43,6 @@
 
     <!-- Navigation Grid Style -->
     <Style x:Key="NavigationGridStyle" TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource NavigationBackgroundColorBrush}"/>
         <Setter Property="Height" Value="42"/>
         <Setter Property="Margin" Value="0"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
@@ -102,7 +96,7 @@
     <Style x:Key="LinksBorderStyle" TargetType="Border">
         <Setter Property="Height" Value="42"/>
         <Setter Property="Margin" Value="25,0,25,0"/>
-        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
     <!-- Links StackPanel Style -->
@@ -324,8 +318,7 @@
     <!-- ******************************* -->
     <!-- Login Container Style -->
     <Style x:Key="LoginContainerStyle" TargetType="Border">
-        <Setter Property="Background" Value="#FF949290"/>
-        <Setter Property="Margin" Value="0,43,0,0"/>
+        <Setter Property="Margin" Value="0,0,20,0"/>
         <Setter Property="Height" Value="21"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="BorderBrush" Value="#FFFFFFFF"/>

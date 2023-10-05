@@ -22,15 +22,21 @@
             </navigation:Frame>
         </Border>
         <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
-            <Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
                 <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
 
                     <ContentControl Style="{StaticResource LogoIcon}" />
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}"
-                               Text="Sample CRM (OpenSilver/OpenRIA Bussiness Template Demo)" />
+                               Text="Sample CRM" />
                 </StackPanel>
             </Border>
-            <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
+            <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
                     <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
@@ -100,9 +106,10 @@
                     </HyperlinkButton>
                 </StackPanel>
             </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource LoginContainerStyle}">
+                <login:LoginStatus />
+            </Border>
         </Grid>
-        <Border Style="{StaticResource LoginContainerStyle}">
-            <login:LoginStatus />
-        </Border>
     </Grid>
 </views:BaseUserControl>
