@@ -16,11 +16,6 @@ namespace SampleCRM.Web
             return _context.Customers;
         }
 
-        public Customers GetCustomerById(int customerId)
-        {
-            return _context.Customers.SingleOrDefault(x => x.CustomerID == customerId);
-        }
-
         [Delete]
         public void DeleteCustomer(Customers customer)
         {

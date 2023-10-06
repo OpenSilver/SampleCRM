@@ -8,17 +8,12 @@ using System.Linq;
 namespace SampleCRM.Web
 {
     [EnableClientAccess]
-    public class OrderService: SampleCRMService
+    public class OrderService : SampleCRMService
     {
         [Query]
         public IQueryable<Orders> GetOrders()
         {
             return _context.Orders;
-        }
-
-        public Orders GetOrderById(int orderId)
-        {
-            return _context.Orders.SingleOrDefault(x => x.OrderID == orderId);
         }
 
         [Query]
@@ -35,6 +30,7 @@ namespace SampleCRM.Web
                 return;
 
             _context.Orders.Remove(dorder);
+            _context.SaveChanges();
         }
 
         [Insert]
@@ -43,7 +39,8 @@ namespace SampleCRM.Web
             order.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
             order.LastModifiedOn = DateTime.Now.ToString();
             _context.Orders.Add(order);
-            _context.SaveChanges();        }
+            _context.SaveChanges();
+        }
 
         [Update]
         public void UpdateOrder(Orders order)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenRiaServices.DomainServices.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace SampleCRM.Web.Views
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
         private OrderContext _orderContext = new OrderContext();
         private OrderItemsContext _orderItemsContext = new OrderItemsContext();
+        private CustomersContext _customersContext = new CustomersContext();
+        //private ProductsContext _productsContext = new ProductsContext();
 
         private bool _orderItemsTabSelected;
 
@@ -86,6 +89,7 @@ namespace SampleCRM.Web.Views
                     _selectedOrder = value;
                     OnPropertyChanged();
                     OnPropertyChanged("AnySelectedOrder");
+                    LoadCustomer();
                     LoadOrderItemsOfOrder();
 #if DEBUG
                     Console.WriteLine($"Orders, Order: {value.OrderID} selected");
@@ -196,6 +200,7 @@ namespace SampleCRM.Web.Views
             OrdersCollection = op.Entities;
 
             await LoadCountryCodes();
+            await LoadStatuses();
 #if DEBUG
             Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
             foreach (var item in OrdersCollection)
@@ -222,13 +227,27 @@ namespace SampleCRM.Web.Views
         private async Task LoadStatuses()
         {
             var query = _orderStatusContext.GetOrderStatusQuery();
-            var op = await _countryCodesContext.LoadAsync(query);
+            var op = await _orderStatusContext.LoadAsync(query);
             Statuses = op.Entities;
 
             foreach (var o in OrdersCollection)
             {
                 o.Statuses = Statuses;
-                o.StatusDesc = Statuses.SingleOrDefault(x => x.Status == o.Status).Name;
+                o.StatusDesc = Statuses.FirstOrDefault(x => x.Status == o.Status)?.Name;
+            }
+        }
+
+        private async void LoadCustomer()
+        {
+            if (SelectedOrder == null)
+                return;
+
+            if (SelectedOrder.Customer == null)
+            {
+                var query = _customersContext.GetCustomersQuery().Where(x => x.CustomerID == SelectedOrder.CustomerID);
+                var op = await _customersContext.LoadAsync(query);
+                var customer = op.Entities.FirstOrDefault();
+                SelectedOrder.Customer = customer;
             }
         }
 
@@ -245,16 +264,11 @@ namespace SampleCRM.Web.Views
             var op = await _orderContext.LoadAsync(query);
             OrderItemsCollection = op.Entities;
 
-            foreach (var o in OrdersCollection)
-            {
-                o.ShipCountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == o.ShipCountryCode)?.Name;
-            }
-
 #if DEBUG
-            Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
-            foreach (var item in OrdersCollection)
+            Console.WriteLine("Order Items Collection:" + OrderItemsCollection.Count());
+            foreach (var item in OrderItemsCollection)
             {
-                Console.WriteLine("Order Id:" + item.OrderID);
+                Console.WriteLine("Order Item Id:" + item.OrderLine);
             }
 #endif
         }
@@ -291,6 +305,83 @@ namespace SampleCRM.Web.Views
             //{
             //    NavigationService.Refresh();
             //}
+        }
+
+        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var anySelected = e.AddedItems.Count > 0;
+            if (anySelected)
+            {
+                _orderItemsTabSelected = e.AddedItems.Contains(tbOrderItems);
+                if (_orderItemsTabSelected)
+                {
+                    LoadOrderItemsOfOrder();
+                }
+            }
+            else
+            {
+                _orderItemsTabSelected = false;
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure to delete the order and all items belong that order?", MessageBoxButton.OKCancel);
+            if (result != MessageBoxResult.OK)
+                return;
+
+            if (_orderContext.Orders.CanRemove)
+            {
+                _orderContext.Orders.Remove(SelectedOrder);
+                _orderContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+            }
+            else
+            {
+                throw new AccessViolationException("RIA Service Delete Entity for Customer Context is denied");
+            }
+        }
+
+        private void OnDeleteSubmitCompleted(SubmitOperation so)
+        {
+            if (so.HasError)
+            {
+                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                so.MarkErrorAsHandled();
+            }
+            else
+            {
+                NavigationService.Refresh();
+            }
+        }
+
+        private void formOrder_EditEnded(object sender, DataFormEditEndedEventArgs e)
+        {
+            if (e.EditAction == DataFormEditAction.Commit)
+            {
+                _customersContext.SubmitChanges(OnFormOrderSubmitCompleted, null);
+            }
+            else if (e.EditAction == DataFormEditAction.Cancel)
+            {
+                SelectedOrder.IsEditMode = false;
+            }
+        }
+
+        private void OnFormOrderSubmitCompleted(SubmitOperation so)
+        {
+            if (so.HasError)
+            {
+                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                so.MarkErrorAsHandled();
+            }
+            else
+            {
+                OnPropertyChanged("SelectedOrder");
+                OnPropertyChanged("OrdersCollection");
+                OnPropertyChanged("FilteredOrdersCollection");
+                grdOrders.UpdateLayout();
+                grdOrders.InvalidateArrange();
+                grdOrders.InvalidateMeasure();
+            }
         }
     }
 }

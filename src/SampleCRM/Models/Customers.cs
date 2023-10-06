@@ -36,7 +36,6 @@ namespace SampleCRM.Web.Models
             {
                 if (_countryCodes != value)
                 {
-
                     _countryCodes = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
                 }
@@ -51,7 +50,6 @@ namespace SampleCRM.Web.Models
             get { return _isEditMode; }
             set
             {
-                
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
@@ -68,7 +66,6 @@ namespace SampleCRM.Web.Models
             {
                 if (_countryName != value)
                 {
-
                     _countryName = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("CountryName"));
                 }
