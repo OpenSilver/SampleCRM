@@ -16,7 +16,8 @@ namespace SampleCRM.Web.Views
         private OrderContext _orderContext = new OrderContext();
         private OrderItemsContext _orderItemsContext = new OrderItemsContext();
         private CustomersContext _customersContext = new CustomersContext();
-        //private ProductsContext _productsContext = new ProductsContext();
+        private ProductsContext _productsContext = new ProductsContext();
+        private TaxTypesContext _taxTypesContext = new TaxTypesContext();
 
         private bool _orderItemsTabSelected;
 
@@ -158,6 +159,7 @@ namespace SampleCRM.Web.Views
                 {
                     _selectedOrderItem = value;
                     OnPropertyChanged();
+                    //LoadProduct();
 #if DEBUG
                     Console.WriteLine($"OrderItems, OrderItem: {value.OrderLine} selected");
 #endif
@@ -251,6 +253,34 @@ namespace SampleCRM.Web.Views
             }
         }
 
+        private async void LoadProduct(Models.OrderItems orderItem)
+        {
+            if (orderItem == null)
+                return;
+
+            if (orderItem.Product == null)
+            {
+                var query = _productsContext.GetProductsQuery().Where(x => x.ProductID == orderItem.ProductID);
+                var op = await _productsContext.LoadAsync(query);
+                var product = op.Entities.FirstOrDefault();
+                orderItem.Product = product;
+            }
+        }
+
+        private async void LoadTaxRate(Models.OrderItems orderItem)
+        {
+            if (orderItem == null)
+                return;
+
+            if (orderItem.TaxRate == 0)
+            {
+                var query = _taxTypesContext.GetTaxTypesQuery().Where(x => x.TaxTypeID == orderItem.TaxType);
+                var op = await _taxTypesContext.LoadAsync(query);
+                var taxRate = Convert.ToDecimal(op.Entities.FirstOrDefault()?.Rate);
+                orderItem.TaxRate = taxRate;
+            }
+        }
+
         private async void LoadOrderItemsOfOrder()
         {
             if (SelectedOrder == null)
@@ -260,9 +290,15 @@ namespace SampleCRM.Web.Views
                 return;
 
             var orderId = SelectedOrder.OrderID;
-            var query = _orderItemsContext.GetOrderItemsOfOrderQuery(orderId);
-            var op = await _orderContext.LoadAsync(query);
+            var query = _orderItemsContext.GetOrderItemsOfOrderQuery(SelectedOrder.OrderID);
+            var op = await _orderItemsContext.LoadAsync(query);
             OrderItemsCollection = op.Entities;
+
+            foreach (var orderItem in OrderItemsCollection)
+            {
+                LoadProduct(orderItem);
+                LoadTaxRate(orderItem);
+            }
 
 #if DEBUG
             Console.WriteLine("Order Items Collection:" + OrderItemsCollection.Count());
@@ -382,6 +418,18 @@ namespace SampleCRM.Web.Views
                 grdOrders.InvalidateArrange();
                 grdOrders.InvalidateMeasure();
             }
+        }
+
+        private void btnOrderItemSearchCancel_Click(object sender, RoutedEventArgs e)
+        {
+            SearchOrderItemText = string.Empty;
+        }
+
+        private void grdOrderItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+#if DEBUG
+            Console.WriteLine("grdOrderItems_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+#endif
         }
     }
 }

@@ -85,7 +85,7 @@
 
                                 <StackPanel Orientation="Horizontal" Margin="0,6,0,9">
                                     <Image Source="{Binding SelectedOrder.Customer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
-                                         Width="32" Height="32" />
+                                         Width="64" Height="64" Stretch="Fill" />
                                     <TextBlock Style="{StaticResource CardText}" VerticalAlignment="Center" Margin="9,0" Text="{Binding SelectedOrder.Customer.FullName, Mode=OneWay}" />
                                 </StackPanel>
 
@@ -202,7 +202,69 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="tbOrderItems" Header="Items">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
 
+                    <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
+                            <TextBlock Text="Add Order Item" />
+                        </StackPanel>
+                    </Button>
+
+                    <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
+                        <TextBox x:Name="txtOrderItemSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchOrderItemText, Mode=TwoWay}" />
+                        <Button x:Name="btnOrderSearch" Click="btnSearch_Click">
+                            <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+                        </Button>
+                        <Button x:Name="btnOrderSearchCancel" Click="btnOrderItemSearchCancel_Click">
+                            <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
+                        </Button>
+                    </StackPanel>
+
+                    <DataGrid x:Name="grdOrderItems" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                          ItemsSource="{Binding FilteredOrderItemsCollection}" 
+                          SelectedItem="{Binding SelectedOrderItem, Mode=OneWay}"
+                          SelectionChanged="grdOrderItems_SelectionChanged"
+                          HorizontalContentAlignment="Stretch"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          CanUserReorderColumns="True" 
+                          CanUserSortColumns="True" 
+                          CanUserResizeColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Id">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+                                                   Stretch="Fill" Width="64" Height="64" Margin="1" />
+                                            <TextBlock Text="{Binding Product.ProductID}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="1" />
+                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center">
+                                                <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="UniformToFill" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Product.Name}" />
+                            <DataGridTextColumn Header="Line" Binding="{Binding OrderLine}" />
+                            <DataGridTextColumn Header="Price" Binding="{Binding UnitPrice}" />
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+                            <DataGridTextColumn Header="Discount" Binding="{Binding Discount}" />
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" />
+                            <DataGridTextColumn Header="Total" Binding="{Binding Total}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
 

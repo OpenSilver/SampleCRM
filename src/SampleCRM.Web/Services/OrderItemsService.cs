@@ -10,7 +10,7 @@ namespace SampleCRM.Web
     public class OrderItemsService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderItems> GetOrders()
+        public IQueryable<OrderItems> GetOrderItems()
         {
             return _context.OrderItems;
         }

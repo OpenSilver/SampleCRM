@@ -10,7 +10,7 @@ namespace SampleCRM.Web
     public class TaxTypesService : SampleCRMService
     {
         [Query]
-        public IQueryable<TaxTypes> GetShippers()
+        public IQueryable<TaxTypes> GetTaxTypes()
         {
             return _context.TaxTypes;
         }
