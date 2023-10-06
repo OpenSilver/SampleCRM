@@ -12,10 +12,16 @@
 
     <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#FF484848"/>
     <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="NavigationActiveForegroundColorBrush" Color="#0085FF"/>
     <SolidColorBrush x:Key="HighLightColorBrush" Color="#FF0097FC"/>
     <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#FFEBF7FF"/>
     <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#FF747474"/>
-    <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FF313131"/>
+    <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#222632" />
+    <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="GridForeground" Color="White" />
+    <SolidColorBrush x:Key="GridSelectionColor" Color="#1C4067" />
+    <SolidColorBrush x:Key="GridHeaderBackgroundColor" Color="#2E323D" />
 
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">

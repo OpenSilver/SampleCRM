@@ -14,7 +14,7 @@
             xmlns:native="using:CSHTML5.Native.Html.Controls" 
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
             mc:Ignorable="native">
-            <div style="font-size:14px">
+            <div style="font-size:14px; color: White;">
                 <p>
                     <strong>SampleCRM</strong> is a
                     <strong>OpenSilver</strong> / Open RIA Services Business Application Template Demo Application. 

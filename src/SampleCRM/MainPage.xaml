@@ -10,7 +10,12 @@
              xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=OpenSilver.Controls.Navigation"
              mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
-        <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="1" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
                               Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
@@ -21,21 +26,19 @@
                 </navigation:Frame.UriMapper>
             </navigation:Frame>
         </Border>
-        <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
+        <Grid Grid.Row="0" x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="210" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
-            <Border Grid.Column="0" x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
-                <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
+                <StackPanel Grid.Column="0" x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
 
                     <ContentControl Style="{StaticResource LogoIcon}" />
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}"
                                Text="Sample CRM" />
                 </StackPanel>
-            </Border>
             <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
                     <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
@@ -45,7 +48,6 @@
                             <TextBlock Text="Home" />
                         </StackPanel>
                     </HyperlinkButton>
-                    <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}" />
                     <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
@@ -96,7 +98,6 @@
                             <Run Text=")" />
                         </StackPanel>
                     </HyperlinkButton>
-                    <Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}" />
                     <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Settings" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
