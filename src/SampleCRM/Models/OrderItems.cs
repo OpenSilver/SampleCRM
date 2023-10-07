@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
@@ -22,6 +23,13 @@ namespace SampleCRM.Web.Models
             else if (e.PropertyName == "OrderLine")
             {
                 RaisePropertyChanged("IsNew");
+            }
+            else if (e.PropertyName == nameof(ProductID))
+            {
+                if (ProductsCombo != null && ProductsCombo.Any())
+                {
+                    Product = ProductsCombo.FirstOrDefault(x => x.ProductID == ProductID);
+                }
             }
 
             base.OnPropertyChanged(e);
@@ -72,16 +80,16 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Models.Products> _products;
-        public IEnumerable<Models.Products> Products
+        private IEnumerable<Models.Products> _productsCombo;
+        public IEnumerable<Models.Products> ProductsCombo
         {
-            get { return _products; }
+            get { return _productsCombo; }
             set
             {
-                if (_products != value)
+                if (_productsCombo != value)
                 {
-                    _products = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Products"));
+                    _productsCombo = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("ProductsCombo"));
                 }
             }
         }

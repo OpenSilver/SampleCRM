@@ -2,7 +2,9 @@
 using OpenRiaServices.DomainServices.Server;
 using SampleCRM.Web.Models;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SampleCRM.Web
@@ -48,9 +50,19 @@ namespace SampleCRM.Web
         [Insert]
         public void InsertOrderItem(OrderItems orderItem)
         {
-            orderItem.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
-            orderItem.OrderLine = _context.OrderItems.Count(x => x.OrderID == orderItem.OrderID);
+            orderItem.OrderLine = _context.OrderItems
+                                          .Where(x => x.OrderID == orderItem.OrderID)
+                                          .Max(x => x.OrderLine) + 1;
             _context.OrderItems.Add(orderItem);
+
+#if DEBUG
+            var validationResult = _context.Entry(orderItem).GetValidationResult();
+            if (validationResult.ValidationErrors.Any())
+            {
+                Console.WriteLine($"Validation Error in InsertOrderItem: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
+            }
+#endif
+
             _context.SaveChanges();
         }
 

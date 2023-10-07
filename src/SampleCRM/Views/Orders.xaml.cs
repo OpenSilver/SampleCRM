@@ -431,9 +431,9 @@ namespace SampleCRM.Web.Views
                 throw (new ArgumentNullException("Selected Order Item can't be null"));
             }
 
-            if (SelectedOrderItem.Products == null)
+            if (SelectedOrderItem.ProductsCombo == null)
             {
-                SelectedOrderItem.Products = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities;
+                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities;
             }
 
             if (SelectedOrderItem.TaxTypes == null)
@@ -459,7 +459,8 @@ namespace SampleCRM.Web.Views
             {
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,
-                Products = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities,
+                OrderLine = 0,
+                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
             }, _orderItemsContext);
 

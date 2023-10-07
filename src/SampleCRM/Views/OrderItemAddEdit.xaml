@@ -86,7 +86,7 @@
                                     </Grid.RowDefinitions>
 
                                     <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Product" LabelPosition="Top">
-                                        <ComboBox ItemsSource="{Binding Products}"                                                          
+                                        <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
                                                           SelectedValuePath="ProductID"
                                                           SelectedValue="{Binding ProductID, Mode=TwoWay}"
                                                           DisplayMemberPath="Name" />
