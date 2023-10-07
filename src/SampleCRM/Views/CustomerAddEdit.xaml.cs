@@ -7,8 +7,6 @@ namespace SampleCRM.Web.Views
 {
     public partial class CustomerAddEdit : BaseUserControl
     {
-        private CustomersContext _customersContext = new CustomersContext();
-
         public event EventHandler CustomerDeleted;
         public event EventHandler CustomerAdded;
 
@@ -76,9 +74,9 @@ namespace SampleCRM.Web.Views
 
         }
 
-        public void Save()
+        public void Save(CustomersContext customersContext)
         {
-            if (_customersContext.Customers.CanAdd)
+            if (customersContext.Customers.CanAdd)
             {
                 if (!formPersonalInfo.CommitEdit())
                 {
@@ -98,8 +96,8 @@ namespace SampleCRM.Web.Views
                     return;
                 }
 
-                _customersContext.Customers.Add(CustomerViewModel);
-                _customersContext.SubmitChanges(OnAddSubmitCompleted, null);
+                customersContext.Customers.Add(CustomerViewModel);
+                customersContext.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else
             {
@@ -109,10 +107,11 @@ namespace SampleCRM.Web.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (_customersContext.Customers.CanRemove)
+            var customersContext = new CustomersContext();
+            if (customersContext.Customers.CanRemove)
             {
-                _customersContext.Customers.Remove(CustomerViewModel);
-                _customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+                customersContext.Customers.Remove(CustomerViewModel);
+                customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
             {

@@ -8,9 +8,11 @@ namespace SampleCRM.Web.Views
     {
         private const double windowSizeMult = .85;
 
-        public static async Task<bool> Show(Models.Customers customer)
+        private CustomersContext _customerContext;
+
+        public static async Task<bool> Show(Models.Customers customer, CustomersContext customersContext)
         {
-            var window = new CustomerAddEditWindow(customer);
+            var window = new CustomerAddEditWindow(customer, customersContext);
             window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
             window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
@@ -22,16 +24,17 @@ namespace SampleCRM.Web.Views
             InitializeComponent();
         }
 
-        public CustomerAddEditWindow(Models.Customers customer)
+        public CustomerAddEditWindow(Models.Customers customer, CustomersContext customersContext)
             : this()
         {
+            _customerContext = customersContext;
             customerAddEditView.CustomerViewModel = customer;
             Title = customer.IsNew ? "Add Customer" : "Edit Customer";
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            customerAddEditView.Save();
+            customerAddEditView.Save(_customerContext);
             //DialogResult = true;
         }
 

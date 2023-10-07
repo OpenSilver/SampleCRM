@@ -32,6 +32,8 @@ namespace SampleCRM.Web.Views
                     _ordersCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
+                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
+
                 }
             }
         }
@@ -112,6 +114,7 @@ namespace SampleCRM.Web.Views
                     _searchText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
+                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
                     //OnPropertyChanged("SelectedOrder");
                     //OnPropertyChanged("AnySelectedOrder");
                 }
@@ -130,6 +133,8 @@ namespace SampleCRM.Web.Views
                     _orderItemsCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrderItemsCollection");
+                    SelectedOrderItem = FilteredOrderItemsCollection.FirstOrDefault();
+
                 }
             }
         }
@@ -178,6 +183,7 @@ namespace SampleCRM.Web.Views
                     _searchOrderItemText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrderItemsCollection");
+                    SelectedOrderItem = FilteredOrderItemsCollection.FirstOrDefault();
                     //OnPropertyChanged("SelectedOrder");
                 }
             }
@@ -403,9 +409,6 @@ namespace SampleCRM.Web.Views
                 OnPropertyChanged("SelectedOrder");
                 OnPropertyChanged("OrdersCollection");
                 OnPropertyChanged("FilteredOrdersCollection");
-                grdOrders.UpdateLayout();
-                grdOrders.InvalidateArrange();
-                grdOrders.InvalidateMeasure();
             }
         }
 
@@ -438,7 +441,7 @@ namespace SampleCRM.Web.Views
                 SelectedOrderItem.TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities;
             }
 
-            var result = await OrderItemAddEditWindow.Show(SelectedOrderItem);
+            var result = await OrderItemAddEditWindow.Show(SelectedOrderItem, _orderItemsContext);
             if (result)
             {
                 NavigationService.Refresh();
@@ -455,8 +458,10 @@ namespace SampleCRM.Web.Views
             var result = await OrderItemAddEditWindow.Show(new Models.OrderItems
             {
                 IsEditMode = true,
-                OrderID = SelectedOrder.OrderID
-            });
+                OrderID = SelectedOrder.OrderID,
+                Products = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities,
+                TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
+            }, _orderItemsContext);
 
             if (result)
             {

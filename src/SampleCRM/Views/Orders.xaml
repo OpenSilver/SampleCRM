@@ -116,9 +116,9 @@
                         </StackPanel>
                         <Border x:Name="customerDetails" Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="LightGray">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <DataForm x:Name="formCustomer"                   
+                                <DataForm x:Name="formOrder"                   
                                       ItemsSource="{Binding FilteredOrdersCollection}" 
-                                      CurrentItem="{Binding SelectedOrder, Mode=OneWay}"
+                                      CurrentItem="{Binding SelectedOrder, Mode=TwoWay}"
                                       EditEnded="formOrder_EditEnded"
                                       AutoGenerateFields="False"
                                       AutoEdit="True"

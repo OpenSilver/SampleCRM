@@ -28,6 +28,7 @@ namespace SampleCRM.Web.Views
                     _customersCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredCustomersCollection");
+                    SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
                 }
             }
         }
@@ -93,6 +94,7 @@ namespace SampleCRM.Web.Views
                     _searchText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredCustomersCollection");
+                    SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
                     //OnPropertyChanged("SelectedCustomer");
                     //OnPropertyChanged("AnySelectedCustomer");
                 }
@@ -111,6 +113,7 @@ namespace SampleCRM.Web.Views
                     _ordersCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
+                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
                 }
             }
         }
@@ -158,6 +161,7 @@ namespace SampleCRM.Web.Views
                     _searchOrderText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
+                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
                     //OnPropertyChanged("SelectedOrder");
                 }
             }
@@ -273,9 +277,9 @@ namespace SampleCRM.Web.Views
                 OnPropertyChanged("SelectedCustomer");
                 OnPropertyChanged("CustomersCollection");
                 OnPropertyChanged("FilteredCustomersCollection");
-                grdCustomers.UpdateLayout();
-                grdCustomers.InvalidateArrange();
-                grdCustomers.InvalidateMeasure();
+                //grdCustomers.UpdateLayout();
+                //grdCustomers.InvalidateArrange();
+                //grdCustomers.InvalidateMeasure();
             }
         }
 
@@ -347,7 +351,7 @@ namespace SampleCRM.Web.Views
                 CountryCodes = CountryCodes,
                 CountryCode = CountryCodes.FirstOrDefault().CountryCodeID,
                 BirthDate = DateTime.Now.ToShortDateString()
-            });
+            }, _customersContext);
 
             if (result)
             {

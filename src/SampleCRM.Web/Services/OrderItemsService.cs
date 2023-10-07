@@ -24,7 +24,8 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<OrderItems> GetOrderItemsOfOrder(long orderId)
         {
-            return _context.OrderItems.Where(x => x.OrderID == orderId);
+            var itemsQuery = _context.OrderItems.Where(x => x.OrderID == orderId);
+            return itemsQuery;
         }
 
         [Query]

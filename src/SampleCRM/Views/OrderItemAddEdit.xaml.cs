@@ -7,8 +7,6 @@ namespace SampleCRM.Web.Views
 {
     public partial class OrderItemAddEdit : BaseUserControl
     {
-        private OrderItemsContext _context = new OrderItemsContext();
-
         public event EventHandler ItemDeleted;
         public event EventHandler ItemAdded;
 
@@ -35,9 +33,9 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
-        public void Save()
+        public void Save(OrderItemsContext context)
         {
-            if (_context.OrderItems.CanAdd)
+            if (context.OrderItems.CanAdd)
             {
                 if (!form.CommitEdit())
                 {
@@ -47,10 +45,10 @@ namespace SampleCRM.Web.Views
 
                 if (Item.IsNew)
                 {
-                    _context.OrderItems.Add(Item);
+                    context.OrderItems.Add(Item);
                 }
 
-                _context.SubmitChanges(OnAddSubmitCompleted, null);
+                context.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else
             {
@@ -90,10 +88,11 @@ namespace SampleCRM.Web.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (_context.OrderItems.CanRemove)
+            var context = new OrderItemsContext();
+            if (context.OrderItems.CanRemove)
             {
-                _context.OrderItems.Remove(Item);
-                _context.SubmitChanges(OnDeleteSubmitCompleted, null);
+                context.OrderItems.Remove(Item);
+                context.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
             {
