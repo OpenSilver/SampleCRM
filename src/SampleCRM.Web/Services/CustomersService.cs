@@ -19,7 +19,7 @@ namespace SampleCRM.Web
         [Delete]
         public void DeleteCustomer(Customers customer)
         {
-            var dCustomer = _context.Customers.SingleOrDefault(x=>x.CustomerID == customer.CustomerID);
+            var dCustomer = _context.Customers.FirstOrDefault(x => x.CustomerID == customer.CustomerID);
             if (dCustomer == null)
                 return;
 
@@ -31,6 +31,8 @@ namespace SampleCRM.Web
         public void InsertCustomer(Customers customer)
         {
             customer.CustomerID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
+            if (customer.CustomerID < 0)
+                customer.CustomerID *= -1;
             customer.LastModifiedOn = customer.CreatedOn = DateTime.Now.ToString();
             _context.Customers.Add(customer);
             _context.SaveChanges();

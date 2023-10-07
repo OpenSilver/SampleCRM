@@ -39,7 +39,7 @@ namespace SampleCRM.Web
         [Delete]
         public void DeleteOrderItem(OrderItems orderItem)
         {
-            var dOrderItem = _context.OrderItems.SingleOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
+            var dOrderItem = _context.OrderItems.FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
             if (dOrderItem == null)
                 return;
 

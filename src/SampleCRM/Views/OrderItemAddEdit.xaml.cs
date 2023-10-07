@@ -52,7 +52,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                throw new AccessViolationException("RIA Service Add Entity for Customer Context is denied");
+                throw new AccessViolationException("RIA Service Add Entity for Order Item Context is denied");
             }
         }
 
@@ -96,7 +96,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                throw new AccessViolationException("RIA Service Delete Entity for Customer Context is denied");
+                throw new AccessViolationException("RIA Service Delete Entity for Order Item Context is denied");
             }
         }
 

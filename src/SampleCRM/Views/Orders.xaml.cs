@@ -18,6 +18,8 @@ namespace SampleCRM.Web.Views
         private CustomersContext _customersContext = new CustomersContext();
         private ProductsContext _productsContext = new ProductsContext();
         private TaxTypesContext _taxTypesContext = new TaxTypesContext();
+        private ShippersContext _shippersContext = new ShippersContext();
+        private PaymentTypeContext _paymentTypesContext = new PaymentTypeContext();
 
         private bool _orderItemsTabSelected;
 
@@ -335,7 +337,20 @@ namespace SampleCRM.Web.Views
 
         private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var result = await OrderAddEditWindow.Show(new Models.Orders
+            {
+                IsEditMode = true,
+                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersQuery())).Entities,
+                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
+                CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities,
+                Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
+                PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
+            }, _orderContext);
+
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
 
         private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)

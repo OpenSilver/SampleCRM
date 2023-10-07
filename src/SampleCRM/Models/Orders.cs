@@ -1,15 +1,120 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
     public partial class Orders : Entity
     {
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CustomerID))
+            {
+                if (CustomersCombo != null && CustomersCombo.Any())
+                {
+                    Customer = CustomersCombo.FirstOrDefault(x => x.CustomerID == CustomerID);
+                }
+            }
+            else if (e.PropertyName == nameof(Status))
+            {
+                PaymentTypesVisible = Status > 0;
+                ShippedDateVisible = ShippedViaVisible = Status > 1;
+                DeliveredDateVisible = Status > 2;
+            }
+
+            base.OnPropertyChanged(e);
+        }
+
         public bool IsNew => OrderID <= 0;
 
-        private IEnumerable<Models.CountryCodes> _countryCodes;
-        public IEnumerable<Models.CountryCodes> CountryCodes
+
+        private bool _paymentTypesVisible;
+        public bool PaymentTypesVisible
+        {
+            get { return _paymentTypesVisible; }
+            set
+            {
+                if (_paymentTypesVisible != value)
+                {
+                    _paymentTypesVisible = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypesVisible"));
+                }
+            }
+        }
+
+        private bool _shippedDateVisible;
+        public bool ShippedDateVisible
+        {
+            get { return _shippedDateVisible; }
+            set
+            {
+                if (_shippedDateVisible != value)
+                {
+                    _shippedDateVisible = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedDateVisible"));
+                }
+            }
+        }
+
+        private bool _shippedViaVisible;
+        public bool ShippedViaVisible
+        {
+            get { return _shippedViaVisible; }
+            set
+            {
+                if (_shippedViaVisible != value)
+                {
+                    _shippedViaVisible = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedViaVisible"));
+                }
+            }
+        }
+
+        private bool _deliveredDateVisible;
+        public bool DeliveredDateVisible
+        {
+            get { return _deliveredDateVisible; }
+            set
+            {
+                if (_deliveredDateVisible != value)
+                {
+                    _deliveredDateVisible = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("DeliveredDateVisible"));
+                }
+            }
+        }
+
+        private IEnumerable<Shippers> _shippers;
+        public IEnumerable<Shippers> Shippers
+        {
+            get { return _shippers; }
+            set
+            {
+                if (_shippers != value)
+                {
+                    _shippers = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("Shippers"));
+                }
+            }
+        }
+
+        private IEnumerable<PaymentTypes> _paymentTypes;
+        public IEnumerable<PaymentTypes> PaymentTypes
+        {
+            get { return _paymentTypes; }
+            set
+            {
+                if (_paymentTypes != value)
+                {
+                    _paymentTypes = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypes"));
+                }
+            }
+        }
+
+        private IEnumerable<CountryCodes> _countryCodes;
+        public IEnumerable<CountryCodes> CountryCodes
         {
             get { return _countryCodes; }
             set
@@ -22,8 +127,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Models.OrderStatus> _statuses;
-        public IEnumerable<Models.OrderStatus> Statuses
+        private IEnumerable<OrderStatus> _statuses;
+        public IEnumerable<OrderStatus> Statuses
         {
             get { return _statuses; }
             set
@@ -65,6 +170,20 @@ namespace SampleCRM.Web.Models
             }
         }
 
+        private IEnumerable<Customers> _customersCombo;
+        public IEnumerable<Customers> CustomersCombo
+        {
+            get { return _customersCombo; }
+            set
+            {
+                if (_customersCombo != value)
+                {
+                    _customersCombo = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("CustomersCombo"));
+                }
+            }
+        }
+
         private Customers _customer;
         public Customers Customer
         {
@@ -74,6 +193,14 @@ namespace SampleCRM.Web.Models
                 if (_customer != value)
                 {
                     _customer = value;
+                    if (_customer != null)
+                    {
+                        ShipAddress = _customer.AddressLine1;
+                        ShipCity = _customer.City;
+                        ShipRegion = _customer.Region;
+                        ShipCountryCode = _customer.CountryCode;
+                        ShipPostalCode = _customer.PostalCode;
+                    }
                     OnPropertyChanged(new PropertyChangedEventArgs("Customer"));
                 }
             }
