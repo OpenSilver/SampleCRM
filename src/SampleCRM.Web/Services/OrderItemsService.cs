@@ -50,9 +50,19 @@ namespace SampleCRM.Web
         [Insert]
         public void InsertOrderItem(OrderItems orderItem)
         {
-            orderItem.OrderLine = _context.OrderItems
+            var lastItem = _context.OrderItems
                                           .Where(x => x.OrderID == orderItem.OrderID)
-                                          .Max(x => x.OrderLine) + 1;
+                                          .OrderByDescending(x => x.OrderLine)
+                                          .FirstOrDefault();
+            if (lastItem == null)
+            {
+                orderItem.OrderLine = 1;
+            }
+            else
+            {
+                orderItem.OrderLine = lastItem.OrderLine + 1;
+            }
+
             _context.OrderItems.Add(orderItem);
 
 #if DEBUG

@@ -33,6 +33,7 @@ namespace SampleCRM.Web
             customer.CustomerID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
             if (customer.CustomerID < 0)
                 customer.CustomerID *= -1;
+
             customer.LastModifiedOn = customer.CreatedOn = DateTime.Now.ToString();
             _context.Customers.Add(customer);
             _context.SaveChanges();
