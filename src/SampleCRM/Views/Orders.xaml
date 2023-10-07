@@ -43,7 +43,8 @@
         </StackPanel>
 
         <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch"
-                  ItemsSource="{Binding FilteredOrdersCollection}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                  ItemsSource="{Binding FilteredOrdersCollection}" 
+                  SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                   SelectionChanged="grdOrders_SelectionChanged"
                   IsReadOnly="True"
                   AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
@@ -97,21 +98,6 @@
 
                                 <TextBlock Style="{StaticResource CardHeader}" Text="Phone" />
                                 <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.Customer.Phone, Mode=OneWay}" />
-
-                                <!--<Rectangle Style="{StaticResource CardSeparator}"/>
-                                <TextBlock Style="{StaticResource CardSection}" Text="Shipment"  />
-
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Payment Type" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.PaymentTypeDesc, Mode=OneWay}" />
-
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Shipper" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.ShipViaDesc, Mode=OneWay}" />
-
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Shipped Date" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
-
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Delivered Date" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />-->
                             </StackPanel>
                         </ScrollViewer>
                     </Border>
@@ -132,7 +118,7 @@
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <DataForm x:Name="formCustomer"                   
                                       ItemsSource="{Binding FilteredOrdersCollection}" 
-                                      CurrentItem="{Binding SelectedOrder, Mode=TwoWay}"
+                                      CurrentItem="{Binding SelectedOrder, Mode=OneWay}"
                                       EditEnded="formOrder_EditEnded"
                                       AutoGenerateFields="False"
                                       AutoEdit="True"
@@ -213,7 +199,7 @@
                         <ColumnDefinition Width="300" />
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" Margin="5">
+                    <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNewOrderItem_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
                             <TextBlock Text="Add Order Item" />
@@ -232,7 +218,7 @@
 
                     <DataGrid x:Name="grdOrderItems" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
                           ItemsSource="{Binding FilteredOrderItemsCollection}" 
-                          SelectedItem="{Binding SelectedOrderItem, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedOrderItem, Mode=TwoWay}"
                           SelectionChanged="grdOrderItems_SelectionChanged"
                           HorizontalContentAlignment="Stretch"
                           IsReadOnly="True"
@@ -248,7 +234,7 @@
                                             <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
                                                    Stretch="Fill" Width="64" Height="64" Margin="1" />
                                             <TextBlock Text="{Binding Product.ProductID}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="1" />
-                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center">
+                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
                                                 <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="UniformToFill" />
                                             </Button>
                                         </StackPanel>

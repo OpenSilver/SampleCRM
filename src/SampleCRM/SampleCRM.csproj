@@ -67,6 +67,8 @@
     <None Remove="Views\Login\LoginRegistrationWindow.xaml" />
     <None Remove="Views\Login\LoginStatus.xaml" />
     <None Remove="Views\Login\RegistrationForm.xaml" />
+    <None Remove="Views\OrderItemAddEdit.xaml" />
+    <None Remove="Views\OrderItemAddEditWindow.xaml" />
     <None Remove="Views\Orders.xaml" />
   </ItemGroup>
 
@@ -214,6 +216,12 @@
     <Page Include="Views\Categories.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrderItemAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Orders.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,6 +261,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Orders.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEditWindow.xaml" />
   </ItemGroup>
 
 </Project>

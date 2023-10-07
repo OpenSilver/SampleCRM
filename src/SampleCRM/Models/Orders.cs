@@ -1,48 +1,9 @@
 ﻿using OpenRiaServices.DomainServices.Client;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace SampleCRM.Web.Models
 {
-    public partial class OrderItems : Entity
-    {
-        public bool IsNew => OrderLine <= 0;
-
-        private decimal _taxRate;
-        public decimal TaxRate
-        {
-            get { return _taxRate; }
-            set
-            {
-                if (_taxRate != value)
-                {
-                    _taxRate = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("TaxRate"));
-                    OnPropertyChanged(new PropertyChangedEventArgs("Total"));
-                }
-            }
-        }
-
-        private Products _product;
-        public Products Product
-        {
-            get { return _product; }
-            set
-            {
-                if (_product != value)
-                {
-                    _product = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Product"));
-                }
-            }
-        }
-
-        public decimal Subtotal => Quantity * Convert.ToDecimal(UnitPrice);
-
-        public decimal Total => (Subtotal - Convert.ToDecimal(Discount)) * (1 + TaxRate / 100m);
-    }
-
     public partial class Orders : Entity
     {
         public bool IsNew => OrderID <= 0;

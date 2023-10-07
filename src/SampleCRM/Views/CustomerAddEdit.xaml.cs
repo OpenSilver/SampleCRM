@@ -1,9 +1,7 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using OpenSilver.Controls;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {

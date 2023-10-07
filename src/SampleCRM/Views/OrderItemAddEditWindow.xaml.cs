@@ -4,35 +4,34 @@ using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class CustomerAddEditWindow : ChildWindow
+    public partial class OrderItemAddEditWindow : ChildWindow
     {
         private const double windowSizeMult = .85;
 
-        public static async Task<bool> Show(Models.Customers customer)
+        public static async Task<bool> Show(Models.OrderItems orderItem)
         {
-            var window = new CustomerAddEditWindow(customer);
+            var window = new OrderItemAddEditWindow(orderItem);
             window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
             window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
             return window.DialogResult.GetValueOrDefault(false);
         }
 
-        public CustomerAddEditWindow()
+        public OrderItemAddEditWindow()
         {
             InitializeComponent();
         }
 
-        public CustomerAddEditWindow(Models.Customers customer)
+        public OrderItemAddEditWindow(Models.OrderItems orderItem)
             : this()
         {
-            customerAddEditView.CustomerViewModel = customer;
-            Title = customer.IsNew ? "Add Customer" : "Edit Customer";
+            orderItemAddEditView.Item = orderItem;
+            Title = orderItem.IsNew ? "Add Order Item" : "Edit Order Item";
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            customerAddEditView.Save();
-            //DialogResult = true;
+            orderItemAddEditView.Save();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -40,14 +39,17 @@ namespace SampleCRM.Web.Views
             DialogResult = false;
         }
 
-        private void customerAddEditView_CustomerDeleted(object sender, System.EventArgs e)
+        private void orderItemAddEdit_ItemAdded(object sender, System.EventArgs e)
         {
             DialogResult = true;
+
         }
 
-        private void customerAddEditView_CustomerAdded(object sender, System.EventArgs e)
+        private void orderItemAddEdit_ItemDeleted(object sender, System.EventArgs e)
         {
             DialogResult = true;
+
         }
     }
 }
+

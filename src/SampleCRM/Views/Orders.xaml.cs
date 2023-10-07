@@ -268,6 +268,7 @@ namespace SampleCRM.Web.Views
         }
 
         private async void LoadTaxRate(Models.OrderItems orderItem)
+
         {
             if (orderItem == null)
                 return;
@@ -329,18 +330,6 @@ namespace SampleCRM.Web.Views
         private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
-            //var result = await CustomerAddEditWindow.Show(new Models.Customers
-            //{
-            //    IsEditMode = true,
-            //    CountryCodes = CountryCodes,
-            //    CountryCode = CountryCodes.FirstOrDefault().CountryCodeID,
-            //    BirthDate = DateTime.Now.ToShortDateString()
-            //});
-
-            //if (result)
-            //{
-            //    NavigationService.Refresh();
-            //}
         }
 
         private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -430,6 +419,49 @@ namespace SampleCRM.Web.Views
 #if DEBUG
             Console.WriteLine("grdOrderItems_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
+        }
+
+        private async void btnShowOrderItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedOrderItem == null)
+            {
+                throw (new ArgumentNullException("Selected Order Item can't be null"));
+            }
+
+            if (SelectedOrderItem.Products == null)
+            {
+                SelectedOrderItem.Products = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities;
+            }
+
+            if (SelectedOrderItem.TaxTypes == null)
+            {
+                SelectedOrderItem.TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities;
+            }
+
+            var result = await OrderItemAddEditWindow.Show(SelectedOrderItem);
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
+        }
+
+        private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedOrder == null)
+            {
+                throw (new ArgumentNullException("Selected Order can't be null"));
+            }
+
+            var result = await OrderItemAddEditWindow.Show(new Models.OrderItems
+            {
+                IsEditMode = true,
+                OrderID = SelectedOrder.OrderID
+            });
+
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
     }
 }
