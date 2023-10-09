@@ -64,23 +64,29 @@ namespace SampleCRM.Web.Views
         {
             if (context.Products.CanAdd)
             {
-                //if (!formPersonalInfo.CommitEdit())
-                //{
-                //    ErrorWindow.Show("Invalid Personal Info");
-                //    return;
-                //}
+                if (!formGeneral.CommitEdit())
+                {
+                    ErrorWindow.Show("Invalid General Info");
+                    return;
+                }
 
-                //if (!formAddress.CommitEdit())
-                //{
-                //    ErrorWindow.Show("Invalid Address Info");
-                //    return;
-                //}
+                if (!formPrice.CommitEdit())
+                {
+                    ErrorWindow.Show("Invalid Price Info");
+                    return;
+                }
 
-                //if (!formDemographic.CommitEdit())
-                //{
-                //    ErrorWindow.Show("Invalid Demographic");
-                //    return;
-                //}
+                if (!formStock.CommitEdit())
+                {
+                    ErrorWindow.Show("Invalid Stock Info");
+                    return;
+                }
+
+                if (!formDetails.CommitEdit())
+                {
+                    ErrorWindow.Show("Invalid Details Info");
+                    return;
+                }
 
                 context.Products.Add(ProductViewModel);
                 context.SubmitChanges(OnAddSubmitCompleted, null);
@@ -136,6 +142,21 @@ namespace SampleCRM.Web.Views
         }
 
         private void formGeneral_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formPrice_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formStock_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formDetails_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
         {
 
         }

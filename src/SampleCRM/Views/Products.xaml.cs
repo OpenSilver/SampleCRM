@@ -119,9 +119,19 @@ namespace SampleCRM.Web.Views
 #endif
         }
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
+        private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var result = await ProductsAddEditWindow.Show(new Models.Products
+            {
+                CategoriesCombo = CategoryCollection,
+                CreatedOn = DateTime.Now.ToString(),
+                LastModifiedOn = DateTime.Now.ToString()
+            }, _productsContext);
+
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e) { }
