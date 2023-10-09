@@ -1,0 +1,75 @@
+﻿<local:BasePage x:Class="SampleCRM.Web.Views.Products"
+        xmlns:local="clr-namespace:SampleCRM.Web.Views"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
+        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+        Style="{StaticResource PageStyle}">
+    <local:BasePage.Resources>
+        <local:BinaryImageConverter x:Key="imgConverter" />
+        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+    </local:BasePage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNew_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
+                <TextBlock Text="Add Product" />
+            </StackPanel>
+        </Button>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
+            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay}" />
+            <Button x:Name="btnSearch" Click="btnSearch_Click">
+                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+            <Button x:Name="btnSearchCancel" Click="btnSearchCancel_Click">
+                <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
+            </Button>
+        </StackPanel>
+
+        <ListBox x:Name="lstProducts" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                 ItemsSource="{Binding FilteredProductsCollection}"
+                 SelectedItem="{Binding SelectedProduct, Mode=TwoWay}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Gainsboro" Background="White">
+                        <Grid Width="128" Height="128">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="3*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Image Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+                                       Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Grid.Row="1" Background="WhiteSmoke">
+                                <StackPanel Margin="6" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" FontSize="12" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding CategoryName}" FontSize="12" Foreground="Gray" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</local:BasePage>

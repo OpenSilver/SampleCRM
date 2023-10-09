@@ -72,6 +72,7 @@
     <None Remove="Views\OrderItemAddEdit.xaml" />
     <None Remove="Views\OrderItemAddEditWindow.xaml" />
     <None Remove="Views\Orders.xaml" />
+    <None Remove="Views\Products.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -233,6 +234,9 @@
     <Page Include="Views\Orders.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Products.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -285,6 +289,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\OrderAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Products.xaml" />
   </ItemGroup>
 
 </Project>
