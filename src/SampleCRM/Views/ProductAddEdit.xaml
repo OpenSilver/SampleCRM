@@ -1,0 +1,137 @@
+﻿<local:BaseUserControl
+    x:Class="SampleCRM.Web.Views.ProductAddEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SampleCRM.Web.Views"
+    xmlns:controls="clr-namespace:SampleCRM.Controls"
+    xmlns:viewModels="clr-namespace:SampleCRM.Web.Models">
+    <local:BaseUserControl.Resources>
+        <local:BinaryImageConverter x:Key="imgConverter" />
+        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
+        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
+        <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+    </local:BaseUserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="320" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="12,6">
+                <Grid Margin="0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Margin="1" Width="132" Height="132"
+                            Source="{Binding ProductViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                    <Button x:Name="btnEditPicture" Click="btnEditPicture_Click"
+                Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
+                        <Grid Width="132" Height="132">
+                            <TextBlock Text="Edit" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </Button>
+                    <TextBlock Grid.Column="1" Margin="12,0,0,0" FontSize="18" VerticalAlignment="Center"
+                        Text="{Binding ProductViewModel.Name, Mode=OneWay}" Style="{StaticResource CardText}"/>
+                </Grid>
+
+                <Rectangle Style="{StaticResource CardSeparator}"/>
+                <TextBlock Style="{StaticResource CardSection}" Text="General"  />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Product ID" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.ProductID, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Category Name" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.CategoryName, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Created On" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Last Update" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                <Rectangle Style="{StaticResource CardSeparator}"/>
+                <TextBlock Style="{StaticResource CardSection}" Text="Price"/>
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="List Price" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.ListPrice, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Dealer Price" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.DealerPrice, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Discount" />
+                <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.Discount, Mode=OneWay}" />
+
+                <Rectangle Style="{StaticResource CardSeparator}"/>
+                <TextBlock Style="{StaticResource CardSection}" Text="Stock"/>
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Stock Units" />
+                <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.StockUnits, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource CardHeader}" Text="Safety Stock Level" />
+                <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.SafetyStockLevel, Mode=OneWay}" />
+
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" 
+                        Visibility="{Binding ProductViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                        <TextBlock Text="Delete" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <ScrollViewer x:Name="product" Grid.Row="1" VerticalScrollBarVisibility="Auto" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource FormsSection}" Text="General" />
+                    <DataForm x:Name="formGeneral"                   
+                          CurrentItem="{Binding ProductViewModel, Mode=TwoWay}"
+                          EditEnded="formGeneral_EditEnded"
+                          AutoGenerateFields="False"
+                          AutoEdit="True"
+                          AutoCommit="True"
+                          CommandButtonsVisibility="None">
+                        <DataForm.EditTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Name" LabelPosition="Top">
+                                        <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                                    </DataField>
+                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Category" LabelPosition="Top">
+                                        <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
+                                                          SelectedValuePath="CategoryID"
+                                                          SelectedValue="{Binding CategoryID, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name" />
+                                    </DataField>
+
+                                   
+                                </Grid>
+                            </DataTemplate>
+                        </DataForm.EditTemplate>
+                    </DataForm>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</local:BaseUserControl>

@@ -9,6 +9,7 @@ namespace SampleCRM.Web.Views
     public partial class Products : BasePage
     {
         private ProductsContext _productsContext = new ProductsContext();
+        private CategoryContext _categoryContext = new CategoryContext();
 
         private IEnumerable<Models.Products> _productsCollection;
         public IEnumerable<Models.Products> ProductsCollection
@@ -21,7 +22,7 @@ namespace SampleCRM.Web.Views
                     _productsCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredProductsCollection");
-                    SelectedProduct = FilteredProductsCollection.FirstOrDefault();
+                    //SelectedProduct = FilteredProductsCollection.FirstOrDefault();
 
                 }
             }
@@ -74,6 +75,20 @@ namespace SampleCRM.Web.Views
             }
         }
 
+        private IEnumerable<Models.Categories> _categoryCollection;
+        public IEnumerable<Models.Categories> CategoryCollection
+        {
+            get { return _categoryCollection; }
+            set
+            {
+                if (_categoryCollection != value)
+                {
+                    _categoryCollection = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Products()
         {
             InitializeComponent();
@@ -90,6 +105,10 @@ namespace SampleCRM.Web.Views
             var query = _productsContext.GetProductsQuery();
             var op = await _productsContext.LoadAsync(query);
             ProductsCollection = op.Entities;
+
+            var categoriesQuery = _categoryContext.GetCategoriesQuery();
+            var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
+            CategoryCollection = categoriesOp.Entities;
 #if DEBUG
             Console.WriteLine("Products Collection:" + ProductsCollection.Count());
             foreach (var item in ProductsCollection)
@@ -110,6 +129,21 @@ namespace SampleCRM.Web.Views
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
+        }
+
+        private async void lstProducts_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+#if DEBUG
+            Console.WriteLine("lstProducts_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+#endif
+            if (e.AddedItems.Count > 0)
+            {
+                if (SelectedProduct.CategoriesCombo == null)
+                    SelectedProduct.CategoriesCombo = CategoryCollection;
+
+                var result = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+
+            }
         }
     }
 }

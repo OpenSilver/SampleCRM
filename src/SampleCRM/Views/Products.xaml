@@ -42,7 +42,8 @@
 
         <ListBox x:Name="lstProducts" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
                  ItemsSource="{Binding FilteredProductsCollection}"
-                 SelectedItem="{Binding SelectedProduct, Mode=TwoWay}">
+                 SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                 SelectionChanged="lstProducts_SelectionChanged">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel />
