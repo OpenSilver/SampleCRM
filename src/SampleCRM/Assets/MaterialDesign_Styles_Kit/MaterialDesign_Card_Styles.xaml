@@ -10,7 +10,7 @@
 
     <!--Card-->
     <Style x:Key="MaterialDesign_Card_Style" TargetType="ContentControl">
-        <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+        <Setter Property="Background" Value="{StaticResource Black20Brush}"/>
         <Setter Property="Foreground" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -24,10 +24,7 @@
                 <ControlTemplate TargetType="ContentControl">
                     <Border x:Name="InnerBorder"
                             Background="{TemplateBinding Background}"
-                            CornerRadius="2">
-                        <Border.Effect>
-                            <DropShadowEffect x:Name="DropShadowEffect" Color="Gray" Opacity="0.4" BlurRadius="6" Direction="-30" ShadowDepth="0"/>
-                        </Border.Effect>
+                            CornerRadius="0">
                         <ContentControl x:Name="ContentPresenter"
                                                   Background="{TemplateBinding Background}"
                                                   FontSize="{TemplateBinding FontSize}"

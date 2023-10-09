@@ -1,0 +1,12 @@
+﻿<UserControl
+    x:Class="SampleCRM.Web.Controls.RequiredTextBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SampleCRM.Web.Controls">
+    
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Text}" Style="{StaticResource DataFieldLabelStyle}" />
+            <Border Background="{StaticResource RequiredColorBrush}" Width="4" Height="4" CornerRadius="2" Opacity="0.5" Margin="5,0,0,10" />
+        </StackPanel>
+</UserControl>
+  

@@ -10,7 +10,7 @@
 
     <!--TabControl-->
     <Style x:Key="MaterialDesign_TabControl_Style" TargetType="TabControl">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{StaticResource Black20Brush}"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -51,10 +51,10 @@
     </Style>
     <!--TabItem-->
     <Style x:Key="MaterialDesign_TabItem_Style" TargetType="TabItem">
-        <Setter Property="Background" Value="#FFF9F9F9"/>
-        <Setter Property="Foreground" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
+        <Setter Property="Background" Value="{StaticResource Black20Brush}"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="14,4,14,0"/>
+        <Setter Property="Padding" Value="20,10"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="MinWidth" Value="5"/>
@@ -76,15 +76,13 @@
                                 <VisualState x:Name="Selected"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="TemplateTopSelected" Visibility="Collapsed">
+                        <Border x:Name="TemplateTopSelected" Visibility="Collapsed" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                             <Grid
                                   HorizontalAlignment="Stretch">
-                                <Border Background="{TemplateBinding Foreground}" Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
                                 <Border HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Margin="{TemplateBinding Padding}">
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        >
                                     <ContentControl x:Name="HeaderTopSelected"
-                                                Margin="0,0,0,14"
                                                 Foreground="{TemplateBinding Foreground}"
                                                 FontSize="{TemplateBinding FontSize}"
                                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -92,18 +90,16 @@
                                 </Border>
                             </Grid>
                         </Border>
-                        <Border x:Name="TemplateTopUnselected" Visibility="Collapsed" Background="Transparent">
-                            <Grid Margin="{TemplateBinding Padding}">
-                                <Border Background="Transparent" Height="5" VerticalAlignment="Bottom"/>
+                        <Border x:Name="TemplateTopUnselected" Visibility="Collapsed" Background="{StaticResource Black10Brush}" Padding="{TemplateBinding Padding}">
+                            <Grid>
                                 <ContentControl x:Name="HeaderTopUnselected"
-                                                Opacity="0.3"
-                                                Margin="0,0,0,14"
-                                                Foreground="Black"
+                                                Foreground="{StaticResource White50Brush}"
                                                 FontSize="{TemplateBinding FontSize}"
                                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Grid>
                         </Border>
+                        
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

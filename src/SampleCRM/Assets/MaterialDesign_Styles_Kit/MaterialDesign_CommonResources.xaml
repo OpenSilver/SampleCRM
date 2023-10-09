@@ -9,6 +9,7 @@
 
 
     <SolidColorBrush x:Key="MaterialDesign_DefaultAccentColor" Color="#0CBE68"/>
+    <SolidColorBrush x:Key="Foreground" Color="#FFFFFF"/>
 
     <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#FF484848"/>
     <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFFFF"/>
@@ -17,11 +18,22 @@
     <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#FFEBF7FF"/>
     <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#FF747474"/>
     <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="CardBackground" Color="#222632" />
+    <SolidColorBrush x:Key="Black10Brush" Color="#1A000000" />
+    <SolidColorBrush x:Key="Black20Brush" Color="#33000000" />
+    <SolidColorBrush x:Key="White25Brush" Color="#40FFFFFF" />
+    <SolidColorBrush x:Key="White50Brush" Color="#80FFFFFF" />
+    <SolidColorBrush x:Key="White75Brush" Color="#BFFFFFFF" />
+    <SolidColorBrush x:Key="White15Brush" Color="#26FFFFFF" />
+    <Color x:Key="Black15Color">#26000000</Color>
+    <SolidColorBrush x:Key="Black15Brush" Color="{StaticResource Black15Color}" />
+    <SolidColorBrush x:Key="PrimaryColorBrush" Color="#0085FF" />
+    <SolidColorBrush x:Key="SecondaryColorBrush" Color="#26FFFFFF" />
+    <SolidColorBrush x:Key="RequiredColorBrush" Color="#FF8383" />
+
     <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
     <SolidColorBrush x:Key="GridForeground" Color="White" />
     <SolidColorBrush x:Key="GridSelectionColor" Color="#1C4067" />
-    <SolidColorBrush x:Key="GridHeaderBackgroundColor" Color="#2E323D" />
+    <SolidColorBrush x:Key="AlternateBackground" Color="#2E323D" />
 
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">

@@ -13,8 +13,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="BorderBrush" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="{StaticResource AlternateBackground}"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -35,7 +36,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="LightGray"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="2"
+                                CornerRadius="4"
                                 Padding="12,7">
                             <Grid>
                                 <Grid.ColumnDefinitions>

@@ -10,7 +10,11 @@
     <!-- Primary Color Brushes -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="MaterialDesign_Styles_Kit/MaterialDesign_CommonResources.xaml"/>
+        <ResourceDictionary Source="MaterialDesign_Styles_Kit/MaterialDesign_TextBox_Styles.xaml"/>
+        <ResourceDictionary Source="MaterialDesign_Styles_Kit/MaterialDesign_Button_Styles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+    <SolidColorBrush x:Key="CustomerCardBackground" Color="#252936" />
 
     <!-- Icons -->
     <StaticResource x:Name="PlusIconCode" x:Key="PlusIconCode22" />
@@ -92,7 +96,7 @@
 
     <!-- Link Style -->
     <Style x:Key="LinkStyle" TargetType="HyperlinkButton">
-        <Setter Property="Background" Value="#323643"/>
+        <Setter Property="Background" Value="{StaticResource Black10Brush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource NavigationForegroundColorBrush}"/>
         <Setter Property="FontSize" Value="12"/>
@@ -105,7 +109,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="HyperlinkButton">
-                    <Grid x:Name="ButtonGrid" Cursor="{TemplateBinding Cursor}">
+                    <Grid x:Name="ButtonGrid" Cursor="{TemplateBinding Cursor}" Margin="0,0,20,0">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal"/>
@@ -231,12 +235,10 @@
                         <Border x:Name="ActiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" Opacity="0"/>
                         <Border x:Name="ContentBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Opacity="1">
                             <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Opacity="1">
-                                <ContentPresenter.Effect>
-                                    <DropShadowEffect ShadowDepth="0" Color="#FF484848" Opacity="0.65" BlurRadius="0"/>
-                                </ContentPresenter.Effect>
+
                             </ContentPresenter>
                         </Border>
-                        <Border x:Name="InteractiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="{StaticResource HoverHyperLinkBackgroundColorBrush}" BorderThickness="1,1,1,1" Opacity="0" BorderBrush="{StaticResource HoverHyperLinkBackgroundColorBrush}" CornerRadius="1,1,1,1"/>
+                        <Border x:Name="InteractiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="Red" Opacity="0" CornerRadius="1,1,1,1"/>
                         <Border x:Name="InteractiveElementBorder" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed">
                             <TextBlock x:Name="InteractiveElement" Foreground="Red" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Text="{TemplateBinding Content}"/>
                         </Border>
@@ -305,8 +307,6 @@
     <Style x:Key="LoginContainerStyle" TargetType="Border">
         <Setter Property="Margin" Value="0,0,20,0"/>
         <Setter Property="Height" Value="21"/>
-        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-        <Setter Property="BorderBrush" Value="#FFFFFFFF"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
@@ -1448,9 +1448,15 @@
         <Setter Property="FontSize" Value="15" />
     </Style>
 
-    <Style x:Key="CardHeader" TargetType="TextBlock">
-        <Setter Property="Margin" Value="0,4,0,0" />
-        <Setter Property="FontSize" Value="13" />
+    <Style x:Key="CardHeader2" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource White25Brush}" />
+        <Setter Property="Margin" Value="0,15,0,5" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+    <Style x:Key="CardHeader1" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Margin" Value="0,10,0,30" />
+        <Setter Property="FontSize" Value="18" />
     </Style>
 
     <Style x:Key="CardSection" TargetType="TextBlock">
@@ -1460,10 +1466,10 @@
     </Style>
 
     <Style x:Key="CardText" TargetType="TextBlock">
-        <Setter Property="Margin" Value="0,2,0,4" />
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="16" />
     </Style>
 
     <Style x:Key="CardSeparator" TargetType="Rectangle">
@@ -1475,6 +1481,27 @@
     <Style x:Key="FormsSection" TargetType="TextBlock">
         <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style x:Key="DataFieldLabelStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource White25Brush}" />
+        <Setter Property="Margin" Value="0, 0, 0, 10" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style x:Key="DataFieldTextStyle" BasedOn="{StaticResource MaterialDesign_TextBox_Style}" TargetType="TextBox">
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="Height" Value="42" />
+    </Style>
+
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
+        <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
+        <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}" />
+        <Setter Property="Padding" Value="10" />
     </Style>
 
 </ResourceDictionary>
