@@ -68,8 +68,13 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
-                    Width="32" Height="32" Margin="5,0,5,0" Stretch="Fill" />
+                                        <Border HorizontalAlignment="Left" Width="32" Height="32" Margin="5,0,5,0" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2"
+CacheMode="BitmapCache" CornerRadius="16">
+                                            <!-- left-top and bottom-right round corners. -->
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"  Stretch="Fill"></ImageBrush>
+                                            </Border.Background>
+                                        </Border>
                                         <TextBlock Text="{Binding FullName}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -97,8 +102,27 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                     <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}">
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="20">
                             <StackPanel>
-                                <Image Width="64" Height="64" HorizontalAlignment="Left"
-    Source="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Border HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="64" Height="64" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="4"
+                               CacheMode="BitmapCache" CornerRadius="32">
+                                        <!-- left-top and bottom-right round corners. -->
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"  Stretch="Fill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <!--<Image Width="64" Height="64" HorizontalAlignment="Left"
+        Source="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />-->
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
+                                                <TextBlock Text="Delete" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+
                                 <TextBlock Style="{StaticResource CardHeader1}" Text="{Binding SelectedCustomer.FullName, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
@@ -124,14 +148,6 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <!--<StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                                    <TextBlock Text="Delete" />
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>-->
                         <Border x:Name="customerDetails" Grid.Row="1" Padding="25,8"> <!-- here is extra 12px inside data form template vertical, 15px horizontal -->
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <DataForm x:Name="formCustomer" 
@@ -322,7 +338,7 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <TextBlock Text="{Binding OrderID}" VerticalContentAlignment="Center" />
-                                            <Button x:Name="btnShowOrder" Margin="1">
+                                            <Button x:Name="btnShowOrder" Margin="5,0,0,0">
                                                 <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="Fill" />
                                             </Button>
                                         </StackPanel>
