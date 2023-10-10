@@ -13,7 +13,7 @@ namespace SampleCRM.Web.Models
         {
             get { return _categoriesCombo; }
             set
-            {
+            { 
                 if (_categoriesCombo != value)
                 {
                     _categoriesCombo = value;
