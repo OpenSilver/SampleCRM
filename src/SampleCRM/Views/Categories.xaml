@@ -17,7 +17,7 @@
             <RowDefinition Height="*" MinHeight="350" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Padding="20" Margin="0,0,0,15" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
             <Grid VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -65,7 +65,7 @@
                 </DataGrid>
             </Grid>
         </ContentControl>
-        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Padding="20" Margin="0,0,0,15"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="1">
             <Grid VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

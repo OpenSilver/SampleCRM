@@ -15,72 +15,104 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*" MinHeight="300" />
+            <RowDefinition Height="*" MinHeight="400" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="5">
-            <TextBlock Text="Latest Customers" />
-            <DataGrid x:Name="grdCustomers" HorizontalContentAlignment="Stretch"
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Latest Customers" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                <DataGrid x:Name="grdCustomers" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Customers}" 
                   IsReadOnly="True"
-                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" />
-                    <DataGridTemplateColumn Header="Image" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
-                                Width="32" Height="32" Margin="5" Stretch="Fill" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding FullName}" />
-                    <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" />
-                </DataGrid.Columns>
-            </DataGrid>
+                  Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTemplateColumn Header="Image" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>                                   
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FullName}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" CellStyle="{StaticResource DataGridCell}" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        </StackPanel>
+            </Grid>
+        </ContentControl>
 
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Margin="5">
-            <TextBlock Text="Latest Orders" />
-            <DataGrid x:Name="grdOrders"  HorizontalContentAlignment="Stretch"
-                  ItemsSource="{Binding Orders}" 
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" />
-                    <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" />
-                    <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Column="0" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Latest Orders" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                <DataGrid x:Name="grdOrders" 
+                      Grid.Row="1"
+                      HorizontalContentAlignment="Stretch"
+                      ItemsSource="{Binding Orders}" 
+                      IsReadOnly="True"
+                      Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                      AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ContentControl>
 
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Margin="5">
-            <TextBlock Text="Top Sale Products" />
-            <DataGrid x:Name="grdProducts" HorizontalContentAlignment="Stretch"
-                  ItemsSource="{Binding Products}" 
-                  IsReadOnly="True"
-                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ProductId" Binding="{Binding ProductID}" />
-                    <DataGridTemplateColumn Header="Image" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
-                                Width="32" Height="32" Margin="5" Stretch="Fill" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding ListPrice}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Column="2" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Top Sale Products" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                <DataGrid x:Name="grdProducts" 
+                      Grid.Row="1"
+                      HorizontalContentAlignment="Stretch"
+                      ItemsSource="{Binding Products}" 
+                      IsReadOnly="True"
+                      Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                      AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ProductId" Binding="{Binding ProductID}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTemplateColumn Header="Image" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding ListPrice}" CellStyle="{StaticResource DataGridCell}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ContentControl>
 
     </Grid>
 </local:BasePage>

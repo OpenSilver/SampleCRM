@@ -23,17 +23,13 @@ namespace SampleCRM.Web.Views
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Convert start");
             if (value != null)
             {
-                sb.AppendLine("Value not null");
                 var toArrayMethod = value.GetType().GetMethod("ToArray",
                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
                 if (toArrayMethod != null)
                 {
-                    sb.AppendLine("toArrayMethod not null");
                     value = toArrayMethod.Invoke(value, new object[] { });
                 }
 
@@ -41,17 +37,12 @@ namespace SampleCRM.Web.Views
 
                 if (bytes != null)
                 {
-                    sb.AppendLine("bytes not null");
                     BitmapImage bitmapImage = new BitmapImage();
                     bitmapImage.SetSource(new MemoryStream(bytes));
-                    sb.AppendLine("New bitmap image set");
-                    Console.WriteLine(sb.ToString());
                     return bitmapImage;
                 }
             }
 
-            sb.AppendLine("Convert end");
-            Console.WriteLine(sb.ToString());
             return value;
         }
 
