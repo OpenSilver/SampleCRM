@@ -68,13 +68,7 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border HorizontalAlignment="Left" Width="32" Height="32" Margin="5,0,5,0" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2"
-CacheMode="BitmapCache" CornerRadius="16">
-                                            <!-- left-top and bottom-right round corners. -->
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"  Stretch="Fill"></ImageBrush>
-                                            </Border.Background>
-                                        </Border>
+                                        <controls:CircleImage BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}"                      BorderThickness="2" Margin="5,0,5,0" Width="32" Height="32" HorizontalAlignment="Left"                   CornerRadius="16" ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
                                         <TextBlock Text="{Binding FullName}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </DataTemplate>

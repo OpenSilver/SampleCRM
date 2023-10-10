@@ -54,6 +54,7 @@
     <None Remove="Assets\Tag.png" />
     <None Remove="Assets\Unlocked.png" />
     <None Remove="Controls\BusyIndicator.xaml" />
+    <None Remove="Controls\CircleImage.xaml" />
     <None Remove="Controls\RequiredTextBlock.xaml" />
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
@@ -255,6 +256,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\CircleImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RequiredTextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -417,6 +421,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\ProductsAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\CircleImage.xaml" />
   </ItemGroup>
 
 </Project>

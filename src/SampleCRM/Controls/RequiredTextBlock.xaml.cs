@@ -20,18 +20,12 @@ namespace SampleCRM.Web.Controls
             DataContext = this;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating the ContentVisibility
-        /// </summary>
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the ContentVisibility dependency property.
-        /// </summary>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text",
             typeof(string),
