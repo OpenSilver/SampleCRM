@@ -62,7 +62,7 @@ namespace SampleCRM.Web.Views
 
         public void Save(ProductsContext context)
         {
-            if (context.Products.CanAdd)
+            if (ProductViewModel.IsNew && context.Products.CanAdd || context.Products.CanEdit)
             {
                 if (!formGeneral.CommitEdit())
                 {
@@ -88,12 +88,16 @@ namespace SampleCRM.Web.Views
                     return;
                 }
 
-                context.Products.Add(ProductViewModel);
+                if (ProductViewModel.IsNew)
+                {
+                    context.Products.Add(ProductViewModel);
+                }
+
                 context.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else
             {
-                throw new AccessViolationException("RIA Service Add Entity for Customer Context is denied");
+                throw new AccessViolationException("RIA Service Add / Edit Entity for Product Context is denied");
             }
         }
 

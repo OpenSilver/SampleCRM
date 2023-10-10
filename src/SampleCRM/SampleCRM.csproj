@@ -63,6 +63,7 @@
     <None Remove="Views\CustomerAddEdit.xaml" />
     <None Remove="Views\CustomerAddEditWindow.xaml" />
     <None Remove="Views\Customers.xaml" />
+    <None Remove="Views\Dashboard.xaml" />
     <None Remove="Views\ErrorWindow.xaml" />
     <None Remove="Views\Home.xaml" />
     <None Remove="Views\Login\LoginForm.xaml" />
@@ -275,6 +276,9 @@
     <Page Include="Views\Categories.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrderAddEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -421,6 +425,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\ProductsAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Dashboard.xaml" />
   </ItemGroup>
 
   <ItemGroup>

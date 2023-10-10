@@ -4,6 +4,7 @@ using SampleCRM.Web.Models;
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace SampleCRM.Web
 {
@@ -14,6 +15,20 @@ namespace SampleCRM.Web
         public IQueryable<Products> GetProducts()
         {
             return _context.Products;
+        }
+
+        [Query]
+        public IQueryable<Products> GetTopSaleProducts(int limit)
+        {
+
+            var topProducts = _context.Products
+                                      .Join(_context.OrderItems, p => p.ProductID, oi => oi.ProductID, (p, oi) => new { Product = p, OrderItem = oi })
+                                      .Join(_context.Orders, oi => oi.OrderItem.OrderID, o => o.OrderID, (oi, o) => new { oi.Product, o.OrderID })
+                                      .GroupBy(po => po.Product)
+                                      .OrderByDescending(group => group.Count())
+                                      .Take(5)
+                                      .Select(group => group.Key);
+            return topProducts;
         }
 
         public Products GetProductById(string productId)

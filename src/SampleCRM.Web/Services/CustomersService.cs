@@ -16,6 +16,12 @@ namespace SampleCRM.Web
             return _context.Customers;
         }
 
+        [Query]
+        public IQueryable<Customers> GetLatestCustomers(int limit)
+        {
+            return _context.Customers.OrderByDescending(x => x.CreatedOn).Take(limit);
+        }
+
         [Delete]
         public void DeleteCustomer(Customers customer)
         {

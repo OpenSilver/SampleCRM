@@ -35,7 +35,7 @@ namespace SampleCRM.Web.Views
 
         public void Save(OrderContext context)
         {
-            if (context.Orders.CanAdd)
+            if (context.Orders.CanAdd && Order.IsNew || context.Orders.CanEdit)
             {
                 if (!formCustomerInfo.CommitEdit())
                 {
@@ -58,7 +58,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                throw new AccessViolationException("RIA Service Add Order for Order Context is denied");
+                throw new AccessViolationException("RIA Service Add / Edit Order for Order Context is denied");
             }
         }
 
