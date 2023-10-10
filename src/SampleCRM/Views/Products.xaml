@@ -12,65 +12,74 @@
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="300" />
-        </Grid.ColumnDefinitions>
+    <ContentControl Style="{StaticResource MaterialDesign_Card_Style}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="405" />
+            </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNew_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
-                <TextBlock Text="Add Product" />
-            </StackPanel>
-        </Button>
-
-        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay}" />
-            <Button x:Name="btnSearch" Click="btnSearch_Click">
-                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
+            <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Click="btnNew_Click" Style="{StaticResource MaterialDesign_ColoredButton_Style}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="+" FontSize="24" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
+                    <TextBlock Text="Add Product" VerticalAlignment="Center" />
+                </StackPanel>
             </Button>
-            <Button x:Name="btnSearchCancel" Click="btnSearchCancel_Click">
-                <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
-            </Button>
-        </StackPanel>
 
-        <ListBox x:Name="lstProducts" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
-                 ItemsSource="{Binding FilteredProductsCollection}"
-                 SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                 SelectionChanged="lstProducts_SelectionChanged">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="1" BorderBrush="Gainsboro" Background="White">
-                        <Grid Width="128" Height="128">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="3*"/>
-                            </Grid.RowDefinitions>
-                            <Grid>
-                                <Image Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
-                                       Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtSearch" HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
+                <TextBlock Grid.Column="1"
+Text="" Tapped="btnSearch_Click"
+FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" />
+                <TextBlock Grid.Column="2" Tapped="btnSearchCancel_Click"
+Text="" 
+FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+            </Grid>
+
+            <ListBox x:Name="lstProducts" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Padding="0" Margin="0,15,0,0" Background="Transparent" BorderThickness="0"
+                     ItemsSource="{Binding FilteredProductsCollection}"
+                     SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                     SelectionChanged="lstProducts_SelectionChanged">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Gainsboro" Background="White">
+                            <Grid Width="128" Height="128">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition Height="3*"/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    
+                                    <Image Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+                                           Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="1" Background="WhiteSmoke">
+                                    <StackPanel Margin="6" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontSize="12" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding CategoryName}" FontSize="12" Foreground="Gray" />
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1" Background="WhiteSmoke">
-                                <StackPanel Margin="6" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}" FontSize="12" FontWeight="SemiBold" />
-                                    <TextBlock Text="{Binding CategoryName}" FontSize="12" Foreground="Gray" />
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </ContentControl>
 </local:BasePage>

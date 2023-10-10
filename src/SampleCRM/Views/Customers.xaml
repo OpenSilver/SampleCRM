@@ -15,12 +15,12 @@
 
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>            
-            <RowDefinition Height="2*" MinHeight="300" />
-            <RowDefinition Height="3*" MinHeight="450" />
+            <RowDefinition Height="3*" MinHeight="200" />
+            <RowDefinition Height="5*" MinHeight="400" />
         </Grid.RowDefinitions>
 
 
-        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Padding="20" Margin="0,0,0,15"  Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" />
