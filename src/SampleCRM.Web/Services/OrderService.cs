@@ -17,6 +17,12 @@ namespace SampleCRM.Web
         }
 
         [Query]
+        public IQueryable<Orders> GetLatestOrders(int limit)
+        {
+            return _context.Orders.OrderByDescending(x => x.OrderDate).Take(limit);
+        }
+
+        [Query]
         public IQueryable<Orders> GetOrdersOfCustomer(long customerId)
         {
             return _context.Orders.Where(x => x.CustomerID == customerId);
