@@ -40,8 +40,11 @@
                         <DataGridTemplateColumn Header="Image" Width="104" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
-                                   Width="64" Height="64" Stretch="Fill" />
+                                    <Border Width="64" Height="64" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="32">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
