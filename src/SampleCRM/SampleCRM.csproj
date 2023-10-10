@@ -54,6 +54,8 @@
     <None Remove="Assets\Tag.png" />
     <None Remove="Assets\Unlocked.png" />
     <None Remove="Controls\BusyIndicator.xaml" />
+    <None Remove="Controls\CircleImage.xaml" />
+    <None Remove="Controls\RequiredTextBlock.xaml" />
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
     <None Remove="Views\About.xaml" />
@@ -127,9 +129,55 @@
     <Content Include="Assets\Locked.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Microsoft.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Card_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CheckBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ChildWindow_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ComboBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CommonResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ContextMenu_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataGrid_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DatePicker_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Expander_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_PasswordBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Popup_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_RadioButton_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TabControl_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TextBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Microsoft.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="Assets\Ok.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -209,6 +257,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\CircleImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RequiredTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CustomerAddEdit.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,6 +338,64 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Card_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CheckBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ChildWindow_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ComboBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CommonResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ContextMenu_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataGrid_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DatePicker_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Expander_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_PasswordBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Popup_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_RadioButton_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TabControl_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TextBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\RequiredTextBlock.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <UpToDateCheckInput Remove="Views\Orders.xaml" />
   </ItemGroup>
 
@@ -317,6 +429,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Dashboard.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\CircleImage.xaml" />
   </ItemGroup>
 
 </Project>

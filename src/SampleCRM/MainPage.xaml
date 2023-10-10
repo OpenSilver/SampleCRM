@@ -10,7 +10,12 @@
              xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=OpenSilver.Controls.Navigation"
              mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
-        <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="1" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
                               Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
@@ -21,37 +26,40 @@
                 </navigation:Frame.UriMapper>
             </navigation:Frame>
         </Border>
-        <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
-            <Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
-                <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
+        <Grid Grid.Row="0" x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+                <StackPanel Grid.Column="0" x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
 
                     <ContentControl Style="{StaticResource LogoIcon}" />
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}"
-                               Text="Sample CRM (OpenSilver/OpenRIA Bussiness Template Demo)" />
+                               Text="Sample CRM" />
                 </StackPanel>
-            </Border>
-            <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
+            <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
                     <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Home.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock Text="Home" />
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock Text="Home" FontWeight="Bold" />
                         </StackPanel>
                     </HyperlinkButton>
-                    <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}" />
                     <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Gauge.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock Text="Dashboard" />
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock Text="Dashboard" FontWeight="Bold" />
                         </StackPanel>
                     </HyperlinkButton>
                     <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Categories" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/SiteMap.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock>
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock FontWeight="Bold">
                                 <Run Text="Categories (" />
                                 <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
                                 <Run Text=")" />
@@ -61,8 +69,8 @@
                     <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/People.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock>
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock FontWeight="Bold">
                                 <Run Text="Customers (" />
                                 <Run Text="{Binding CustomersCount, Mode=OneWay}" />
                                 <Run Text=")" />
@@ -72,8 +80,8 @@
                     <HyperlinkButton x:Name="lnkOrders" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Orders" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/List.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock>
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock FontWeight="Bold">
                                 <Run Text="Orders (" />
                                 <Run Text="{Binding OrdersCount, Mode=OneWay}" />
                                 <Run Text=")" />
@@ -83,26 +91,30 @@
                     <HyperlinkButton x:Name="lnkProducts" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Products" TargetName="ContentFrame">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Tag.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
                             <TextBlock Text="" />
-                            <Run Text="Products (" />
-                            <Run Text="{Binding ProductsCount, Mode=OneWay}" />
-                            <Run Text=")" />
-                        </StackPanel>
-                    </HyperlinkButton>
-                    <Rectangle x:Name="Divider2" Style="{StaticResource DividerStyle}" />
-                    <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Settings" TargetName="ContentFrame">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Setting.png" Width="16" Height="16" Margin="5,0,5,0" Stretch="Fill" />
-                            <TextBlock Text="Settings" />
+                            <Run Text="Products (" FontWeight="Bold" />
+                            <Run Text="{Binding ProductsCount, Mode=OneWay}" FontWeight="Bold" />
+                            <Run Text=")" FontWeight="Bold" />
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
             </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource LoginContainerStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <login:LoginStatus />
+                    
+                    <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Settings" TargetName="ContentFrame">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                            <TextBlock Text="Settings" FontWeight="Bold" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                </StackPanel>
+                
+            </Border>
         </Grid>
-        <Border Style="{StaticResource LoginContainerStyle}">
-            <login:LoginStatus />
-        </Border>
     </Grid>
 </views:BaseUserControl>

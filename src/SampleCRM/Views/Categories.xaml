@@ -10,54 +10,69 @@
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
     </local:BasePage.Resources>
-    
+
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="350" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Padding="20" Margin="0,0,0,15" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Categories" Style="{StaticResource HeaderTextStyle}" />
 
-        <TextBlock Grid.Row="0" Text="Categories" Style="{StaticResource HeaderTextStyle}" />
-
-        <DataGrid x:Name="gridCategories"  
-                  Grid.Row="1"
+                <DataGrid x:Name="gridCategories" Grid.Row="1"
                   ItemsSource="{Binding CategoryCollection}" 
                   SelectedItem="{Binding SelectedCategory}"
                   AutoGenerateColumns="False"
                   CanUserReorderColumns="True" 
                   CanUserSortColumns="True" 
                   CanUserResizeColumns="True"
-                  RowEditEnded="gridCategories_RowEditEnded">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding CategoryID}" IsReadOnly="True" Width="50" />
-                <DataGridTemplateColumn Header="Image" Width="64" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Path=Picture, Converter={StaticResource imgConverter}}" 
-                                   Width="64" Height="64" Stretch="Fill" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" />
-                <DataGridTemplateColumn Header="Description" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding Description}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox TextWrapping="Wrap" Text="{Binding Description}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <DataForm x:Name="formCategories" 
-                  Grid.Row="2"
+                  RowEditEnded="gridCategories_RowEditEnded" 
+                  Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                  VerticalAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding CategoryID}" IsReadOnly="True" Width="80" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTemplateColumn Header="Image" Width="104" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Width="64" Height="64" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="32">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTemplateColumn Header="Description" Width="*" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Description}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox TextWrapping="Wrap" Text="{Binding Description}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ContentControl>
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Padding="20" Margin="0,0,0,15"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <DataForm x:Name="formCategories" 
+                  Grid.Row="0"
                   EditEnded="formCategories_EditEnded"
                   AutoGenerateFields="False"
                   AutoEdit="False"
@@ -66,29 +81,33 @@
                   CommitButtonContent="Save"
                   CancelButtonContent="Cancel"
                   Header="Category Details"
+                  Style="{StaticResource DefaultDataFormStyle}"
                   ItemsSource="{Binding CategoryCollection}">
-            <DataForm.EditTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <DataField Label="Id">
-                            <TextBlock Text="{Binding CategoryID}" />
-                        </DataField>
-                        <DataField Label="Name">
-                            <TextBox Text="{Binding Name}" />
-                        </DataField>
-                        <DataField Label="Name">
-                            <TextBox TextWrapping="Wrap" Text="{Binding Description}" />
-                        </DataField>
-                    </StackPanel>
-                </DataTemplate>
-            </DataForm.EditTemplate>
-        </DataForm>
+                    <DataForm.EditTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <DataField Label="Id">
+                                    <TextBlock Text="{Binding CategoryID}" />
+                                </DataField>
+                                <DataField Label="Name">
+                                    <TextBox Text="{Binding Name}" Style="{StaticResource DataFieldTextStyle}" />
+                                </DataField>
+                                <DataField Label="Description">
+                                    <TextBox TextWrapping="Wrap" Text="{Binding Description}" Style="{StaticResource DataFieldTextStyle}" Height="60" />
+                                </DataField>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataForm.EditTemplate>
+                </DataForm>
 
-        <StackPanel Grid.Row="3" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Button Content="Save Changes" Click="SaveButton_Click" Margin="5" x:Name="SaveButton"></Button>
-            <Button Content="Reject Changes" Click="RejectButton_Click" Margin="5" x:Name="RejectButton"></Button>
-            <TextBlock x:Name="ChangeText" VerticalAlignment="Center" Width="Auto"></TextBlock>
-        </StackPanel>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1">
+                    <Button Content="Save Changes" Click="SaveButton_Click" Margin="5" x:Name="SaveButton" Style="{StaticResource PrimaryButtonStyle}"></Button>
+                    <Button Content="Reject Changes" Click="RejectButton_Click" Margin="5" x:Name="RejectButton" Style="{StaticResource SecondaryButtonStyle}"></Button>
+                    <TextBlock x:Name="ChangeText" VerticalAlignment="Center" Width="Auto"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </ContentControl>
 
     </Grid>
+
 </local:BasePage>

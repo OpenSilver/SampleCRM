@@ -39,25 +39,25 @@
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource CardSection}" Text="General"  />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Customer ID" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CustomerID, Mode=OneWay}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Created On" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Last Update" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource CardSection}" Text="Contact"/>
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Email" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.EmailAddress, Mode=OneWay}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Phone" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.Phone, Mode=OneWay}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Address" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Address" />
                 <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding CustomerViewModel.FullAddress, Mode=OneWay}" />
 
             </StackPanel>
