@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls.DataVisualization;
 using OpenRiaServices.DomainServices.Client;
 
 namespace SampleCRM.Web.Views
