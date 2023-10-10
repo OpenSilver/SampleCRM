@@ -68,6 +68,14 @@
     <None Remove="Views\Login\LoginRegistrationWindow.xaml" />
     <None Remove="Views\Login\LoginStatus.xaml" />
     <None Remove="Views\Login\RegistrationForm.xaml" />
+    <None Remove="Views\OrderAddEdit.xaml" />
+    <None Remove="Views\OrderAddEditWindow.xaml" />
+    <None Remove="Views\OrderItemAddEdit.xaml" />
+    <None Remove="Views\OrderItemAddEditWindow.xaml" />
+    <None Remove="Views\Orders.xaml" />
+    <None Remove="Views\ProductAddEdit.xaml" />
+    <None Remove="Views\Products.xaml" />
+    <None Remove="Views\ProductsAddEditWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -263,6 +271,30 @@
     <Page Include="Views\Categories.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrderAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Orders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Products.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductsAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -353,6 +385,38 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\RequiredTextBlock.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Orders.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Products.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ProductAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ProductsAddEditWindow.xaml" />
   </ItemGroup>
 
 </Project>

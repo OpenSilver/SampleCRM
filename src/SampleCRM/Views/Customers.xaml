@@ -9,7 +9,6 @@
                  Style="{StaticResource PageStyle}" Foreground="{StaticResource Foreground}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
-        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
@@ -308,7 +307,7 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
 
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"
                           ItemsSource="{Binding FilteredOrdersCollection}" 
-                          SelectedItem="{Binding SelectedOrder, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                           SelectionChanged="grdOrders_SelectionChanged"
                           HorizontalContentAlignment="Stretch"
                           IsReadOnly="True"

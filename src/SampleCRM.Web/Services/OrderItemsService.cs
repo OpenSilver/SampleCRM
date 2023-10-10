@@ -1,7 +1,10 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
 using SampleCRM.Web.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 
 namespace SampleCRM.Web
@@ -10,7 +13,7 @@ namespace SampleCRM.Web
     public class OrderItemsService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderItems> GetOrders()
+        public IQueryable<OrderItems> GetOrderItems()
         {
             return _context.OrderItems;
         }
@@ -23,7 +26,8 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<OrderItems> GetOrderItemsOfOrder(long orderId)
         {
-            return _context.OrderItems.Where(x => x.OrderID == orderId);
+            var itemsQuery = _context.OrderItems.Where(x => x.OrderID == orderId);
+            return itemsQuery;
         }
 
         [Query]
@@ -35,19 +39,48 @@ namespace SampleCRM.Web
         [Delete]
         public void DeleteOrderItem(OrderItems orderItem)
         {
-            _context.OrderItems.Remove(orderItem);
+            var dOrderItem = _context.OrderItems.FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
+            if (dOrderItem == null)
+                return;
+
+            _context.OrderItems.Remove(dOrderItem);
+            _context.SaveChanges();
         }
 
         [Insert]
         public void InsertOrderItem(OrderItems orderItem)
         {
-            _context.OrderItems.AddOrUpdate(orderItem);
+            var lastItem = _context.OrderItems
+                                          .Where(x => x.OrderID == orderItem.OrderID)
+                                          .OrderByDescending(x => x.OrderLine)
+                                          .FirstOrDefault();
+            if (lastItem == null)
+            {
+                orderItem.OrderLine = 1;
+            }
+            else
+            {
+                orderItem.OrderLine = lastItem.OrderLine + 1;
+            }
+
+            _context.OrderItems.Add(orderItem);
+
+#if DEBUG
+            var validationResult = _context.Entry(orderItem).GetValidationResult();
+            if (validationResult.ValidationErrors.Any())
+            {
+                Console.WriteLine($"Validation Error in InsertOrderItem: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
+            }
+#endif
+
+            _context.SaveChanges();
         }
 
         [Update]
         public void UpdateOrderItem(OrderItems orderItem)
         {
             _context.OrderItems.AddOrUpdate(orderItem);
+            _context.SaveChanges();
         }
     }
 }

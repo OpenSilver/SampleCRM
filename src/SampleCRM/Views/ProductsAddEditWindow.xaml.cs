@@ -4,51 +4,52 @@ using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class CustomerAddEditWindow : ChildWindow
+    public partial class ProductsAddEditWindow : ChildWindow
     {
         private const double windowSizeMult = .85;
 
-        private CustomersContext _customerContext;
+        private ProductsContext _context;
 
-        public static async Task<bool> Show(Models.Customers customer, CustomersContext customersContext)
+        public static async Task<bool> Show(Models.Products product, ProductsContext context)
         {
-            var window = new CustomerAddEditWindow(customer, customersContext);
+            var window = new ProductsAddEditWindow(product, context);
             window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
             window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
             return window.DialogResult.GetValueOrDefault(false);
         }
 
-        public CustomerAddEditWindow()
+        public ProductsAddEditWindow()
         {
             InitializeComponent();
         }
 
-        public CustomerAddEditWindow(Models.Customers customer, CustomersContext customersContext)
+        public ProductsAddEditWindow(Models.Products product, ProductsContext context)
             : this()
         {
-            _customerContext = customersContext;
-            customerAddEditView.CustomerViewModel = customer;
-            Title = customer.IsNew ? "Add Customer" : "Edit Customer";
+            _context = context;
+            productAddEditView.ProductViewModel = product;
+            Title = product.IsNew ? "Add Product" : "Edit Product";
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            customerAddEditView.Save(_customerContext);
+            productAddEditView.Save(_context);
             //DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            _context.RejectChanges();
             DialogResult = false;
         }
 
-        private void customerAddEditView_CustomerDeleted(object sender, System.EventArgs e)
+        private void productAddEditView_ProductDeleted(object sender, System.EventArgs e)
         {
             DialogResult = true;
         }
 
-        private void customerAddEditView_CustomerAdded(object sender, System.EventArgs e)
+        private void productAddEditView_ProductAdded(object sender, System.EventArgs e)
         {
             DialogResult = true;
         }

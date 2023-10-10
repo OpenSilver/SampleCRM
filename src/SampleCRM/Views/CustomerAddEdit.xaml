@@ -204,7 +204,7 @@
                                     </Grid.RowDefinitions>
 
                                     <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Birth Date" LabelPosition="Top">
-                                        <TextBox Text="{Binding BirthDate, Mode=TwoWay}" />
+                                        <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" />
                                     </DataField>
                                     <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Education" LabelPosition="Top">
                                         <TextBox Text="{Binding Education, Mode=TwoWay}" />

@@ -7,11 +7,18 @@
 ## Database Diagram
 ![Install Toolbox](images/SampleCRMEntityDesignerDiagram1.jpg)
 
+## Troubleshoot
+![Install .NET Latest](images/Net7DownloadLatest.png)
+
+If this error is happening please install the latest version of the ASP.NET Core Hosting Bundle, available from Microsoft at: https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer
+
 ## Run & Test
 To test it, you need to run simultaneously the **.Web** project and the **.Browser** project
 ![MultipleStartupProjects](images/devenv_Zq2v7KKtn2.png)
 
 ## How To Setup Sqlite Providers for Visual Studio 2022
+
+This section is **optional** for only generate EDMX files via ADO.NET. This section is **NOT** neccesary to run this example.
 
 ### EF6 workflow with SQLite DDEX provider
 The System.Data.SQLite DDEX provider does not support Visual Studio 2017 and 2019. This post describes how to work with SQLite and Entity Framework 6 in Visual Studio 2017/2019/2022, using the "SQLite Toolbox" DDEX provider for EF6. Notice that this provider only supports the EF 6 Tools, and not other Data Source scenarios, for example Typed DataSets. This requires Visual Studio 2017 15.8 or later.

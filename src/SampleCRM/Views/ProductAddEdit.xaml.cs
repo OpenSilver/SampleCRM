@@ -5,29 +5,29 @@ using System.Windows;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class CustomerAddEdit : BaseUserControl
+    public partial class ProductAddEdit : BaseUserControl
     {
-        public event EventHandler CustomerDeleted;
-        public event EventHandler CustomerAdded;
+        public event EventHandler ProductDeleted;
+        public event EventHandler ProductAdded;
 
-        private Models.Customers _customerViewModel = new Models.Customers();
-        public Models.Customers CustomerViewModel
+        private Models.Products _prodcutViewModel = new Models.Products();
+        public Models.Products ProductViewModel
         {
-            get { return _customerViewModel; }
+            get { return _prodcutViewModel; }
             set
             {
-                if (_customerViewModel != value)
+                if (_prodcutViewModel != value)
                 {
-                    _customerViewModel = value;
+                    _prodcutViewModel = value;
                     OnPropertyChanged();
 #if DEBUG
-                    Console.WriteLine($"CustomerAddEdit, Customer: {value.FirstName} selected");
+                    Console.WriteLine($"ProductAddEdit, ProductViewModel: {value.ProductID} {value.Name} selected");
 #endif
                 }
             }
         }
 
-        public CustomerAddEdit()
+        public ProductAddEdit()
         {
             InitializeComponent();
             DataContext = this;
@@ -55,49 +55,41 @@ namespace SampleCRM.Web.Views
             {
                 byte[] buffer = new byte[fileStream.Length];
                 await fileStream.ReadAsync(buffer, 0, buffer.Length);
-                CustomerViewModel.Picture = buffer;
+                ProductViewModel.Picture = buffer;
             }
         }
 
-        private void formPersonalInfo_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+
+        public void Save(ProductsContext context)
         {
-
-        }
-
-        private void formAddress_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
-        }
-
-        private void formDemographic_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
-        }
-
-        public void Save(CustomersContext customersContext)
-        {
-            if (customersContext.Customers.CanAdd)
+            if (context.Products.CanAdd)
             {
-                if (!formPersonalInfo.CommitEdit())
+                if (!formGeneral.CommitEdit())
                 {
-                    ErrorWindow.Show("Invalid Personal Info");
+                    ErrorWindow.Show("Invalid General Info");
                     return;
                 }
 
-                if (!formAddress.CommitEdit())
+                if (!formPrice.CommitEdit())
                 {
-                    ErrorWindow.Show("Invalid Address Info");
+                    ErrorWindow.Show("Invalid Price Info");
                     return;
                 }
 
-                if (!formDemographic.CommitEdit())
+                if (!formStock.CommitEdit())
                 {
-                    ErrorWindow.Show("Invalid Demographic");
+                    ErrorWindow.Show("Invalid Stock Info");
                     return;
                 }
 
-                customersContext.Customers.Add(CustomerViewModel);
-                customersContext.SubmitChanges(OnAddSubmitCompleted, null);
+                if (!formDetails.CommitEdit())
+                {
+                    ErrorWindow.Show("Invalid Details Info");
+                    return;
+                }
+
+                context.Products.Add(ProductViewModel);
+                context.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else
             {
@@ -107,11 +99,11 @@ namespace SampleCRM.Web.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var customersContext = new CustomersContext();
-            if (customersContext.Customers.CanRemove)
+            var productContext = new ProductsContext();
+            if (productContext.Products.CanRemove)
             {
-                customersContext.Customers.Remove(CustomerViewModel);
-                customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+                productContext.Products.Remove(ProductViewModel);
+                productContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
             {
@@ -129,8 +121,8 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (CustomerDeleted != null)
-                    CustomerDeleted(this, new EventArgs());
+                if (ProductDeleted != null)
+                    ProductDeleted(this, new EventArgs());
             }
         }
 
@@ -144,9 +136,29 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (CustomerAdded != null)
-                    CustomerAdded(this, new EventArgs());
+                if (ProductAdded != null)
+                    ProductAdded(this, new EventArgs());
             }
+        }
+
+        private void formGeneral_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formPrice_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formStock_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
+        }
+
+        private void formDetails_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
+        {
+
         }
     }
 }
