@@ -4,9 +4,10 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation" xmlns:controls="clr-namespace:SampleCRM.Web.Controls"
-                mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
-                 Style="{StaticResource PageStyle}" Foreground="{StaticResource Foreground}">
+                 xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation" 
+                 xmlns:controls="clr-namespace:SampleCRM.Web.Controls"
+                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+                 Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
@@ -50,17 +51,14 @@
                     <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtSearch" HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <TextBlock Grid.Column="1"
 Text="" Tapped="btnSearch_Click"
-FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" />
+FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                         <TextBlock Grid.Column="2" Tapped="btnSearchCancel_Click"
 Text="" 
-FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
 
                 <DataGrid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" x:Name="grdCustomers"  Margin="5" HorizontalContentAlignment="Stretch"
-      ItemsSource="{Binding FilteredCustomersCollection}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" AlternatingRowBackground="Transparent" RowBackground="Transparent"
-      SelectionChanged="grdCustomers_SelectionChanged"
-      IsReadOnly="True"
-                          
+      ItemsSource="{Binding FilteredCustomersCollection}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" AlternatingRowBackground="Transparent" RowBackground="Transparent" SelectionChanged="grdCustomers_SelectionChanged" IsReadOnly="True"                          
       AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Style="{StaticResource MaterialDesign_DataGrid_Style}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}" />
@@ -104,13 +102,10 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                                 <Grid HorizontalAlignment="Stretch">
                                     <Border HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="64" Height="64" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="4"
                                CacheMode="BitmapCache" CornerRadius="32">
-                                        <!-- left-top and bottom-right round corners. -->
                                         <Border.Background>
                                             <ImageBrush ImageSource="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"  Stretch="Fill"></ImageBrush>
                                         </Border.Background>
                                     </Border>
-                                    <!--<Image Width="64" Height="64" HorizontalAlignment="Left"
-        Source="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />-->
 
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                                         <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
@@ -150,7 +145,7 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                         <Border x:Name="customerDetails" Grid.Row="1" Padding="25,8"> <!-- here is extra 12px inside data form template vertical, 15px horizontal -->
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <DataForm x:Name="formCustomer" 
-                                      BorderThickness="0"
+                                      Style="{StaticResource DefaultDataForm}"
                                       ItemsSource="{Binding FilteredCustomersCollection}" 
                                       CurrentItem="{Binding SelectedCustomer, Mode=TwoWay}"
                                       EditEnded="formCustomer_EditEnded" 
@@ -159,18 +154,18 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                                       AutoGenerateFields="False"
                                       AutoEdit="True"
                                       AutoCommit="False"
-                                      Padding="0"
+                                      
                                       CommandButtonsVisibility="Commit, Cancel"
-                                      Background="Transparent">
+                                      >
                                     <DataForm.CommitButtonContent>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" />
+                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" Cursor="Hand" />
                                             <TextBlock Text="Save" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </DataForm.CommitButtonContent>
                                     <DataForm.CancelButtonContent>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.25" Foreground="White" />
+                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.25" Foreground="White" Cursor="Hand" />
                                             <TextBlock Text="Cancel" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </DataForm.CancelButtonContent>
@@ -314,10 +309,10 @@ FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity
                         <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtOrderSearch" HorizontalAlignment="Stretch" Text="{Binding SearchOrderText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <TextBlock Grid.Column="1"
 Text="" Tapped="btnSearch_Click"
-FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" />
+FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                         <TextBlock Grid.Column="2" Tapped="btnSearchCancel_Click"
 Text="" 
-FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                     </Grid>
 
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"
