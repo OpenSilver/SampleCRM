@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
-namespace SampleCRM.Web.Controls
+namespace SampleCRM.Controls
 {
     public partial class CircleImage : UserControl
     {

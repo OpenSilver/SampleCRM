@@ -17,10 +17,10 @@
             <StackPanel Margin="12,0,12,12">
                 <TextBlock Style="{StaticResource CardSection}" Text="Order Item"  />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Order ID" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.OrderID, Mode=OneWay}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Order Line" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Order Line" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.OrderLine, Mode=OneWay}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
@@ -37,10 +37,10 @@
                        TextAlignment="Center" />
                 </StackPanel>
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="Product ID" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="Product ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.ProductID, Mode=OneWay}" />
 
-                <TextBlock Style="{StaticResource CardHeader}" Text="List Price" />
+                <TextBlock Style="{StaticResource CardHeader2}" Text="List Price" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.Product.ListPrice, Mode=OneWay}" />
 
             </StackPanel>

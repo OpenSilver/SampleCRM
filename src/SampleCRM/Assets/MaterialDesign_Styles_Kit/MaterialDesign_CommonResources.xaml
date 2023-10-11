@@ -10,6 +10,7 @@
 
     <SolidColorBrush x:Key="MaterialDesign_DefaultAccentColor" Color="#0CBE68"/>
     <SolidColorBrush x:Key="Foreground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Background" Color="#2B303F" />
 
     <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#FF484848"/>
     <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFFFF"/>
@@ -20,6 +21,7 @@
     <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="Black10Brush" Color="#1A000000" />
     <SolidColorBrush x:Key="Black20Brush" Color="#33000000" />
+    <SolidColorBrush x:Key="Black30Brush" Color="#4D000000" />
     <SolidColorBrush x:Key="White25Brush" Color="#40FFFFFF" />
     <SolidColorBrush x:Key="White50Brush" Color="#80FFFFFF" />
     <SolidColorBrush x:Key="White75Brush" Color="#BFFFFFFF" />
@@ -29,6 +31,7 @@
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#0085FF" />
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="RequiredColorBrush" Color="#FF8383" />
+    <SolidColorBrush x:Key="ChildWindowHeaderBackground" Color="#3B404D" />
 
     <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
     <SolidColorBrush x:Key="GridForeground" Color="White" />
@@ -37,7 +40,7 @@
 
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">
-        <Setter Property="Background" Value="#2B303F"/>
+        <Setter Property="Background" Value="{StaticResource Background}"/>
     </Style>
 
 </ResourceDictionary>
