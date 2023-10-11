@@ -35,7 +35,6 @@ namespace SampleCRM.Web.Views
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
                     SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
-
                 }
             }
         }
@@ -83,7 +82,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private Models.Orders _selectedOrder;
+        private Models.Orders _selectedOrder = new Models.Orders();
         public Models.Orders SelectedOrder
         {
             get { return _selectedOrder; }
@@ -252,7 +251,10 @@ namespace SampleCRM.Web.Views
             if (SelectedOrder == null)
                 return;
 
-            if (SelectedOrder.Customer == null)
+            if (SelectedOrder.CustomersCombo != null && SelectedOrder.CustomersCombo.Any())
+                return;
+
+            if (SelectedOrder.Customer == null || SelectedOrder.Customer.CustomerID != SelectedOrder.CustomerID)
             {
                 var query = _customersContext.GetCustomersQuery().Where(x => x.CustomerID == SelectedOrder.CustomerID);
                 var op = await _customersContext.LoadAsync(query);
