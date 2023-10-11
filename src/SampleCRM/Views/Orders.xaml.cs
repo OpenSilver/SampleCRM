@@ -1,6 +1,7 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -287,7 +288,7 @@ namespace SampleCRM.Web.Views
             {
                 var query = _taxTypesContext.GetTaxTypesQuery().Where(x => x.TaxTypeID == orderItem.TaxType);
                 var op = await _taxTypesContext.LoadAsync(query);
-                var taxRate = Convert.ToDecimal(op.Entities.FirstOrDefault()?.Rate);
+                var taxRate = Convert.ToDecimal(op.Entities.FirstOrDefault()?.Rate, CultureInfo.InvariantCulture);
                 orderItem.TaxRate = taxRate;
             }
         }

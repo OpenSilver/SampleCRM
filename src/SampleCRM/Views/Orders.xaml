@@ -4,6 +4,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:controls="clr-namespace:SampleCRM.Web.Controls"
                  xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
                  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                  Style="{StaticResource PageStyle}">
@@ -14,90 +15,114 @@
     </local:BasePage.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="3*" MinHeight="300" />
+            <RowDefinition Height="5*" MinHeight="400" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="300" />
-        </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNew_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
-                <TextBlock Text="Add Order" />
-            </StackPanel>
-        </Button>
+        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="405" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Click="btnNew_Click" Style="{StaticResource MaterialDesign_ColoredButton_Style}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="+" FontSize="24" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
+                        <TextBlock Text="Add Order" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
 
-        <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
-            <TextBox x:Name="txtSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchText, Mode=TwoWay}" />
-            <Button x:Name="btnSearch" Click="btnSearch_Click">
-                <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
-            </Button>
-            <Button x:Name="btnSearchCancel" Click="btnSearchCancel_Click">
-                <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
-            </Button>
-        </StackPanel>
+                <Grid Grid.Column="2" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="24" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="txtSearch" PlaceholderText="Search" Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" Grid.Column="0" Grid.ColumnSpan="4" />
 
-        <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5" HorizontalContentAlignment="Stretch"
+                    <TextBlock Grid.Column="1"
+Text="" Tapped="btnSearch_Click"
+FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
+                    <TextBlock Grid.Column="2" Tapped="btnSearchCancel_Click"
+Text="" 
+FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
+                </Grid>
+
+                <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="5" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding FilteredOrdersCollection}" 
                   SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                   SelectionChanged="grdOrders_SelectionChanged"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" />
-                <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding StatusDesc}" />
-                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" />
-                <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" />
-                <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" />
-                <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" />
-                <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" />
-            </DataGrid.Columns>
-        </DataGrid>
+                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Style="{StaticResource MaterialDesign_DataGrid_Style}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusDesc}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" CellStyle="{StaticResource DataGridCell}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ContentControl>
 
-        <TabControl x:Name="tcDetails" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" 
+        <TabControl x:Name="tcDetails" Grid.Row="1" 
                             Visibility="{Binding AnySelectedOrder, Converter={StaticResource boolToVisibilityConverter}}"
-                            SelectionChanged="tcDetails_SelectionChanged" >
-            <TabItem x:Name="tbOrder" Header="Order">
+                            SelectionChanged="tcDetails_SelectionChanged" Style="{StaticResource MaterialDesign_TabControl_Style}">
+            <TabItem x:Name="tbOrder" Header="Order" Style="{StaticResource MaterialDesign_TabItem_Style}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="260"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border x:Name="orderCard" Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                    <Border x:Name="orderCard" Grid.Column="0" DataContext="{Binding SelectedOrder}" Background="{StaticResource CustomerCardBackground}">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <StackPanel Margin="12">
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Order ID" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.OrderID, Mode=OneWay}" />
+                            <StackPanel Margin="20">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
+                                        <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderID, Mode=OneWay}" />
+                                    </StackPanel>
 
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Status" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.StatusDesc, Mode=OneWay}" />
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
+                                                <TextBlock Text="Delete" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                                
 
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Order Date" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardHeader2}" Text="Status" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding StatusDesc, Mode=OneWay}" />
+
+                                <TextBlock Style="{StaticResource CardHeader2}" Text="Order Date" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                                 <Rectangle Style="{StaticResource CardSeparator}"/>
                                 <TextBlock Style="{StaticResource CardSection}" Text="Customer"  />
 
-                                <StackPanel Orientation="Horizontal" Margin="0,6,0,9">
-                                    <Image Source="{Binding SelectedOrder.Customer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
-                                         Width="64" Height="64" Stretch="Fill" />
-                                    <TextBlock Style="{StaticResource CardText}" VerticalAlignment="Center" Margin="9,0" Text="{Binding SelectedOrder.Customer.FullName, Mode=OneWay}" />
-                                </StackPanel>
 
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Customer ID" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.CustomerID, Mode=OneWay}" />
 
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Email" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.Customer.EmailAddress, Mode=OneWay }" />
+                                <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
-                                <TextBlock Style="{StaticResource CardHeader}" Text="Phone" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedOrder.Customer.Phone, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding Customer.EmailAddress, Mode=OneWay }" />
+
+                                <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding Customer.Phone, Mode=OneWay}" />
                             </StackPanel>
                         </ScrollViewer>
                     </Border>
@@ -106,15 +131,8 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                                    <TextBlock Text="Delete" />
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                        <Border x:Name="customerDetails" Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="LightGray">
+
+                        <Border x:Name="orderDetails" Grid.Row="1" Padding="25,8"> <!-- here is extra 12px inside data form template vertical, 15px horizontal -->
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <DataForm x:Name="formOrder"                   
                                       ItemsSource="{Binding FilteredOrdersCollection}" 
@@ -123,17 +141,20 @@
                                       AutoGenerateFields="False"
                                       AutoEdit="True"
                                       AutoCommit="False"
-                                      CommandButtonsVisibility="Commit, Cancel">
+                                      CommitButtonStyle="{StaticResource PrimaryButtonStyle}"
+                                      CancelButtonStyle="{StaticResource SecondaryButtonStyle}"
+                                      CommandButtonsVisibility="Commit, Cancel"
+                                      Style="{StaticResource DefaultDataForm}">
                                     <DataForm.CommitButtonContent>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Assets/Save.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                                            <TextBlock Text="Save" />
+                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" />
+                                            <TextBlock Text="Save" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </DataForm.CommitButtonContent>
                                     <DataForm.CancelButtonContent>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Assets/Cancel.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                                            <TextBlock Text="Cancel" />
+                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.25" Foreground="White" />
+                                            <TextBlock Text="Cancel" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </DataForm.CancelButtonContent>
                                     <DataForm.EditTemplate>
@@ -146,37 +167,59 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="50" />
-                                                    <RowDefinition Height="50" />
-                                                    <RowDefinition Height="50" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
 
-                                                <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Ship Address" LabelPosition="Top">
-                                                    <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" />
+                                                <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <controls:RequiredTextBlock Text="Ship Address" />
+                                                        <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                                    </StackPanel>
                                                 </DataField>
-                                                <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Ship City" LabelPosition="Top">
-                                                    <TextBox Text="{Binding ShipCity, Mode=TwoWay}" />
-                                                </DataField>
-
-                                                <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Ship Postal Code" LabelPosition="Top">
-                                                    <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" />
-                                                </DataField>
-                                                <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="Ship Region" LabelPosition="Top">
-                                                    <TextBox Text="{Binding ShipRegion, Mode=TwoWay}" />
-                                                </DataField>
-                                                <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Label="Ship Country" LabelPosition="Top">
-                                                    <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                                          SelectedValuePath="CountryCodeID"
-                                                          SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name" />
+                                                <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <controls:RequiredTextBlock Text="Ship City" />
+                                                        <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                                    </StackPanel>
                                                 </DataField>
 
-                                                <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Status" LabelPosition="Top">
-                                                    <ComboBox ItemsSource="{Binding Statuses}"                                                          
+                                                <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <controls:RequiredTextBlock Text="Ship Postal Code" />
+                                                        <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                                    </StackPanel>
+                                                </DataField>
+                                                <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock Text="Ship Region" Style="{StaticResource DataFieldLabelStyle}" />
+                                                        <TextBox Text="{Binding ShipRegion, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                                    </StackPanel>
+                                                </DataField>
+                                                <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed" Label="Country">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                                              SelectedValuePath="CountryCodeID"
+                                                              SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
+                                                              DisplayMemberPath="Name"
+                                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                              Margin="0,0,0,10"/>
+                                                    </StackPanel>
+                                                </DataField>
+
+                                                <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed" Label="Status">
+                                                    
+                                                    <StackPanel Orientation="Vertical">
+                                                        <controls:RequiredTextBlock Text="Country" />
+                                                        <ComboBox ItemsSource="{Binding Statuses}"                                                          
                                                           SelectedValuePath="Status"
                                                           SelectedValue="{Binding Status, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name" />
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10" />
+                                                    </StackPanel>
                                                 </DataField>
                                             </Grid>
                                         </DataTemplate>
@@ -187,36 +230,39 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tbOrderItems" Header="Items">
-                <Grid>
+            <TabItem x:Name="tbOrderItems" Header="Items" Style="{StaticResource MaterialDesign_TabItem_Style}">
+                <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="405" />
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" Margin="5" Click="btnNewOrderItem_Click">
+                    <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" Style="{StaticResource MaterialDesign_ColoredButton_Style}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Plus.png" Margin="5,0,5,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Add Order Item" />
+                            <TextBlock Text="+" FontSize="24" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
+                            <TextBlock Text="Add Order Item" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
 
-                    <StackPanel Grid.Column="2" Grid.Row="0" Margin="5" Orientation="Horizontal">
-                        <TextBox x:Name="txtOrderItemSearch" PlaceholderText="Search" Width="250" Text="{Binding SearchOrderItemText, Mode=TwoWay}" />
-                        <Button x:Name="btnOrderSearch" Click="btnSearch_Click">
-                            <Image Source="/Assets/Search.png" Width="16" Height="16" Stretch="Fill" />
-                        </Button>
-                        <Button x:Name="btnOrderSearchCancel" Click="btnOrderItemSearchCancel_Click">
-                            <Image Source="/Assets/Cancel.png" Width="16" Height="16" Stretch="Fill" />
-                        </Button>
-                    </StackPanel>
+                    <Grid Grid.Column="2" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtOrderItemSearch" HorizontalAlignment="Stretch" Text="{Binding SearchOrderItemText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
+                        <TextBlock Grid.Column="1" Text="" Tapped="btnSearch_Click" FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
+                        <TextBlock Grid.Column="2" Tapped="btnOrderItemSearchCancel_Click" Text="" FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
+                    </Grid>
 
-                    <DataGrid x:Name="grdOrderItems" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Margin="5"
+                    <DataGrid x:Name="grdOrderItems" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"
                           ItemsSource="{Binding FilteredOrderItemsCollection}" 
                           SelectedItem="{Binding SelectedOrderItem, Mode=TwoWay}"
                           SelectionChanged="grdOrderItems_SelectionChanged"
@@ -225,34 +271,31 @@
                           AutoGenerateColumns="False"
                           CanUserReorderColumns="True" 
                           CanUserSortColumns="True" 
-                          CanUserResizeColumns="True">
+                          CanUserResizeColumns="True"
+                          Style="{StaticResource MaterialDesign_DataGrid_Style}">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Id">
+                            <DataGridTextColumn Header="Id" Binding="{Binding Product.ProductID}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTemplateColumn CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
-                                                   Stretch="Fill" Width="64" Height="64" Margin="1" />
-                                            <TextBlock Text="{Binding Product.ProductID}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="1" />
-                                        </StackPanel>
+                                        <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+       Stretch="Fill" Width="64" Height="64" Margin="1" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Product.Name}" />
-                            <DataGridTextColumn Header="Line" Binding="{Binding OrderLine}" />
-                            <DataGridTextColumn Header="Price" Binding="{Binding UnitPrice}" />
-                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
-                            <DataGridTextColumn Header="Discount" Binding="{Binding Discount}" />
-                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" />
-                            <DataGridTextColumn Header="Total" Binding="{Binding Total}" />
-                            <DataGridTemplateColumn Header="Actions">
+                            <DataGridTextColumn Header="Name" Binding="{Binding Product.Name}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Line" Binding="{Binding OrderLine}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Price" Binding="{Binding UnitPrice}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Discount" Binding="{Binding Discount}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Total" Binding="{Binding Total}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTemplateColumn CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
-                                                <Image Source="/Assets/Edit.png" Margin="1" Width="16" Height="16" Stretch="UniformToFill" />
-                                            </Button>
-                                        </StackPanel>
+                                        <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
+                                                <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="UniformToFill" />
+                                        </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
