@@ -1484,7 +1484,7 @@
 
     <Style x:Key="CardSeparator" TargetType="Rectangle">
         <Setter Property="Margin" Value="0,12,0,0" />
-        <Setter Property="Fill" Value="LightGray" />
+        <Setter Property="Fill" Value="{StaticResource ChildWindowHeaderBackground}" />
         <Setter Property="Height" Value="1" />
     </Style>
 

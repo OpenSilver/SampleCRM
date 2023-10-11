@@ -58,4 +58,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="MaterialDesign_Numeric_Style" TargetType="NumericUpDown">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
+        <Setter Property="Background" Value="{StaticResource AlternateBackground}"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Height" Value="42" />
+    </Style>
 </ResourceDictionary>

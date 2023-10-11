@@ -19,37 +19,41 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#FFE2E2E2" />
+        <Setter Property="BorderBrush" Value="{StaticResource ChildWindowHeaderBackground}" />
         <Setter Property="OverlayBrush" Value="#7F000000" />
         <Setter Property="OverlayOpacity" Value="1" />
         <Setter Property="Width" Value="Auto" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{StaticResource Background}" />
         <Setter Property="Foreground" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ChildWindow">
                     <Grid x:Name="Root">
                         <Grid x:Name="Overlay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Background="{TemplateBinding OverlayBrush}" Opacity="{TemplateBinding OverlayOpacity}" />
-                        <Border x:Name="ContentRoot" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" RenderTransformOrigin="0.5,0.5" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                        <Border x:Name="ContentRoot" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" RenderTransformOrigin="0.5,0.5" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="8">
                             <Border x:Name="ContentContainer" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <ContentControl x:Name="Chrome" Style="{StaticResource MaterialDesign_CardHeader_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                    <ContentControl x:Name="Chrome" Style="{StaticResource MaterialDesign_CardHeader_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="{StaticResource ChildWindowHeaderBackground}" BorderBrush="Transparent" Padding="5">
                                         <Grid Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
                                                 <ColumnDefinition Width="30" />
                                             </Grid.ColumnDefinitions>
-                                            <ContentControl  Content="{TemplateBinding Title}" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="6,0,6,0" Foreground="Black" />
+                                            <ContentControl  Content="{TemplateBinding Title}" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="6,0,6,0" Foreground="{StaticResource Foreground}" />
                                             <Button x:Name="CloseButton" Style="{StaticResource MaterialDesign_Button_Style_NoDropShadow}" Content="&#215;" Foreground="{TemplateBinding Foreground}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" FontSize="26" Effect="{x:Null}" Background="Transparent" />
                                         </Grid>
                                     </ContentControl>
+                                    <!--<Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource Black20Brush}" />-->
                                     <Border Background="{TemplateBinding Background}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        <Border Background="{StaticResource Black20Brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </Border>
                                     </Border>
+                                    <!--<Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource Black20Brush}" />-->
                                 </Grid>
                             </Border>
                         </Border>

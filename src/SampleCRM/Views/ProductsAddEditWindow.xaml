@@ -3,7 +3,8 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            Width="400" Height="300" 
            Title="ProductsAddEditWindow"
-           xmlns:local="clr-namespace:SampleCRM.Web.Views">
+           xmlns:local="clr-namespace:SampleCRM.Web.Views"
+           Style="{StaticResource MaterialDesign_ChildWindow_Style}">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -12,7 +13,19 @@
         <local:ProductAddEdit x:Name="productAddEditView" Grid.Row="0" 
                                ProductAdded="productAddEditView_ProductAdded"
                                ProductDeleted="productAddEditView_ProductDeleted" />
-        <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
-        <Button x:Name="OKButton" Content="Save" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,30,15">
+            <Button x:Name="CancelButton" Click="CancelButton_Click"  Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,10,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.25" Foreground="White" Cursor="Hand" />
+                    <TextBlock Text="Cancel" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="OKButton" Click="OKButton_Click" Style="{StaticResource PrimaryButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" Cursor="Hand" />
+                    <TextBlock Text="Save" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </ChildWindow>
