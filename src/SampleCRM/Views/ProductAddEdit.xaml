@@ -16,6 +16,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="320" />
+            <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
@@ -39,7 +40,7 @@
                 </Grid>
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
-                <TextBlock Style="{StaticResource CardSection}" Text="General"  />
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General"  />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Product ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.ProductID, Mode=OneWay}" />
@@ -54,7 +55,7 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
-                <TextBlock Style="{StaticResource CardSection}" Text="Price"/>
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price"/>
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="List Price" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding ProductViewModel.ListPrice, Mode=OneWay}" />
@@ -66,7 +67,7 @@
                 <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.Discount, Mode=OneWay}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
-                <TextBlock Style="{StaticResource CardSection}" Text="Stock"/>
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Stock"/>
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Stock Units" />
                 <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.StockUnits, Mode=OneWay}" />
@@ -77,7 +78,7 @@
             </StackPanel>
         </ScrollViewer>
         
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -95,15 +96,16 @@
             
             <ScrollViewer x:Name="product" Grid.Row="1" VerticalScrollBarVisibility="Auto" BorderThickness="0,0,1,0" BorderBrush="LightGray">
                 <StackPanel>
-                    
-                    <TextBlock Style="{StaticResource FormsSection}" Text="General" />
+
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General" />
                     <DataForm x:Name="formGeneral"                   
                           CurrentItem="{Binding ProductViewModel, Mode=TwoWay}"
                           EditEnded="formGeneral_EditEnded"
                           AutoGenerateFields="False"
                           AutoEdit="True"
                           AutoCommit="True"
-                          CommandButtonsVisibility="None">
+                          CommandButtonsVisibility="None"
+                          Style="{StaticResource DefaultDataForm}">
                         <DataForm.EditTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -114,31 +116,41 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Name" LabelPosition="Top">
-                                        <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Name" />
+                                            <TextBox Text="{Binding Name, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
-                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Category" LabelPosition="Top">
-                                        <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
+                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Product" />
+                                            <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
                                                           SelectedValuePath="CategoryID"
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name" />
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10"/>
+                                        </StackPanel>
                                     </DataField>
                                 </Grid>
                             </DataTemplate>
                         </DataForm.EditTemplate>
                     </DataForm>
 
-                    <TextBlock Style="{StaticResource FormsSection}" Text="Price" />
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price" />
                     <DataForm x:Name="formPrice"                   
                           CurrentItem="{Binding ProductViewModel, Mode=TwoWay}"
                           EditEnded="formPrice_EditEnded"
                           AutoGenerateFields="False"
                           AutoEdit="True"
                           AutoCommit="True"
-                          CommandButtonsVisibility="None">
+                          CommandButtonsVisibility="None"
+                          Style="{StaticResource DefaultDataForm}">
                         <DataForm.EditTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -149,31 +161,41 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
                                     <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Label="List Price" LabelPosition="Top">
-                                        <NumericUpDown Value="{Binding ListPrice, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2"  />
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="List Price" />
+                                            <NumericUpDown Value="{Binding ListPrice, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                                        </StackPanel>
                                     </DataField>
                                     <DataField Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Label="Dealer Price" LabelPosition="Top">
-                                        <NumericUpDown Value="{Binding DealerPrice, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2"  />
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Dealer Price" />
+                                            <NumericUpDown Value="{Binding DealerPrice, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                                        </StackPanel>
                                     </DataField>
                                     <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Label="Discount" LabelPosition="Top">
-                                        <NumericUpDown Value="{Binding Discount, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2"  />
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Discount" />
+                                            <NumericUpDown Value="{Binding Discount, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                                        </StackPanel>
                                     </DataField>
                                 </Grid>
                             </DataTemplate>
                         </DataForm.EditTemplate>
                     </DataForm>
-                    
-                    <TextBlock Style="{StaticResource FormsSection}" Text="Stock" />
+
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Stock" />
                     <DataForm x:Name="formStock"                   
                           CurrentItem="{Binding ProductViewModel, Mode=TwoWay}"
                           EditEnded="formStock_EditEnded"
                           AutoGenerateFields="False"
                           AutoEdit="True"
                           AutoCommit="True"
-                          CommandButtonsVisibility="None">
+                          CommandButtonsVisibility="None"
+                          Style="{StaticResource DefaultDataForm}">
                         <DataForm.EditTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -184,28 +206,35 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
                                     <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Stock Units" LabelPosition="Top">
-                                        <NumericUpDown Value="{Binding StockUnits, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0"  />
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Stock Units" />
+                                            <NumericUpDown Value="{Binding StockUnits, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                                        </StackPanel>
                                     </DataField>
                                     <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Label="Safety Stock Level" LabelPosition="Top">
-                                        <NumericUpDown Value="{Binding SafetyStockLevel, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0"  />
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Safety Stock Level" />
+                                            <NumericUpDown Value="{Binding SafetyStockLevel, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                                        </StackPanel>
                                     </DataField>
                                 </Grid>
                             </DataTemplate>
                         </DataForm.EditTemplate>
                     </DataForm>
 
-                    <TextBlock Style="{StaticResource FormsSection}" Text="Details" />
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Details" />
                     <DataForm x:Name="formDetails"                   
                           CurrentItem="{Binding ProductViewModel, Mode=TwoWay}"
                           EditEnded="formDetails_EditEnded"
                           AutoGenerateFields="False"
                           AutoEdit="True"
                           AutoCommit="True"
-                          CommandButtonsVisibility="None">
+                          CommandButtonsVisibility="None"
+                          Style="{StaticResource DefaultDataForm}">
                         <DataForm.EditTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -219,8 +248,11 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
 
-                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Label="Description" LabelPosition="Top">
-                                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Description, Mode=TwoWay}" Height="150" />
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="Description" Style="{StaticResource DataFieldLabelStyle}" />
+                                            <TextBox Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" TextWrapping="Wrap" AcceptsReturn="True" Height="150" />
+                                        </StackPanel>
                                     </DataField>
                                 </Grid>
                             </DataTemplate>

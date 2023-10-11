@@ -2,7 +2,7 @@
     x:Class="SampleCRM.Web.Views.OrderItemAddEdit"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:SampleCRM.Web.Views">
+    xmlns:local="clr-namespace:SampleCRM.Web.Views" xmlns:controls="clr-namespace:SampleCRM.Controls">
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="12,0,12,12">
-                <TextBlock Style="{StaticResource CardSection}" Text="Order Item"  />
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Order Item"  />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.OrderID, Mode=OneWay}" />
@@ -24,7 +24,7 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.OrderLine, Mode=OneWay}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
-                <TextBlock Style="{StaticResource CardSection}" Text="Product"  />
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Product"  />
 
                 <StackPanel Orientation="Horizontal" Margin="0,0">
                     <Image Source="{Binding Item.Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
@@ -69,7 +69,8 @@
                           AutoGenerateFields="False"
                           AutoEdit="True"
                           AutoCommit="True"
-                          CommandButtonsVisibility="None">
+                          CommandButtonsVisibility="None"
+                          Style="{StaticResource DefaultDataForm}">
                         <DataForm.EditTemplate>
                             <DataTemplate>
                                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -80,39 +81,64 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="50" />
-                                        <RowDefinition Height="50" />
-                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label="Product" LabelPosition="Top">
-                                        <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
+                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Product" />
+                                            <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
                                                           SelectedValuePath="ProductID"
                                                           SelectedValue="{Binding ProductID, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name" />
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10" />
+                                        </StackPanel>
                                     </DataField>
 
-                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Label="Quantity" LabelPosition="Top">
-                                        <TextBox Text="{Binding Quantity, Mode=TwoWay}" />
+                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Quantity" />
+                                            <TextBox Text="{Binding Quantity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Label="UnitPrice" LabelPosition="Top">
-                                        <TextBox Text="{Binding UnitPrice, Mode=TwoWay}" />
+                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="UnitPrice" />
+                                            <TextBox Text="{Binding UnitPrice, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Label="Discount" LabelPosition="Top">
-                                        <TextBox Text="{Binding Discount, Mode=TwoWay}" />
+                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Discount" />
+                                            <TextBox Text="{Binding Discount, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Label="Subtotal" LabelPosition="Top">
-                                        <TextBox Text="{Binding Subtotal, Mode=TwoWay}" />
+                                    <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Subtotal" />
+                                            <TextBox Text="{Binding Subtotal, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
 
-                                    <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Label="Tax Type" LabelPosition="Top">
-                                        <ComboBox ItemsSource="{Binding TaxTypes}"                                                          
+                                    <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Tax Type" />
+                                            <ComboBox ItemsSource="{Binding TaxTypes}"                                                          
                                                           SelectedValuePath="TaxTypeID"
                                                           SelectedValue="{Binding TaxType, Mode=TwoWay}"
-                                                          DisplayMemberPath="Desc" />
+                                                          DisplayMemberPath="Desc"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10" />
+                                        </StackPanel>
                                     </DataField>
-                                    <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Label="Total" LabelPosition="Top">
-                                        <TextBox Text="{Binding Total, Mode=TwoWay}" />
+                                    <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+                                        <StackPanel Orientation="Vertical">
+                                            <controls:RequiredTextBlock Text="Total" />
+                                            <TextBox Text="{Binding Total, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                        </StackPanel>
                                     </DataField>
                                 </Grid>
                             </DataTemplate>
