@@ -359,6 +359,14 @@ namespace SampleCRM.Web.Views
             }
         }
 
+        private async void btnShowOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedOrder == null)
+                return;
+
+            await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
+        }
+
         //private void btnEdit_Checked(object sender, RoutedEventArgs e)
         //{
         //    formCustomer.BeginEdit();

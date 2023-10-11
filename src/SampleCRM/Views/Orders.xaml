@@ -234,9 +234,6 @@
                                             <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
                                                    Stretch="Fill" Width="64" Height="64" Margin="1" />
                                             <TextBlock Text="{Binding Product.ProductID}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="1" />
-                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
-                                                <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="UniformToFill" />
-                                            </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -248,6 +245,17 @@
                             <DataGridTextColumn Header="Discount" Binding="{Binding Discount}" />
                             <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal}" />
                             <DataGridTextColumn Header="Total" Binding="{Binding Total}" />
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
+                                                <Image Source="/Assets/Edit.png" Margin="1" Width="16" Height="16" Stretch="UniformToFill" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
