@@ -248,23 +248,23 @@
                           CanUserSortColumns="True" 
                           CanUserResizeColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Id">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding OrderID}" VerticalContentAlignment="Center" />
-                                            <Button x:Name="btnShowOrder" Margin="1">
-                                                <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="Fill" />
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Id" Binding="{Binding OrderID}" />
                             <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" />
                             <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" />
                             <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" />
                             <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" />
                             <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" />
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Button x:Name="btnShowOrder" Margin="1" Click="btnShowOrder_Click">
+                                                <Image Source="/Assets/Edit.png" Margin="1" Width="16" Height="16" Stretch="Fill" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
