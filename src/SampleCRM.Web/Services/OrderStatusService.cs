@@ -1,5 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using SampleCRM.Web.Models;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -21,18 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
+        [RestrictAccessDeveloperMode]
         public void DeleteStatus(OrderStatus status)
         {
             _context.OrderStatus.Remove(status);
         }
 
         [Insert]
+        [RestrictAccessDeveloperMode]
         public void InsertStatus(OrderStatus status)
         {
             _context.OrderStatus.AddOrUpdate(status);
         }
 
         [Update]
+        [RestrictAccessDeveloperMode]
         public void UpdateStatus(OrderStatus status)
         {
             _context.OrderStatus.AddOrUpdate(status);

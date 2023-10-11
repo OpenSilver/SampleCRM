@@ -1,11 +1,9 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using SampleCRM.Web.Models;
-using System;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace SampleCRM.Web
 {
@@ -19,6 +17,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
+        [RestrictAccessDeveloperMode]
         public void DeleteCategory(Categories category)
         {
             _context.Categories.Remove(category);
@@ -26,6 +25,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
+        [RestrictAccessDeveloperMode]
         public void InsertCategory(Categories category)
         {
             
@@ -34,6 +34,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
+        [RestrictAccessDeveloperMode]
         public void UpdateCategory(Categories category)
         {
             _context.Categories.AddOrUpdate(category);

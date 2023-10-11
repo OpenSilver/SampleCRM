@@ -1,10 +1,9 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using SampleCRM.Web.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
-using System.Diagnostics;
 using System.Linq;
 
 namespace SampleCRM.Web
@@ -37,6 +36,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
+        [RestrictAccessDeveloperMode]
         public void DeleteOrderItem(OrderItems orderItem)
         {
             var dOrderItem = _context.OrderItems.FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
@@ -48,6 +48,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
+        [RestrictAccessDeveloperMode]
         public void InsertOrderItem(OrderItems orderItem)
         {
             var lastItem = _context.OrderItems
@@ -77,6 +78,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
+        [RestrictAccessDeveloperMode]
         public void UpdateOrderItem(OrderItems orderItem)
         {
             _context.OrderItems.AddOrUpdate(orderItem);

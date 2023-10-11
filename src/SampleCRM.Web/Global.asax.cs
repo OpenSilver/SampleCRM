@@ -1,14 +1,21 @@
 using System;
+using System.Configuration;
 using System.Web;
+using System.Web.Configuration;
 
 namespace SampleCRM.Web
 {
     public class Global : System.Web.HttpApplication
     {
+        public static bool DeveloperMode { get; protected set; }
+
         protected void Application_Start(object sender, EventArgs e)
         {
+            DeveloperMode = Convert.ToBoolean(ConfigurationManager.AppSettings["DeveloperMode"]);
+
             string path = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
+
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -27,10 +34,13 @@ namespace SampleCRM.Web
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
                 HttpContext.Current.Response.End();
             }
+
+
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+
         }
 
         protected void Application_Error(object sender, EventArgs e)
