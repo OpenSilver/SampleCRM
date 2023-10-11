@@ -24,6 +24,12 @@ namespace SampleCRM
             errorWindow.Show();
         }
 
+        public static void Show(string title, string message, string details = "")
+        {
+            var errorWindow = new ErrorWindow(title, message, details);
+            errorWindow.Show();
+        }
+
         private ErrorWindow(Exception e)
         {
             InitializeComponent();
@@ -48,9 +54,17 @@ namespace SampleCRM
             ErrorTextBox.Text = message + Environment.NewLine + Environment.NewLine + details;
         }
 
+        private ErrorWindow(string title, string message, string details)
+        {
+            InitializeComponent();
+            Title = title;
+            IntroductoryText.Text = message;
+            ErrorTextBox.Text = details;
+        }
+
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

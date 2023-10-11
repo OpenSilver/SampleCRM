@@ -1,10 +1,10 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using SampleCRM.Web.Models;
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace SampleCRM.Web
 {
@@ -37,6 +37,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
+        [RestrictAccessDeveloperMode]
         public void DeleteProduct(Products product)
         {
             _context.Products.Remove(product);
@@ -50,6 +51,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
+        [RestrictAccessDeveloperMode]
         public void InsertProduct(Products product)
         {
             product.ProductID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1).ToString();
@@ -60,6 +62,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
+        [RestrictAccessDeveloperMode]
         public void UpdateProduct(Products product)
         {
             product.LastModifiedOn = DateTime.Now.ToString();

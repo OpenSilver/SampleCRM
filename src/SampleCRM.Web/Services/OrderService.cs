@@ -1,5 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using SampleCRM.Web.Models;
 using System;
 using System.Data.Entity.Migrations;
@@ -29,6 +30,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
+        [RestrictAccessDeveloperMode]
         public void DeleteOrder(Orders order)
         {
             var dorder = _context.Orders.FirstOrDefault(x => x.OrderID == order.OrderID);
@@ -40,6 +42,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
+        [RestrictAccessDeveloperMode]
         public void InsertOrder(Orders order)
         {
             order.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
@@ -61,6 +64,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
+        [RestrictAccessDeveloperMode]
         public void UpdateOrder(Orders order)
         {
             order.LastModifiedOn = DateTime.Now.ToString();

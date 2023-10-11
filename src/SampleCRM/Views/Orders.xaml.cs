@@ -394,7 +394,14 @@ namespace SampleCRM.Web.Views
         {
             if (so.HasError)
             {
-                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                if (so.Error.Message.StartsWith("Submit operation failed. Access to operation"))
+                {
+                    ErrorWindow.Show("Access Denied", "Insuficient User Role", so.Error.Message);
+                }
+                else
+                {
+                    ErrorWindow.Show("Access Denied", so.Error.Message, "");
+                }
                 so.MarkErrorAsHandled();
             }
             else
@@ -419,7 +426,14 @@ namespace SampleCRM.Web.Views
         {
             if (so.HasError)
             {
-                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                if (so.Error.Message.StartsWith("Submit operation failed. Access to operation"))
+                {
+                    ErrorWindow.Show("Access Denied", "Insuficient User Role", so.Error.Message);
+                }
+                else
+                {
+                    ErrorWindow.Show("Access Denied", so.Error.Message, "");
+                }
                 so.MarkErrorAsHandled();
             }
             else
