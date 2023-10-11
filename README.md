@@ -8,8 +8,8 @@
 ![Install Toolbox](images/SampleCRMEntityDesignerDiagram1.jpg)
 
 ## Troubleshoot
-![Install .NET Latest](images/Net7DownloadLatest.png)
 If this error is happening please install the latest version of the ASP.NET Core Hosting Bundle, available from Microsoft at: https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer
+![Install .NET Latest](images/Net7DownloadLatest.png)
 
 For production deployment to public servers please change the following **Developer** Key in the **web.config** to **False**. For development and local deployment purpose this value is **True** in default. When this value has been set to **False** the write access of the database is blocked by RIA Service Layer and prevents users changes any data.
 ```xml
