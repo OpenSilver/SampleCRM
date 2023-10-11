@@ -15,6 +15,10 @@ namespace SampleCRM.Web.Models
                 {
                     Customer = CustomersCombo.FirstOrDefault(x => x.CustomerID == CustomerID);
                 }
+                else
+                {
+                    Customer = new Customers();
+                }
             }
             else if (e.PropertyName == nameof(Status))
             {
@@ -27,7 +31,6 @@ namespace SampleCRM.Web.Models
         }
 
         public bool IsNew => OrderID <= 0;
-
 
         private bool _paymentTypesVisible;
         public bool PaymentTypesVisible
@@ -184,7 +187,7 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private Customers _customer;
+        private Customers _customer = new Customers();
         public Customers Customer
         {
             get { return _customer; }

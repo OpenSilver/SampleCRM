@@ -124,3 +124,6 @@ public string UsingDirectives(bool inHeader, bool includeCollections = true)
 }
 ```
 Once it done you can click right button on .tt and select "Run custom tool"
+
+## Credits 
+This app was inspired by the **InventorySample** app: https://github.com/microsoft/InventorySample (Note: the implementation is very different because it uses RIA Services)
