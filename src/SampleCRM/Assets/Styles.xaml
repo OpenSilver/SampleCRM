@@ -35,6 +35,12 @@
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
+    <Style x:Key="MobileNavigationGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="#2D3241" />
+        <Setter Property="Margin" Value="0,60,0,0" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
     <!-- Branding Border Style -->
     <Style x:Key="BrandingBorderStyle" TargetType="Border">
         <Setter Property="Height" Value="42"/>
@@ -45,6 +51,12 @@
 
     <!-- Branding StackPanel Style -->
     <Style x:Key="BrandingStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="30,0,0,0" />
+    </Style>
+
+    <Style x:Key="MobileBrandingStackPanelStyle" TargetType="StackPanel">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="Margin" Value="30,0,0,0" />
@@ -82,9 +94,15 @@
 
     <!-- Links Border Style -->
     <Style x:Key="LinksBorderStyle" TargetType="Border">
-        <Setter Property="Height" Value="42"/>
+        <Setter Property="Height" Value="42" />
         <Setter Property="Margin" Value="25,0,25,0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style x:Key="MobileLinksBorderStyle" TargetType="Border">
+        <Setter Property="Margin" Value="30,0,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
     <!-- Links StackPanel Style -->
@@ -92,6 +110,11 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+
+    <Style x:Key="MobileLinksStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
     <!-- Link Style -->
@@ -106,10 +129,11 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="5,10,5,10"/>
+        <Setter Property="Margin" Value="0,0,20,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="HyperlinkButton">
-                    <Grid x:Name="ButtonGrid" Cursor="{TemplateBinding Cursor}" Margin="0,0,20,0">
+                    <Grid x:Name="ButtonGrid" Cursor="{TemplateBinding Cursor}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal"/>
@@ -247,6 +271,12 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="MobileLinkStyle" TargetType="HyperlinkButton" BasedOn="{StaticResource LinkStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+        <Setter Property="Margin" Value="0,20,0,0" />
     </Style>
 
     <!-- Divider Style -->

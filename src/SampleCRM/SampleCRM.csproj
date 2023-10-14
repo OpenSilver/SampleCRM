@@ -40,6 +40,7 @@
     <None Remove="Assets\List.png" />
     <None Remove="Assets\ListInBox.png" />
     <None Remove="Assets\Locked.png" />
+    <None Remove="Assets\MenuIcon.png" />
     <None Remove="Assets\Microsoft.png" />
     <None Remove="Assets\Ok.png" />
     <None Remove="Assets\People.png" />
@@ -78,6 +79,7 @@
     <None Remove="Views\ProductAddEdit.xaml" />
     <None Remove="Views\Products.xaml" />
     <None Remove="Views\ProductsAddEditWindow.xaml" />
+    <None Remove="Views\ResponsivePane.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,6 +129,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Locked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\MenuIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
@@ -242,7 +247,7 @@
     <Content Include="Views\Login\RegistrationForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <PackageReference Include="OpenSilver" Version="1.2.0-preview-2023-09-26-164111-53c81c0c" />
+    <PackageReference Include="OpenSilver" Version="1.2.0-preview-2023-10-10-085315-6295ca65" />
 
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="1.2.0-preview-2023-07-06-175252-9aa8961a" />
 
@@ -301,6 +306,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductsAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResponsivePane.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -433,6 +441,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\CircleImage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ResponsivePane.xaml" />
   </ItemGroup>
 
 </Project>

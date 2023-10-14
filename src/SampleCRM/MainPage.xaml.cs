@@ -87,19 +87,21 @@ namespace SampleCRM
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            foreach (UIElement child in LinksStackPanel.Children)
+            highlightLinks(e, LinksStackPanel.Children);
+            highlightLinks(e, MobileLinksStackPanel.Children);
+        }
+
+        private void highlightLinks(NavigationEventArgs e, UIElementCollection links)
+        {
+            foreach (var child in links)
             {
-                HyperlinkButton hb = child as HyperlinkButton;
+                var hb = child as HyperlinkButton;
                 if (hb != null && hb.NavigateUri != null)
                 {
                     if (hb.NavigateUri.ToString().Equals(e.Uri.ToString()))
-                    {
                         VisualStateManager.GoToState(hb, "ActiveLink", true);
-                    }
                     else
-                    {
                         VisualStateManager.GoToState(hb, "InactiveLink", true);
-                    }
                 }
             }
         }
