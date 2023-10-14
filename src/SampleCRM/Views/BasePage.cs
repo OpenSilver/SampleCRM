@@ -10,6 +10,23 @@ namespace SampleCRM.Web.Views
     /// </summary>
     public class BasePage : Page, INotifyPropertyChanged
     {
+        protected virtual double MaxMobileWidth => 640d;
+
+        public BasePage()
+        {
+            SizeChanged += OnSizeChanged;
+        }
+
+        protected virtual void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(IsMobileUI));
+        }
+
+        public bool IsMobileUI
+        {
+            get { return ActualWidth <= MaxMobileWidth; }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {

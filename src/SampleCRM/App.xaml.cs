@@ -8,7 +8,6 @@ using SampleCRM.Web;
 
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SampleCRM
 {
@@ -16,15 +15,15 @@ namespace SampleCRM
     {
         public App()
         {
-            this.Startup += this.Application_Startup;
-            this.UnhandledException += this.Application_UnhandledException;
+            Startup += Application_Startup;
+            UnhandledException += Application_UnhandledException;
 
             InitializeComponent();
 
-            WebContext webContext = new WebContext();
+            var webContext = new WebContext();
             webContext.Authentication = new FormsAuthentication();
             //webContext.Authentication = new WindowsAuthentication();
-            this.ApplicationLifetimeObjects.Add(webContext);
+            ApplicationLifetimeObjects.Add(webContext);
 
 #if OPENSILVER
             ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/");
@@ -33,13 +32,15 @@ namespace SampleCRM
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Host.Settings.EnableOptimizationWhereCollapsedControlsAreNotRendered = true;
+
             // This will enable you to bind controls in XAML to WebContext.Current properties.
-            this.Resources.Add("WebContext", WebContext.Current);
+            Resources.Add("WebContext", WebContext.Current);
 
             // This will automatically authenticate a user when using Windows authentication or when the user chose "Keep me signed in" on a previous login attempt.
-            WebContext.Current.Authentication.LoadUser(this.Application_UserLoaded, null);
+            WebContext.Current.Authentication.LoadUser(Application_UserLoaded, null);
 
-            this.RootVisual = new MainPage();
+            RootVisual = new MainPage();
         }
 
         /// <summary>

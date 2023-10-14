@@ -9,6 +9,7 @@
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
+        <local:BoolToVisibilityConverter x:Key="boolToBisibilityConverter" />
     </local:BasePage.Resources>
 
 

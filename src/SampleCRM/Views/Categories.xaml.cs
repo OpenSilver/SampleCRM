@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class Categories: BasePage
+    public partial class Categories : BasePage
     {
         private CategoryContext _categoryContext = new CategoryContext();
 
@@ -45,6 +45,12 @@ namespace SampleCRM.Web.Views
         {
             InitializeComponent();
             DataContext = this;
+        }
+
+        protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            base.OnSizeChanged(sender, e);
+            gridCategories.Columns.Last().Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
