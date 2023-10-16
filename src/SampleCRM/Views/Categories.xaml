@@ -11,8 +11,6 @@
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToBisibilityConverter" />
     </local:BasePage.Resources>
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="350" />
@@ -27,15 +25,15 @@
                 <TextBlock Grid.Row="0" Text="Categories" Style="{StaticResource HeaderTextStyle}" />
 
                 <DataGrid x:Name="gridCategories" Grid.Row="1"
-                  ItemsSource="{Binding CategoryCollection}" 
-                  SelectedItem="{Binding SelectedCategory}"
-                  AutoGenerateColumns="False"
-                  CanUserReorderColumns="True" 
-                  CanUserSortColumns="True" 
-                  CanUserResizeColumns="True"
-                  RowEditEnded="gridCategories_RowEditEnded" 
-                  Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                  VerticalAlignment="Stretch">
+                      ItemsSource="{Binding CategoryCollection}" 
+                      SelectedItem="{Binding SelectedCategory}"
+                      AutoGenerateColumns="False"
+                      CanUserReorderColumns="True" 
+                      CanUserSortColumns="True" 
+                      CanUserResizeColumns="True"
+                      RowEditEnded="gridCategories_RowEditEnded" 
+                      Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                      VerticalAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding CategoryID}" IsReadOnly="True" Width="80" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTemplateColumn Header="Image" Width="104" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
@@ -73,17 +71,17 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <DataForm x:Name="formCategories" 
-                  Grid.Row="0"
-                  EditEnded="formCategories_EditEnded"
-                  AutoGenerateFields="False"
-                  AutoEdit="False"
-                  AutoCommit="True"
-                  CommandButtonsVisibility="Edit, Add, Delete, Commit, Cancel"
-                  CommitButtonContent="Save"
-                  CancelButtonContent="Cancel"
-                  Header="Category Details"
-                  Style="{StaticResource DefaultDataFormStyle}"
-                  ItemsSource="{Binding CategoryCollection}">
+                      Grid.Row="0"
+                      EditEnded="formCategories_EditEnded"
+                      AutoGenerateFields="False"
+                      AutoEdit="False"
+                      AutoCommit="True"
+                      CommandButtonsVisibility="Edit, Add, Delete, Commit, Cancel"
+                      CommitButtonContent="Save"
+                      CancelButtonContent="Cancel"
+                      Header="Category Details"
+                      Style="{StaticResource DefaultDataFormStyle}"
+                      ItemsSource="{Binding CategoryCollection}">
                     <DataForm.EditTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -100,7 +98,6 @@
                         </DataTemplate>
                     </DataForm.EditTemplate>
                 </DataForm>
-
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1">
                     <Button Content="Save Changes" Click="SaveButton_Click" Margin="5" x:Name="SaveButton" Style="{StaticResource PrimaryButtonStyle}"></Button>
                     <Button Content="Reject Changes" Click="RejectButton_Click" Margin="5" x:Name="RejectButton" Style="{StaticResource SecondaryButtonStyle}"></Button>
@@ -108,7 +105,5 @@
                 </StackPanel>
             </Grid>
         </ContentControl>
-
     </Grid>
-
 </local:BasePage>
