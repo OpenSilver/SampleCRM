@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
     public partial class Products : BasePage
     {
+        #region Contexts
         private ProductsContext _productsContext = new ProductsContext();
         private CategoryContext _categoryContext = new CategoryContext();
+        #endregion
 
+        #region DataContext Properties
         private IEnumerable<Models.Products> _productsCollection;
         public IEnumerable<Models.Products> ProductsCollection
         {
@@ -22,8 +26,6 @@ namespace SampleCRM.Web.Views
                     _productsCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredProductsCollection");
-                    //SelectedProduct = FilteredProductsCollection.FirstOrDefault();
-
                 }
             }
         }
@@ -88,6 +90,7 @@ namespace SampleCRM.Web.Views
                 }
             }
         }
+        #endregion
 
         public Products()
         {
@@ -98,6 +101,28 @@ namespace SampleCRM.Web.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             LoadElements();
+        }
+
+        protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            base.OnSizeChanged(sender, e);
+
+            if (IsMobileUI)
+            {
+                grdHead.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+
+                Grid.SetColumn(grdSearch, 0);
+                Grid.SetRow(grdSearch, 2);
+                grdSearch.Margin = new Thickness(0, 0, 0, 10);
+            }
+            else
+            {
+                grdHead.ColumnDefinitions[2].Width = new GridLength(405, GridUnitType.Pixel);
+
+                Grid.SetColumn(grdSearch, 2);
+                Grid.SetRow(grdSearch, 0);
+                grdSearch.Margin = new Thickness();
+            }
         }
 
         private async void LoadElements()
