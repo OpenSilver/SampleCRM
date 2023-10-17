@@ -11,12 +11,18 @@ namespace SampleCRM.Web.Views
 {
     public partial class Customers : BasePage
     {
+        #region Contexts
         private CustomersContext _customersContext = new CustomersContext();
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
         private OrderContext _orderContext = new OrderContext();
+        private OrderStatusContext _orderStatusContext = new OrderStatusContext();
+        private ShippersContext _shippersContext = new ShippersContext();
+        private PaymentTypeContext _paymentTypesContext = new PaymentTypeContext();
+        #endregion
 
         private bool _ordersTabSelected;
 
+        #region DataContext Properties
         private IEnumerable<Models.Customers> _customersCollection;
         public IEnumerable<Models.Customers> CustomersCollection
         {
@@ -166,7 +172,7 @@ namespace SampleCRM.Web.Views
                 }
             }
         }
-
+        #endregion 
 
         public Customers()
         {
@@ -184,7 +190,7 @@ namespace SampleCRM.Web.Views
 
                 Grid.SetColumn(grdSearch, 0);
                 Grid.SetRow(grdSearch, 2);
-                grdSearch.Margin = new Thickness(0, 0, 0, 20);
+                grdSearch.Margin = new Thickness(0, 0, 0, 10);
 
                 Grid.SetRow(customerCard, 0);
                 Grid.SetColumn(customerCard, 0);
@@ -199,6 +205,13 @@ namespace SampleCRM.Web.Views
                 grdTbCustomer.ColumnDefinitions[1].Width = GridLength.Auto;
 
                 formCustomer.EditTemplate = Resources["dtNarrowCustomers"] as DataTemplate;
+
+
+                grdTbOrders.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+
+                Grid.SetColumn(grdOrderSearch, 0);
+                Grid.SetRow(grdOrderSearch, 2);
+                grdOrderSearch.Margin = new Thickness(0, 0, 0, 10);
             }
             else
             {
@@ -221,6 +234,13 @@ namespace SampleCRM.Web.Views
                 grdTbCustomer.ColumnDefinitions[1].Width = new GridLength(4, GridUnitType.Star);
 
                 formCustomer.EditTemplate = Resources["dtWideCustomers"] as DataTemplate;
+
+
+                grdTbOrders.ColumnDefinitions[2].Width = new GridLength(405, GridUnitType.Pixel);
+
+                Grid.SetColumn(grdOrderSearch, 2);
+                Grid.SetRow(grdOrderSearch, 0);
+                grdOrderSearch.Margin = new Thickness();
             }
         }
 
@@ -245,7 +265,6 @@ namespace SampleCRM.Web.Views
             }
 #endif
         }
-
         private async Task LoadCountryCodes()
         {
             var countryCodesquery = _countryCodesContext.GetCountriesQuery();
@@ -258,7 +277,6 @@ namespace SampleCRM.Web.Views
                 c.CountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
         }
-
         private async void LoadOrdersOfCustomer()
         {
             if (SelectedCustomer == null)
@@ -290,7 +308,6 @@ namespace SampleCRM.Web.Views
         {
             SearchText = string.Empty;
         }
-
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
 
@@ -314,7 +331,6 @@ namespace SampleCRM.Web.Views
                 SelectedCustomer.IsEditMode = false;
             }
         }
-
         private void OnFormCustomerSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
@@ -384,7 +400,6 @@ namespace SampleCRM.Web.Views
                 throw new AccessViolationException("RIA Service Delete Entity for Customer Context is denied");
             }
         }
-
         private void OnDeleteSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
@@ -428,6 +443,24 @@ namespace SampleCRM.Web.Views
                 return;
 
             await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
+        }
+
+        private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var result = await OrderAddEditWindow.Show(new Models.Orders
+            {
+                IsEditMode = true,
+                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersQuery())).Entities,
+                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
+                CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities,
+                Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
+                PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
+            }, _orderContext);
+
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
 
         //private void btnEdit_Checked(object sender, RoutedEventArgs e)
