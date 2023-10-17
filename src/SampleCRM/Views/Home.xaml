@@ -9,7 +9,7 @@
     <StackPanel>
         <TextBlock Text="Home Page" 
                    Style="{StaticResource HeaderTextStyle}" />
-        <TextBlock Text="Welcome to SimpleCRM" Style="{StaticResource WelcomeTextStyle}" />
+        <TextBlock Text="Welcome to SampleCRM" Style="{StaticResource WelcomeTextStyle}" />
         <native:HtmlPresenter 
             xmlns:native="using:CSHTML5.Native.Html.Controls" 
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
