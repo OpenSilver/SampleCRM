@@ -297,7 +297,7 @@
                             Visibility="{Binding AnySelectedCustomer, Converter={StaticResource boolToVisibilityConverter}}"
                             SelectionChanged="tcDetails_SelectionChanged" Style="{StaticResource MaterialDesign_TabControl_Style}">
             <TabItem x:Name="tbCustomer" Header="Customer" Style="{StaticResource MaterialDesign_TabItem_Style}">
-                <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbCustomer">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>

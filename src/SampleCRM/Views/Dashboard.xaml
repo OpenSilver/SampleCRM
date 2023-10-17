@@ -13,7 +13,7 @@
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
 
-    <ScrollViewer x:Name="scrDashboard" VerticalScrollBarVisibility="Auto" BorderThickness="0">
+    <ScrollViewer x:Name="scrDashboard" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
         <Grid x:Name="grdDashboard">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
