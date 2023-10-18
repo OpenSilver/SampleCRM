@@ -33,6 +33,13 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
+        public override void ArrangeLayout()
+        {
+            base.ArrangeLayout();
+            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
+        }
+
         private async void btnEditPicture_Click(object sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFileDialog();
@@ -78,23 +85,47 @@ namespace SampleCRM.Web.Views
         {
             if (customersContext.Customers.CanAdd)
             {
-                if (!formPersonalInfo.CommitEdit())
+                if (IsMobileUI)
                 {
-                    ErrorWindow.Show("Invalid Personal Info");
-                    return;
+                    if (!formPersonalInfo.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Personal Info");
+                        return;
+                    }
+
+                    if (!formAddress.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Address Info");
+                        return;
+                    }
+
+                    if (!formDemographic.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Demographic");
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!mFormPersonalInfo.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Personal Info");
+                        return;
+                    }
+
+                    if (!mFormAddress.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Address Info");
+                        return;
+                    }
+
+                    if (!mFormDemographic.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Demographic");
+                        return;
+                    }
                 }
 
-                if (!formAddress.CommitEdit())
-                {
-                    ErrorWindow.Show("Invalid Address Info");
-                    return;
-                }
-
-                if (!formDemographic.CommitEdit())
-                {
-                    ErrorWindow.Show("Invalid Demographic");
-                    return;
-                }
 
                 customersContext.Customers.Add(CustomerViewModel);
                 customersContext.SubmitChanges(OnAddSubmitCompleted, null);
