@@ -33,20 +33,44 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
+        public override void ArrangeLayout()
+        {
+            base.ArrangeLayout();
+            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
+        }
+
         public void Save(OrderContext context)
         {
             if (context.Orders.CanAdd && Order.IsNew || context.Orders.CanEdit)
             {
-                if (!formCustomerInfo.CommitEdit())
+                if (IsMobileUI)
                 {
-                    ErrorWindow.Show("Invalid Customer Info");
-                    return;
-                }
+                    if (!mFormCustomerInfo.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Customer Info");
+                        return;
+                    }
 
-                if (!formOrderStatus.CommitEdit())
+                    if (!mFormOrderStatus.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Order Status");
+                        return;
+                    }
+                }
+                else
                 {
-                    ErrorWindow.Show("Invalid Order Status");
-                    return;
+                    if (!formCustomerInfo.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Customer Info");
+                        return;
+                    }
+
+                    if (!formOrderStatus.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Order Status");
+                        return;
+                    }
                 }
 
                 if (Order.IsNew)

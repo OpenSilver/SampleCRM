@@ -4,17 +4,13 @@ using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class OrderAddEditWindow : ChildWindow
+    public partial class OrderAddEditWindow : BaseChildWindow
     {
         private OrderContext _context;
-
-        private const double windowSizeMult = .85;
 
         public static async Task<bool> Show(Models.Orders order, OrderContext context)
         {
             var window = new OrderAddEditWindow(order, context);
-            window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
-            window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
             return window.DialogResult.GetValueOrDefault(false);
         }

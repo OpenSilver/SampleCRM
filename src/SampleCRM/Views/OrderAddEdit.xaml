@@ -3,21 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:SampleCRM.Web.Views" xmlns:controls="clr-namespace:SampleCRM.Controls">
-    
+
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BaseUserControl.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="320" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="12">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="grdNarrow">
+            <StackPanel Margin="6">
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.OrderID, Mode=OneWay}" />
@@ -31,10 +27,10 @@
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer"  />
 
-                <StackPanel Orientation="Horizontal" Margin="0,6,0,9">
+                <StackPanel Orientation="Horizontal" Margin="0,3,0,4">
                     <Image Source="{Binding Order.Customer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
                            Width="68" Height="68" />
-                    <TextBlock Style="{StaticResource CardText}" VerticalAlignment="Center" Margin="9,0" Text="{Binding Order.Customer.FullName, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource CardText}" VerticalAlignment="Center" Margin="4,0" Text="{Binding Order.Customer.FullName, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
@@ -60,188 +56,403 @@
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Delivered Date" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
-            </StackPanel>
-        </ScrollViewer>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" 
-                        Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
+
+
+                <Button  Margin="2" Click="btnDelete_Click" 
+                             Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
                         <TextBlock Text="Delete" />
                     </StackPanel>
                 </Button>
-            </StackPanel>
-            <ScrollViewer x:Name="itemDetails" Grid.Row="1" 
-                          VerticalScrollBarVisibility="Auto" 
-                          BorderThickness="0,0,1,0" BorderBrush="LightGray">
-                <StackPanel>
 
-                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
-                    <DataForm x:Name="formCustomerInfo"                   
-                          CurrentItem="{Binding Order, Mode=TwoWay}"
-                          EditEnded="formCustomerInfo_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Style="{StaticResource DefaultDataForm}">
-                        <DataForm.EditTemplate>
-                            <DataTemplate>
-                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
+                <DataForm x:Name="mFormCustomerInfo"
+                              CurrentItem="{Binding Order, Mode=TwoWay}"
+                              EditEnded="formCustomerInfo_EditEnded"
+                              AutoGenerateFields="False"
+                              AutoEdit="True"
+                              AutoCommit="True"
+                              CommandButtonsVisibility="None"
+                              Style="{StaticResource DefaultDataForm}">
+                    <DataForm.EditTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                        
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Customer" />
-                                            <ComboBox ItemsSource="{Binding CustomersCombo}"                                                          
-                                                SelectedValuePath="CustomerID"
-                                                SelectedValue="{Binding CustomerID, Mode=TwoWay}"
-                                                DisplayMemberPath="FullName"
-                                                Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                Margin="0,0,0,10"/> 
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Ship Address" />
-                                            <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                        </StackPanel>
-                                    </DataField>
+                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Customer" />
+                                        <ComboBox ItemsSource="{Binding CustomersCombo}"
+                                                      SelectedValuePath="CustomerID"
+                                                      SelectedValue="{Binding CustomerID, Mode=TwoWay}"
+                                                      DisplayMemberPath="FullName"
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                     />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="1" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Ship Address" />
+                                        <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                    </StackPanel>
+                                </DataField>
 
-                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Ship City" />
-                                            <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
-                                            <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Ship Postal Code" />
-                                            <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                                            <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                              SelectedValuePath="CountryCodeID"
-                                              SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                              DisplayMemberPath="Name"
-                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10"/>
-                                        </StackPanel>
-                                    </DataField>
-                                </Grid>
-                            </DataTemplate>
-                        </DataForm.EditTemplate>
-                    </DataForm>
+                                <DataField Grid.Row="2" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Ship City" />
+                                        <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="3" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
+                                        <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="4" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Ship Postal Code" />
+                                        <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="5" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
+                                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                                      SelectedValuePath="CountryCodeID"
+                                                      SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                                      DisplayMemberPath="Name"
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                      />
+                                    </StackPanel>
+                                </DataField>
+                            </Grid>
+                        </DataTemplate>
+                    </DataForm.EditTemplate>
+                </DataForm>
 
-                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Order Status" />
-                    <DataForm x:Name="formOrderStatus"                   
-                          CurrentItem="{Binding Order, Mode=TwoWay}"
-                          EditEnded="formOrderStatus_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Style="{StaticResource DefaultDataForm}">
-                        <DataForm.EditTemplate>
-                            <DataTemplate>
-                                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Order Status" />
+                <DataForm x:Name="mFormOrderStatus"                   
+                              CurrentItem="{Binding Order, Mode=TwoWay}"
+                              EditEnded="formOrderStatus_EditEnded"
+                              AutoGenerateFields="False"
+                              AutoEdit="True"
+                              AutoCommit="True"
+                              CommandButtonsVisibility="None"
+                              Style="{StaticResource DefaultDataForm}">
+                    <DataForm.EditTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                    <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  LabelVisibility="Collapsed">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Status" Style="{StaticResource DataFieldLabelStyle}" />
-                                            <ComboBox ItemsSource="{Binding Statuses}"                                                          
-                                                  SelectedValuePath="Status"
-                                                  SelectedValue="{Binding Status, Mode=TwoWay}"
-                                                  DisplayMemberPath="Name"
-                                                  Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                  Margin="0,0,0,10"/>
-                                                                                    </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed"
+                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Status" Style="{StaticResource DataFieldLabelStyle}" />
+                                        <ComboBox ItemsSource="{Binding Statuses}"
+                                                      SelectedValuePath="Status"
+                                                      SelectedValue="{Binding Status, Mode=TwoWay}"
+                                                      DisplayMemberPath="Name"
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                      />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="1" LabelVisibility="Collapsed"
                                                Visibility="{Binding PaymentTypesVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Payment Type" Style="{StaticResource DataFieldLabelStyle}" />
-                                            <ComboBox ItemsSource="{Binding PaymentTypes}"                                                  
-                                              SelectedValuePath="PaymentTypeID"
-                                              SelectedValue="{Binding PaymentType, Mode=TwoWay}"
-                                              DisplayMemberPath="Name"
-                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10"/>
-                                        </StackPanel>
-                                        
-                                    </DataField>
-
-                                    <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" LabelVisibility="Collapsed"
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Payment Type" Style="{StaticResource DataFieldLabelStyle}" />
+                                        <ComboBox ItemsSource="{Binding PaymentTypes}"
+                                                      SelectedValuePath="PaymentTypeID"
+                                                      SelectedValue="{Binding PaymentType, Mode=TwoWay}"
+                                                      DisplayMemberPath="Name"
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                     />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="2" LabelVisibility="Collapsed"
                                                Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Shipped Date" />
-                                            <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  LabelVisibility="Collapsed"
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Shipped Date" />
+                                        <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="3" LabelVisibility="Collapsed"
                                                Visibility="{Binding ShippedViaVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
-                                        
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="Shipped Via" Style="{StaticResource DataFieldLabelStyle}" />
-                                            <ComboBox ItemsSource="{Binding Shippers}"                                                  
-                                              SelectedValuePath="ShipperID"
-                                              SelectedValue="{Binding ShipVia, Mode=TwoWay}"
-                                              DisplayMemberPath="Name"
-                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10" />
-                                        </StackPanel>
-                                    </DataField>
-                                    <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed"
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Shipped Via" Style="{StaticResource DataFieldLabelStyle}" />
+                                        <ComboBox ItemsSource="{Binding Shippers}"
+                                                      SelectedValuePath="ShipperID"
+                                                      SelectedValue="{Binding ShipVia, Mode=TwoWay}"
+                                                      DisplayMemberPath="Name"
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                      />
+                                    </StackPanel>
+                                </DataField>
+                                <DataField Grid.Row="4" LabelVisibility="Collapsed"
                                                Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
-                                        <StackPanel Orientation="Vertical">
-                                            <controls:RequiredTextBlock Text="Delivered Date" />
-                                            <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
-                                        </StackPanel>
-                                    </DataField>
+                                    <StackPanel Orientation="Vertical">
+                                        <controls:RequiredTextBlock Text="Delivered Date" />
+                                        <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                                    </StackPanel>
+                                </DataField>
+                            </Grid>
+                        </DataTemplate>
+                    </DataForm.EditTemplate>
+                </DataForm>
 
-                                </Grid>
-                            </DataTemplate>
-                        </DataForm.EditTemplate>
-                    </DataForm>
-                    
+            </StackPanel>
+        </ScrollViewer>
+        <Grid x:Name="grdWide">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="320" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="12">
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.OrderID, Mode=OneWay}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Status" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.StatusDesc, Mode=OneWay}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Order Date" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                    <Rectangle Style="{StaticResource CardSeparator}"/>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer"  />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,9">
+                        <Image Source="{Binding Order.Customer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+                       Width="68" Height="68" />
+                        <TextBlock Style="{StaticResource CardText}" VerticalAlignment="Center" Margin="9,0" Text="{Binding Order.Customer.FullName, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.CustomerID, Mode=OneWay}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.Customer.EmailAddress, Mode=OneWay }" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.Customer.Phone, Mode=OneWay}" />
+
+                    <Rectangle Style="{StaticResource CardSeparator}"/>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Shipment"  />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Payment Type" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.PaymentTypeDesc, Mode=OneWay}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Shipper" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.ShipViaDesc, Mode=OneWay}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Shipped Date" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                    <TextBlock Style="{StaticResource CardHeader2}" Text="Delivered Date" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
                 </StackPanel>
             </ScrollViewer>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Button  Margin="2" Click="btnDelete_Click" 
+                    Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                            <TextBlock Text="Delete" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto" 
+                      BorderThickness="0,0,1,0" BorderBrush="LightGray">
+                    <StackPanel>
+
+                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
+                        <DataForm x:Name="formCustomerInfo"                   
+                      CurrentItem="{Binding Order, Mode=TwoWay}"
+                      EditEnded="formCustomerInfo_EditEnded"
+                      AutoGenerateFields="False"
+                      AutoEdit="True"
+                      AutoCommit="True"
+                      CommandButtonsVisibility="None"
+                      Style="{StaticResource DefaultDataForm}">
+                            <DataForm.EditTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
+
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Customer" />
+                                                <ComboBox ItemsSource="{Binding CustomersCombo}"                                                          
+                                            SelectedValuePath="CustomerID"
+                                            SelectedValue="{Binding CustomerID, Mode=TwoWay}"
+                                            DisplayMemberPath="FullName"
+                                            Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                            Margin="0,0,0,10"/>
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Ship Address" />
+                                                <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                            </StackPanel>
+                                        </DataField>
+
+                                        <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Ship City" />
+                                                <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
+                                                <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1"  LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Ship Postal Code" />
+                                                <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
+                                                <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                          SelectedValuePath="CountryCodeID"
+                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                          Margin="0,0,0,10"/>
+                                            </StackPanel>
+                                        </DataField>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataForm.EditTemplate>
+                        </DataForm>
+
+                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Order Status" />
+                        <DataForm x:Name="formOrderStatus"                   
+                      CurrentItem="{Binding Order, Mode=TwoWay}"
+                      EditEnded="formOrderStatus_EditEnded"
+                      AutoGenerateFields="False"
+                      AutoEdit="True"
+                      AutoCommit="True"
+                      CommandButtonsVisibility="None"
+                      Style="{StaticResource DefaultDataForm}">
+                            <DataForm.EditTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  LabelVisibility="Collapsed">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Status" Style="{StaticResource DataFieldLabelStyle}" />
+                                                <ComboBox ItemsSource="{Binding Statuses}"                                                          
+                                              SelectedValuePath="Status"
+                                              SelectedValue="{Binding Status, Mode=TwoWay}"
+                                              DisplayMemberPath="Name"
+                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                              Margin="0,0,0,10"/>
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed"
+                                           Visibility="{Binding PaymentTypesVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Payment Type" Style="{StaticResource DataFieldLabelStyle}" />
+                                                <ComboBox ItemsSource="{Binding PaymentTypes}"                                                  
+                                          SelectedValuePath="PaymentTypeID"
+                                          SelectedValue="{Binding PaymentType, Mode=TwoWay}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                          Margin="0,0,0,10"/>
+                                            </StackPanel>
+
+                                        </DataField>
+
+                                        <DataField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" LabelVisibility="Collapsed"
+                                           Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Shipped Date" />
+                                                <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"  LabelVisibility="Collapsed"
+                                           Visibility="{Binding ShippedViaVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
+
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Shipped Via" Style="{StaticResource DataFieldLabelStyle}" />
+                                                <ComboBox ItemsSource="{Binding Shippers}"                                                  
+                                          SelectedValuePath="ShipperID"
+                                          SelectedValue="{Binding ShipVia, Mode=TwoWay}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                          Margin="0,0,0,10" />
+                                            </StackPanel>
+                                        </DataField>
+                                        <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed"
+                                           Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
+                                            <StackPanel Orientation="Vertical">
+                                                <controls:RequiredTextBlock Text="Delivered Date" />
+                                                <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                                            </StackPanel>
+                                        </DataField>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </DataForm.EditTemplate>
+                        </DataForm>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </Grid>
 </local:BaseUserControl>

@@ -1,4 +1,5 @@
-﻿<ChildWindow x:Class="SampleCRM.Web.Views.OrderAddEditWindow"
+﻿<views:BaseChildWindow x:Class="SampleCRM.Web.Views.OrderAddEditWindow"         
+           xmlns:views="clr-namespace:SampleCRM.Web.Views"
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            Title="Add Order"
@@ -26,4 +27,4 @@
             </Button>
         </StackPanel>
     </Grid>
-</ChildWindow>
+</views:BaseChildWindow>
