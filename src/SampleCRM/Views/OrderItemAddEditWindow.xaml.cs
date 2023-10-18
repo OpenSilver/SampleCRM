@@ -1,20 +1,15 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class OrderItemAddEditWindow : ChildWindow
+    public partial class OrderItemAddEditWindow : BaseChildWindow
     {
         private OrderItemsContext _context;
-
-        private const double windowSizeMult = .85;
 
         public static async Task<bool> Show(Models.OrderItems orderItem, OrderItemsContext context)
         {
             var window = new OrderItemAddEditWindow(orderItem, context);
-            window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
-            window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
             return window.DialogResult.GetValueOrDefault(false);
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,19 +12,20 @@ namespace SampleCRM.Web.Views
 
         public BaseUserControl()
         {
-            //SizeChanged += OnSizeChanged;
             Loaded += BaseUserControl_Loaded;
+            Application.Current.MainWindow.SizeChanged += MainWindow_SizeChanged;
+        }
+
+        private void MainWindow_SizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            ArrangeLayout();
+            OnPropertyChanged(nameof(IsMobileUI));
         }
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ArrangeLayout();
         }
-
-        //protected virtual void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
-        //{
-        //    OnPropertyChanged(nameof(IsMobileUI));
-        //}
 
         public virtual void ArrangeLayout() { }
 

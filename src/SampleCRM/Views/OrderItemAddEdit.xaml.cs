@@ -32,14 +32,32 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
+        public override void ArrangeLayout()
+        {
+            base.ArrangeLayout();
+            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
+        }
+
         public void Save(OrderItemsContext context)
         {
             if (context.OrderItems.CanAdd && Item.IsNew || context.OrderItems.CanEdit)
             {
-                if (!form.CommitEdit())
+                if (IsMobileUI)
                 {
-                    ErrorWindow.Show("Invalid Order Item");
-                    return;
+                    if (!mForm.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Order Item");
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!form.CommitEdit())
+                    {
+                        ErrorWindow.Show("Invalid Order Item");
+                        return;
+                    }
                 }
 
                 if (Item.IsNew)

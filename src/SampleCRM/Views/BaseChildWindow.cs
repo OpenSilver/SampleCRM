@@ -26,10 +26,6 @@ namespace SampleCRM.Web.Views
         {
             //Console.WriteLine($"MainWindow_SizeChanged, w:{Application.Current.MainWindow.ActualWidth} h:{Application.Current.MainWindow.ActualHeight}");
             arrangeSize();
-            if (InnerControl != null)
-            {
-                InnerControl.ArrangeLayout();
-            }
         }
 
         private void arrangeSize()

@@ -1,18 +1,16 @@
-﻿<local:BaseUserControl
-    x:Class="SampleCRM.Web.Views.OrderAddEdit"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:SampleCRM.Web.Views" xmlns:controls="clr-namespace:SampleCRM.Controls">
-
+﻿<local:BaseUserControl x:Class="SampleCRM.Web.Views.OrderAddEdit"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:local="clr-namespace:SampleCRM.Web.Views" 
+                       xmlns:controls="clr-namespace:SampleCRM.Controls">
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BaseUserControl.Resources>
-
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="grdNarrow">
+        <ScrollViewer x:Name="grdNarrow" VerticalScrollBarVisibility="Auto" >
             <StackPanel Margin="6">
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Order ID" />
