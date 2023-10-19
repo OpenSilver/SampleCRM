@@ -33,6 +33,13 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
+        public override void ArrangeLayout()
+        {
+            base.ArrangeLayout();
+            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
+        }
+
         private async void btnEditPicture_Click(object sender, RoutedEventArgs e)
         {
             var fileDialog = new OpenFileDialog();

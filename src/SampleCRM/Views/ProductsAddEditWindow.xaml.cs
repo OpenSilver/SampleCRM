@@ -1,20 +1,15 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public partial class ProductsAddEditWindow : ChildWindow
+    public partial class ProductsAddEditWindow : BaseChildWindow
     {
-        private const double windowSizeMult = .85;
-
         private ProductsContext _context;
 
         public static async Task<bool> Show(Models.Products product, ProductsContext context)
         {
             var window = new ProductsAddEditWindow(product, context);
-            window.Width = Application.Current.MainWindow.ActualWidth * windowSizeMult;
-            window.Height = Application.Current.MainWindow.ActualHeight * windowSizeMult;
             await window.ShowAndWait();
             return window.DialogResult.GetValueOrDefault(false);
         }

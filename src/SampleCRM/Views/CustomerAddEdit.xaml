@@ -57,15 +57,13 @@
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Address" />
                 <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding CustomerViewModel.FullAddress, Mode=OneWay}" />
 
-                <StackPanel Orientation="Horizontal" >
-                    <Button Margin="2" Click="btnDelete_Click" 
+                <Button Margin="2" Click="btnDelete_Click" 
                         Visibility="{Binding CustomerViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Delete" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
+                        <TextBlock Text="Delete" />
+                    </StackPanel>
+                </Button>
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Personal Information" />
                 <DataForm x:Name="mFormPersonalInfo"                  
