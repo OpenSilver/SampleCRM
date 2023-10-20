@@ -68,5 +68,58 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Height" Value="42" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="NumericUpDown">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DisabledVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualElement">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ButtonSpinner x:Name="Spinner" HorizontalContentAlignment="Stretch" MinWidth="35" VerticalContentAlignment="Stretch">
+                            <TextBox x:Name="Text" AcceptsReturn="False" BorderThickness="0" 
+                                     Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" 
+                                     FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" 
+                                     FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" 
+                                     MinWidth="20" TextAlignment="Right" TextWrapping="NoWrap" Text="{TemplateBinding Value}"
+                                     Style="{StaticResource MaterialDesign_TextBox_Style}">
+                                <!--<TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <ScrollViewer x:Name="ContentElement" BorderThickness="0" Padding="0"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBox.Style>-->
+                            </TextBox>
+                        </ButtonSpinner>
+                        <Border x:Name="DisabledVisualElement" Background="#A5FFFFFF" CornerRadius="2.5,2.5,2.5,2.5" IsHitTestVisible="false" Opacity="0"/>
+                        <Border x:Name="FocusVisualElement" BorderBrush="#FF45D6FA" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1,1,1,1" IsHitTestVisible="False" Opacity="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
