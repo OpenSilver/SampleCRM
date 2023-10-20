@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SampleCRM.Web.Views;
+using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SampleCRM
 {
-    public partial class ErrorWindow : ChildWindow
+    public partial class ErrorWindow : BaseChildWindow
     {
+        protected override double windowSizeMult => .5d;
+
         public static void Show(Exception ex)
         {
             var errorWindow = new ErrorWindow(ex);

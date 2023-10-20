@@ -5,8 +5,8 @@ namespace SampleCRM.Web.Views
 {
     public class BaseChildWindow : ChildWindow
     {
-        protected const double windowSizeMult = .85;
-        protected const double windowMobileSizeMult = 1;
+        protected virtual double windowMobileSizeMult => 1d;
+        protected virtual double windowSizeMult => .85d;
         protected virtual double MaxMobileWidth => 700d;
 
         public BaseUserControl InnerControl { get; protected set; }
