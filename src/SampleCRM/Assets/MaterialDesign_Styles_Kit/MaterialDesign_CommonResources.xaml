@@ -35,7 +35,7 @@
 
     <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
     <SolidColorBrush x:Key="GridForeground" Color="White" />
-    <SolidColorBrush x:Key="GridSelectionColor" Color="#1C4067" />
+    <SolidColorBrush x:Key="GridSelectionColor" Color="#0085FF" />
     <SolidColorBrush x:Key="AlternateBackground" Color="#2E323D" />
 
     <!-- LayoutRoot Grid Style -->

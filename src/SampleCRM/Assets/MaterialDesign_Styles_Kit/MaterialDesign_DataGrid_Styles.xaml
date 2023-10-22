@@ -15,7 +15,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="20,10"/>
         <Setter Property="FontSize" Value="11"/>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
@@ -31,6 +31,109 @@
                                         Opacity="0.5"
                                         BorderThickness="0"/>
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GridRowStyle" TargetType="DataGridRow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridRow">
+                    <DataGridFrozenGrid x:Name="Root">
+                        <DataGridFrozenGrid.Resources>
+                            <Storyboard x:Key="DetailsVisibleTransition">
+                                <DoubleAnimation Duration="00:00:0.1" Storyboard.TargetName="DetailsPresenter" Storyboard.TargetProperty="ContentHeight"/>
+                            </Storyboard>
+                        </DataGridFrozenGrid.Resources>
+                        <DataGridFrozenGrid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </DataGridFrozenGrid.ColumnDefinitions>
+                        <DataGridFrozenGrid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </DataGridFrozenGrid.RowDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="SelectedRect" Storyboard.TargetProperty="Opacity" To="0"/>
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#00306098" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="NormalAlternatingRow">
+                                    <Storyboard>
+                                        <!--<DoubleAnimation Duration="0" Storyboard.TargetName="SelectedRect" Storyboard.TargetProperty="Opacity" To="0"/>-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="HoverRect" Storyboard.TargetProperty="Opacity" To=".5"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="SelectedRect" Storyboard.TargetProperty="Opacity" To="0"/>
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#FF9ABBE8" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />-->
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#FF9ABBE8" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="NormalSelected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="HoverRect" Storyboard.TargetProperty="Opacity" To="0"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="SelectedRect" Storyboard.TargetProperty="Opacity" To="0.25"/>
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#FFFBEC5D" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />-->
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#FFFBEC5D" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOverSelected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="HoverRect" Storyboard.TargetProperty="Opacity" To=".5"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="SelectedRect" Storyboard.TargetProperty="Opacity" To="0.25"/>
+                                        <!--<DoubleAnimation Duration="0" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="Opacity" To="1"/>-->
+                                        <!--<ColorAnimation BeginTime="0" Duration="0" To="#FFFBEC5D" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />-->
+                                    </Storyboard>
+                                </VisualState>
+                                <!--<VisualState x:Name="UnfocusedSelected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="Opacity" To="1"/>
+                                        <ColorAnimation BeginTime="0" Duration="0" To="#FFFBEC5D" Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" />
+                                        <ColorAnimation BeginTime="0" Duration="0" To="#FFFBEC5D" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </VisualState>-->
+                                <VisualState x:Name="UnfocusedSelected">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="FocusedRect" Storyboard.TargetProperty="Opacity" To="1"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ValidationStates">
+                                <VisualState x:Name="Valid"/>
+                                <VisualState x:Name="Invalid">
+                                    <!--<Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="InvalidVisualElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InvalidVisualElement" Storyboard.TargetProperty="Opacity" To="1"/>
+                                    </Storyboard>-->
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="SelectedRect" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity="0"
+                                Background="{StaticResource GridSelectionColor}" />
+                        <Border x:Name="HoverRect" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity="0"
+                                BorderBrush="{StaticResource GridSelectionColor}" BorderThickness="1" />
+                        <Rectangle x:Name="FocusedRect" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity="0"
+                                Stroke="{StaticResource GridSelectionColor}" StrokeThickness="1" StrokeDashArray="6 1">
+                        </Rectangle>
+                        <DataGridRowHeader x:Name="RowHeader" DataGridFrozenGrid.IsFrozen="True" Grid.RowSpan="3"/>
+                        <DataGridCellsPresenter x:Name="CellsPresenter" DataGridFrozenGrid.IsFrozen="True" Grid.Column="1"/>
+                        <DataGridDetailsPresenter x:Name="DetailsPresenter" Grid.Column="1" Grid.Row="1"/>
+                        <!--<Border x:Name="BottomGridLine" Height="1" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>-->
+                    </DataGridFrozenGrid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -52,13 +155,13 @@
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Unselected" />
                                 <VisualState x:Name="Selected">
-                                    <Storyboard>
+                                    <!--<Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="Opacity" Duration="0" To="1"/>
-                                    </Storyboard>
+                                    </Storyboard>-->
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="BackgroundRectangle" Background="{StaticResource GridSelectionColor}" Opacity="0" />
+                        <!--<Border x:Name="BackgroundRectangle" Background="{StaticResource GridSelectionColor}" Opacity="0" />-->
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -79,15 +182,15 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="RowBackground" Value="{StaticResource GridBackground}"/>
-        <Setter Property="AlternatingRowBackground" Value="{StaticResource GridBackground}"/>
+        <!--<Setter Property="AlternatingRowBackground" Value="{StaticResource GridBackground}"/>-->
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridBackground}"/>
         <!--<Setter Property="VerticalCellPadding" Value="1"/>-->
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Padding" Value="3"/>
-        <!--<Setter Property="SelectedItemBackground" Value="{StaticResource GridSelectionColor}"/>-->
         <Setter Property="Margin" Value="5"/>
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource MaterialDesign_DataGridColumnHeader_Style}"/>
         <Setter Property="CellStyle" Value="{StaticResource GridCellStyle}" />
+        <Setter Property="RowStyle" Value="{StaticResource GridRowStyle}" />
         <Setter Property="VerticalGridLinesBrush">
             <Setter.Value>
                 <SolidColorBrush Opacity="0" Color="Transparent"/>
@@ -145,7 +248,7 @@
                                             </Grid.RowDefinitions>
                                             <Border Background="Transparent" Grid.RowSpan="2">
                                                 <Rectangle Stretch="Fill">
-                                                    
+
                                                 </Rectangle>
                                             </Border>
                                         </Grid>
@@ -168,7 +271,7 @@
                                 <localprimitives:DataGridColumnHeader Name="TopLeftCornerHeader" Template="{StaticResource TopLeftHeaderTemplate}" Width="22" />
                                 <localprimitives:DataGridColumnHeadersPresenter Name="ColumnHeadersPresenter" Grid.Column="1"/>
                                 <localprimitives:DataGridColumnHeader Name="TopRightCornerHeader" Grid.Column="2" Template="{StaticResource TopRightHeaderTemplate}" />
-                                
+
 
                                 <localprimitives:DataGridRowsPresenter Name="RowsPresenter" ClipToBounds="True" Grid.ColumnSpan="2" Grid.Row="1" />
                                 <Rectangle Name="BottomRightCorner" Fill="#FFE9EEF4" Grid.Column="2" Grid.Row="2" />
@@ -793,7 +896,7 @@
                     BorderBrush="#FF6DBDD1"
                     BorderThickness="1"
                     Margin="1" />
-            
+
             <Border x:Name="DisabledElement"
                     Opacity="0"
                     CornerRadius="2"
@@ -810,12 +913,12 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
-                            
+
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
-                            
+
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Disabled">
@@ -864,7 +967,7 @@
                         CornerRadius="3"
                         Margin="1"
                         Background="#434751">
-                    
+
                 </Border>
                 <Border x:Name="Highlight"
                         CornerRadius="1"
@@ -1205,23 +1308,23 @@
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Unselected" />
                                 <VisualState x:Name="Selected">
-                                    <Storyboard>
+                                    <!--<Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="Opacity" Duration="0" To="1"/>
-                                    </Storyboard>
+                                    </Storyboard>-->
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="BackgroundRectangle" Background="{StaticResource GridSelectionColor}" Opacity="0" />
+                        <!--<Border x:Name="BackgroundRectangle" Background="{StaticResource GridSelectionColor}" Opacity="0" />-->
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentControl Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Stretch"
                                             Padding="0"
                                             Foreground="{TemplateBinding Foreground}"
-                                          Margin="{TemplateBinding Padding}" />
+                                            Margin="{TemplateBinding Padding}" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
