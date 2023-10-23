@@ -30,7 +30,7 @@
     </Style>
 
     <!-- Navigation Grid Style -->
-    <Style x:Key="NavigationGridStyle" TargetType="Grid">        
+    <Style x:Key="NavigationGridStyle" TargetType="Grid">
         <Setter Property="Margin" Value="0,16,0,40"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
@@ -136,102 +136,38 @@
                     <Grid x:Name="ButtonGrid" Cursor="{TemplateBinding Cursor}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="1"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="Opacity" To="0"/>
+                                    </Storyboard>
+                                </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <Visibility>Visible</Visibility>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.55"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="10"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.55"/>
-                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".55"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" To="10"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="Opacity" To=".55"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="(UIElement.Visibility)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <Visibility>Visible</Visibility>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.8"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="5"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".8"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" To="5"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="Opacity" To="1"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame KeyTime="0">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <Visibility>Visible</Visibility>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <HorizontalAlignment>Center</HorizontalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <VerticalAlignment>Center</VerticalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <HorizontalAlignment>Center</HorizontalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <VerticalAlignment>Center</VerticalAlignment>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.5"/>
-                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="DisabledOverlay" Storyboard.TargetProperty="Opacity" To=".5"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="LinkStates">
                                 <VisualState x:Name="ActiveLink">
                                     <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ActiveBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ActiveBorder" Storyboard.TargetProperty="Opacity" To="1"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Opacity" To="1"/>
                                         <ColorAnimation Duration="0" Storyboard.TargetName="InteractiveElement" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Color)" To="Red"/>
                                     </Storyboard>
                                 </VisualState>
@@ -240,15 +176,9 @@
                             <VisualStateGroup x:Name="FocusStates">
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity">
-                                            <SplineDoubleKeyFrame KeyTime="0" Value="0.35"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusX)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusY)">
-                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity" To=".35"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusX)" To="1"/>
+                                        <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusY)" To="1"/>
                                         <ColorAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextElement.Foreground)" To="Red"/>
                                     </Storyboard>
                                 </VisualState>
@@ -258,9 +188,13 @@
                         <Rectangle x:Name="FocusVisualElement" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2" Opacity="0" Margin="-1" RadiusX="1" RadiusY="1"/>
                         <Border x:Name="ActiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" Opacity="0"/>
                         <Border x:Name="ContentBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Opacity="1">
-                            <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Opacity="1" >
-
-                            </ContentPresenter>
+                            <ContentPresenter x:Name="ContentPresenter" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              Content="{TemplateBinding Content}" 
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Opacity="1" />
                         </Border>
                         <Border x:Name="InteractiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="Red" Opacity="0" CornerRadius="1,1,1,1"/>
                         <Border x:Name="InteractiveElementBorder" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed">
