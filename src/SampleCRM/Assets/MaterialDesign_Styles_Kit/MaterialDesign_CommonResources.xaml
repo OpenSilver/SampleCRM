@@ -9,6 +9,9 @@
 
 
     <SolidColorBrush x:Key="MaterialDesign_DefaultAccentColor" Color="#0CBE68"/>
+    <SolidColorBrush x:Key="MaterialDesign_50AccentColor" Color="#7F0CBE68"/>
+    <SolidColorBrush x:Key="MaterialDesign_25AccentColor" Color="#3F0CBE68"/>
+
     <SolidColorBrush x:Key="Foreground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="Background" Color="#2B303F" />
 
