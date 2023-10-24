@@ -249,11 +249,11 @@
     </Content>
     <PackageReference Include="OpenSilver" Version="2.0.1" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="1.2.0-preview-2023-07-06-175252-9aa8961a" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="1.2.0-preview-2023-07-06-175252-9aa8961a" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="1.2.0-preview-2023-07-06-175252-9aa8961a">
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
 
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
