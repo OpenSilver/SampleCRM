@@ -75,7 +75,7 @@ The only SQLite related entry should look like this, with a version number  **ma
              description=".NET Framework Data Provider for SQLite" 
              type="System.Data.SQLite.EF6.SQLiteProviderFactory, 
                     System.Data.SQLite.EF6, 
-                    Version=1.0.117.0, 
+                    Version=1.0.118.0, 
                     Culture=neutral, 
                     PublicKeyToken=db937bc2d44ff139" 
         />  
