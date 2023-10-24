@@ -1,5 +1,5 @@
-﻿<local:BaseChildWindow x:Class="SampleCRM.Web.Views.OrderAddEditWindow"         
-           xmlns:local="clr-namespace:SampleCRM.Web.Views"
+﻿<local:BaseChildWindow x:Class="SampleCRM.Views.OrderAddEditWindow"         
+           xmlns:local="clr-namespace:SampleCRM.Views"
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            Title="Add Order"

@@ -1,735 +1,609 @@
-﻿<#@ template language="C#" debug="false" hostspecific="true"#>
-<#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
- output extension=".cs"#><#
+﻿<#@ template language="VB" debug="false" hostspecific="true"#>
+<#@ include file="EF6.Utility.VB.ttinclude"#><#@
+ output extension=".vb"#><#
 
-const string inputFile = @"SampleCRMModel.edmx";
-var textTransform = DynamicTextTransformation.Create(this);
-var code = new CodeGenerationTools(this);
-var ef = new MetadataTools(this);
-var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
-var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
-var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
-var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+Const inputFile As String = "SampleCRMModel.edmx"
+Dim textTransform As DynamicTextTransformation = DynamicTextTransformation.Create(Me)
+Dim code As CodeGenerationTools = New CodeGenerationTools(Me)
+Dim ef As MetadataTools = New MetadataTools(Me)
+Dim typeMapper As TypeMapper = New TypeMapper(code, ef, textTransform.Errors)
+Dim fileManager As EntityFrameworkTemplateFileManager = EntityFrameworkTemplateFileManager.Create(Me)
+Dim itemCollection As IEnumerable(Of GlobalItem) = New EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile)
+Dim codeStringGenerator As CodeStringGenerator = New CodeStringGenerator(code, typeMapper, ef)
 
-if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
-{
-    return string.Empty;
-}
+If Not typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile)  Then
+    Return String.Empty
+End If
 
-WriteHeader(codeStringGenerator, fileManager);
+WriteHeader(fileManager)
 
-foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
-{
-    fileManager.StartNewFile(entity.Name + ".cs");
-    BeginNamespace(code);
+For Each loopEntity As EntityType In typeMapper.GetItemsToGenerate(Of EntityType)(itemCollection)
+    Dim entity as EntityType = loopEntity
+    fileManager.StartNewFile(entity.Name & ".vb")
+    BeginNamespace(code)
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false)#>
 <#=codeStringGenerator.EntityClassOpening(entity)#>
-{
 <#
-    var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
-    var collectionNavigationProperties = typeMapper.GetCollectionNavigationProperties(entity);
-    var complexProperties = typeMapper.GetComplexProperties(entity);
-
-    if (propertiesWithDefaultValues.Any() || collectionNavigationProperties.Any() || complexProperties.Any())
-    {
+    Dim simpleProperties as IEnumerable(Of EdmProperty) = typeMapper.GetSimpleProperties(entity)
+    If simpleProperties.Any() Then
+        For Each edmProperty As EdmProperty In simpleProperties
 #>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public <#=code.Escape(entity)#>()
-    {
+<#=codeStringGenerator.SimpleProperty(edmProperty)#>
 <#
-        foreach (var edmProperty in propertiesWithDefaultValues)
-        {
-#>
-        this.<#=code.Escape(edmProperty)#> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue)#>;
-<#
-        }
+        Next
+    End If
 
-        foreach (var navigationProperty in collectionNavigationProperties)
-        {
-#>
-        this.<#=code.Escape(navigationProperty)#> = new HashSet<<#=typeMapper.GetTypeName(navigationProperty.ToEndMember.GetEntityType())#>>();
-<#
-        }
-
-        foreach (var complexProperty in complexProperties)
-        {
-#>
-        this.<#=code.Escape(complexProperty)#> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage)#>();
-<#
-        }
-#>
-    }
-
-<#
-    }
-
-    var simpleProperties = typeMapper.GetSimpleProperties(entity);
-    if (simpleProperties.Any())
-    {
-        foreach (var edmProperty in simpleProperties)
-        {
-#>
-    <#=codeStringGenerator.Property(edmProperty)#>
-<#
-        }
-    }
-
-    if (complexProperties.Any())
-    {
+    Dim complexProperties as IEnumerable(Of EdmProperty) = typeMapper.GetComplexProperties(entity)
+    If complexProperties.Any() Then
 #>
 
 <#
-        foreach(var complexProperty in complexProperties)
-        {
+       For Each complexProperty As EdmProperty In complexProperties
 #>
-    <#=codeStringGenerator.Property(complexProperty)#>
+<#=codeStringGenerator.ComplexProperty(complexProperty)#>
 <#
-        }
-    }
+       Next
+    End If
 
-    var navigationProperties = typeMapper.GetNavigationProperties(entity);
-    if (navigationProperties.Any())
-    {
+    Dim navigationProperties as IEnumerable(Of NavigationProperty) = typeMapper.GetNavigationProperties(entity)
+    If navigationProperties.Any() Then
 #>
 
 <#
-        foreach (var navigationProperty in navigationProperties)
-        {
-            if (navigationProperty.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many)
-            {
+        For Each navigationProperty As NavigationProperty In navigationProperties
 #>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+<#=codeStringGenerator.NavigationProperty(navigationProperty)#>
 <#
-            }
-#>
-    <#=codeStringGenerator.NavigationProperty(navigationProperty)#>
-<#
-        }
-    }
-#>
-}
-<#
-    EndNamespace(code);
-}
+        Next
+    End If
 
-foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollection))
-{
-    fileManager.StartNewFile(complex.Name + ".cs");
-    BeginNamespace(code);
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
-<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
-{
-<#
-    var complexProperties = typeMapper.GetComplexProperties(complex);
-    var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(complex);
 
-    if (propertiesWithDefaultValues.Any() || complexProperties.Any())
-    {
-#>
-    public <#=code.Escape(complex)#>()
-    {
+End Class
 <#
-        foreach (var edmProperty in propertiesWithDefaultValues)
-        {
-#>
-        this.<#=code.Escape(edmProperty)#> = <#=typeMapper.CreateLiteral(edmProperty.DefaultValue)#>;
-<#
-        }
+    EndNamespace(code)
+Next
 
-        foreach (var complexProperty in complexProperties)
-        {
+For Each loopComplex As ComplexType In typeMapper.GetItemsToGenerate(Of ComplexType)(itemCollection)
+    Dim complex as ComplexType = loopComplex
+    fileManager.StartNewFile(complex.Name & ".vb")
+    BeginNamespace(code)
 #>
-        this.<#=code.Escape(complexProperty)#> = new <#=typeMapper.GetTypeName(complexProperty.TypeUsage)#>();
+Partial <#=Accessibility.ForType(complex)#> Class <#=code.Escape(complex)#>
 <#
-        }
+
+    Dim simpleProperties as IEnumerable(Of EdmProperty) = typeMapper.GetSimpleProperties(complex)
+    If simpleProperties.Any() Then
+        For Each edmProperty As EdmProperty In simpleProperties
 #>
-    }
-
+<#=codeStringGenerator.SimpleProperty(edmProperty)#>
 <#
-    }
+        Next
+    End If
 
-    var simpleProperties = typeMapper.GetSimpleProperties(complex);
-    if (simpleProperties.Any())
-    {
-        foreach(var edmProperty in simpleProperties)
-        {
-#>
-    <#=codeStringGenerator.Property(edmProperty)#>
-<#
-        }
-    }
-
-    if (complexProperties.Any())
-    {
+    Dim complexProperties as IEnumerable(Of EdmProperty) = typeMapper.GetComplexProperties(complex)
+    If complexProperties.Any() Then
 #>
 
 <#
-        foreach(var edmProperty in complexProperties)
-        {
+        For Each complexProperty As EdmProperty In complexProperties
 #>
-    <#=codeStringGenerator.Property(edmProperty)#>
+<#=codeStringGenerator.ComplexProperty(complexProperty)#>
 <#
-        }
-    }
-#>
-}
-<#
-    EndNamespace(code);
-}
+        Next
+    End If
 
-foreach (var enumType in typeMapper.GetEnumItemsToGenerate(itemCollection))
-{
-    fileManager.StartNewFile(enumType.Name + ".cs");
-    BeginNamespace(code);
 #>
-<#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
+
+End Class
 <#
-    if (typeMapper.EnumIsFlags(enumType))
-    {
+    EndNamespace(code)
+Next
+
+For Each enumType As SimpleType In typeMapper.GetEnumItemsToGenerate(itemCollection)
+    fileManager.StartNewFile(enumType.Name & ".vb")
+    BeginNamespace(code)
+    If typeMapper.EnumIsFlags(enumType) Then
 #>
-[Flags]
+<Flags>
 <#
-    }
+    End If
 #>
 <#=codeStringGenerator.EnumOpening(enumType)#>
-{
 <#
-    var foundOne = false;
-    
-    foreach (MetadataItem member in typeMapper.GetEnumMembers(enumType))
-    {
-        foundOne = true;
+    Dim foundOne As Boolean = False
+
+    For Each member As MetadataItem In typeMapper.GetEnumMembers(enumType)
+
+    foundOne = True
 #>
-    <#=code.Escape(typeMapper.GetEnumMemberName(member))#> = <#=typeMapper.GetEnumMemberValue(member)#>,
+    <#=code.Escape(typeMapper.GetEnumMemberName(member))#> = <#=typeMapper.GetEnumMemberValue(member)#>
 <#
-    }
-
-    if (foundOne)
-    {
-        this.GenerationEnvironment.Remove(this.GenerationEnvironment.Length - 3, 1);
-    }
+    Next
+    If Not foundOne Then
 #>
-}
+    None
 <#
-    EndNamespace(code);
-}
+    End If
+#>
+End Enum
+<#
+    EndNamespace(code)
+Next
 
-fileManager.Process();
-
+fileManager.Process()
 #>
 <#+
-
-public void WriteHeader(CodeStringGenerator codeStringGenerator, EntityFrameworkTemplateFileManager fileManager)
-{
-    fileManager.StartHeader();
+Public Sub WriteHeader(ByVal fileManager As EntityFrameworkTemplateFileManager)
+    fileManager.StartHeader()
 #>
-//------------------------------------------------------------------------------
-// <auto-generated>
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine1")#>
-//
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine2")#>
-// <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine3")#>
-// </auto-generated>
-//------------------------------------------------------------------------------
-<#=codeStringGenerator.UsingDirectives(inHeader: true)#>
-<#+
-    fileManager.EndBlock();
-}
+'------------------------------------------------------------------------------
+' <auto-generated>
+' <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine1")#>
+'
+' <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine2")#>
+' <#=CodeGenerationTools.GetResourceString("Template_GeneratedCodeCommentLine3")#>
+' </auto-generated>
+'------------------------------------------------------------------------------
 
-public void BeginNamespace(CodeGenerationTools code)
-{
-    var codeNamespace = code.VsNamespaceSuggestion();
-    if (!String.IsNullOrEmpty(codeNamespace))
-    {
+Imports System
+Imports System.Collections.Generic
+Imports System.ComponentModel.DataAnnotations
+
+<#+
+    FileManager.EndBlock()
+End Sub
+
+Public Sub BeginNamespace(ByVal code As CodeGenerationTools)
+    Dim codeNamespace as String = code.VsNamespaceSuggestion()
+    If Not String.IsNullOrEmpty(codeNamespace) Then
 #>
-namespace <#=code.EscapeNamespace(codeNamespace)#>
-{
-<#+
-        PushIndent("    ");
-    }
-}
+Namespace <#=code.EscapeNamespace(codeNamespace)#>
 
-public void EndNamespace(CodeGenerationTools code)
-{
-    if (!String.IsNullOrEmpty(code.VsNamespaceSuggestion()))
-    {
-        PopIndent();
+<#+
+        PushIndent("    ")
+    End If
+End Sub
+
+Public Sub EndNamespace(ByVal code As CodeGenerationTools)
+    If Not String.IsNullOrEmpty(code.VsNamespaceSuggestion()) Then
+        PopIndent()
 #>
-}
+
+End Namespace
 <#+
-    }
-}
+    End If
+End Sub
 
-public const string TemplateId = "CSharp_DbContext_Types_EF6";
+Public Const TemplateId As String = "VB_DbContext_Types_EF6"
 
-public class CodeStringGenerator
-{
-    private readonly CodeGenerationTools _code;
-    private readonly TypeMapper _typeMapper;
-    private readonly MetadataTools _ef;
+Public Class CodeStringGenerator
+    Private ReadOnly _code As CodeGenerationTools
+    Private ReadOnly _typeMapper As TypeMapper
+    Private ReadOnly _ef As MetadataTools
 
-    public CodeStringGenerator(CodeGenerationTools code, TypeMapper typeMapper, MetadataTools ef)
-    {
-        ArgumentNotNull(code, "code");
-        ArgumentNotNull(typeMapper, "typeMapper");
-        ArgumentNotNull(ef, "ef");
+    Public Sub New(code As CodeGenerationTools, typeMapper As TypeMapper, ef As MetadataTools)
+        ArgumentNotNull(code, "code")
+        ArgumentNotNull(typeMapper, "typeMapper")
+        ArgumentNotNull(ef, "ef")
 
-        _code = code;
-        _typeMapper = typeMapper;
-        _ef = ef;
-    }
+        _code = code
+        _typeMapper = typeMapper
+        _ef = ef
+    End Sub
 
-    public string Property(EdmProperty edmProperty)
-    {
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            //Custom check for key field
-            (_ef.IsKey(edmProperty) ? "[Key]" : "") +
-            "{0} {1} {2} {{ {3}get; {4}set; }}",
-            Accessibility.ForProperty(edmProperty),
-            _typeMapper.GetTypeName(edmProperty.TypeUsage),
-            _code.Escape(edmProperty),
-            _code.SpaceAfter(Accessibility.ForGetter(edmProperty)),
-            _code.SpaceAfter(Accessibility.ForSetter(edmProperty)));
-    }
+    Public Function SimpleProperty(edmProperty As EdmProperty) As String
+        Return SimpleOrComplexProperty(edmProperty, _code.StringBefore(" = ", _typeMapper.CreateLiteral(edmProperty.DefaultValue)))
+    End Function
 
-    public string NavigationProperty(NavigationProperty navProp)
-    {
-        var endType = _typeMapper.GetTypeName(navProp.ToEndMember.GetEntityType());
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} {1} {2} {{ {3}get; {4}set; }}",
-            AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)),
-            navProp.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many ? ("ICollection<" + endType + ">") : endType,
-            _code.Escape(navProp),
-            _code.SpaceAfter(Accessibility.ForGetter(navProp)),
-            _code.SpaceAfter(Accessibility.ForSetter(navProp)));
-    }
-    
-    public string AccessibilityAndVirtual(string accessibility)
-    {
-        return accessibility + (accessibility != "private" ? " virtual" : "");
-    }
-    
-    public string EntityClassOpening(EntityType entity)
-    {
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} {1}partial class {2}{3}",
-            Accessibility.ForType(entity),
-            _code.SpaceAfter(_code.AbstractOption(entity)),
-            _code.Escape(entity),
-            _code.StringBefore(" : ", _typeMapper.GetTypeName(entity.BaseType)));
-    }
-    
-    public string EnumOpening(SimpleType enumType)
-    {
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} enum {1} : {2}",
+    Public Function ComplexProperty(edmProperty As EdmProperty) As String
+        Return SimpleOrComplexProperty(edmProperty, " = New " & _typeMapper.GetTypeName(edmProperty.TypeUsage))
+    End Function
+
+    Public Function SimpleOrComplexProperty(edmProperty As EdmProperty, defaultValue As String) As String
+        Return AnyProperty(
+            Accessibility.ForProperty(edmProperty), _
+            _typeMapper.GetTypeName(edmProperty.TypeUsage), _
+            _code.Escape(edmProperty), _
+            _code.SpaceAfter(Accessibility.ForGetter(edmProperty)), _
+            _code.SpaceAfter(Accessibility.ForSetter(edmProperty)), _
+            defaultValue, _
+            _ef.IsKey(edmProperty))
+    End Function
+
+    Public Function NavigationProperty(navProp As NavigationProperty) As String
+        Dim endType = _typeMapper.GetTypeName(navProp.ToEndMember.GetEntityType())
+        Dim defaultValue = ""
+        Dim propertyType = endType
+
+        If(navProp.ToEndMember.RelationshipMultiplicity = RelationshipMultiplicity.Many)
+            defaultValue = " = New HashSet(Of " & endType & ")"
+            propertyType = "ICollection(Of " & endType & ")"
+        End If
+
+        Return AnyProperty(
+            AccessibilityAndVirtual(Accessibility.ForNavigationProperty(navProp)), _
+            propertyType, _
+            _code.Escape(navProp), _
+            _code.SpaceAfter(Accessibility.ForGetter(navProp)), _
+            _code.SpaceAfter(Accessibility.ForSetter(navProp)), _
+            defaultValue)
+    End Function
+
+    Public Function AccessibilityAndVirtual(accessibility As String) As String
+        Return accessibility & (If(accessibility <> "Private", " Overridable", ""))
+    End Function
+
+    Public Function AnyProperty(accessibility As String, type As String, name As String, getterAccessibility As String, setterAccessibility As String, defaultValue As String, ByVal Optional isKey As Boolean = False)    
+        Dim keyStr = (If(isKey, "<Key>", ""))
+        If (String.IsNullOrEmpty(getterAccessibility) AndAlso String.IsNullOrEmpty(setterAccessibility))
+            Return String.Format( _
+                CultureInfo.InvariantCulture, _
+                "    {4} {0} Property {1} As {2}{3}", _
+                accessibility, _
+                name, _
+                type, _
+                defaultValue, _
+                keyStr)
+        Else
+            Return String.Format( _
+                CultureInfo.InvariantCulture, _
+                "{6}    Private _{0} As {1}{2}{6}" & _
+                "    {3} Property {0} As {1}{6}" & _
+                "        {4}Get{6}" & _
+                "            Return _{0}{6}" & _
+                "        End Get{6}" & _
+                "        {5}Set(ByVal value As {1}){6}" & _
+                "            _{0} = value{6}" & _
+                "        End Set{6}" & _
+                "    End Property",  _
+                name, _
+                type, _
+                defaultValue, _
+                accessibility, _
+                getterAccessibility, _
+                setterAccessibility, _
+                Environment.NewLine)
+        End If
+    End Function
+
+    Public Function PropertyAccessibilityAndVirtual(ByVal member As EdmMember) As String
+        Dim propertyAccess As String = Accessibility.ForProperty(member)
+        Dim setAccess as String = Accessibility.ForSetter(member)
+        Dim getAccess as String = Accessibility.ForGetter(member)
+        If propertyAccess <> "Private" AndAlso setAccess <> "Private" AndAlso getAccess <> "Private" Then
+            Return propertyAccess & " Overridable"
+        End If
+
+        Return propertyAccess
+    End Function
+
+    Public Function EntityClassOpening(entity As EntityType) As String
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "Partial {0} {1}Class {2}{3}", _
+            Accessibility.ForType(entity), _
+            _code.SpaceAfter(_code.MustInheritOption(entity)), _
+            _code.Escape(entity), _
+            _code.StringBefore(Environment.NewLine & "         Inherits ", _typeMapper.GetTypeName(entity.BaseType)))
+    End Function
+
+    Public Function EnumOpening(enumType As SimpleType) As String
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "{0} Enum {1} As {2}", _
             Accessibility.ForType(enumType),
             _code.Escape(enumType),
-            _code.Escape(_typeMapper.UnderlyingClrType(enumType)));
-        }
-    
-    public void WriteFunctionParameters(EdmFunction edmFunction, Action<string, string, string, string> writeParameter)
-    {
-        var parameters = FunctionImportParameter.Create(edmFunction.Parameters, _code, _ef);
-        foreach (var parameter in parameters.Where(p => p.NeedsLocalVariable))
-        {
-            var isNotNull = parameter.IsNullableOfT ? parameter.FunctionParameterName + ".HasValue" : parameter.FunctionParameterName + " != null";
-            var notNullInit = "new ObjectParameter(\"" + parameter.EsqlParameterName + "\", " + parameter.FunctionParameterName + ")";
-            var nullInit = "new ObjectParameter(\"" + parameter.EsqlParameterName + "\", typeof(" + TypeMapper.FixNamespaces(parameter.RawClrTypeName) + "))";
-            writeParameter(parameter.LocalVariableName, isNotNull, notNullInit, nullInit);
-        }
-    }
-    
-    public string ComposableFunctionMethod(EdmFunction edmFunction, string modelNamespace)
-    {
-        var parameters = _typeMapper.GetParameters(edmFunction);
-        
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} IQueryable<{1}> {2}({3})",
-            AccessibilityAndVirtual(Accessibility.ForMethod(edmFunction)),
-            _typeMapper.GetTypeName(_typeMapper.GetReturnType(edmFunction), modelNamespace),
-            _code.Escape(edmFunction),
-            string.Join(", ", parameters.Select(p => TypeMapper.FixNamespaces(p.FunctionParameterType) + " " + p.FunctionParameterName).ToArray()));
-    }
-    
-    public string ComposableCreateQuery(EdmFunction edmFunction, string modelNamespace)
-    {
-        var parameters = _typeMapper.GetParameters(edmFunction);
-        
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<{0}>(\"[{1}].[{2}]({3})\"{4});",
-            _typeMapper.GetTypeName(_typeMapper.GetReturnType(edmFunction), modelNamespace),
-            edmFunction.NamespaceName,
-            edmFunction.Name,
-            string.Join(", ", parameters.Select(p => "@" + p.EsqlParameterName).ToArray()),
-            _code.StringBefore(", ", string.Join(", ", parameters.Select(p => p.ExecuteParameterName).ToArray())));
-    }
-    
-    public string FunctionMethod(EdmFunction edmFunction, string modelNamespace, bool includeMergeOption)
-    {
-        var parameters = _typeMapper.GetParameters(edmFunction);
-        var returnType = _typeMapper.GetReturnType(edmFunction);
+            _code.Escape(_typeMapper.UnderlyingClrType(enumType)))
+    End Function
 
-        var paramList = String.Join(", ", parameters.Select(p => TypeMapper.FixNamespaces(p.FunctionParameterType) + " " + p.FunctionParameterName).ToArray());
-        if (includeMergeOption)
-        {
-            paramList = _code.StringAfter(paramList, ", ") + "MergeOption mergeOption";
-        }
+    Public Sub WriteFunctionParameters(edmFunction As EdmFunction, writeParameter As Action(Of String, String, String, String))
+        Dim parameters as IEnumerable(Of FunctionImportParameter) = FunctionImportParameter.Create(edmFunction.Parameters, _code, _ef)
+        For Each parameter As FunctionImportParameter In parameters.Where(Function(p) p.NeedsLocalVariable)
+            Dim isNotNull as String = If(parameter.IsNullableOfT, parameter.FunctionParameterName & ".HasValue", parameter.FunctionParameterName & " IsNot Nothing")
+            Dim notNullInit as String = "New ObjectParameter(""" & parameter.EsqlParameterName & """, " & parameter.FunctionParameterName & ")"
+            Dim nullInit as String = "New ObjectParameter(""" & parameter.EsqlParameterName & """, GetType(" & TypeMapper.FixNamespaces(parameter.RawClrTypeName) & "))"
+            writeParameter(parameter.LocalVariableName, isNotNull, notNullInit, nullInit)
+        Next
+    End Sub
 
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} {1} {2}({3})",
-            AccessibilityAndVirtual(Accessibility.ForMethod(edmFunction)),
-            returnType == null ? "int" : "ObjectResult<" + _typeMapper.GetTypeName(returnType, modelNamespace) + ">",
-            _code.Escape(edmFunction),
-            paramList);
-    }
-    
-    public string ExecuteFunction(EdmFunction edmFunction, string modelNamespace, bool includeMergeOption)
-    {
-        var parameters = _typeMapper.GetParameters(edmFunction);
-        var returnType = _typeMapper.GetReturnType(edmFunction);
+    Public Function ComposableFunctionMethod(edmFunction As EdmFunction, modelNamespace As String) As String
+        Dim parameters as IEnumerable(Of FunctionImportParameter) = _typeMapper.GetParameters(edmFunction)
 
-        var callParams = _code.StringBefore(", ", String.Join(", ", parameters.Select(p => p.ExecuteParameterName).ToArray()));
-        if (includeMergeOption)
-        {
-            callParams = ", mergeOption" + callParams;
-        }
-        
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction{0}(\"{1}\"{2});",
-            returnType == null ? "" : "<" + _typeMapper.GetTypeName(returnType, modelNamespace) + ">",
-            edmFunction.Name,
-            callParams);
-    }
-    
-    public string DbSet(EntitySet entitySet)
-    {
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "{0} virtual DbSet<{1}> {2} {{ get; set; }}",
-            Accessibility.ForReadOnlyProperty(entitySet),
-            _typeMapper.GetTypeName(entitySet.ElementType),
-            _code.Escape(entitySet));
-    }
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "{0} Function {1}({2}) As IQueryable(Of {3})", _
+            AccessibilityAndVirtual(Accessibility.ForMethod(edmFunction)), _
+            _code.Escape(edmFunction), _
+            String.Join(", ", parameters.Select(Function(p) p.FunctionParameterName & " As " & TypeMapper.FixNamespaces(p.FunctionParameterType)).ToArray()), _
+            _typeMapper.GetTypeName(_typeMapper.GetReturnType(edmFunction), modelNamespace))
+    End Function
 
-    public string UsingDirectives(bool inHeader, bool includeCollections = true)
-    {
-        return inHeader == string.IsNullOrEmpty(_code.VsNamespaceSuggestion())
-            ? string.Format(
-                CultureInfo.InvariantCulture,
-                "{0}using System;{0}using System.ComponentModel.DataAnnotations;{1}" +
-                "{2}",
-                inHeader ? Environment.NewLine : "",
-                includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
-                inHeader ? "" : Environment.NewLine)
-            : "";
-    }
-}
+    Public Function ComposableCreateQuery(edmFunction As EdmFunction, modelNamespace As String) As String
+        Dim parameters as IEnumerable(Of FunctionImportParameter) = _typeMapper.GetParameters(edmFunction)
 
-public class TypeMapper
-{
-    private const string ExternalTypeNameAttributeName = @"http://schemas.microsoft.com/ado/2006/04/codegeneration:ExternalTypeName";
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "Return DirectCast(Me, IObjectContextAdapter).ObjectContext.CreateQuery(Of {0})(""[{1}].[{2}]({3})""{4})", _
+            _typeMapper.GetTypeName(_typeMapper.GetReturnType(edmFunction), modelNamespace), _
+            edmFunction.NamespaceName, _
+            edmFunction.Name, _
+            String.Join(", ", parameters.Select(Function(p) "@" & Convert.ToString(p.EsqlParameterName)).ToArray()), _
+            _code.StringBefore(", ", String.Join(", ", parameters.Select(Function(p) p.ExecuteParameterName).ToArray())))
+    End Function
 
-    private readonly System.Collections.IList _errors;
-    private readonly CodeGenerationTools _code;
-    private readonly MetadataTools _ef;
+    Public Function FunctionMethod(edmFunction As EdmFunction, modelNamespace As String, includeMergeOption As Boolean) As String
+        Dim parameters as IEnumerable(Of FunctionImportParameter) = _typeMapper.GetParameters(edmFunction)
+        Dim returnType as TypeUsage = _typeMapper.GetReturnType(edmFunction)
 
-    public TypeMapper(CodeGenerationTools code, MetadataTools ef, System.Collections.IList errors)
-    {
-        ArgumentNotNull(code, "code");
-        ArgumentNotNull(ef, "ef");
-        ArgumentNotNull(errors, "errors");
+        Dim paramList as String = String.Join(", ", parameters.Select(Function(p) p.FunctionParameterName & " As " & TypeMapper.FixNamespaces(p.FunctionParameterType)).ToArray())
+        If includeMergeOption Then
+            paramList = _code.StringAfter(paramList, ", ") & "mergeOption As MergeOption"
+        End If
 
-        _code = code;
-        _ef = ef;
-        _errors = errors;
-    }
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "{0} Function {1}({2}) As {3}", _
+            AccessibilityAndVirtual(Accessibility.ForMethod(edmFunction)), _
+            _code.Escape(edmFunction), _
+            paramList, _
+            If(returnType Is Nothing, "Integer", "ObjectResult(Of " & _typeMapper.GetTypeName(returnType, modelNamespace) & ")"))
+    End Function
 
-    public static string FixNamespaces(string typeName)
-    {
-        return typeName.Replace("System.Data.Spatial.", "System.Data.Entity.Spatial.");
-    }
+    Public Function ExecuteFunction(edmFunction As EdmFunction, modelNamespace As String, includeMergeOption As Boolean) As String
+        Dim parameters as IEnumerable(Of FunctionImportParameter) = _typeMapper.GetParameters(edmFunction)
+        Dim returnType as TypeUsage = _typeMapper.GetReturnType(edmFunction)
 
-    public string GetTypeName(TypeUsage typeUsage)
-    {
-        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace: null);
-    }
+        Dim callParams as String = _code.StringBefore(", ", String.Join(", ", parameters.Select(Function(p) p.ExecuteParameterName).ToArray()))
+        If includeMergeOption Then
+            callParams = ", mergeOption" & callParams
+        End If
 
-    public string GetTypeName(EdmType edmType)
-    {
-        return GetTypeName(edmType, isNullable: null, modelNamespace: null);
-    }
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction{0}(""{1}""{2})", _
+            If(returnType Is Nothing, "", "(Of " & _typeMapper.GetTypeName(returnType, ModelNamespace) & ")"), _
+            edmFunction.Name, _
+            callParams)
+    End Function
 
-    public string GetTypeName(TypeUsage typeUsage, string modelNamespace)
-    {
-        return typeUsage == null ? null : GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace);
-    }
+    Public Function DbSet(entitySet As EntitySet) As String
+        Return String.Format( _
+            CultureInfo.InvariantCulture, _
+            "{0} Overridable Property {1}() As DbSet(Of {2})", _
+            Accessibility.ForReadOnlyProperty(entitySet), _
+            _code.Escape(entitySet), _
+            _typeMapper.GetTypeName(entitySet.ElementType))
+    End Function
+End Class
 
-    public string GetTypeName(EdmType edmType, string modelNamespace)
-    {
-        return GetTypeName(edmType, isNullable: null, modelNamespace: modelNamespace);
-    }
+Public Class TypeMapper
+    Private Const ExternalTypeNameAttributeName As String = "http://schemas.microsoft.com/ado/2006/04/codegeneration:ExternalTypeName"
 
-    public string GetTypeName(EdmType edmType, bool? isNullable, string modelNamespace)
-    {
-        if (edmType == null)
-        {
-            return null;
-        }
+    Private ReadOnly _errors As System.Collections.IList
+    Private ReadOnly _code As CodeGenerationTools
+    Private ReadOnly _ef As MetadataTools
 
-        var collectionType = edmType as CollectionType;
-        if (collectionType != null)
-        {
-            return String.Format(CultureInfo.InvariantCulture, "ICollection<{0}>", GetTypeName(collectionType.TypeUsage, modelNamespace));
-        }
+    Public Sub New(code As CodeGenerationTools, ef As MetadataTools, errors As System.Collections.IList)
+        ArgumentNotNull(code, "code")
+        ArgumentNotNull(ef, "ef")
+        ArgumentNotNull(errors, "errors")
 
-        var typeName = _code.Escape(edmType.MetadataProperties
-                                .Where(p => p.Name == ExternalTypeNameAttributeName)
-                                .Select(p => (string)p.Value)
-                                .FirstOrDefault())
-            ?? (modelNamespace != null && edmType.NamespaceName != modelNamespace ?
-                _code.CreateFullName(_code.EscapeNamespace(edmType.NamespaceName), _code.Escape(edmType)) :
-                _code.Escape(edmType));
+        _code = code
+        _ef = ef
+        _errors = errors
+    End Sub
 
-        if (edmType is StructuralType)
-        {
-            return typeName;
-        }
+    Public Shared Function FixNamespaces(typeName As String) As String
+        Return typeName.Replace("System.Data.Spatial.", "System.Data.Entity.Spatial.")
+    End Function
 
-        if (edmType is SimpleType)
-        {
-            var clrType = UnderlyingClrType(edmType);
-            if (!IsEnumType(edmType))
-            {
-                typeName = _code.Escape(clrType);
-            }
+    Public Function GetTypeName(typeUsage As TypeUsage) As String
+        Return If(typeUsage Is Nothing, Nothing, GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace := Nothing))
+    End Function
 
-            typeName = FixNamespaces(typeName);
+    Public Function GetTypeName(edmType As EdmType) As String
+        Return GetTypeName(edmType, isNullable := Nothing, modelNamespace := Nothing)
+    End Function
 
-            return clrType.IsValueType && isNullable == true ?
-                String.Format(CultureInfo.InvariantCulture, "Nullable<{0}>", typeName) :
-                typeName;
-        }
+    Public Function GetTypeName(typeUsage As TypeUsage, modelNamespace As String) As String
+        Return If(typeUsage Is Nothing, Nothing, GetTypeName(typeUsage.EdmType, _ef.IsNullable(typeUsage), modelNamespace))
+    End Function
 
-        throw new ArgumentException("edmType");
-    }
-    
-    public Type UnderlyingClrType(EdmType edmType)
-    {
-        ArgumentNotNull(edmType, "edmType");
+    Public Function GetTypeName(edmType As EdmType, modelNamespace As String) As String
+        Return GetTypeName(edmType, isNullable := Nothing, modelNamespace := modelNamespace)
+    End Function
 
-        var primitiveType = edmType as PrimitiveType;
-        if (primitiveType != null)
-        {
-            return primitiveType.ClrEquivalentType;
-        }
+    Public Function GetTypeName(edmType As EdmType, isNullable As System.Nullable(Of Boolean), modelNamespace As String) As String
+        If edmType Is Nothing Then
+            Return Nothing
+        End If
 
-        if (IsEnumType(edmType))
-        {
-            return GetEnumUnderlyingType(edmType).ClrEquivalentType;
-        }
+        Dim collectionType = TryCast(edmType, CollectionType)
+        If collectionType IsNot Nothing Then
+            Return String.Format(CultureInfo.InvariantCulture, "ICollection( Of {0})", GetTypeName(collectionType.TypeUsage, modelNamespace))
+        End If
 
-        return typeof(object);
-    }
-    
-    public object GetEnumMemberValue(MetadataItem enumMember)
-    {
-        ArgumentNotNull(enumMember, "enumMember");
-        
-        var valueProperty = enumMember.GetType().GetProperty("Value");
-        return valueProperty == null ? null : valueProperty.GetValue(enumMember, null);
-    }
-    
-    public string GetEnumMemberName(MetadataItem enumMember)
-    {
-        ArgumentNotNull(enumMember, "enumMember");
-        
-        var nameProperty = enumMember.GetType().GetProperty("Name");
-        return nameProperty == null ? null : (string)nameProperty.GetValue(enumMember, null);
-    }
+        Dim typeName = If(_code.Escape(edmType.MetadataProperties.Where(Function(p) p.Name = ExternalTypeNameAttributeName).Select(Function(p) DirectCast(p.Value, String)).FirstOrDefault()), (If(modelNamespace IsNot Nothing AndAlso edmType.NamespaceName <> modelNamespace, _code.CreateFullName(_code.EscapeNamespace(edmType.NamespaceName), _code.Escape(edmType)), _code.Escape(edmType))))
 
-    public System.Collections.IEnumerable GetEnumMembers(EdmType enumType)
-    {
-        ArgumentNotNull(enumType, "enumType");
+        If TypeOf edmType Is StructuralType Then
+            Return typeName
+        End If
 
-        var membersProperty = enumType.GetType().GetProperty("Members");
-        return membersProperty != null 
-            ? (System.Collections.IEnumerable)membersProperty.GetValue(enumType, null)
-            : Enumerable.Empty<MetadataItem>();
-    }
-    
-    public bool EnumIsFlags(EdmType enumType)
-    {
-        ArgumentNotNull(enumType, "enumType");
-        
-        var isFlagsProperty = enumType.GetType().GetProperty("IsFlags");
-        return isFlagsProperty != null && (bool)isFlagsProperty.GetValue(enumType, null);
-    }
+        If TypeOf edmType Is SimpleType Then
+            Dim clrType = UnderlyingClrType(edmType)
+            If Not (IsEnumType(edmType)) Then
+                typeName = _code.Escape(clrType)
+            End If            
+            
+            typeName = FixNamespaces(typeName)
 
-    public bool IsEnumType(GlobalItem edmType)
-    {
-        ArgumentNotNull(edmType, "edmType");
+            Return If(clrType.IsValueType AndAlso isNullable = True, String.Format(CultureInfo.InvariantCulture, "Nullable(Of {0})", typeName), typeName)
+        End If
 
-        return edmType.GetType().Name == "EnumType";
-    }
+        Throw New ArgumentException("edmType")
+    End Function
 
-    public PrimitiveType GetEnumUnderlyingType(EdmType enumType)
-    {
-        ArgumentNotNull(enumType, "enumType");
+    Public Function UnderlyingClrType(edmType As EdmType) As Type
+        ArgumentNotNull(edmType, "edmType")
 
-        return (PrimitiveType)enumType.GetType().GetProperty("UnderlyingType").GetValue(enumType, null);
-    }
+        Dim primitiveType as PrimitiveType = TryCast(edmType, PrimitiveType)
+        If primitiveType IsNot Nothing Then
+            Return primitiveType.ClrEquivalentType
+        End If
 
-    public string CreateLiteral(object value)
-    {
-        if (value == null || value.GetType() != typeof(TimeSpan))
-        {
-            return _code.CreateLiteral(value);
-        }
+        If IsEnumType(edmType) Then
+            Return GetEnumUnderlyingType(edmType).ClrEquivalentType
+        End If
 
-        return string.Format(CultureInfo.InvariantCulture, "new TimeSpan({0})", ((TimeSpan)value).Ticks);
-    }
-    
-    public bool VerifyCaseInsensitiveTypeUniqueness(IEnumerable<string> types, string sourceFile)
-    {
-        ArgumentNotNull(types, "types");
-        ArgumentNotNull(sourceFile, "sourceFile");
-        
-        var hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-        if (types.Any(item => !hash.Add(item)))
-        {
-            _errors.Add(
-                new CompilerError(sourceFile, -1, -1, "6023",
-                    String.Format(CultureInfo.CurrentCulture, CodeGenerationTools.GetResourceString("Template_CaseInsensitiveTypeConflict"))));
-            return false;
-        }
-        return true;
-    }
-    
-    public IEnumerable<SimpleType> GetEnumItemsToGenerate(IEnumerable<GlobalItem> itemCollection)
-    {
-        return GetItemsToGenerate<SimpleType>(itemCollection)
-            .Where(e => IsEnumType(e));
-    }
-    
-    public IEnumerable<T> GetItemsToGenerate<T>(IEnumerable<GlobalItem> itemCollection) where T: EdmType
-    {
-        return itemCollection
-            .OfType<T>()
-            .Where(i => !i.MetadataProperties.Any(p => p.Name == ExternalTypeNameAttributeName))
-            .OrderBy(i => i.Name);
-    }
+        Return GetType(Object)
+    End Function
 
-    public IEnumerable<string> GetAllGlobalItems(IEnumerable<GlobalItem> itemCollection)
-    {
-        return itemCollection
-            .Where(i => i is EntityType || i is ComplexType || i is EntityContainer || IsEnumType(i))
-            .Select(g => GetGlobalItemName(g));
-    }
+    Public Function GetEnumMemberValue(enumMember As MetadataItem) As Object
+        ArgumentNotNull(enumMember, "enumMember")
 
-    public string GetGlobalItemName(GlobalItem item)
-    {
-        if (item is EdmType)
-        {
-            return ((EdmType)item).Name;
-        }
-        else
-        {
-            return ((EntityContainer)item).Name;
-        }
-    }
+        Dim valueProperty As PropertyInfo = enumMember.GetType().GetProperty("Value")
+        Return If(valueProperty Is Nothing, Nothing, valueProperty.GetValue(enumMember, Nothing))
+    End Function
 
-    public IEnumerable<EdmProperty> GetSimpleProperties(EntityType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is SimpleType && p.DeclaringType == type);
-    }
-    
-    public IEnumerable<EdmProperty> GetSimpleProperties(ComplexType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is SimpleType && p.DeclaringType == type);
-    }
-    
-    public IEnumerable<EdmProperty> GetComplexProperties(EntityType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == type);
-    }
-    
-    public IEnumerable<EdmProperty> GetComplexProperties(ComplexType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is ComplexType && p.DeclaringType == type);
-    }
+    Public Function GetEnumMemberName(enumMember As MetadataItem) As String
+        ArgumentNotNull(enumMember, "enumMember")
 
-    public IEnumerable<EdmProperty> GetPropertiesWithDefaultValues(EntityType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is SimpleType && p.DeclaringType == type && p.DefaultValue != null);
-    }
-    
-    public IEnumerable<EdmProperty> GetPropertiesWithDefaultValues(ComplexType type)
-    {
-        return type.Properties.Where(p => p.TypeUsage.EdmType is SimpleType && p.DeclaringType == type && p.DefaultValue != null);
-    }
+        Dim nameProperty As PropertyInfo = enumMember.GetType().GetProperty("Name")
+        Return If(nameProperty Is Nothing, Nothing, DirectCast(nameProperty.GetValue(enumMember, Nothing), String))
+    End Function
 
-    public IEnumerable<NavigationProperty> GetNavigationProperties(EntityType type)
-    {
-        return type.NavigationProperties.Where(np => np.DeclaringType == type);
-    }
-    
-    public IEnumerable<NavigationProperty> GetCollectionNavigationProperties(EntityType type)
-    {
-        return type.NavigationProperties.Where(np => np.DeclaringType == type && np.ToEndMember.RelationshipMultiplicity == RelationshipMultiplicity.Many);
-    }
-    
-    public FunctionParameter GetReturnParameter(EdmFunction edmFunction)
-    {
-        ArgumentNotNull(edmFunction, "edmFunction");
+    Public Function GetEnumMembers(enumType As EdmType) As System.Collections.IEnumerable
+        ArgumentNotNull(enumType, "enumType")
 
-        var returnParamsProperty = edmFunction.GetType().GetProperty("ReturnParameters");
-        return returnParamsProperty == null
-            ? edmFunction.ReturnParameter
-            : ((IEnumerable<FunctionParameter>)returnParamsProperty.GetValue(edmFunction, null)).FirstOrDefault();
-    }
+        Dim membersProperty As PropertyInfo = enumType.GetType().GetProperty("Members")
+        Return If(membersProperty IsNot Nothing, DirectCast(membersProperty.GetValue(enumType, Nothing), System.Collections.IEnumerable), Enumerable.Empty(Of MetadataItem)())
+    End Function
 
-    public bool IsComposable(EdmFunction edmFunction)
-    {
-        ArgumentNotNull(edmFunction, "edmFunction");
+    Public Function EnumIsFlags(enumType As EdmType) As Boolean
+        ArgumentNotNull(enumType, "enumType")
 
-        var isComposableProperty = edmFunction.GetType().GetProperty("IsComposableAttribute");
-        return isComposableProperty != null && (bool)isComposableProperty.GetValue(edmFunction, null);
-    }
+        Dim isFlagsProperty As PropertyInfo = enumType.GetType().GetProperty("IsFlags")
+        Return isFlagsProperty IsNot Nothing AndAlso CBool(isFlagsProperty.GetValue(enumType, Nothing))
+    End Function
 
-    public IEnumerable<FunctionImportParameter> GetParameters(EdmFunction edmFunction)
-    {
-        return FunctionImportParameter.Create(edmFunction.Parameters, _code, _ef);
-    }
+    Public Function IsEnumType(edmType As GlobalItem) As Boolean
+        ArgumentNotNull(edmType, "edmType")
 
-    public TypeUsage GetReturnType(EdmFunction edmFunction)
-    {
-        var returnParam = GetReturnParameter(edmFunction);
-        return returnParam == null ? null : _ef.GetElementType(returnParam.TypeUsage);
-    }
-    
-    public bool GenerateMergeOptionFunction(EdmFunction edmFunction, bool includeMergeOption)
-    {
-        var returnType = GetReturnType(edmFunction);
-        return !includeMergeOption && returnType != null && returnType.EdmType.BuiltInTypeKind == BuiltInTypeKind.EntityType;
-    }
-}
+        Return edmType.GetType().Name = "EnumType"
+    End Function
 
-public static void ArgumentNotNull<T>(T arg, string name) where T : class
-{
-    if (arg == null)
-    {
-        throw new ArgumentNullException(name);
-    }
-}
+    Public Function GetEnumUnderlyingType(enumType As EdmType) As PrimitiveType
+        ArgumentNotNull(enumType, "enumType")
+
+        Return DirectCast(enumType.GetType().GetProperty("UnderlyingType").GetValue(enumType, Nothing), PrimitiveType)
+    End Function
+
+    Public Function CreateLiteral(value As Object) As String
+        If value Is Nothing OrElse value.GetType() IsNot GetType(TimeSpan) Then
+            Return _code.CreateLiteral(value)
+        End If
+
+        Return String.Format(CultureInfo.InvariantCulture, "new TimeSpan({0})", DirectCast(value, TimeSpan).Ticks)
+    End Function
+
+    Public Function VerifyCaseInsensitiveTypeUniqueness(types As IEnumerable(Of String), sourceFile As String) As Boolean
+        ArgumentNotNull(types, "types")
+        ArgumentNotNull(sourceFile, "sourceFile")
+
+        Dim hash As HashSet(Of String) = New HashSet(Of String)(StringComparer.InvariantCultureIgnoreCase)
+        If types.Any(Function(item) Not hash.Add(item)) Then
+            _errors.Add(New CompilerError(sourceFile, -1, -1, "6023", String.Format(CultureInfo.CurrentCulture, CodeGenerationTools.GetResourceString("Template_CaseInsensitiveTypeConflict"))))
+            Return False
+        End If
+        Return True
+    End Function
+
+    Public Function GetEnumItemsToGenerate(itemCollection As IEnumerable(Of GlobalItem)) As IEnumerable(Of SimpleType)
+        Return GetItemsToGenerate(Of SimpleType)(itemCollection).Where(Function(e) IsEnumType(e))
+    End Function
+
+    Public Function GetItemsToGenerate(Of T As EdmType)(itemCollection As IEnumerable(Of GlobalItem)) As IEnumerable(Of T)
+        Return itemCollection.OfType(Of T)().Where(Function(i) Not i.MetadataProperties.Any(Function(p) p.Name = ExternalTypeNameAttributeName)).OrderBy(Function(i) i.Name)
+    End Function
+
+    Public Function GetAllGlobalItems(itemCollection As IEnumerable(Of GlobalItem)) As IEnumerable(Of String)
+        Return itemCollection.Where(Function(i) TypeOf i Is EntityType OrElse TypeOf i Is ComplexType OrElse TypeOf i Is EntityContainer OrElse IsEnumType(i)).Select(Function(g) GetGlobalItemName(g))
+    End Function
+
+    Public Function GetGlobalItemName(item As GlobalItem) As String
+        If TypeOf item Is EdmType Then
+            Return DirectCast(item, EdmType).Name
+        Else
+            Return DirectCast(item, EntityContainer).Name
+        End If
+    End Function
+
+    Public Function GetSimpleProperties(type As EntityType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is SimpleType AndAlso p.DeclaringType.Equals(type))
+    End Function
+
+    Public Function GetSimpleProperties(type As ComplexType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is SimpleType AndAlso p.DeclaringType.Equals(type))
+    End Function
+
+    Public Function GetComplexProperties(type As EntityType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is ComplexType AndAlso p.DeclaringType.Equals(type))
+    End Function
+
+    Public Function GetComplexProperties(type As ComplexType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is ComplexType AndAlso p.DeclaringType.Equals(type))
+    End Function
+
+    Public Function GetPropertiesWithDefaultValues(type As EntityType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is SimpleType AndAlso p.DeclaringType.Equals(type) AndAlso p.DefaultValue IsNot Nothing)
+    End Function
+
+    Public Function GetPropertiesWithDefaultValues(type As ComplexType) As IEnumerable(Of EdmProperty)
+        Return type.Properties.Where(Function(p) TypeOf p.TypeUsage.EdmType Is SimpleType AndAlso p.DeclaringType.Equals(type) AndAlso p.DefaultValue IsNot Nothing)
+    End Function
+
+    Public Function GetNavigationProperties(type As EntityType) As IEnumerable(Of NavigationProperty)
+        Return type.NavigationProperties.Where(Function(np) np.DeclaringType.Equals(type))
+    End Function
+
+    Public Function GetCollectionNavigationProperties(type As EntityType) As IEnumerable(Of NavigationProperty)
+        Return type.NavigationProperties.Where(Function(np) np.DeclaringType.Equals(type) AndAlso np.ToEndMember.RelationshipMultiplicity = RelationshipMultiplicity.Many)
+    End Function
+
+    Public Function GetReturnParameter(edmFunction As EdmFunction) As FunctionParameter
+        ArgumentNotNull(edmFunction, "edmFunction")
+
+        Dim returnParamsProperty As PropertyInfo = edmFunction.GetType().GetProperty("ReturnParameters")
+        Return If(returnParamsProperty Is Nothing, edmFunction.ReturnParameter, DirectCast(returnParamsProperty.GetValue(edmFunction, Nothing), IEnumerable(Of FunctionParameter)).FirstOrDefault())
+    End Function
+
+    Public Function IsComposable(edmFunction As EdmFunction) As Boolean
+        ArgumentNotNull(edmFunction, "edmFunction")
+
+        Dim isComposableProperty As PropertyInfo = edmFunction.GetType().GetProperty("IsComposableAttribute")
+        Return isComposableProperty IsNot Nothing AndAlso CBool(isComposableProperty.GetValue(edmFunction, Nothing))
+    End Function
+
+    Public Function GetParameters(edmFunction As EdmFunction) As IEnumerable(Of FunctionImportParameter)
+        Return FunctionImportParameter.Create(edmFunction.Parameters, _code, _ef)
+    End Function
+
+    Public Function GetReturnType(edmFunction As EdmFunction) As TypeUsage
+        Dim returnParam As FunctionParameter = GetReturnParameter(edmFunction)
+        Return If(returnParam Is Nothing, Nothing, _ef.GetElementType(returnParam.TypeUsage))
+    End Function
+
+    Public Function GenerateMergeOptionFunction(edmFunction As EdmFunction, includeMergeOption As Boolean) As Boolean
+        Dim returnType As TypeUsage = GetReturnType(edmFunction)
+        Return Not includeMergeOption AndAlso returnType IsNot Nothing AndAlso returnType.EdmType.BuiltInTypeKind = BuiltInTypeKind.EntityType
+    End Function
+End Class
+
+Public Shared Sub ArgumentNotNull(Of T As Class)(arg As T, name As String)
+    If arg Is Nothing Then
+        Throw New ArgumentNullException(name)
+    End If
+End Sub
+
 #>

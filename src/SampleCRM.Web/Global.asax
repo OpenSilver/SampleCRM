@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="SampleCRM.Web.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.vb" Inherits="SampleCRM.Web.OpenSilverBusinessApp" Language="VB" %>

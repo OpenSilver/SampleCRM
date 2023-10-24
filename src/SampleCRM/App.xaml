@@ -29,7 +29,7 @@
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_TextBox_Styles.xaml"/>
 
 
-                
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

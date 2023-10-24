@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Language="VB" %>
 
 <!DOCTYPE html>
 

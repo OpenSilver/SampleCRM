@@ -6,11 +6,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="OpenSilver.Simulator" Version="2.0.1" />
+		<PackageReference Include="OpenSilver.Simulator" Version="2.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SampleCRM\SampleCRM.csproj" />
+		<ProjectReference Include="..\SampleCRM\SampleCRM.vbproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-﻿<local:BasePage x:Class="SampleCRM.Web.Views.Orders"
-                xmlns:local="clr-namespace:SampleCRM.Web.Views"
-                xmlns:models="clr-namespace:SampleCRM.Web.Models"
+﻿<local:BasePage x:Class="SampleCRM.Views.Orders"
+                xmlns:local="clr-namespace:SampleCRM.Views"
+                xmlns:models="clr-namespace:SampleCRM.Web"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -28,7 +28,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
+
                 <DataField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <controls:RequiredTextBlock Text="Ship Address" />

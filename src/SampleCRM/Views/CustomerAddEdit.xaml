@@ -1,8 +1,8 @@
 ﻿<local:BaseUserControl
-    x:Class="SampleCRM.Web.Views.CustomerAddEdit"
+    x:Class="SampleCRM.Views.CustomerAddEdit"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:SampleCRM.Web.Views"
+    xmlns:local="clr-namespace:SampleCRM.Views"
     xmlns:controls="clr-namespace:SampleCRM.Controls">
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />

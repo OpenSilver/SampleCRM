@@ -1,8 +1,8 @@
-﻿<local:BaseChildWindow x:Class="SampleCRM.Web.Views.OrderItemAddEditWindow"    
+﻿<local:BaseChildWindow x:Class="SampleCRM.Views.OrderItemAddEditWindow"    
                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                        Title="Add Order Item"
-                       xmlns:local="clr-namespace:SampleCRM.Web.Views"
+                       xmlns:local="clr-namespace:SampleCRM.Views"
                        Style="{StaticResource MaterialDesign_ChildWindow_Style}">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>

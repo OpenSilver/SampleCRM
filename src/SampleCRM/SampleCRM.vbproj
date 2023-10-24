@@ -1,0 +1,339 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <DefineSilverlight>true</DefineSilverlight>
+    <LinkedOpenRiaServerProject>..\SampleCRM.Web\SampleCRM.Web.vbproj</LinkedOpenRiaServerProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenSilver" Version="2.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="App.xaml.vb" />
+    <Compile Include="Assets\MaterialDesign_Styles_Kit\AccentColorConverter.vb" />
+    <Compile Include="Assets\MaterialDesign_Styles_Kit\DoubleToCornerRadiusConverter.vb" />
+    <Compile Include="Assets\MaterialDesign_Styles_Kit\TextToPlaceholderTextVisibilityConverter.vb" />
+    <Compile Include="Helpers\BinaryImageConverter.vb" />
+    <Compile Include="Helpers\BoolToVisibilityConverter.vb" />
+    <Compile Include="Helpers\CountryCodeToCountryNameConverter.vb" />
+    <Compile Include="Helpers\DateTimeFormatConverter.vb" />
+    <Compile Include="Helpers\InverseBoolToVisibilityConverter.vb" />
+    <Compile Include="Helpers\ObservableCollectionExtensions.vb" />
+    <Compile Include="MainPage.xaml.vb" />
+    <Compile Include="Contexts\WebContext.vb" />
+    <Compile Include="Controls\BusyIndicator.vb" />
+    <Compile Include="Controls\VisualStates.vb" />
+    <Compile Include="Helpers\DataFieldExtensions.vb" />
+    <Compile Include="Helpers\NotOperatorValueConverter.vb" />
+    <Compile Include="Helpers\TargetNullValueConverter.vb" />
+    <Compile Include="Models\Customers.vb" />
+    <Compile Include="Models\LoginInfo.vb" />
+    <Compile Include="Models\OrderItems.vb" />
+    <Compile Include="Models\Orders.vb" />
+    <Compile Include="Models\Products.vb" />
+    <Compile Include="Models\RegistrationData.partial.vb" />
+    <Compile Include="Models\TaxTypes.vb" />
+    <Compile Include="Models\User.partial.vb" />
+    <Compile Include="Views\About.xaml.vb" />
+    <Compile Include="Views\BaseChildWindow.vb" />
+    <Compile Include="Views\BasePage.vb" />
+    <Compile Include="Views\BaseUserControl.vb" />
+    <Compile Include="Views\Categories.xaml.vb" />
+    <Compile Include="Views\CustomerAddEdit.xaml.vb" />
+    <Compile Include="Views\CustomerAddEditWindow.xaml.vb" />
+    <Compile Include="Views\Customers.xaml.vb" />
+    <Compile Include="Views\Dashboard.xaml.vb" />
+    <Compile Include="Views\ErrorWindow.xaml.vb" />
+    <Compile Include="Views\Home.xaml.vb" />
+    <Compile Include="Views\Login\LoginForm.xaml.vb" />
+    <Compile Include="Views\Login\LoginRegistrationWindow.xaml.vb" />
+    <Compile Include="Views\Login\LoginStatus.xaml.vb" />
+    <Compile Include="Views\Login\RegistrationForm.xaml.vb" />
+    <Compile Include="Views\OrderAddEdit.xaml.vb" />
+    <Compile Include="Views\OrderAddEditWindow.xaml.vb" />
+    <Compile Include="Views\OrderItemAddEdit.xaml.vb" />
+    <Compile Include="Views\OrderItemAddEditWindow.xaml.vb" />
+    <Compile Include="Views\Orders.xaml.vb" />
+    <Compile Include="Views\ResponsivePane.xaml.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Barcode.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Bitcoin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Book.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Clock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Customers.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Folder1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Assets\Gauge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Incline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ListInBox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Locked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\MenuIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Ok.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\People.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Reload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Setting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SiteMap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Unlocked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Card_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CheckBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ChildWindow_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ComboBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_CommonResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ContextMenu_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataGrid_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DatePicker_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Expander_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_PasswordBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Popup_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_RadioButton_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TabControl_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TextBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CircleImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RequiredTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BusyIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Categories.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginRegistrationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\RegistrationForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemAddEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderItemAddEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Orders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResponsivePane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\CircleImage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\RequiredTextBlock.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Controls\CircleImage.xaml.vb" />
+    <Compile Include="Controls\RequiredTextBlock.xaml.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Categories.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ResponsivePane.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CustomerAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Customers.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Dashboard.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OrderItemAddEditWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Orders.xaml" />
+  </ItemGroup>
+
+</Project>
