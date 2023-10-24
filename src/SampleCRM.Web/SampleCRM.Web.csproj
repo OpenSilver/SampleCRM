@@ -111,6 +111,7 @@
     <Content Include="database\InstallMembership.sql" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\OpenSilver_Logo.png" />
     <Content Include="Models\SampleCRMModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SampleCRMModel.edmx</DependentUpon>

@@ -37,7 +37,7 @@
 <body>
     <div id="LayoutRoot">
         <div class="container">
-            <img src="https://www.opensilver.net/images/logo/OpenSilver_Logo.png" alt="OpenSilver" />
+            <img src="images/OpenSilver_Logo.png" alt="OpenSilver" />
             <p>
                 This is the back-end. Please keep this window open while using the front-end.
             </p>
