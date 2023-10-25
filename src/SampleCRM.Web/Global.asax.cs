@@ -1,5 +1,9 @@
+using OpenRiaServices.DomainServices.Hosting;
+using OpenRiaServices.DomainServices.Server;
 using System;
 using System.Configuration;
+using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Configuration;
 
@@ -16,6 +20,34 @@ namespace SampleCRM.Web
             string path = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
+            initDomainServiceQueries();
+        }
+
+        private void initDomainServiceQueries()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var classes =
+                from t in assembly.GetTypes().AsParallel()
+                let attributes = t.GetCustomAttributes(typeof(EnableClientAccessAttribute), true)
+                where attributes != null && attributes.Length > 0
+                select new { Type = t, Attributes = attributes.Cast<EnableClientAccessAttribute>() };
+
+            foreach (var classType in classes)
+            {
+                var classInstance = Activator.CreateInstance(classType.Type);
+                var methods = classType.Type
+                                       .GetMethods()
+                                       .Where(m => m.GetCustomAttributes(typeof(QueryAttribute), false).Length > 0)
+                                       .ToArray();
+
+                foreach (var method in methods)
+                {
+                    if (!method.GetParameters().Any())
+                    {
+                        method.Invoke(classInstance, null);
+                    }
+                }
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)

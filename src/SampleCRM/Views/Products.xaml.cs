@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -98,9 +99,9 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LoadElements();
+            await RetryOnExceptionHelper.RetryAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -125,7 +126,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadElements()
+        private async Task LoadElements()
         {
             var query = _productsContext.GetProductsQuery();
             var op = await _productsContext.LoadAsync(query);

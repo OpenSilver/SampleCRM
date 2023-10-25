@@ -67,9 +67,9 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LoadElements();
+            await RetryOnExceptionHelper.RetryAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -115,11 +115,11 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadElements()
+        private async Task LoadElements()
         {
-            await LoadCustomers();
-            await LoadOrders();
-            await LoadProducts();
+            await RetryOnExceptionHelper.RetryAsync(LoadCustomers);
+            await RetryOnExceptionHelper.RetryAsync(LoadOrders);
+            await RetryOnExceptionHelper.RetryAsync(LoadProducts);
         }
 
         private async Task LoadCustomers()

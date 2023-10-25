@@ -38,7 +38,7 @@ namespace SampleCRM
             Resources.Add("WebContext", WebContext.Current);
 
             // This will automatically authenticate a user when using Windows authentication or when the user chose "Keep me signed in" on a previous login attempt.
-            WebContext.Current.Authentication.LoadUser(Application_UserLoaded, null);
+            // WebContext.Current.Authentication.LoadUser(Application_UserLoaded, null);
 
             RootVisual = new MainPage();
         }

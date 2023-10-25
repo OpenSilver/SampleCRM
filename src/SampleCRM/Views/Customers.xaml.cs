@@ -244,18 +244,18 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LoadElements();
+            await RetryOnExceptionHelper.RetryAsync(LoadElements);
         }
 
-        private async void LoadElements()
+        private async Task LoadElements()
         {
             var customersQuery = _customersContext.GetCustomersQuery();
             var customersOp = await _customersContext.LoadAsync(customersQuery);
             CustomersCollection = customersOp.Entities;
 
-            await LoadCountryCodes();
+            await RetryOnExceptionHelper.RetryAsync(LoadCountryCodes);
 #if DEBUG
             Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
             foreach (var item in CustomersCollection)
@@ -277,7 +277,7 @@ namespace SampleCRM.Web.Views
                 c.CountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
             }
         }
-        private async void LoadOrdersOfCustomer()
+        private async Task LoadOrdersOfCustomer()
         {
             if (SelectedCustomer == null)
                 return;
@@ -360,7 +360,7 @@ namespace SampleCRM.Web.Views
             SearchOrderText = string.Empty;
         }
 
-        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var anySelected = e.AddedItems.Count > 0;
             if (anySelected)
@@ -368,7 +368,7 @@ namespace SampleCRM.Web.Views
                 _ordersTabSelected = e.AddedItems.Contains(tbOrders);
                 if (_ordersTabSelected)
                 {
-                    LoadOrdersOfCustomer();
+                    await RetryOnExceptionHelper.RetryAsync(LoadOrdersOfCustomer);
                 }
             }
             else

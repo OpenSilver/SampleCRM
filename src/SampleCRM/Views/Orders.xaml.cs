@@ -201,9 +201,9 @@ namespace SampleCRM.Web.Views
             DataContext = this;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LoadElements();
+            await RetryOnExceptionHelper.RetryAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -270,14 +270,14 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadElements()
+        private async Task LoadElements()
         {
             var query = _orderContext.GetOrdersQuery();
             var op = await _orderContext.LoadAsync(query);
             OrdersCollection = op.Entities;
 
-            await LoadCountryCodes();
-            await LoadStatuses();
+            await RetryOnExceptionHelper.RetryAsync(LoadCountryCodes);
+            await RetryOnExceptionHelper.RetryAsync(LoadStatuses);
 #if DEBUG
             Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
             foreach (var item in OrdersCollection)
@@ -314,7 +314,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadCustomer()
+        private async Task LoadCustomer()
         {
             if (SelectedOrder == null)
                 return;
@@ -331,7 +331,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadProduct(Models.OrderItems orderItem)
+        private async Task LoadProduct(Models.OrderItems orderItem)
         {
             if (orderItem == null)
                 return;
@@ -345,7 +345,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadTaxRate(Models.OrderItems orderItem)
+        private async Task LoadTaxRate(Models.OrderItems orderItem)
 
         {
             if (orderItem == null)
@@ -360,7 +360,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void LoadOrderItemsOfOrder()
+        private async Task LoadOrderItemsOfOrder()
         {
             if (SelectedOrder == null)
                 return;
@@ -375,8 +375,8 @@ namespace SampleCRM.Web.Views
 
             foreach (var orderItem in OrderItemsCollection)
             {
-                LoadProduct(orderItem);
-                LoadTaxRate(orderItem);
+                await RetryOnExceptionHelper.RetryAsync(LoadProduct, orderItem);
+                await RetryOnExceptionHelper.RetryAsync(LoadTaxRate, orderItem);
             }
 
 #if DEBUG

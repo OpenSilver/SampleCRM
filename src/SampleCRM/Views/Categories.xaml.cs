@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -53,12 +54,12 @@ namespace SampleCRM.Web.Views
             gridCategories.Columns.Last().Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            LoadElements();
+            await RetryOnExceptionHelper.RetryAsync(LoadElements);
         }
 
-        private async void LoadElements()
+        private async Task LoadElements()
         {
             var categoriesQuery = _categoryContext.GetCategoriesQuery();
             var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);

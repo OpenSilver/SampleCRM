@@ -1,6 +1,8 @@
 ﻿using SampleCRM.Web;
 using SampleCRM.Web.Views;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -71,10 +73,15 @@ namespace SampleCRM
         {
             InitializeComponent();
             DataContext = this;
-            LoadCounts();
+            Loaded += MainPage_Loaded;
         }
 
-        private async void LoadCounts()
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            await RetryOnExceptionHelper.RetryAsync(LoadCounts);
+        }
+
+        private async Task LoadCounts()
         {
             var query = _countContext.GetAllCountsQuery();
             var op = await _countContext.LoadAsync(query);
