@@ -447,6 +447,11 @@ namespace SampleCRM.Web.Views
 
         private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
         {
+            await RetryOnExceptionHelper.RetryAsync(ArrangeOrderAddEditWindow, 15);
+        }
+
+        private async Task ArrangeOrderAddEditWindow()
+        {
             var result = await OrderAddEditWindow.Show(new Models.Orders
             {
                 IsEditMode = true,
