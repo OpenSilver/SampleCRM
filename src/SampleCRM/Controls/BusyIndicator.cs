@@ -64,7 +64,9 @@ namespace SampleCRM.Controls
         /// <param name="useTransitions">True if state transitions should be used.</param>
         protected virtual void ChangeVisualState(bool useTransitions)
         {
-            ((FrameworkElement)Content).IsEnabled = !IsBusy;
+            if (Content != null && Content is FrameworkElement)
+                ((FrameworkElement)Content).IsEnabled = !IsBusy;
+
             ContentVisibility = IsContentVisible ? Visibility.Collapsed : Visibility.Visible;
         }
 

@@ -6,19 +6,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:login="clr-namespace:SampleCRM.LoginUI"
+             xmlns:local="clr-namespace:SampleCRM.Controls"
              xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
              xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=OpenSilver.Controls.Navigation"
              mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
+    <views:BaseUserControl.Resources>
+        <views:BoolToVisibilityConverter x:Key="boolToBisibilityConverter" />
+    </views:BaseUserControl.Resources>
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1" x:Name="ContentBorder">
+        <Border  Grid.Row="1" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
-                              Source="/Home" Navigated="ContentFrame_Navigated" 
-                              NavigationFailed="ContentFrame_NavigationFailed">
+                   Source="/Home" Navigated="ContentFrame_Navigated" 
+                   NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Home.xaml" />
@@ -27,6 +31,14 @@
                 </navigation:Frame.UriMapper>
             </navigation:Frame>
         </Border>
+
+        <local:BusyIndicator Grid.Row="1" x:Name="mainBusyIndicator" 
+                             BusyContent="Loading..." IsBusy="True" 
+                             Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" 
+                             Style="{StaticResource busyIndicatorDefaultStyle}">
+           
+        </local:BusyIndicator>
+
 
         <views:ResponsivePane Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99">
             <views:ResponsivePane.BigChildElement>

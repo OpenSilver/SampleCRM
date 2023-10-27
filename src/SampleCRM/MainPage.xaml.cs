@@ -9,7 +9,7 @@ using System.Windows.Navigation;
 
 namespace SampleCRM
 {
-    public partial class MainPage : BaseUserControl
+    public partial class MainPage : BaseUserControl, IBusyCapablePage
     {
         private CountContext _countContext = new CountContext();
 
@@ -69,8 +69,23 @@ namespace SampleCRM
             }
         }
 
+        private bool _isBusy = false;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public MainPage()
         {
+            RetryOnExceptionHelper.ContentPage = this;
             InitializeComponent();
             DataContext = this;
             Loaded += MainPage_Loaded;
@@ -117,6 +132,11 @@ namespace SampleCRM
         {
             e.Handled = true;
             ErrorWindow.Show(e.Uri);
+        }
+
+        public void MakeBusy(bool isBusy)
+        {
+            IsBusy = isBusy;
         }
     }
 }

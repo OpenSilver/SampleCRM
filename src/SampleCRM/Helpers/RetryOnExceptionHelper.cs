@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSHTML5.Internal;
+using System;
 using System.Threading.Tasks;
 
 namespace SampleCRM.Web.Views
@@ -18,6 +19,8 @@ namespace SampleCRM.Web.Views
 
     public class RetryOnExceptionHelper
     {
+        public static IBusyCapablePage ContentPage { get; set; }
+
         public static async Task RetryAsync<TParam>(Func<TParam, Task> action, TParam parameter, int maxRetryCount = 3)
         {
             await RetryAsync(async () => await action(parameter), maxRetryCount);
@@ -30,7 +33,14 @@ namespace SampleCRM.Web.Views
             {
                 try
                 {
+                    if (ContentPage != null)
+                        ContentPage.MakeBusy(true);
+
                     await action();
+                    
+                    if (ContentPage != null)
+                        ContentPage.MakeBusy(false);
+                    
                     return;
                 }
                 catch (Exception)
@@ -39,5 +49,10 @@ namespace SampleCRM.Web.Views
                 }
             } while (retryCount < maxRetryCount);
         }
+    }
+
+    public interface IBusyCapablePage
+    {
+        void MakeBusy(bool isBusy);
     }
 }
