@@ -45,21 +45,21 @@
                             <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Dashboard" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Categories" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Categories (" />
                                         <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
@@ -70,7 +70,7 @@
                             <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Customers (" />
                                         <Run Text="{Binding CustomersCount, Mode=OneWay}" />
@@ -81,7 +81,7 @@
                             <HyperlinkButton x:Name="lnkOrders" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Orders" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Orders (" />
                                         <Run Text="{Binding OrdersCount, Mode=OneWay}" />
@@ -92,7 +92,7 @@
                             <HyperlinkButton x:Name="lnkProducts" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Products" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Products (" />
                                         <Run Text="{Binding ProductsCount, Mode=OneWay}" />
@@ -110,7 +110,7 @@
                         <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Settings" TargetName="ContentFrame">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                 <TextBlock Text="Settings" FontWeight="Bold" />
                             </StackPanel>
                         </HyperlinkButton>
@@ -132,21 +132,21 @@
                             <HyperlinkButton x:Name="mlnkHome" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="mlnkDashboard" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Dashboard" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="mlnkCategories" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Categories" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Categories (" />
                                         <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
@@ -157,7 +157,7 @@
                             <HyperlinkButton x:Name="mlnkCustomers" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Customers (" />
                                         <Run Text="{Binding CustomersCount, Mode=OneWay}" />
@@ -168,7 +168,7 @@
                             <HyperlinkButton x:Name="mlnkOrders" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Orders" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Orders (" />
                                         <Run Text="{Binding OrdersCount, Mode=OneWay}" />
@@ -179,7 +179,7 @@
                             <HyperlinkButton x:Name="mlnkProducts" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Products" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Products (" />
                                         <Run Text="{Binding ProductsCount, Mode=OneWay}" />
@@ -197,7 +197,7 @@
                             <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                          NavigateUri="/Settings" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" />
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Settings" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>

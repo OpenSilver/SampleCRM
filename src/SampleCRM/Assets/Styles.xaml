@@ -144,14 +144,14 @@
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".55"/>
+                                        <!--<DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".55"/>-->
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" To="10"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="Opacity" To=".55"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".8"/>
+                                        <!--<DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveElementBorder" Storyboard.TargetProperty="Opacity" To=".8"/>-->
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" To="5"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="InteractiveBorder" Storyboard.TargetProperty="Opacity" To="1"/>
                                     </Storyboard>
@@ -168,7 +168,13 @@
                                     <Storyboard>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ActiveBorder" Storyboard.TargetProperty="Opacity" To="1"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Opacity" To="1"/>
-                                        <ColorAnimation Duration="0" Storyboard.TargetName="InteractiveElement" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Color)" To="Red"/>
+                                        <!--<ColorAnimation Duration="0" Storyboard.TargetName="InteractiveElement" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Color)" To="Red"/>-->
+                                        <!--<ColorAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextElement.Foreground)" To="#0085FF"/>-->
+                                        <ObjectAnimationUsingKeyFrames
+                                                        Storyboard.TargetName="ContentPresenter" 
+                                                        Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#0085FF"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="InactiveLink"/>
@@ -179,7 +185,7 @@
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity" To=".35"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusX)" To="1"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="(Rectangle.RadiusY)" To="1"/>
-                                        <ColorAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextElement.Foreground)" To="Red"/>
+                                        <!--<ColorAnimation Duration="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(TextElement.Foreground)" To="Red"/>-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Unfocused"/>
@@ -188,18 +194,24 @@
                         <Rectangle x:Name="FocusVisualElement" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2" Opacity="0" Margin="-1" RadiusX="1" RadiusY="1"/>
                         <Border x:Name="ActiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" Opacity="0"/>
                         <Border x:Name="ContentBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Opacity="1">
-                            <ContentPresenter x:Name="ContentPresenter" 
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}" 
-                                              Content="{TemplateBinding Content}" 
-                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                              Opacity="1" />
+                            <ContentControl x:Name="ContentPresenter" 
+                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                             Margin="{TemplateBinding Padding}" 
+                                             Content="{TemplateBinding Content}" 
+                                             ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                             Foreground="{TemplateBinding Foreground}"
+                                             Opacity="1">
+                                
+                            </ContentControl>
+                            <!--<ContentPresenter x:Name="ContentPresenter" >
+                                
+                            </ContentPresenter>-->
                         </Border>
                         <Border x:Name="InteractiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="Red" Opacity="0" CornerRadius="1,1,1,1"/>
-                        <Border x:Name="InteractiveElementBorder" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed">
+                        <!--<Border x:Name="InteractiveElementBorder" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed">
                             <TextBlock x:Name="InteractiveElement" Foreground="Red" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Text="{TemplateBinding Content}"/>
-                        </Border>
+                        </Border>-->
                         <TextBlock x:Name="DisabledOverlay" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Text="{TemplateBinding Content}" Foreground="Red" Visibility="Collapsed"/>
                     </Grid>
                 </ControlTemplate>
