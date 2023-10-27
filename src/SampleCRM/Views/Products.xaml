@@ -43,11 +43,11 @@
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
                     <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtSearch" HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
-                    <TextBlock Grid.Column="1"
-                           Text="" Tapped="btnSearch_Click"
+                    <Button Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
+                           Content="" Tapped="btnSearch_Click"
                            FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
-                    <TextBlock Grid.Column="2" Tapped="btnSearchCancel_Click"
-                           Text="" 
+                    <Button Grid.Column="2" Tapped="btnSearchCancel_Click"
+                           Content="" Style="{StaticResource SearchButtonStyle}"
                            FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
 

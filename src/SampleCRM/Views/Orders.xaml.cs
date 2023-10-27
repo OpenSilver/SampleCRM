@@ -154,7 +154,7 @@ namespace SampleCRM.Web.Views
                 }
                 else
                 {
-                    return _orderItemsCollection.Where(x => x.OrderID.ToString().Contains(_searchOrderItemText));
+                    return _orderItemsCollection.Where(x => x.ProductID.ToString().Contains(_searchOrderItemText) || x.OrderID.ToString().Contains(_searchOrderItemText));
                 }
             }
         }
