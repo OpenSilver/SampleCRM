@@ -97,8 +97,8 @@ namespace SampleCRM.Web.Views
 
         private void CheckChanges()
         {
-            EntityChangeSet changeSet = _categoryContext.EntityContainer.GetChanges();
-            ChangeText.Text = changeSet.ToString();
+            //EntityChangeSet changeSet = _categoryContext.EntityContainer.GetChanges();
+            //ChangeText.Text = changeSet.ToString();
 
             bool hasChanges = _categoryContext.HasChanges;
             SaveButton.IsEnabled = hasChanges;

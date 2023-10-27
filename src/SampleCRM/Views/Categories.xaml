@@ -12,18 +12,14 @@
         <local:BoolToVisibilityConverter x:Key="boolToBisibilityConverter" />
     </local:BasePage.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" MinHeight="350" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
             <Grid VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Categories" Style="{StaticResource HeaderTextStyle}" />
-
                 <DataGrid x:Name="gridCategories" Grid.Row="1"
                       ItemsSource="{Binding CategoryCollection}" 
                       SelectedItem="{Binding SelectedCategory}"
@@ -56,52 +52,25 @@
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
                                 <DataTemplate>
-                                    <TextBox TextWrapping="Wrap" Text="{Binding Description}" />
+                                    <TextBox TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-        </ContentControl>
-        <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="1">
-            <Grid VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <DataForm x:Name="formCategories" 
-                      Grid.Row="0"
-                      EditEnded="formCategories_EditEnded"
-                      AutoGenerateFields="False"
-                      AutoEdit="False"
-                      AutoCommit="True"
-                      CommandButtonsVisibility="Edit, Add, Delete, Commit, Cancel"
-                      CommitButtonContent="Save"
-                      CancelButtonContent="Cancel"
-                      Header="Category Details"
-                      Style="{StaticResource DefaultDataFormStyle}"
-                      ItemsSource="{Binding CategoryCollection}">
-                    <DataForm.EditTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <DataField Label="Id">
-                                    <TextBlock Text="{Binding CategoryID}" />
-                                </DataField>
-                                <DataField Label="Name">
-                                    <TextBox Text="{Binding Name}" Style="{StaticResource DataFieldTextStyle}" />
-                                </DataField>
-                                <DataField Label="Description">
-                                    <TextBox TextWrapping="Wrap" Text="{Binding Description}" Style="{StaticResource DataFieldTextStyle}" Height="60" />
-                                </DataField>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataForm.EditTemplate>
-                </DataForm>
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1">
-                    <Button Content="Save Changes" Click="SaveButton_Click" Margin="5" x:Name="SaveButton" Style="{StaticResource PrimaryButtonStyle}"></Button>
-                    <Button Content="Reject Changes" Click="RejectButton_Click" Margin="5" x:Name="RejectButton" Style="{StaticResource SecondaryButtonStyle}"></Button>
-                    <TextBlock x:Name="ChangeText" VerticalAlignment="Center" Width="Auto"></TextBlock>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="2">
+                    <Button Content="Save Changes"
+                            IsEnabled="False"
+                            Click="SaveButton_Click" 
+                            Margin="5" 
+                            x:Name="SaveButton" 
+                            Style="{StaticResource PrimaryButtonStyle}" />
+                    <Button Content="Reject Changes" 
+                            IsEnabled="False"
+                            Click="RejectButton_Click" 
+                            Margin="5" x:Name="RejectButton" 
+                            Style="{StaticResource SecondaryButtonStyle}" />
+                    <!--<TextBlock x:Name="ChangeText" VerticalAlignment="Center" Width="Auto"></TextBlock>-->
                 </StackPanel>
             </Grid>
         </ContentControl>
