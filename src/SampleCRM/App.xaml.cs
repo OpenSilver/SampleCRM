@@ -13,6 +13,8 @@ namespace SampleCRM
 {
     public partial class App : Application
     {
+        public const string Title = "Sample CRM";
+
         public App()
         {
             Startup += Application_Startup;

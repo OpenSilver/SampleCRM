@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using SampleCRM.Web.Views;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Views
 {
-    public partial class Home : Page
+    public partial class Home : BasePage
     {
         public Home()
         {

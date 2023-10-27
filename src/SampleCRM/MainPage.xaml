@@ -17,7 +17,8 @@
 
         <Border Grid.Row="1" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
-                              Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+                              Source="/Home" Navigated="ContentFrame_Navigated" 
+                              NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Home.xaml" />

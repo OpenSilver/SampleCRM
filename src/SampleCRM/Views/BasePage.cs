@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
@@ -15,6 +16,7 @@ namespace SampleCRM.Web.Views
         public BasePage()
         {
             SizeChanged += OnSizeChanged;
+            Title = $"{App.Title} - {GetType().Name}";
         }
 
         protected virtual void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)

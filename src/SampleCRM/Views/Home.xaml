@@ -1,4 +1,5 @@
-﻿<navigation:Page x:Class="SampleCRM.Views.Home"
+﻿<local:BasePage x:Class="SampleCRM.Views.Home"
+                 xmlns:local="clr-namespace:SampleCRM.Web.Views"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -35,4 +36,4 @@
             </div>
         </native:HtmlPresenter>
     </StackPanel>
-</navigation:Page>
+</local:BasePage>
