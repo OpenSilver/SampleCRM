@@ -81,7 +81,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--Normal Button accent on Foreground-->
     <Style x:Key="MaterialDesign_Button_Style" TargetType="Button">
         <Setter Property="Background" Value="White"/>
@@ -706,7 +706,7 @@
         </Setter>
     </Style>
 
-
+    <!--Search Button-->
     <Style x:Key="SearchButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -722,5 +722,36 @@
         </Setter>
     </Style>
 
+    <!--Default Button-->
+    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesign_Button_Style}">
+
+    </Style>
+
+    <Style x:Key="MaterialDesign_RepeatButton_Style" TargetType="RepeatButton">
+        <Setter Property="Background" Value="Transparent" />
+        <!--<Setter Property="BorderBrush" Value="#FF0091EA" />-->
+        <Setter Property="BorderThickness" Value="0" />
+        <!--<Setter Property="Foreground" Value="White"/>-->
+        <!--<Setter Property="FontSize" Value="14"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="0"
+                        CornerRadius="3">
+                        <TextBlock Text="{TemplateBinding Content}"
+                               Foreground="{TemplateBinding Foreground}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="RepeatButton" BasedOn="{StaticResource MaterialDesign_RepeatButton_Style}">
+        
+    </Style>
 
 </ResourceDictionary>
