@@ -144,8 +144,8 @@
     </local:BasePage.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
@@ -163,9 +163,9 @@
                 </Grid.RowDefinitions>
                 <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" 
                         Click="btnNew_Click" 
-                        Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="155" Height="37">
+                        Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="+" FontSize="24" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="0.5" Foreground="White" />
+                        <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,2,0" Opacity="0.5" Foreground="White" />
                         <TextBlock Text="Add Order" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
@@ -173,7 +173,7 @@
                 <Grid Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="3" x:Name="grdSearch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="24" />
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
@@ -181,10 +181,10 @@
 
                     <Button Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
                                Content="" Tapped="btnSearch_Click"
-                               FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
+                               FontSize="8" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                     <Button Grid.Column="2" Tapped="btnSearchCancel_Click"
                                Content="" Style="{StaticResource SearchButtonStyle}"
-                               FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
+                               FontSize="8" FontFamily="{StaticResource FontAwesome}" Margin="2,0,2,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
 
                 <DataGrid Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" x:Name="grdOrders"   
@@ -233,7 +233,7 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                         <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
+                                                <TextBlock Text="" FontSize="8" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
                                                 <TextBlock Text="Delete" />
                                             </StackPanel>
                                         </Button>
@@ -308,10 +308,10 @@
                     </Grid.RowDefinitions>
 
                     <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" 
-                            Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="155" Height="37" 
+                            Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25" 
                             Click="btnNewOrderItem_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="+" FontSize="24" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
+                            <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
                             <TextBlock Text="Add Order Item" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
@@ -319,11 +319,11 @@
                     <Grid x:Name="grdOrderItemSearch" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="24" />
                             <ColumnDefinition Width="10" />
                         </Grid.ColumnDefinitions>
-                        <TextBox Height="42" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtOrderItemSearch" HorizontalAlignment="Stretch" Text="{Binding SearchOrderItemText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
+                        <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtOrderItemSearch" HorizontalAlignment="Stretch" Text="{Binding SearchOrderItemText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <Button Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="" Tapped="btnSearch_Click" FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                         <Button Style="{StaticResource SearchButtonStyle}" Grid.Column="2" Tapped="btnOrderItemSearchCancel_Click" Content="" FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                     </Grid>

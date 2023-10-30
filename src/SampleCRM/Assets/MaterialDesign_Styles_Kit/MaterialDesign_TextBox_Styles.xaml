@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MaterialDesign_Styles_Kit">
 
+    <!--Requires MaterialDesign_CommonResources-->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="MaterialDesign_CommonResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <!--Requires MaterialDesign_CommonResources-->
 
     <!--TextBoxes-->
     <Style x:Key="MaterialDesign_TextBox_Style" TargetType="TextBox">
@@ -16,7 +16,7 @@
         <Setter Property="Background" Value="{StaticResource AlternateBackground}"/>
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Height" Value="42" />
+        <Setter Property="Height" Value="25" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -37,14 +37,14 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="LightGray"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Padding="12,7">
+                                CornerRadius="2"
+                                Padding="6,3">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter Grid.Column="0" Content="{TemplateBinding Tag}" Margin="2"/>
+                                <ContentPresenter Grid.Column="0" Content="{TemplateBinding Tag}" Margin="1"/>
                                 <TextBlock Grid.Column="1" Text="{TemplateBinding PlaceholderText}"
                                            Foreground="DarkGray"
                                            Visibility="{Binding Path=Text, Converter={StaticResource TextToPlaceholderTextVisibilityConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -65,8 +65,8 @@
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="10"/>
-        <Setter Property="Height" Value="42" />
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Height" Value="25" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="NumericUpDown">
@@ -169,16 +169,16 @@
                                             </VisualState>
                                         </VisualStateGroup>
                                     </VisualStateManager.VisualStateGroups>
-                                    <Border x:Name="InnerBorder" Background="{TemplateBinding Background}" CornerRadius="4">
+                                    <Border x:Name="InnerBorder" Background="{TemplateBinding Background}" CornerRadius="2">
                                         <Border.Effect>
-                                            <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.4" BlurRadius="6" Direction="-30" ShadowDepth="5"/>
+                                            <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.4" BlurRadius="3" Direction="-30" ShadowDepth="5"/>
                                         </Border.Effect>
                                         <Path HorizontalAlignment="Stretch"
                                           VerticalAlignment="Stretch"
                                           Fill="White"
                                           Stretch="Uniform"
                                           Data="F1 M 541.537,173.589L 531.107,173.589L 536.322,167.49L 541.537,173.589 Z "
-                                          Margin="4,3,4,3" />
+                                          Margin="2,1,2,1" />
                                     </Border>
 
                                 </Grid>
@@ -231,11 +231,11 @@
                                     </VisualStateManager.VisualStateGroups>
                                     <Border x:Name="InnerBorder" Background="{TemplateBinding Background}" CornerRadius="4">
                                         <Border.Effect>
-                                            <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.4" BlurRadius="6" Direction="-30" ShadowDepth="5"/>
+                                            <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.4" BlurRadius="3" Direction="-30" ShadowDepth="5"/>
                                         </Border.Effect>
                                         <Path Height="Auto"
                                           HorizontalAlignment="Stretch"
-                                          Margin="4,3,4,3"
+                                          Margin="2,1,2,1"
                                           VerticalAlignment="Stretch"
                                           Width="Auto"
                                           Fill="White"

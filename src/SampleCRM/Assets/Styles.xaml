@@ -24,27 +24,27 @@
     <Style x:Key="ContentFrameStyle" TargetType="navigation:Frame">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="Padding" Value="30,0,30,0"/>
+        <Setter Property="Padding" Value="15,0,15,0"/>
         <Setter Property="VerticalContentAlignment" Value="Top"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
 
     <!-- Navigation Grid Style -->
     <Style x:Key="NavigationGridStyle" TargetType="Grid">
-        <Setter Property="Margin" Value="0,16,0,40"/>
+        <Setter Property="Margin" Value="0,8,0,20"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
     <Style x:Key="MobileNavigationGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="#2D3241" />
-        <Setter Property="Margin" Value="0,60,0,0" />
+        <Setter Property="Margin" Value="0,30,0,0" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <!-- Branding Border Style -->
     <Style x:Key="BrandingBorderStyle" TargetType="Border">
-        <Setter Property="Height" Value="42"/>
-        <Setter Property="Margin" Value="25,0,25,0"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Margin" Value="12,0,12,0"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
@@ -53,20 +53,20 @@
     <Style x:Key="BrandingStackPanelStyle" TargetType="StackPanel">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="Margin" Value="30,0,0,0" />
+        <Setter Property="Margin" Value="15,0,0,0" />
     </Style>
 
     <Style x:Key="MobileBrandingStackPanelStyle" TargetType="StackPanel">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="Margin" Value="30,0,0,0" />
+        <Setter Property="Margin" Value="15,0,0,0" />
     </Style>
 
     <!-- Logo Path Style -->
     <Style x:Key="LogoIcon" TargetType="ContentControl">
-        <Setter Property="Height" Value="24"/>
-        <Setter Property="Width" Value="24"/>
-        <Setter Property="Margin" Value="0,1,10,0"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Margin" Value="0,1,5,0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -81,26 +81,26 @@
     <!-- ApplicationName Style -->
     <Style x:Key="ApplicationNameStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource NavigationForegroundColorBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Margin" Value="0,2,0,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Effect">
             <Setter.Value>
-                <DropShadowEffect BlurRadius="10" Opacity="0.25" ShadowDepth="0"/>
+                <DropShadowEffect BlurRadius="5" Opacity="0.25" ShadowDepth="0"/>
             </Setter.Value>
         </Setter>
     </Style>
 
     <!-- Links Border Style -->
     <Style x:Key="LinksBorderStyle" TargetType="Border">
-        <Setter Property="Height" Value="42" />
-        <Setter Property="Margin" Value="25,0,25,0"/>
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Margin" Value="12,0,12,0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
     <Style x:Key="MobileLinksBorderStyle" TargetType="Border">
-        <Setter Property="Margin" Value="30,0,0,0" />
+        <Setter Property="Margin" Value="15,0,0,0" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
@@ -122,14 +122,14 @@
         <Setter Property="Background" Value="{StaticResource Black10Brush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource NavigationForegroundColorBrush}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="MinHeight" Value="28"/>
-        <Setter Property="MinWidth" Value="78"/>
+        <Setter Property="MinHeight" Value="14"/>
+        <Setter Property="MinWidth" Value="40"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="5,10,5,10"/>
-        <Setter Property="Margin" Value="0,0,20,0" />
+        <Setter Property="Padding" Value="2,5,2,5"/>
+        <Setter Property="Margin" Value="0,0,10,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="HyperlinkButton">
@@ -221,8 +221,8 @@
 
     <Style x:Key="MobileLinkStyle" TargetType="HyperlinkButton" BasedOn="{StaticResource LinkStyle}">
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="10,5,10,5"/>
-        <Setter Property="Margin" Value="0,20,0,0" />
+        <Setter Property="Padding" Value="5,2,5,2"/>
+        <Setter Property="Margin" Value="0,10,0,0" />
     </Style>
 
     <!-- Divider Style -->
@@ -230,7 +230,7 @@
         <Setter Property="Fill" Value="#1FFFFFFF"/>
         <Setter Property="Stroke" Value="Transparent"/>
         <Setter Property="Width" Value="1"/>
-        <Setter Property="Margin" Value="2,4,2,4"/>
+        <Setter Property="Margin" Value="1,2,1,2"/>
     </Style>
 
     <!-- ******CONTENT PAGE STYLES****** -->
@@ -244,8 +244,8 @@
     <Style x:Key="PageScrollViewerStyle" TargetType="ScrollViewer">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0,1,0,1"/>
-        <Setter Property="Margin" Value="-58,-15,-58,-15"/>
-        <Setter Property="Padding" Value="58,0,58,0"/>
+        <Setter Property="Margin" Value="-29,-7,-29,-7"/>
+        <Setter Property="Padding" Value="29,0,29,0"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
     </Style>
@@ -256,26 +256,26 @@
     <!-- Header Text Style -->
     <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource BodyTextColorBrush}"/>
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="Margin" Value="0,15,0,4"/>
+        <Setter Property="Margin" Value="0,7,0,2"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
     <!-- Content Text Style -->
     <Style x:Key="ContentTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource BodyTextColorBrush}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="9"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="Margin" Value="0,2,0,2"/>
+        <Setter Property="Margin" Value="0,1,0,1"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
     <!-- Page HyperlinkButton Style -->
     <Style x:Key="PageHyperlinkButtonStyle" TargetType="HyperlinkButton">
         <Setter Property="TargetName" Value="_new"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="11"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
@@ -283,8 +283,8 @@
     <!-- ******************************* -->
     <!-- Login Container Style -->
     <Style x:Key="LoginContainerStyle" TargetType="Border">
-        <Setter Property="Margin" Value="0,0,20,0"/>
-        <Setter Property="Height" Value="21"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="Height" Value="11"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
@@ -293,7 +293,7 @@
     <Style x:Key="LoginStatusStyle" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="0,0,30,0"/>
+        <Setter Property="Margin" Value="0,0,15,0"/>
     </Style>
 
     <!-- Login Panel Style -->
@@ -305,7 +305,7 @@
 
     <!-- Spacer Style -->
     <Style x:Key="SpacerStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="Foreground" Value="#FFFFFFFF"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -323,10 +323,10 @@
     <!-- LoginRegister Link Style -->
     <Style x:Key="LoginRegisterLinkStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Margin" Value="0,2,0,2"/>
+        <Setter Property="Margin" Value="0,1,0,1"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="Foreground" Value="#FFFFFFFF"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
@@ -1423,31 +1423,31 @@
     <Style x:Key="CardSuperHeader" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="CardHeader2" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource White25Brush}" />
-        <Setter Property="Margin" Value="0,15,0,5" />
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Margin" Value="0,7,0,2" />
+        <Setter Property="FontSize" Value="9" />
     </Style>
     <Style x:Key="CardHeader1" TargetType="TextBlock">
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Margin" Value="0,10,0,30" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Margin" Value="0,5,0,15" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style x:Key="CardSection" TargetType="TextBlock">
-        <Setter Property="Margin" Value="0,12,0,6" />
+        <Setter Property="Margin" Value="0,6,0,3" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="CardText" TargetType="TextBlock">
         <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{StaticResource Foreground}" />
     </Style>
 
@@ -1459,35 +1459,35 @@
     </Style>
 
     <Style x:Key="CardSeparator" TargetType="Rectangle">
-        <Setter Property="Margin" Value="0,12,0,0" />
+        <Setter Property="Margin" Value="0,6,0,0" />
         <Setter Property="Fill" Value="{StaticResource ChildWindowHeaderBackground}" />
         <Setter Property="Height" Value="1" />
     </Style>
 
     <Style x:Key="FormsSection" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="DataFieldLabelStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource White25Brush}" />
-        <Setter Property="Margin" Value="0, 0, 0, 10" />
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Margin" Value="0, 0, 0, 5" />
+        <Setter Property="FontSize" Value="9" />
     </Style>
 
     <Style x:Key="DataFieldTextStyle" BasedOn="{StaticResource MaterialDesign_TextBox_Style}" TargetType="TextBox">
-        <Setter Property="Margin" Value="0,0,0,10" />
-        <Setter Property="Height" Value="42" />
+        <Setter Property="Margin" Value="0,0,0,5" />
+        <Setter Property="Height" Value="25" />
     </Style>
 
     <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
         <Setter Property="Background" Value="{StaticResource PrimaryColorBrush}" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="5" />
     </Style>
 
     <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
         <Setter Property="Background" Value="{StaticResource SecondaryColorBrush}" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="5" />
     </Style>
 
     <Style x:Key="DefaultDataFormStyle" TargetType="DataForm">
