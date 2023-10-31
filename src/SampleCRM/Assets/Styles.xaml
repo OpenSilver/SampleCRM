@@ -31,13 +31,13 @@
 
     <!-- Navigation Grid Style -->
     <Style x:Key="NavigationGridStyle" TargetType="Grid">
-        <Setter Property="Margin" Value="0,8,0,20"/>
+        <Setter Property="Margin" Value="0,10,0,25"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
     <Style x:Key="MobileNavigationGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="#2D3241" />
-        <Setter Property="Margin" Value="0,30,0,0" />
+        <Setter Property="Margin" Value="0,30,0,25" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
@@ -53,20 +53,20 @@
     <Style x:Key="BrandingStackPanelStyle" TargetType="StackPanel">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="Margin" Value="15,0,0,0" />
+        <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
     <Style x:Key="MobileBrandingStackPanelStyle" TargetType="StackPanel">
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="Margin" Value="15,0,0,0" />
+        <Setter Property="Margin" Value="10,0,0,0" />
     </Style>
 
     <!-- Logo Path Style -->
     <Style x:Key="LogoIcon" TargetType="ContentControl">
-        <Setter Property="Height" Value="12"/>
-        <Setter Property="Width" Value="12"/>
-        <Setter Property="Margin" Value="0,1,5,0"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="24"/>
+        <!--<Setter Property="Margin" Value="5,0,1,10"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
@@ -83,7 +83,7 @@
         <Setter Property="Foreground" Value="{StaticResource NavigationForegroundColorBrush}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="0,2,0,0"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Effect">
             <Setter.Value>
@@ -115,6 +115,7 @@
     <Style x:Key="MobileLinksStackPanelStyle" TargetType="StackPanel">
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0,20,0,0" />
     </Style>
 
     <!-- Link Style -->
@@ -221,8 +222,8 @@
 
     <Style x:Key="MobileLinkStyle" TargetType="HyperlinkButton" BasedOn="{StaticResource LinkStyle}">
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="Padding" Value="5,2,5,2"/>
-        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Margin" Value="0,15,40,15" />
     </Style>
 
     <!-- Divider Style -->

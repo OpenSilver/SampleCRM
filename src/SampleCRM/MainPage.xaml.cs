@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Navigation;
 
 namespace SampleCRM
@@ -111,6 +112,7 @@ namespace SampleCRM
         {
             highlightLinks(e, LinksStackPanel.Children);
             highlightLinks(e, MobileLinksStackPanel.Children);
+            menuPane.CollapseIfMobile();
         }
 
         private void highlightLinks(NavigationEventArgs e, UIElementCollection links)

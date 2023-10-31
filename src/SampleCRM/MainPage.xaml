@@ -20,9 +20,8 @@
         </Grid.RowDefinitions>
 
         <Border  Grid.Row="1" x:Name="ContentBorder">
-            <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}"
-                   Source="/Home" Navigated="ContentFrame_Navigated" 
-                   NavigationFailed="ContentFrame_NavigationFailed">
+            <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Home" 
+                              Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Home.xaml" />
@@ -35,12 +34,9 @@
         <local:BusyIndicator Grid.Row="1" x:Name="mainBusyIndicator" 
                              BusyContent="Loading..." IsBusy="True" 
                              Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" 
-                             Style="{StaticResource busyIndicatorDefaultStyle}">
-           
-        </local:BusyIndicator>
+                             Style="{StaticResource busyIndicatorDefaultStyle}" />
 
-
-        <views:ResponsivePane Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99">
+        <views:ResponsivePane x:Name="menuPane" Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99">
             <views:ResponsivePane.BigChildElement>
                 <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
                     <Grid.ColumnDefinitions>
@@ -60,7 +56,7 @@
                                     <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
-                            </HyperlinkButton>
+                            </HyperlinkButton> 
                             <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
