@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
@@ -181,5 +182,14 @@ namespace SampleCRM.Web.Views
 
             }
         }
+
+        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSearch.Focus();
+            }
+        }
+
     }
 }

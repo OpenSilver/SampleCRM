@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
@@ -354,7 +355,6 @@ namespace SampleCRM.Web.Views
             }
         }
 
-
         private void btnOrderSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchOrderText = string.Empty;
@@ -444,12 +444,10 @@ namespace SampleCRM.Web.Views
 
             await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
         }
-
         private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
         {
             await RetryOnExceptionHelper.RetryAsync(ArrangeOrderAddEditWindow, 15);
         }
-
         private async Task ArrangeOrderAddEditWindow()
         {
             var result = await OrderAddEditWindow.Show(new Models.Orders
@@ -468,14 +466,19 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        //private void btnEdit_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    formCustomer.BeginEdit();
-        //}
-
-        //private void btnEdit_Unchecked(object sender, RoutedEventArgs e)
-        //{
-        //    formCustomer.CancelEdit();
-        //}
+        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSearch.Focus();
+            }
+        }
+        private void txtOrderSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnOrderSearch.Focus();
+            }
+        }
     }
 }

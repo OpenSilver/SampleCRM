@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
@@ -287,7 +288,6 @@ namespace SampleCRM.Web.Views
             }
 #endif
         }
-
         private async Task LoadCountryCodes()
         {
             var query = _countryCodesContext.GetCountriesQuery();
@@ -300,7 +300,6 @@ namespace SampleCRM.Web.Views
                 o.ShipCountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == o.ShipCountryCode).Name;
             }
         }
-
         private async Task LoadStatuses()
         {
             var query = _orderStatusContext.GetOrderStatusQuery();
@@ -313,7 +312,6 @@ namespace SampleCRM.Web.Views
                 o.StatusDesc = Statuses.FirstOrDefault(x => x.Status == o.Status)?.Name;
             }
         }
-
         private async Task LoadCustomer()
         {
             if (SelectedOrder == null)
@@ -330,7 +328,6 @@ namespace SampleCRM.Web.Views
                 SelectedOrder.Customer = customer;
             }
         }
-
         private async Task LoadProduct(Models.OrderItems orderItem)
         {
             if (orderItem == null)
@@ -344,7 +341,6 @@ namespace SampleCRM.Web.Views
                 orderItem.Product = product;
             }
         }
-
         private async Task LoadTaxRate(Models.OrderItems orderItem)
 
         {
@@ -359,7 +355,6 @@ namespace SampleCRM.Web.Views
                 orderItem.TaxRate = taxRate;
             }
         }
-
         private async Task LoadOrderItemsOfOrder()
         {
             if (SelectedOrder == null)
@@ -392,7 +387,6 @@ namespace SampleCRM.Web.Views
         {
             SearchText = string.Empty;
         }
-
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
 
@@ -409,7 +403,6 @@ namespace SampleCRM.Web.Views
         {
             await RetryOnExceptionHelper.RetryAsync(ArrangeOrderAddEditWindow, 15);
         }
-
         private async Task ArrangeOrderAddEditWindow()
         {
             var result = await OrderAddEditWindow.Show(new Models.Orders
@@ -551,12 +544,10 @@ namespace SampleCRM.Web.Views
                 NavigationService.Refresh();
             }
         }
-
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
         {
             await RetryOnExceptionHelper.RetryAsync(ArrangeOrderItemWindow, 6);
         }
-
         private async Task ArrangeOrderItemWindow()
         {
             if (SelectedOrder == null)
@@ -576,6 +567,21 @@ namespace SampleCRM.Web.Views
             if (result)
             {
                 NavigationService.Refresh();
+            }
+        }
+
+        private void txtOrderItemSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnOrderItemSearch.Focus();
+            }
+        }
+        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSearch.Focus();
             }
         }
     }

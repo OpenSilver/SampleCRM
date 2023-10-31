@@ -42,8 +42,12 @@
                         <ColumnDefinition Width="24" />
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions> 
-                    <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtSearch" HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" Style="{StaticResource MaterialDesign_TextBox_Style}" />
-                    <Button Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
+                    <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" 
+                             x:Name="txtSearch" 
+                             KeyUp="txtSearch_KeyUp"
+                             HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" 
+                             Style="{StaticResource MaterialDesign_TextBox_Style}" />
+                    <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
                            Content="" Tapped="btnSearch_Click"
                            FontSize="8" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                     <Button Grid.Column="2" Tapped="btnSearchCancel_Click"
