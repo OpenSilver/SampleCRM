@@ -1,5 +1,4 @@
-﻿using CSHTML5.Internal;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace SampleCRM.Web.Views
@@ -43,9 +42,15 @@ namespace SampleCRM.Web.Views
                     
                     return;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     retryCount++;
+
+                    if (ContentPage != null)
+                        ContentPage.MakeBusy(false);
+
+                    if (retryCount >= maxRetryCount)
+                        throw ex;
                 }
             } while (retryCount < maxRetryCount);
         }
