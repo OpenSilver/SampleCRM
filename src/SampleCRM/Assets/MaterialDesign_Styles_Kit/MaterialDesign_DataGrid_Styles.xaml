@@ -11,22 +11,68 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Name="MaterialDesign_DataGridColumnHeader_Style" TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="{StaticResource AlternateBackground}"/>
+        <Setter Property="Background" Value="{StaticResource GridBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource GridForeground}" />
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="FontSize" Value="9"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="SeparatorBrush" Value="#FF363535" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
-                    <Border x:Name="OuterBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                        <ContentControl Content="{TemplateBinding Content}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        HorizontalAlignment="Left"
-                                        Foreground="White"
-                                        Opacity="0.5"
-                                        BorderThickness="0"/>
-                    </Border>
+                    <Grid Name="Root">
+                        <vsm:VisualStateManager.VisualStateGroups>
+                            <vsm:VisualStateGroup x:Name="CommonStates">
+                                <vsm:VisualState x:Name="Normal" />
+                                <vsm:VisualState x:Name="MouseOver" />
+                                <vsm:VisualState x:Name="Pressed"/>
+                            </vsm:VisualStateGroup>
+                            <vsm:VisualStateGroup x:Name="SortStates">
+                                <vsm:VisualState x:Name="Unsorted" />
+                                <vsm:VisualState x:Name="SortAscending">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="Opacity" Duration="0" To="1.0"/>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                                <vsm:VisualState x:Name="SortDescending">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="Opacity" Duration="0" To="1.0"/>
+                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="(RenderTransform).ScaleY" Duration="0" To="-.9"/>
+                                    </Storyboard>
+                                </vsm:VisualState>
+                            </vsm:VisualStateGroup>
+                        </vsm:VisualStateManager.VisualStateGroups>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                              Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentControl Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" />
+                            <!--<ContentPresenter Content="{TemplateBinding Content}" />-->
+                            <Path Grid.Column="1" Name="SortIcon" 
+                                  Fill="#FFBBBBBB" RenderTransformOrigin=".5,.5" 
+                                  HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                  Opacity="0" Stretch="Uniform" Width="8" Margin="4,0,0,0" 
+                                  Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z ">
+                                <Path.RenderTransform>
+                                    <ScaleTransform ScaleX=".9" ScaleY=".9" />
+                                </Path.RenderTransform>
+                            </Path>
+                        </Grid>
+                        <Rectangle Name="VerticalSeparator" Grid.Column="1" Width="1" 
+                                   VerticalAlignment="Stretch" 
+                                   Fill="{TemplateBinding SeparatorBrush}" 
+                                   Visibility="{TemplateBinding SeparatorVisibility}" />
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -1251,7 +1297,7 @@
     </Style>
 
     <Style TargetType="ScrollBar" BasedOn="{StaticResource VerticalScrollBarStyle}">
-        
+
     </Style>
 
     <Style x:Key="DataGridCell" TargetType="DataGridCell">
