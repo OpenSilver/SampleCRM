@@ -199,7 +199,13 @@
                                               SelectedValue="{Binding CountryCode, Mode=TwoWay}"
                                               DisplayMemberPath="Name"
                                               Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10"/>
+                                              Margin="0,0,0,10">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                             </Grid>
@@ -477,11 +483,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
                                                 <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                              SelectedValuePath="CountryCodeID"
-                                              SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                              DisplayMemberPath="Name"
-                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10"/>
+                                                          SelectedValuePath="CountryCodeID"
+                                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                     </Grid>
@@ -491,13 +503,13 @@
 
                         <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Demographic" />
                         <DataForm x:Name="formDemographic"              
-                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                          EditEnded="formDemographic_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Style="{StaticResource DefaultDataForm}">
+                                    CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
+                                    EditEnded="formDemographic_EditEnded"
+                                    AutoGenerateFields="False"
+                                    AutoEdit="True"
+                                    AutoCommit="True"
+                                    CommandButtonsVisibility="None"
+                                    Style="{StaticResource DefaultDataForm}">
                             <DataForm.EditTemplate>
                                 <DataTemplate>
                                     <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">

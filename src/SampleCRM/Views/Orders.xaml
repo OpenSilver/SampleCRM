@@ -61,7 +61,13 @@
                                                               SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
                                                               DisplayMemberPath="Name"
                                                               Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                              Margin="0,0,0,10"/>
+                                                              Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
                 <DataField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
@@ -72,7 +78,13 @@
                                                           SelectedValue="{Binding Status, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                          Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
             </Grid>
@@ -125,7 +137,13 @@
                                                               SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
                                                               DisplayMemberPath="Name"
                                                               Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                              Margin="0,0,0,10"/>
+                                                              Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
                 <DataField Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
@@ -136,7 +154,13 @@
                                                           SelectedValue="{Binding Status, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                          Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
             </Grid>

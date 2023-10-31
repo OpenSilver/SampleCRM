@@ -95,11 +95,17 @@
                                                           SelectedValue="{Binding CountryCode, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10"/>
+                                                          Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
-
-
+                
+                
                 <DataField Grid.Row="4" Grid.Column="0" Width="120" LabelVisibility="Collapsed" HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
                         <controls:RequiredTextBlock Text="Postal Code" />
@@ -186,11 +192,17 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
                         <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                                          SelectedValuePath="CountryCodeID"
-                                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10"/>
+                                  SelectedValuePath="CountryCodeID"
+                                  SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                  DisplayMemberPath="Name"
+                                  Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                  Margin="0,0,0,10">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
                     </StackPanel>
                 </DataField>
                 <DataField Grid.Row="8" Grid.Column="0" LabelVisibility="Collapsed">

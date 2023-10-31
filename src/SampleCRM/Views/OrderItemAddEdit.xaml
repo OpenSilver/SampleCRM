@@ -72,11 +72,17 @@
                                     <StackPanel Orientation="Vertical">
                                         <controls:RequiredTextBlock Text="Product" />
                                         <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
-                                                          SelectedValuePath="ProductID"
-                                                          SelectedValue="{Binding ProductID, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                  SelectedValuePath="ProductID"
+                                                  SelectedValue="{Binding ProductID, Mode=TwoWay}"
+                                                  DisplayMemberPath="Name"
+                                                  Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                  Margin="0,0,0,10">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="1" LabelVisibility="Collapsed">
@@ -107,11 +113,17 @@
                                     <StackPanel Orientation="Vertical">
                                         <controls:RequiredTextBlock Text="Tax Type" />
                                         <ComboBox ItemsSource="{Binding TaxTypes}"                                                          
-                                                          SelectedValuePath="TaxTypeID"
-                                                          SelectedValue="{Binding TaxType, Mode=TwoWay}"
-                                                          DisplayMemberPath="Desc"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                    SelectedValuePath="TaxTypeID"
+                                                    SelectedValue="{Binding TaxType, Mode=TwoWay}"
+                                                    DisplayMemberPath="Desc"
+                                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                    Margin="0,0,0,10">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="6" LabelVisibility="Collapsed">
@@ -213,7 +225,13 @@
                                                           SelectedValue="{Binding ProductID, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
 
@@ -250,7 +268,13 @@
                                                           SelectedValue="{Binding TaxType, Mode=TwoWay}"
                                                           DisplayMemberPath="Desc"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10" />
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                         <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">

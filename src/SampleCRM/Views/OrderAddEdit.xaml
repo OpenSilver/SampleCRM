@@ -96,7 +96,13 @@
                                                       SelectedValue="{Binding CustomerID, Mode=TwoWay}"
                                                       DisplayMemberPath="FullName"
                                                       Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                     />
+                                                     >
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="1" LabelVisibility="Collapsed">
@@ -170,8 +176,13 @@
                                                       SelectedValuePath="Status"
                                                       SelectedValue="{Binding Status, Mode=TwoWay}"
                                                       DisplayMemberPath="Name"
-                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                      />
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="1" LabelVisibility="Collapsed"
@@ -182,8 +193,13 @@
                                                       SelectedValuePath="PaymentTypeID"
                                                       SelectedValue="{Binding PaymentType, Mode=TwoWay}"
                                                       DisplayMemberPath="Name"
-                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                     />
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="2" LabelVisibility="Collapsed"
@@ -201,8 +217,13 @@
                                                       SelectedValuePath="ShipperID"
                                                       SelectedValue="{Binding ShipVia, Mode=TwoWay}"
                                                       DisplayMemberPath="Name"
-                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                      />
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                                 <DataField Grid.Row="4" LabelVisibility="Collapsed"
@@ -318,11 +339,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <controls:RequiredTextBlock Text="Customer" />
                                                 <ComboBox ItemsSource="{Binding CustomersCombo}"                                                          
-                                            SelectedValuePath="CustomerID"
-                                            SelectedValue="{Binding CustomerID, Mode=TwoWay}"
-                                            DisplayMemberPath="FullName"
-                                            Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                            Margin="0,0,0,10"/>
+                                                            SelectedValuePath="CustomerID"
+                                                            SelectedValue="{Binding CustomerID, Mode=TwoWay}"
+                                                            DisplayMemberPath="FullName"
+                                                            Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                            Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                         <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed">
@@ -354,11 +381,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
                                                 <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                          SelectedValuePath="CountryCodeID"
-                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                          DisplayMemberPath="Name"
-                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                          Margin="0,0,0,10"/>
+                                                          SelectedValuePath="CountryCodeID"
+                                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                     </Grid>
@@ -394,11 +427,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Status" Style="{StaticResource DataFieldLabelStyle}" />
                                                 <ComboBox ItemsSource="{Binding Statuses}"                                                          
-                                              SelectedValuePath="Status"
-                                              SelectedValue="{Binding Status, Mode=TwoWay}"
-                                              DisplayMemberPath="Name"
-                                              Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                              Margin="0,0,0,10"/>
+                                                          SelectedValuePath="Status"
+                                                          SelectedValue="{Binding Status, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                         <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  LabelVisibility="Collapsed"
@@ -406,11 +445,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Payment Type" Style="{StaticResource DataFieldLabelStyle}" />
                                                 <ComboBox ItemsSource="{Binding PaymentTypes}"                                                  
-                                          SelectedValuePath="PaymentTypeID"
-                                          SelectedValue="{Binding PaymentType, Mode=TwoWay}"
-                                          DisplayMemberPath="Name"
-                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                          Margin="0,0,0,10"/>
+                                                          SelectedValuePath="PaymentTypeID"
+                                                          SelectedValue="{Binding PaymentType, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
 
                                         </DataField>
@@ -428,11 +473,17 @@
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Shipped Via" Style="{StaticResource DataFieldLabelStyle}" />
                                                 <ComboBox ItemsSource="{Binding Shippers}"                                                  
-                                          SelectedValuePath="ShipperID"
-                                          SelectedValue="{Binding ShipVia, Mode=TwoWay}"
-                                          DisplayMemberPath="Name"
-                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                          Margin="0,0,0,10" />
+                                                          SelectedValuePath="ShipperID"
+                                                          SelectedValue="{Binding ShipVia, Mode=TwoWay}"
+                                                          DisplayMemberPath="Name"
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                         <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed"

@@ -109,8 +109,13 @@
                                                           SelectedValuePath="CategoryID"
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          />
+                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                        </ComboBox>
                                     </StackPanel>
                                 </DataField>
                             </Grid>
@@ -341,7 +346,6 @@
                                             </StackPanel>
                                         </DataField>
                                         <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-
                                             <StackPanel Orientation="Vertical">
                                                 <controls:RequiredTextBlock Text="Product" />
                                                 <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
@@ -349,7 +353,13 @@
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10"/>
+                                                          Margin="0,0,0,10">
+                                                    <ComboBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <VirtualizingStackPanel/>
+                                                        </ItemsPanelTemplate>
+                                                    </ComboBox.ItemsPanel>
+                                                </ComboBox>
                                             </StackPanel>
                                         </DataField>
                                     </Grid>
