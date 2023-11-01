@@ -26,7 +26,7 @@
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Home.xaml" />
                         <uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml" />
-                    </uriMapper:UriMapper> 
+                    </uriMapper:UriMapper>
                 </navigation:Frame.UriMapper>
             </navigation:Frame>
         </Border>
@@ -43,7 +43,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions> 
+                    </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
                         <ContentControl Style="{StaticResource LogoIcon}" />
                         <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="Sample CRM" />
@@ -56,7 +56,7 @@
                                     <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
-                            </HyperlinkButton> 
+                            </HyperlinkButton>
                             <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -64,17 +64,7 @@
                                     <TextBlock Text="Dashboard" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Categories" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Categories (" />
-                                        <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
-                            </HyperlinkButton>
+
                             <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -104,6 +94,18 @@
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Products (" />
                                         <Run Text="{Binding ProductsCount, Mode=OneWay}" />
+                                        <Run Text=")" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </HyperlinkButton>
+
+                            <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Categories" TargetName="ContentFrame">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
+                                    <TextBlock FontWeight="Bold">
+                                        <Run Text="Categories (" />
+                                        <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
                                         <Run Text=")" />
                                     </TextBlock>
                                 </StackPanel>
@@ -151,17 +153,7 @@
                                     <TextBlock Text="Dashboard" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
-                            <HyperlinkButton x:Name="mlnkCategories" Style="{StaticResource MobileLinkStyle}"
-                                     NavigateUri="/Categories" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Categories (" />
-                                        <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
-                            </HyperlinkButton>
+
                             <HyperlinkButton x:Name="mlnkCustomers" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -191,6 +183,18 @@
                                     <TextBlock FontWeight="Bold">
                                         <Run Text="Products (" />
                                         <Run Text="{Binding ProductsCount, Mode=OneWay}" />
+                                        <Run Text=")" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </HyperlinkButton>
+                            
+                            <HyperlinkButton x:Name="mlnkCategories" Style="{StaticResource MobileLinkStyle}"
+                                             NavigateUri="/Categories" TargetName="ContentFrame">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
+                                    <TextBlock FontWeight="Bold">
+                                        <Run Text="Categories (" />
+                                        <Run Text="{Binding CategoriesCount, Mode=OneWay}" />
                                         <Run Text=")" />
                                     </TextBlock>
                                 </StackPanel>
