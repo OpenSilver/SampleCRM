@@ -102,7 +102,7 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadElements);
+            await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)

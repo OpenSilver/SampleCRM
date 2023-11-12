@@ -69,7 +69,7 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadElements);
+            await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -117,9 +117,9 @@ namespace SampleCRM.Web.Views
 
         private async Task LoadElements()
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadCustomers);
-            await RetryOnExceptionHelper.RetryAsync(LoadOrders);
-            await RetryOnExceptionHelper.RetryAsync(LoadProducts);
+            await AsyncHelper.RunAsync(LoadCustomers);
+            await AsyncHelper.RunAsync(LoadOrders);
+            await AsyncHelper.RunAsync(LoadProducts);
         }
 
         private async Task LoadCustomers()

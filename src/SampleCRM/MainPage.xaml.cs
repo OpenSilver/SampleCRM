@@ -86,7 +86,7 @@ namespace SampleCRM
 
         public MainPage()
         {
-            RetryOnExceptionHelper.ContentPage = this;
+            AsyncHelper.ContentPage = this;
             InitializeComponent();
             DataContext = this;
             Loaded += MainPage_Loaded;
@@ -94,7 +94,7 @@ namespace SampleCRM
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadCounts);
+            await AsyncHelper.RunAsync(LoadCounts);
         }
 
         private async Task LoadCounts()

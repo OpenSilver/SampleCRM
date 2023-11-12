@@ -204,7 +204,7 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadElements);
+            await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -277,8 +277,8 @@ namespace SampleCRM.Web.Views
             var op = await _orderContext.LoadAsync(query);
             OrdersCollection = op.Entities;
 
-            await RetryOnExceptionHelper.RetryAsync(LoadCountryCodes);
-            await RetryOnExceptionHelper.RetryAsync(LoadStatuses);
+            await AsyncHelper.RunAsync(LoadCountryCodes);
+            await AsyncHelper.RunAsync(LoadStatuses);
 #if DEBUG
             Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
             foreach (var item in OrdersCollection)
@@ -370,8 +370,8 @@ namespace SampleCRM.Web.Views
 
             foreach (var orderItem in OrderItemsCollection)
             {
-                await RetryOnExceptionHelper.RetryAsync(LoadProduct, orderItem);
-                await RetryOnExceptionHelper.RetryAsync(LoadTaxRate, orderItem);
+                await AsyncHelper.RunAsync(LoadProduct, orderItem);
+                await AsyncHelper.RunAsync(LoadTaxRate, orderItem);
             }
 
 #if DEBUG
@@ -401,7 +401,7 @@ namespace SampleCRM.Web.Views
 
         private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(ArrangeOrderAddEditWindow, 15);
+            await AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
         }
         private async Task ArrangeOrderAddEditWindow()
         {
@@ -546,7 +546,7 @@ namespace SampleCRM.Web.Views
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(ArrangeOrderItemWindow, 6);
+            await AsyncHelper.RunAsync(ArrangeOrderItemWindow);
         }
         private async Task ArrangeOrderItemWindow()
         {

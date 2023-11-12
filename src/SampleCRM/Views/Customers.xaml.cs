@@ -247,7 +247,7 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(LoadElements);
+            await AsyncHelper.RunAsync(LoadElements);
         }
 
         private async Task LoadElements()
@@ -256,7 +256,7 @@ namespace SampleCRM.Web.Views
             var customersOp = await _customersContext.LoadAsync(customersQuery);
             CustomersCollection = customersOp.Entities;
 
-            await RetryOnExceptionHelper.RetryAsync(LoadCountryCodes);
+            await AsyncHelper.RunAsync(LoadCountryCodes);
 #if DEBUG
             Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
             foreach (var item in CustomersCollection)
@@ -368,7 +368,7 @@ namespace SampleCRM.Web.Views
                 _ordersTabSelected = e.AddedItems.Contains(tbOrders);
                 if (_ordersTabSelected)
                 {
-                    await RetryOnExceptionHelper.RetryAsync(LoadOrdersOfCustomer);
+                    await AsyncHelper.RunAsync(LoadOrdersOfCustomer);
                 }
             }
             else
@@ -446,7 +446,7 @@ namespace SampleCRM.Web.Views
         }
         private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
         {
-            await RetryOnExceptionHelper.RetryAsync(ArrangeOrderAddEditWindow, 15);
+            await AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
         }
         private async Task ArrangeOrderAddEditWindow()
         {
