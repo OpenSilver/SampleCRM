@@ -42,10 +42,11 @@
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
                 <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" 
-                             x:Name="txtSearch" 
-                             KeyUp="txtSearch_KeyUp"
-                             HorizontalAlignment="Stretch" Text="{Binding SearchText, Mode=TwoWay}" 
-                             Style="{StaticResource MaterialDesign_TextBox_Style}" />
+                         x:Name="txtSearch" 
+                         KeyUp="txtSearch_KeyUp"
+                         Text="{Binding SearchText, Mode=TwoWay}" 
+                         PlaceholderText="Search Name"
+                         Style="{StaticResource MaterialDesign_TextBox_Style}" HorizontalAlignment="Stretch" />
                 <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
                            Content="" Tapped="btnSearch_Click"
                            FontSize="8" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />

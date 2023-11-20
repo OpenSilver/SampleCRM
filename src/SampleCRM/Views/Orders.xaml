@@ -201,9 +201,10 @@
                         <ColumnDefinition Width="24" />
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtSearch" PlaceholderText="Search" 
+                    <TextBox x:Name="txtSearch"
                              KeyUp="txtSearch_KeyUp"
                              Text="{Binding SearchText, Mode=TwoWay}" 
+                             PlaceholderText="Search Order ID"
                              Style="{StaticResource MaterialDesign_TextBox_Style}" 
                              Grid.Column="0" Grid.ColumnSpan="4" />
 
@@ -354,6 +355,7 @@
                         <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" 
                                  KeyUp="txtOrderItemSearch_KeyUp"
                                  x:Name="txtOrderItemSearch" HorizontalAlignment="Stretch" 
+                                 PlaceholderText="Search Order or Product ID"
                                  Text="{Binding SearchOrderItemText, Mode=TwoWay}" 
                                  Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <Button x:Name="btnOrderItemSearch" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="" Tapped="btnSearch_Click" FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
