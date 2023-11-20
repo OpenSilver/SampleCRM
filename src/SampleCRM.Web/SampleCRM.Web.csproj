@@ -212,6 +212,12 @@
     <Content Include="Models\SampleCRMModel.edmx.diagram">
       <DependentUpon>SampleCRMModel.edmx</DependentUpon>
     </Content>
+    <Content Include="database\SampleCRM.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="database\Users.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
