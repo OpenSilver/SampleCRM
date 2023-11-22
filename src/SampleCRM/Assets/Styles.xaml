@@ -18,8 +18,6 @@
 
     <!-- Icons -->
     <StaticResource x:Name="PlusIconCode" x:Key="PlusIconCode22" />
-    <FontFamily x:Key="FontAwesome">ms-appx:///SampleCRM/Assets/fontawesome-webfont.ttf</FontFamily>
-
     <!-- Content Frame Style -->
     <Style x:Key="ContentFrameStyle" TargetType="navigation:Frame">
         <Setter Property="Background" Value="Transparent"/>

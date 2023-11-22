@@ -36,14 +36,9 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Item.Product.ListPrice, Mode=OneWay}" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="2"  
-                        Visibility="{Binding Item.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Delete" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                    <Button Style="{StaticResource DeleteButtonStyle}" Content="" Click="btnDelete_Click"
+                        Visibility="{Binding Item.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
+                </StackPanel> 
 
                 <DataForm x:Name="mForm"                   
                           CurrentItem="{Binding Item, Mode=TwoWay}"
@@ -182,13 +177,8 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Button  Margin="2"  
-                        Visibility="{Binding Item.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Delete" />
-                        </StackPanel>
-                    </Button>
+                    <Button Style="{StaticResource DeleteButtonStyle}" Content="" Click="btnDelete_Click"
+                        Visibility="{Binding Item.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" 
                           VerticalScrollBarVisibility="Auto" 

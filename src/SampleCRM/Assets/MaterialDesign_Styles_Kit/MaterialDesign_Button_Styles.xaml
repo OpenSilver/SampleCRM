@@ -717,6 +717,33 @@
         </Setter>
     </Style>
 
+    <!--Edit Button-->
+    <Style x:Key="EditButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Opacity" Value="0.75" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--Delete Button-->
+    <Style x:Key="DeleteButtonStyle" TargetType="Button" BasedOn="{StaticResource EditButtonStyle}">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
     <!--Default Button-->
     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesign_Button_Style}">
 

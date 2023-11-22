@@ -55,15 +55,10 @@
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Delivered Date" />
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Order.DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-
-                <Button  Margin="2" Click="btnDelete_Click" 
-                             Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                        <TextBlock Text="Delete" />
-                    </StackPanel>
-                </Button>
-
+                <Button Click="btnDelete_Click" 
+                        Style="{StaticResource DeleteButtonStyle}" Content=""
+                        Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
+            
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
                 <DataForm x:Name="mFormCustomerInfo"
                               CurrentItem="{Binding Order, Mode=TwoWay}"
@@ -297,13 +292,9 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Button  Margin="2" Click="btnDelete_Click" 
-                    Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Delete" />
-                        </StackPanel>
-                    </Button>
+                    <Button Click="btnDelete_Click" 
+                        Style="{StaticResource DeleteButtonStyle}" Content=""
+                        Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" 
                       VerticalScrollBarVisibility="Auto" 

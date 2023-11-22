@@ -68,14 +68,9 @@
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Safety Stock Level" />
                 <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding ProductViewModel.SafetyStockLevel, Mode=OneWay}" />
 
-                <Button Margin="2" Click="btnDelete_Click" 
-                        Visibility="{Binding ProductViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                        <TextBlock Text="Delete" />
-                    </StackPanel>
-                </Button>
-
+                <Button Click="btnDelete_Click"
+                        Style="{StaticResource DeleteButtonStyle}" Content=""
+                        Visibility="{Binding ProductViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General" />
                 <DataForm x:Name="mFormGeneral"                   
@@ -305,13 +300,9 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Button Margin="2" Click="btnDelete_Click" 
-                        Visibility="{Binding ProductViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/Delete.png" Margin="2,0,2,0" Width="16" Height="16" Stretch="Fill" />
-                            <TextBlock Text="Delete" />
-                        </StackPanel>
-                    </Button>
+                    <Button Click="btnDelete_Click"
+                        Style="{StaticResource DeleteButtonStyle}" Content=""
+                        Visibility="{Binding ProductViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
                 </StackPanel>
 
                 <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" BorderThickness="0,0,1,0" BorderBrush="LightGray">

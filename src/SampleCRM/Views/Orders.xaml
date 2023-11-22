@@ -374,9 +374,8 @@
                             <DataGridTemplateColumn CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="btnShowOrderItem" Margin="1" VerticalAlignment="Center" Click="btnShowOrderItem_Click">
-                                            <Image Source="/Assets/Edit.png" Margin="1" Width="8" Height="8" Stretch="UniformToFill" />
-                                        </Button>
+                                        <Button x:Name="btnShowOrderItem" Click="btnShowOrderItem_Click"
+                                                Style="{StaticResource EditButtonStyle}" Content="" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

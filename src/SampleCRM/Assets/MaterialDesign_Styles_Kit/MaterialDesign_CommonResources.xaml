@@ -3,10 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:MaterialDesign_Styles_Kit">
 
+    <FontFamily x:Key="FontAwesome">ms-appx:///SampleCRM/Assets/fontawesome-webfont.ttf</FontFamily>
+
     <local:AccentColorConverter x:Key="AccentColorConverter"/>
     <local:DoubleToCornerRadiusConverter x:Key="DoubleToCornerRadiusConverter"/>
     <local:TextToPlaceholderTextVisibilityConverter x:Key="TextToPlaceholderTextVisibilityConverter"/>
-
 
     <SolidColorBrush x:Key="MaterialDesign_DefaultAccentColor" Color="#0CBE68"/>
     <SolidColorBrush x:Key="MaterialDesign_50AccentColor" Color="#7F0CBE68"/>

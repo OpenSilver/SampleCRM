@@ -458,9 +458,8 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Button x:Name="btnShowOrder" Margin="1" Click="btnShowOrder_Click">
-                                                <Image Source="/Assets/Edit.png" Margin="1" Width="16" Height="16" Stretch="Fill" />
-                                            </Button>
+                                            <Button x:Name="btnShowOrder" Click="btnShowOrder_Click" 
+                                                    Style="{StaticResource EditButtonStyle}" Content="" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
