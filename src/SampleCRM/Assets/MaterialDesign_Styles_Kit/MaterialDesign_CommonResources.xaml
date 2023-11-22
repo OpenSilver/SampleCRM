@@ -42,6 +42,8 @@
     <SolidColorBrush x:Key="GridSelectionColor" Color="#0085FF" />
     <SolidColorBrush x:Key="AlternateBackground" Color="#2E323D" />
 
+    <SolidColorBrush x:Key="ComboBoxBackground" Color="#262A35" />
+
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource Background}"/>

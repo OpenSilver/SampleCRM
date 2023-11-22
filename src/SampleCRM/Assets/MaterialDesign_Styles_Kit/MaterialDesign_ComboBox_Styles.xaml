@@ -57,13 +57,14 @@
 
     <!--ComboBoxItem-->
     <Style x:Key="MaterialDesign_ComboBoxItem_Style" TargetType="ComboBoxItem">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Background" Value="{StaticResource ComboBoxBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource White75Brush}" />
+        <Setter Property="FontSize" Value="11" />
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="1"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
@@ -101,9 +102,9 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="InnerBorder" Background="{TemplateBinding Background}" CornerRadius="0">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                                 <ContentControl x:Name="ContentPresenter"
-                                                  Foreground="Black"
+                                                  Foreground="{TemplateBinding Foreground}"
                                                   FontSize="{TemplateBinding FontSize}"
                                                   FontWeight="{TemplateBinding FontWeight}"
                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -126,7 +127,7 @@
 
     <!--ComboBoxes-->
     <Style x:Key="MaterialDesign_ComboBox_Style" TargetType="ComboBox">
-        <Setter Property="Background" Value="{StaticResource White15Brush}"/>
+        <Setter Property="Background" Value="{StaticResource White15Brush}" />
         <Setter Property="Foreground" Value="{StaticResource White75Brush}"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="Padding" Value="5"/>
@@ -144,14 +145,6 @@
                                 <VisualState Name="Normal">
                                 </VisualState>
                                 <VisualState Name="PointerOver">
-                                    <!--<Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DropShadowEffect">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.6"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BlurRadius" Storyboard.TargetName="DropShadowEffect">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="8"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>-->
                                 </VisualState>
                                 <VisualState Name="Pressed">
                                 </VisualState>
@@ -169,9 +162,6 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="arrow">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="#FFA0A0A0"/>
                                         </ObjectAnimationUsingKeyFrames>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DropShadowEffect">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                                        </ObjectAnimationUsingKeyFrames>-->
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -185,9 +175,6 @@
                                         HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
                                 Height="{TemplateBinding Height}" Foreground="{TemplateBinding Foreground}">
-                            <!--<Border.Effect>
-                                <DropShadowEffect x:Name="DropShadowEffect" Color="Gray" Opacity="0.05" BlurRadius="6" Direction="-30" ShadowDepth="0"/>
-                            </Border.Effect>-->
                             <Grid x:Name="Grid" VerticalAlignment="Stretch" Background="{TemplateBinding Background}">
                                 <ToggleButton x:Name="DropDownToggle"
                                               HorizontalAlignment="Stretch"
@@ -205,7 +192,7 @@
                             </Grid>
                         </ContentControl>
                         <Popup x:Name="Popup" IsOpen="False">
-                            <Border Background="{StaticResource Black20Brush}" BorderBrush="Black" BorderThickness="1">
+                            <Border Background="{StaticResource ComboBoxBackground}" Margin="1">
                                 <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               VerticalScrollBarVisibility="Auto"
                                               HorizontalScrollBarVisibility="Disabled"
