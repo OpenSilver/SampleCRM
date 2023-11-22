@@ -98,8 +98,12 @@ namespace SampleCRM.Web.Views
                     _selectedOrder = value;
                     OnPropertyChanged();
                     OnPropertyChanged("AnySelectedOrder");
-                    LoadCustomer();
-                    LoadOrderItemsOfOrder();
+                    async void load()
+                    {
+                        await AsyncHelper.RunAsync(LoadCustomer);
+                        await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
+                    }
+                    load();
 #if DEBUG
                     Console.WriteLine($"Orders, Order: {value.OrderID} selected");
 #endif
@@ -421,7 +425,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var anySelected = e.AddedItems.Count > 0;
             if (anySelected)
@@ -429,7 +433,7 @@ namespace SampleCRM.Web.Views
                 _orderItemsTabSelected = e.AddedItems.Contains(tbOrderItems);
                 if (_orderItemsTabSelected)
                 {
-                    LoadOrderItemsOfOrder();
+                    await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
                 }
             }
             else

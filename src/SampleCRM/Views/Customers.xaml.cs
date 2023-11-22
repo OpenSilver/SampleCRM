@@ -80,7 +80,11 @@ namespace SampleCRM.Web.Views
                     _selectedCustomer = value;
                     OnPropertyChanged();
                     OnPropertyChanged("AnySelectedCustomer");
-                    LoadOrdersOfCustomer();
+                    async void load()
+                    {
+                        await AsyncHelper.RunAsync(LoadOrdersOfCustomer);
+                    }
+                    load();
 #if DEBUG
                     Console.WriteLine($"Customers, Customer: {value.FirstName} selected");
 #endif
