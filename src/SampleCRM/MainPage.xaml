@@ -20,11 +20,11 @@
         </Grid.RowDefinitions>
 
         <Border  Grid.Row="1" x:Name="ContentBorder">
-            <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Home" 
+            <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Dashboard" 
                               Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
-                        <uriMapper:UriMapping Uri=" " MappedUri="/Views/Home.xaml" />
+                        <uriMapper:UriMapping Uri=" " MappedUri="/Views/Dashboard.xaml" />
                         <uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml" />
                     </uriMapper:UriMapper>
                 </navigation:Frame.UriMapper>
@@ -50,13 +50,13 @@
                     </StackPanel>
                     <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                         <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-                            <HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
+                            <!--<HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
-                            </HyperlinkButton>
+                            </HyperlinkButton>-->
                             <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -139,13 +139,13 @@
 
                     <Border Grid.Row="1" x:Name="MobileLinksBorder" Style="{StaticResource MobileLinksBorderStyle}">
                         <StackPanel x:Name="MobileLinksStackPanel" Style="{StaticResource MobileLinksStackPanelStyle}">
-                            <HyperlinkButton x:Name="mlnkHome" Style="{StaticResource MobileLinkStyle}"
+                            <!--<HyperlinkButton x:Name="mlnkHome" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
                                     <TextBlock Text="Home" FontWeight="Bold" />
                                 </StackPanel>
-                            </HyperlinkButton>
+                            </HyperlinkButton>-->
                             <HyperlinkButton x:Name="mlnkDashboard" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
