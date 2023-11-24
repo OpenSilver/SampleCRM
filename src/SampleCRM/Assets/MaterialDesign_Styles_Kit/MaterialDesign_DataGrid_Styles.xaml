@@ -282,8 +282,8 @@
                                 <localprimitives:DataGridColumnHeader Name="TopRightCornerHeader" Grid.Column="2" Template="{StaticResource TopRightHeaderTemplate}" />
 
                                 <localprimitives:DataGridRowsPresenter Name="RowsPresenter" ClipToBounds="True" Grid.ColumnSpan="2" Grid.Row="1" />
-                                <Rectangle Name="BottomRightCorner" Fill="#FFE9EEF4" Grid.Column="2" Grid.Row="2" />
-                                <Rectangle Name="BottomLeftCorner" Fill="#FFE9EEF4" Grid.Row="2" Grid.ColumnSpan="2" />
+                                <!--<Rectangle Name="BottomRightCorner" Fill="#FFE9EEF4" Grid.Column="2" Grid.Row="2" />
+                                <Rectangle Name="BottomLeftCorner" Fill="#FFE9EEF4" Grid.Row="2" Grid.ColumnSpan="2" />-->
                                 <ScrollBar Name="VerticalScrollbar" Style="{StaticResource VerticalScrollBarStyle}" Orientation="Vertical" Grid.Column="2" Grid.Row="1" Width="7" Margin="0,-1,-1,-1" Debounce="{Binding (ScrollBar.Debounce), RelativeSource={RelativeSource Mode=TemplatedParent}}" />
 
                                 <Grid Grid.Column="1" Grid.Row="2">
@@ -292,7 +292,7 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Rectangle Name="FrozenColumnScrollBarSpacer" />
-                                    <ScrollBar Name="HorizontalScrollbar" Grid.Column="1" Orientation="Horizontal" Height="18" Margin="-1,0,-1,-1"/>
+                                    <ScrollBar Name="HorizontalScrollbar" Style="{StaticResource VerticalScrollBarStyle}" Grid.Column="1" Orientation="Horizontal" Height="18" Margin="-1,0,-1,-1"/>
                                 </Grid>
 
                                 <dataInput:ValidationSummary Name="ValidationSummary" Grid.Row="3" Grid.ColumnSpan="3" MaxHeight="90"/>
@@ -304,6 +304,43 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="DataGridCell" TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="10, 5" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Grid x:Name="Root" Background="{TemplateBinding Background}" >
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentControl Content="{TemplateBinding Content}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Padding="0"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Margin="{TemplateBinding Padding}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
     <!-- RepeatButton Templates -->
     <ControlTemplate x:Key="RepeatButtonTemplate" TargetType="RepeatButton">
@@ -463,8 +500,7 @@
                     Background="#FFFFFFFF" />
         </Grid>
     </ControlTemplate>
-    <ControlTemplate x:Key="HorizontalDecrementTemplate"
-                     TargetType="RepeatButton">
+    <ControlTemplate x:Key="HorizontalDecrementTemplate" TargetType="RepeatButton">
         <Grid x:Name="Root">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
@@ -908,9 +944,8 @@
     </ControlTemplate>
 
     <!-- Thumb Templates -->
-    <ControlTemplate x:Key="VerticalThumbTemplate"
-                     TargetType="Thumb">
-        <Grid Height="23">
+    <ControlTemplate x:Key="VerticalThumbTemplate" TargetType="Thumb">
+        <Grid>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
@@ -990,50 +1025,12 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
-                            <DoubleAnimation Duration="0:0:0"
-                                             Storyboard.TargetName="BackgroundMouseOver"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="1" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[3].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#7FFFFFFF" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#CCFFFFFF" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#F2FFFFFF" />
+
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
-                            <DoubleAnimation Duration="0:0:0"
-                                             Storyboard.TargetName="BackgroundPressed"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="1" />
-                            <DoubleAnimation Storyboard.TargetName="Highlight"
-                                             Storyboard.TargetProperty="(UIElement.Opacity)"
-                                             Duration="0"
-                                             To="1" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[3].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#6BFFFFFF" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#C6FFFFFF" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#EAFFFFFF" />
-                            <ColorAnimation Storyboard.TargetName="BackgroundGradient"
-                                            Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"
-                                            Duration="0"
-                                            To="#F4FFFFFF" />
+
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Disabled">
@@ -1047,11 +1044,10 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Grid x:Name="ThumbVisual"
-                  Margin="0,1,0,1">
+                  Margin="0,1,0,1"
+				  Cursor="Hand">
                 <Border x:Name="Background"
-                        CornerRadius="2"
-                        Background="#FF1F3B53"
-                        BorderThickness="1">
+                        CornerRadius="2">
                     <Border.BorderBrush>
                         <LinearGradientBrush EndPoint=".5,1"
                                              StartPoint=".5,0">
@@ -1066,49 +1062,18 @@
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                 </Border>
-                <Border x:Name="BackgroundMouseOver"
-                        Opacity="0"
-                        CornerRadius="2"
-                        Background="#FF448DCA"
-                        BorderThickness="1"
-                        BorderBrush="#00000000" />
-                <Border x:Name="BackgroundPressed"
-                        Opacity="0"
-                        CornerRadius="2"
-                        Background="#FF448DCA"
-                        BorderThickness="1"
-                        BorderBrush="#00000000" />
                 <Border x:Name="BackgroundGradient"
-                        CornerRadius="1"
-                        BorderThickness="1"
+                        CornerRadius="3"
                         Margin="1"
-                        BorderBrush="#FFFFFFFF">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint=".7,0"
-                                             EndPoint=".7,1">
-                            <GradientStop Color="#FFFFFFFF"
-                                          Offset="0.013" />
-                            <GradientStop Color="#F9FFFFFF"
-                                          Offset="0.375" />
-                            <GradientStop Color="#E5FFFFFF"
-                                          Offset="0.603" />
-                            <GradientStop Color="#C6FFFFFF"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.Background>
+						Height="7"
+						Background="#434751">
                 </Border>
-                <Border x:Name="Highlight"
-                        CornerRadius="1"
-                        Opacity="0"
-                        IsHitTestVisible="false"
-                        BorderBrush="#FF6DBDD1"
-                        BorderThickness="1"
-                        Margin="1" />
             </Grid>
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="VerticalScrollBarStyle" TargetType="ScrollBar">
+    <!--ScrollViewer and ScrollBar Styles-->
+    <Style x:Key="MaterialDesign_ScrollBar_Style" TargetType="ScrollBar">
         <Setter Property="MinWidth"
                 Value="17" />
         <Setter Property="MinHeight"
@@ -1135,7 +1100,7 @@
                         </VisualStateManager.VisualStateGroups>
 
                         <!-- Horizontal Template -->
-                        <Grid x:Name="HorizontalRoot">
+                        <Grid x:Name="HorizontalRoot" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -1146,68 +1111,42 @@
 
                             <!-- Track Layer -->
                             <Border Grid.ColumnSpan="5"
-                                    CornerRadius="1"
-                                    BorderThickness="1"
-                                    BorderBrush="#00000000">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0.5,1"
-                                                         EndPoint="0.5,0">
-                                        <GradientStop Color="#FFF4F6F7"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFF0F4F7"
-                                                      Offset="0.344" />
-                                        <GradientStop Color="#FFDFE3E6"
-                                                      Offset="1" />
-                                        <GradientStop Color="#FFE9EEF4"
-                                                      Offset="0.527" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                            </Border>
-                            <Border Grid.ColumnSpan="5"
-                                    CornerRadius="1"
-                                    BorderThickness="1"
                                     BorderBrush="#00000000"
-                                    Background="{TemplateBinding Background}" />
-                            <Border Grid.ColumnSpan="5"
-                                    CornerRadius="1"
-                                    BorderThickness="1"
-                                    Opacity=".375">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFA3AEB9"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FF8399A9"
-                                                      Offset="0.375" />
-                                        <GradientStop Color="#FF718597"
-                                                      Offset="0.375" />
-                                        <GradientStop Color="#FF617584"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                            </Border>
-                            <Border Grid.ColumnSpan="5"
-                                    CornerRadius="1"
-                                    BorderThickness="1"
-                                    Margin="1">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush EndPoint="0.5,.125"
-                                                         StartPoint=".5,.875">
-                                        <GradientStop Color="#33FFFFFF" />
-                                        <GradientStop Color="#99FFFFFF"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
+                                    Background="Transparent">
                             </Border>
 
-
+                            <!-- Repeat Buttons + Thumb -->
+                            <RepeatButton x:Name="HorizontalSmallDecrease"
+                                          Grid.Column="0"
+                                          Width="0"
+                                          IsTabStop="False"
+                                          Interval="50"
+                                          Template="{StaticResource HorizontalDecrementTemplate}"
+                                          Margin="1" />
+                            <RepeatButton x:Name="HorizontalLargeDecrease"
+                                          Grid.Column="1"
+                                          Width="0"
+                                          Template="{StaticResource RepeatButtonTemplate}"
+                                          Interval="50"
+                                          IsTabStop="False" />
                             <Thumb x:Name="HorizontalThumb"
-                                   Background="{TemplateBinding Background}"
                                    MinWidth="9"
                                    Width="9"
                                    Grid.Column="2"
                                    Template="{StaticResource HorizontalThumbTemplate}" />
-
+                            <RepeatButton x:Name="HorizontalLargeIncrease"
+                                          Grid.Column="3"
+                                          Width="0"
+                                          Template="{StaticResource RepeatButtonTemplate}"
+                                          Interval="50"
+                                          IsTabStop="False" />
+                            <RepeatButton x:Name="HorizontalSmallIncrease"
+                                          Grid.Column="4"
+                                          Width="0"
+                                          IsTabStop="False"
+                                          Interval="50"
+                                          Template="{StaticResource HorizontalIncrementTemplate}"
+                                          Margin="1" />
                         </Grid>
 
                         <!-- Vertical Template -->
@@ -1223,39 +1162,8 @@
 
                             <!-- Track Layer -->
                             <Border Grid.RowSpan="5"
-                                    CornerRadius="1"
                                     BorderBrush="#00000000"
                                     Background="Transparent">
-
-                            </Border>
-                            <Border Grid.RowSpan="5"
-                                    CornerRadius="1"
-                                    Opacity=".375">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFA3AEB9"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FF8399A9"
-                                                      Offset="0.375" />
-                                        <GradientStop Color="#FF718597"
-                                                      Offset="0.375" />
-                                        <GradientStop Color="#FF617584"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                            </Border>
-                            <Border Grid.RowSpan="5"
-                                    CornerRadius="1"
-                                    Margin="1">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush EndPoint="0.125,0.5"
-                                                         StartPoint="0.875,0.5">
-                                        <GradientStop Color="#33FFFFFF" />
-                                        <GradientStop Color="#99FFFFFF"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
                             </Border>
 
                             <!-- Repeat Buttons + Thumb -->
@@ -1296,43 +1204,12 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ScrollBar" BasedOn="{StaticResource VerticalScrollBarStyle}">
+    <Style x:Key="VerticalScrollBarStyle" TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesign_ScrollBar_Style}">
 
     </Style>
 
-    <Style x:Key="DataGridCell" TargetType="DataGridCell">
-        <Setter Property="Foreground" Value="{StaticResource Foreground}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="10, 5" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="DataGridCell">
-                    <Grid x:Name="Root" Background="{TemplateBinding Background}" >
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="SelectionStates">
-                                <VisualState x:Name="Unselected" />
-                                <VisualState x:Name="Selected">
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentControl Content="{TemplateBinding Content}"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            Padding="0"
-                                            Foreground="{TemplateBinding Foreground}"
-                                            Margin="{TemplateBinding Padding}" />
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesign_ScrollBar_Style}">
+        
     </Style>
 
 </ResourceDictionary>
