@@ -196,14 +196,14 @@ namespace SampleCRM.Web.Models
                 if (_customer != value)
                 {
                     _customer = value;
-                    if (_customer != null)
-                    {
-                        ShipAddress = _customer.AddressLine1;
-                        ShipCity = _customer.City;
-                        ShipRegion = _customer.Region;
-                        ShipCountryCode = _customer.CountryCode;
-                        ShipPostalCode = _customer.PostalCode;
-                    }
+                    //if (_customer != null)
+                    //{
+                    //    ShipAddress = _customer.AddressLine1;
+                    //    ShipCity = _customer.City;
+                    //    ShipRegion = _customer.Region;
+                    //    ShipCountryCode = _customer.CountryCode;
+                    //    ShipPostalCode = _customer.PostalCode;
+                    //}
                     OnPropertyChanged(new PropertyChangedEventArgs("Customer"));
                 }
             }
