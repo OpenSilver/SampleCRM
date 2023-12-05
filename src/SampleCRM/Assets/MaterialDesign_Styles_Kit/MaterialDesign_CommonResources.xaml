@@ -23,9 +23,11 @@
     <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#FFEBF7FF"/>
     <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#FF747474"/>
     <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Black05Brush" Color="#0C000000" />
     <SolidColorBrush x:Key="Black10Brush" Color="#1A000000" />
     <SolidColorBrush x:Key="Black20Brush" Color="#33000000" />
     <SolidColorBrush x:Key="Black30Brush" Color="#4D000000" />
+    <SolidColorBrush x:Key="White05Brush" Color="#0CFFFFFF" />
     <SolidColorBrush x:Key="White25Brush" Color="#40FFFFFF" />
     <SolidColorBrush x:Key="White50Brush" Color="#80FFFFFF" />
     <SolidColorBrush x:Key="White75Brush" Color="#BFFFFFFF" />
@@ -35,7 +37,7 @@
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#0085FF" />
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="RequiredColorBrush" Color="#FF8383" />
-    <SolidColorBrush x:Key="ChildWindowHeaderBackground" Color="#3B404D" />
+    <SolidColorBrush x:Key="ChildWindowHeaderBackground" Color="#2B303F" />
 
     <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
     <SolidColorBrush x:Key="GridForeground" Color="White" />
