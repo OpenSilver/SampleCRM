@@ -37,7 +37,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <ContentControl x:Name="Chrome" Style="{StaticResource MaterialDesign_CardHeader_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="{StaticResource ChildWindowHeaderBackground}" BorderBrush="Transparent" Padding="3">
+                                    <ContentControl x:Name="Chrome" Style="{StaticResource MaterialDesign_CardHeader_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="{TemplateBinding Background}" BorderBrush="Transparent" Padding="3">
                                         <Grid Height="Auto" Width="Auto" HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -48,7 +48,7 @@
                                         </Grid>
                                     </ContentControl>
                                     <Border Background="{TemplateBinding Background}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <Border Background="{StaticResource Black20Brush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                             <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                         </Border>
                                     </Border>
