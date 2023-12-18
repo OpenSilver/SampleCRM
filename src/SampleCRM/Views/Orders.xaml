@@ -189,8 +189,8 @@
                         Click="btnNew_Click" 
                         Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,2,0" Opacity="0.5" Foreground="White" />
-                        <TextBlock Text="Add Order" VerticalAlignment="Center" />
+                        <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,10,0" Opacity="0.5" Foreground="White" />
+                        <TextBlock Text="Add Order" VerticalAlignment="Top" />
                     </StackPanel>
                 </Button>
 
@@ -210,10 +210,10 @@
 
                     <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
                                Content="" Tapped="btnSearch_Click"
-                               FontSize="8" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
+                               FontSize="12" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                     <Button Grid.Column="2" Tapped="btnSearchCancel_Click"
                                Content="" Style="{StaticResource SearchButtonStyle}"
-                               FontSize="8" FontFamily="{StaticResource FontAwesome}" Margin="2,0,2,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
+                               FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="2,0,2,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
 
                 <DataGrid Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" x:Name="grdOrders"   
@@ -260,10 +260,11 @@
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                        <Button x:Name="btnDelete" Margin="2" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
+                                        <Button x:Name="btnDelete" Click="btnDelete_Click" 
+                                                Style="{StaticResource SecondaryButtonStyle}" Margin="2" Width="80" Height="25">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="" FontSize="8" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
-                                                <TextBlock Text="Delete" />
+                                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
+                                                <TextBlock Text="Delete" VerticalAlignment="Top" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>

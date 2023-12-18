@@ -303,12 +303,12 @@
 
                         <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
                         <DataForm x:Name="formCustomerInfo"                   
-                      CurrentItem="{Binding Order, Mode=TwoWay}"
-                      EditEnded="formCustomerInfo_EditEnded"
-                      AutoGenerateFields="False"
-                      AutoEdit="True"
-                      AutoCommit="True"
-                      CommandButtonsVisibility="None"
+                                  CurrentItem="{Binding Order, Mode=TwoWay}"
+                                  EditEnded="formCustomerInfo_EditEnded"
+                                  AutoGenerateFields="False"
+                                  AutoEdit="True"
+                                  AutoCommit="True"
+                                  CommandButtonsVisibility="None"
                       Style="{StaticResource DefaultDataForm}">
                             <DataForm.EditTemplate>
                                 <DataTemplate>
@@ -392,12 +392,12 @@
 
                         <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Order Status" />
                         <DataForm x:Name="formOrderStatus"                   
-                      CurrentItem="{Binding Order, Mode=TwoWay}"
-                      EditEnded="formOrderStatus_EditEnded"
-                      AutoGenerateFields="False"
-                      AutoEdit="True"
-                      AutoCommit="True"
-                      CommandButtonsVisibility="None"
+                              CurrentItem="{Binding Order, Mode=TwoWay}"
+                              EditEnded="formOrderStatus_EditEnded"
+                              AutoGenerateFields="False"
+                              AutoEdit="True"
+                              AutoCommit="True"
+                              CommandButtonsVisibility="None"
                       Style="{StaticResource DefaultDataForm}">
                             <DataForm.EditTemplate>
                                 <DataTemplate>

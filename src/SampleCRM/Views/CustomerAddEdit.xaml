@@ -293,7 +293,7 @@
                         <Image Margin="1" Width="132" Height="132"
                             Source="{Binding CustomerViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
                         <Button Click="btnEditPicture_Click"
-                        Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
+                            Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
                             <Grid Width="132" Height="132">
                                 <TextBlock Text="Edit" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
