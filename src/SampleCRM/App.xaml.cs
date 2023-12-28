@@ -27,8 +27,12 @@ namespace SampleCRM
             //webContext.Authentication = new WindowsAuthentication();
             ApplicationLifetimeObjects.Add(webContext);
 
-#if DEBUG
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/");
+#if LOCAL_DEBUG
+            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
+#elif DEBUG
+            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/")
+#elif LOCAL_RELEASE
+            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
 #elif RELEASE
             ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("https://samplecrm-webservices.azurewebsites.net/");
 #else

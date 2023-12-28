@@ -5,7 +5,7 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
-    <Configurations>Debug;Release;</Configurations>
+    <Configurations>Debug;Release;LOCAL_DEBUG;LOCAL_RELEASE</Configurations>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,7 +19,15 @@
     <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_DEBUG|AnyCPU'">
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>OPENSILVER</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_RELEASE|AnyCPU'">
     <DefineConstants>OPENSILVER</DefineConstants>
   </PropertyGroup>
   
