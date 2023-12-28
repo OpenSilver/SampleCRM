@@ -30,7 +30,7 @@ namespace SampleCRM
 #if LOCAL_DEBUG
             ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
 #elif DEBUG
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/")
+            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/");
 #elif LOCAL_RELEASE
             ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
 #elif RELEASE
