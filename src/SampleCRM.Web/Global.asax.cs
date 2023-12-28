@@ -11,11 +11,11 @@ namespace SampleCRM.Web
 {
     public class Global : System.Web.HttpApplication
     {
-        public static bool DeveloperMode { get; protected set; }
+        public static bool ReadOnlyMode { get; protected set; }
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            DeveloperMode = Convert.ToBoolean(ConfigurationManager.AppSettings["DeveloperMode"]);
+            ReadOnlyMode = Convert.ToBoolean(ConfigurationManager.AppSettings["ReadOnlyMode"]);
 
             string path = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", path);

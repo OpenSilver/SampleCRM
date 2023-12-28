@@ -15,7 +15,7 @@ For production deployment to public servers please change the following **Develo
 ```xml
 ....
   <appSettings>
-    <add key="DeveloperMode" value="False" />
+    <add key="ReadOnlyMode" value="True" />
   </appSettings>
 ...
 ```

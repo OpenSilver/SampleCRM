@@ -28,13 +28,13 @@ namespace SampleCRM.Web.Attributes
 
             //TODO: Implement a proper Auth and Role Check
 
-            if (Global.DeveloperMode)
+            if (!Global.ReadOnlyMode)
             {
                 return AuthorizationResult.Allowed;
             }
             else
             {
-                return new AuthorizationResult("DB is readonly for production mode");
+                return new AuthorizationResult("DB is read only for production mode");
             }
         }
     }
