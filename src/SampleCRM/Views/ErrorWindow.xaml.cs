@@ -68,5 +68,10 @@ namespace SampleCRM
         {
             DialogResult = true;
         }
+
+        private async void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Clipboard.SetTextAsync(ErrorTextBox.Text);
+        }
     }
 }
