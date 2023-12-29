@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
@@ -10,9 +11,9 @@ namespace SampleCRM.Web.Views
 
         const double MinimumResolutionForMenu = 900d;
 
-        CurrentState _currentState;
+        private CurrentState _currentState;
 
-        enum CurrentState
+        internal enum CurrentState
         {
             Unset, // Initial value
             LargeResolution_SeeBothMenuAndPage, // This corresponds to tablets and other devices with high resolution. In this case we see both the menu and the page.
@@ -20,6 +21,9 @@ namespace SampleCRM.Web.Views
             SmallResolution_HideMenu // This corresponds to smartphones and other devices with low resolution. In this case we do not see the menu.
         }
 
+        //public event EventHandler CustomerAdded;
+        internal event EventHandler<CurrentState> OnCurrentStateChanged;
+        
         public ResponsivePane()
         {
             InitializeComponent();
@@ -79,6 +83,10 @@ namespace SampleCRM.Web.Views
                     }
                 }
                 _currentState = newState;
+                if (OnCurrentStateChanged != null)
+                {
+                    OnCurrentStateChanged(this, _currentState);
+                }
             }
         }
 

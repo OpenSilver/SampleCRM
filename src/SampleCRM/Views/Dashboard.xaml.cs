@@ -1,5 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,7 +70,8 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await AsyncHelper.RunAsync(LoadElements);
+            if (!DesignerProperties.GetIsInDesignMode(this))
+                await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)

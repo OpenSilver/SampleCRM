@@ -35,7 +35,7 @@
 
     <Style x:Key="MobileNavigationGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="#2D3241" />
-        <Setter Property="Margin" Value="0,30,0,25" />
+        <Setter Property="Margin" Value="0,30,0,0" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 

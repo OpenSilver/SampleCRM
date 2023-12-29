@@ -1,11 +1,13 @@
 ﻿using SampleCRM.Web;
 using SampleCRM.Web.Views;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Effects;
 using System.Windows.Navigation;
 
 namespace SampleCRM
@@ -94,7 +96,8 @@ namespace SampleCRM
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            await AsyncHelper.RunAsync(LoadCounts);
+            if (!DesignerProperties.GetIsInDesignMode(this))
+                await AsyncHelper.RunAsync(LoadCounts);
         }
 
         private async Task LoadCounts()
@@ -139,6 +142,19 @@ namespace SampleCRM
         public void MakeBusy(bool isBusy)
         {
             IsBusy = isBusy;
+        }
+
+        private void menuPane_OnCurrentStateChanged(object sender, ResponsivePane.CurrentState e)
+        {
+            var isBlured = e == ResponsivePane.CurrentState.SmallResolution_ShowMenu;
+            if (isBlured)
+            {
+                ContentBorder.Effect = new BlurEffect { Radius = 5 };
+            }
+            else
+            {
+                ContentBorder.Effect = null;
+            }
         }
     }
 }

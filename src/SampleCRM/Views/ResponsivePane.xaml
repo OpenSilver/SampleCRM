@@ -64,10 +64,11 @@
         <Border x:Name="MenuBorder" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <ContentPresenter Content="{Binding BigChildElement, ElementName=ThisControl}" />
         </Border>
-        <Border x:Name="SmallMenuBorder" Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Border x:Name="SmallMenuBorder" Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Left">
             <ContentPresenter Content="{Binding SmallChildElement, ElementName=ThisControl}" />
         </Border>
-        <Border x:Name="ButtonToHideOrShowMenu" Visibility="Collapsed" Margin="0,16,0,40" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Border x:Name="ButtonToHideOrShowMenu" Visibility="Collapsed" 
+                Margin="0,16,0,40" VerticalAlignment="Top" HorizontalAlignment="Left">
             <StackPanel x:Name="MobileBrandingStackPanel" Style="{StaticResource MobileBrandingStackPanelStyle}">
                 <Button Click="ButtonToHideOrShowMenu_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                     <Image Source="/Assets/MenuIcon.png" Width="30" Height="30" Stretch="Fill" Margin="0,0,10,0" />

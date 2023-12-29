@@ -19,7 +19,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border  Grid.Row="1" x:Name="ContentBorder">
+        <Border Grid.Row="1" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Dashboard" 
                               Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
@@ -36,7 +36,9 @@
                              Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" 
                              Style="{StaticResource busyIndicatorDefaultStyle}" />
 
-        <views:ResponsivePane x:Name="menuPane" Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99">
+        <views:ResponsivePane x:Name="menuPane" 
+                              Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99"
+                              OnCurrentStateChanged="menuPane_OnCurrentStateChanged">
             <views:ResponsivePane.BigChildElement>
                 <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
                     <Grid.ColumnDefinitions>
@@ -49,7 +51,7 @@
                         <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="Sample CRM" />
                     </StackPanel>
                     <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
-                        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+                        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">  
                             <!--<HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -132,12 +134,11 @@
             <views:ResponsivePane.SmallChildElement>
                 <Grid x:Name="MobileNavigationGrid" Style="{StaticResource MobileNavigationGridStyle}">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Row="1" x:Name="MobileLinksBorder" Style="{StaticResource MobileLinksBorderStyle}">
+                    <Border Grid.Row="0" x:Name="MobileLinksBorder" Style="{StaticResource MobileLinksBorderStyle}">
                         <StackPanel x:Name="MobileLinksStackPanel" Style="{StaticResource MobileLinksStackPanelStyle}">
                             <!--<HyperlinkButton x:Name="mlnkHome" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
@@ -202,7 +203,7 @@
                         </StackPanel>
                     </Border>
 
-                    <!--<Border Grid.Column="2" Style="{StaticResource LoginContainerStyle}">
+                    <!--<Border Grid.Row="1" Style="{StaticResource LoginContainerStyle}">
                         <StackPanel Orientation="Horizontal">
                             <login:LoginStatus />
 
