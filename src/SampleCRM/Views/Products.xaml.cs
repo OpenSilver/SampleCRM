@@ -129,20 +129,21 @@ namespace SampleCRM.Web.Views
 
         private async Task LoadElements()
         {
-            var query = _productsContext.GetProductsQuery();
-            var op = await _productsContext.LoadAsync(query);
-            ProductsCollection = op.Entities;
-
             var categoriesQuery = _categoryContext.GetCategoriesQuery();
             var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
             CategoryCollection = categoriesOp.Entities;
+
+            var query = _productsContext.GetProductsWithoutPicturesQuery();
+            var op = await _productsContext.LoadAsync(query);
+            ProductsCollection = op.Entities;
+
 #if DEBUG
             Console.WriteLine("Products Collection:" + ProductsCollection.Count());
-            foreach (var item in ProductsCollection)
-            {
-                Console.WriteLine("Product Id:" + item.ProductID);
-                Console.WriteLine("Product Name:" + item.Name);
-            }
+            //foreach (var item in ProductsCollection)
+            //{
+            //    Console.WriteLine("Product Id:" + item.ProductID);
+            //    Console.WriteLine("Product Name:" + item.Name);
+            //}
 #endif
         }
 

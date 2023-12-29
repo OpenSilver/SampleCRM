@@ -33,5 +33,15 @@ namespace SampleCRM.Web.Models
         }
 
         public string CategoryName => CategoriesCombo.FirstOrDefault(x => x.CategoryID == CategoryID)?.Name;
+
+        public string PictureUrl
+        {
+            get
+            {
+                var app = (System.Windows.Application.Current as App);
+                var imageUrl = app.ImageUrl;
+                return $"{imageUrl}?productid={ProductID}";
+            }
+        }
     }
 }

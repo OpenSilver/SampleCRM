@@ -7,6 +7,7 @@ using SampleCRM.Web;
 #endif
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace SampleCRM
@@ -14,6 +15,9 @@ namespace SampleCRM
     public partial class App : Application
     {
         public const string Title = "Sample CRM";
+
+        public string BaseUrl { get; private set; }
+        public string ImageUrl => $"{BaseUrl}Images";
 
         public App()
         {
@@ -28,16 +32,17 @@ namespace SampleCRM
             ApplicationLifetimeObjects.Add(webContext);
 
 #if LOCAL_DEBUG
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
+            BaseUrl = "http://localhost:7002/";
 #elif DEBUG
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:54837/");
+            BaseUrl = "http://localhost:54837/";
 #elif LOCAL_RELEASE
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("http://localhost:7002/");
+            BaseUrl = "http://localhost:7002/";
 #elif RELEASE
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri("https://samplecrm-webservices.azurewebsites.net/");
+            BaseUrl = "https://samplecrm-webservices.azurewebsites.net/";
 #else
             throw new NotSupportedException();
 #endif
+            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri(BaseUrl);
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

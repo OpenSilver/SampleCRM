@@ -103,7 +103,7 @@
                                     <DataTemplate>
                                         <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
                                             <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
+                                                <ImageBrush ImageSource="{Binding PictureUrl, Mode=OneWay}" Stretch="Fill" />
                                             </Border.Background>
                                         </Border>
                                     </DataTemplate>

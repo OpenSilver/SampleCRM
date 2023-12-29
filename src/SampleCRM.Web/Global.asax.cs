@@ -67,6 +67,13 @@ namespace SampleCRM.Web
                 HttpContext.Current.Response.End();
             }
 
+            Uri pageRequest = Request.Url;
+            string requestPath = pageRequest.GetLeftPart(UriPartial.Path).ToLower();
+            if (pageRequest.Scheme == "https" && requestPath.Contains("Images"))
+            {
+                Response.Redirect("http://" + pageRequest.Host + pageRequest.PathAndQuery, true);
+                // Response.Redirect(requestPath, true);
+            }
 
         }
 

@@ -7,7 +7,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <PublishIISAssets>true</PublishIISAssets>
     <!-- Uncomment to enable AOT compilation when publishing -->
-    <RunAOTCompilation Condition="'$(IsSecondPass)'!='True'">true</RunAOTCompilation>
+    <!--<RunAOTCompilation Condition="'$(IsSecondPass)'!='True'">true</RunAOTCompilation>-->
     <Configurations>Debug;Release;LOCAL_DEBUG;LOCAL_RELEASE</Configurations>
   </PropertyGroup>
 

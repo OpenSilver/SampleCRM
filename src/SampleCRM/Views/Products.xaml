@@ -4,11 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=OpenSilver.Controls.Navigation"
         mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
         Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
-        <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
@@ -77,8 +75,8 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Grid Width="100" Height="100">
-                                    <Image Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" 
+                                <Grid Grid.Row="0" Width="100" Height="100">
+                                    <Image Source="{Binding PictureUrl, Mode=OneWay}" Width="100" Height="100"
                                            Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <Grid Grid.Row="1" Background="#c8c9cc" Width="100" Height="40">
