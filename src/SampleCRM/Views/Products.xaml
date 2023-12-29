@@ -72,14 +72,16 @@
                         <Border BorderThickness="0" Background="#919399">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Width="100" Height="100">
-                                    <Image Source="{Binding PictureUrl, Mode=OneWay}" Width="100" Height="100"
-                                           Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Image Source="{Binding PictureUrl, Mode=OneWay}" 
+                                           Width="100" Height="100"
+                                           Stretch="UniformToFill" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
-                                <Grid Grid.Row="1" Background="#c8c9cc" Width="100" Height="40">
+                                <Grid Grid.Row="1" Width="100" Height="40" Background="#c8c9cc">
                                     <StackPanel Margin="10" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold" />
                                         <TextBlock Text="{Binding CategoryName}" FontSize="11" />
