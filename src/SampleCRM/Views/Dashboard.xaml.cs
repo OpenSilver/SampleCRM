@@ -1,5 +1,4 @@
-﻿using OpenRiaServices.DomainServices.Client;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;

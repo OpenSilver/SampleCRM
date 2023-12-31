@@ -14,20 +14,21 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <local:BusyIndicator x:Name="busyIndicator" BusyContent="Logging in..."
+        <!--<local:BusyIndicator x:Name="busyIndicator" BusyContent="Logging in..."
                              IsBusy="{Binding IsLoggingIn}">
-            <StackPanel Orientation="Vertical">
-                <toolkit:DataForm x:Name="loginForm"
+
+
+        </local:BusyIndicator>-->
+
+        <StackPanel Orientation="Vertical">
+            <toolkit:DataForm x:Name="loginForm"
                                   Padding="10,0,10,0"
                                   CurrentItem="{Binding}"
-                                  CustomLayout="True"
-                                  IsAutoHeightOnCustomLayout="True"
                                   AutoEdit="True" CommandButtonsVisibility="None" HeaderVisibility="Collapsed"
                                   AutoGeneratingField="LoginForm_AutoGeneratingField"
                                   IsEnabled="{Binding IsLoggingIn, Converter={StaticResource NotOperatorValueConverter}}"
                                   Style="{StaticResource LoginDataFormStyle}" />
-            </StackPanel>
-        </local:BusyIndicator>
+        </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button x:Name="loginButton" Content="Ok" Click="LoginButton_Click" Style="{StaticResource RegisterLoginButtonStyle}" IsEnabled="{Binding Path=CanLogIn}" />

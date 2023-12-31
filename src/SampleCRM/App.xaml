@@ -6,7 +6,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/BusyIndicator.xaml" />
                 <ResourceDictionary Source="Assets/Styles.xaml" />
                 <ResourceDictionary>
                     <app:NotOperatorValueConverter x:Key="NotOperatorValueConverter" />

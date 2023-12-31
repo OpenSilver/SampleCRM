@@ -15,19 +15,19 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:BusyIndicator x:Name="busyIndicator" BusyContent="Logging in..."
+        <!--<local:BusyIndicator x:Name="busyIndicator" BusyContent="Logging in..."
                              IsBusy="{Binding IsRegistering}">
-            <toolkit:DataForm x:Name="registerForm"
+
+        </local:BusyIndicator>-->
+
+        <toolkit:DataForm x:Name="registerForm"
                               CurrentItem="{Binding}"
-                              CustomLayout="True"
-                              IsAutoHeightOnCustomLayout="True"
                               AutoEdit="True"
                               CommandButtonsVisibility="None"
                               Header="Please complete all required fields to create your account"
                               AutoGeneratingField="RegisterForm_AutoGeneratingField"
                               IsEnabled="{Binding IsRegistering, Converter={StaticResource NotOperatorValueConverter}}"
                               Style="{StaticResource DataFormStyle}" />
-        </local:BusyIndicator>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button x:Name="registerButton" Content="Ok" Click="RegisterButton_Click" Style="{StaticResource RegisterLoginButtonStyle}" IsEnabled="{Binding IsRegistering, Converter={StaticResource NotOperatorValueConverter}}" />
