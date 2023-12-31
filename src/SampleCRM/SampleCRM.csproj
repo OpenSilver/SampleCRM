@@ -64,6 +64,7 @@
     <None Remove="Assets\Unlocked.png" />
     <None Remove="Controls\BusyIndicator.xaml" />
     <None Remove="Controls\CircleImage.xaml" />
+    <None Remove="Controls\LoadingIndicator.xaml" />
     <None Remove="Controls\RequiredTextBlock.xaml" />
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
@@ -273,6 +274,9 @@
     <Page Include="Controls\CircleImage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\LoadingIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\RequiredTextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -453,6 +457,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\ResponsivePane.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Controls\LoadingIndicator.xaml" />
   </ItemGroup>
 
 </Project>

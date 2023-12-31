@@ -72,6 +72,21 @@ namespace SampleCRM
             }
         }
 
+        private bool _isBlur = false;
+        public bool IsBlur
+        {
+            get { return _isBlur; }
+            set
+            {
+                if (_isBlur != value)
+                {
+                    _isBlur = value;
+                    ContentBorder.Effect = _isBlur ? new BlurEffect { Radius = 5 } : null;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool _isBusy = false;
         public bool IsBusy
         {
@@ -81,6 +96,7 @@ namespace SampleCRM
                 if (_isBusy != value)
                 {
                     _isBusy = value;
+                    IsBlur = _isBusy;
                     OnPropertyChanged();
                 }
             }
@@ -146,15 +162,7 @@ namespace SampleCRM
 
         private void menuPane_OnCurrentStateChanged(object sender, ResponsivePane.CurrentState e)
         {
-            var isBlured = e == ResponsivePane.CurrentState.SmallResolution_ShowMenu;
-            if (isBlured)
-            {
-                ContentBorder.Effect = new BlurEffect { Radius = 5 };
-            }
-            else
-            {
-                ContentBorder.Effect = null;
-            }
+            IsBlur = e == ResponsivePane.CurrentState.SmallResolution_ShowMenu;
         }
     }
 }

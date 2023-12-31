@@ -7,7 +7,6 @@ using SampleCRM.Web;
 #endif
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace SampleCRM

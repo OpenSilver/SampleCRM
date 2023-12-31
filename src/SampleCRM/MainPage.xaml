@@ -31,10 +31,11 @@
             </navigation:Frame>
         </Border>
 
-        <local:BusyIndicator Grid.Row="1" x:Name="mainBusyIndicator" 
-                             BusyContent="Loading..." IsBusy="True" 
-                             Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" 
-                             Style="{StaticResource busyIndicatorDefaultStyle}" />
+        <Rectangle Grid.Row="1" x:Name="busyBackground" Fill="{StaticResource Black50Brush}"
+                Visibility="{Binding IsBlur, Converter={StaticResource boolToBisibilityConverter}}" />
+
+        <local:LoadingIndicator Grid.Row="1" x:Name="mainBusyIndicator"
+                                Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" />
 
         <views:ResponsivePane x:Name="menuPane" 
                               Grid.Row="0" Grid.ColumnSpan="99" Grid.RowSpan="99"
@@ -51,7 +52,7 @@
                         <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="Sample CRM" />
                     </StackPanel>
                     <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
-                        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">  
+                        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
                             <!--<HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Home" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -116,19 +117,19 @@
                     </Border>
 
                     <!--<Border Grid.Column="2" Style="{StaticResource LoginContainerStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <login:LoginStatus />
+                        <StackPanel Orientation="Horizontal">
+                            <login:LoginStatus />
 
-                        <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
+                            <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Settings" TargetName="ContentFrame">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                <TextBlock Text="Settings" FontWeight="Bold" />
-                            </StackPanel>
-                        </HyperlinkButton>
-                    </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
+                                    <TextBlock Text="Settings" FontWeight="Bold" />
+                                </StackPanel>
+                            </HyperlinkButton>
+                        </StackPanel>
 
-                </Border>-->
+                    </Border>-->
                 </Grid>
             </views:ResponsivePane.BigChildElement>
             <views:ResponsivePane.SmallChildElement>
@@ -188,7 +189,7 @@
                                     </TextBlock>
                                 </StackPanel>
                             </HyperlinkButton>
-                            
+
                             <HyperlinkButton x:Name="mlnkCategories" Style="{StaticResource MobileLinkStyle}"
                                              NavigateUri="/Categories" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -217,6 +218,7 @@
                         </StackPanel>
 
                     </Border>-->
+                    
                 </Grid>
             </views:ResponsivePane.SmallChildElement>
         </views:ResponsivePane>

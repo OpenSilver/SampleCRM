@@ -27,6 +27,7 @@
     <SolidColorBrush x:Key="Black10Brush" Color="#1A000000" />
     <SolidColorBrush x:Key="Black20Brush" Color="#33000000" />
     <SolidColorBrush x:Key="Black30Brush" Color="#4D000000" />
+    <SolidColorBrush x:Key="Black50Brush" Color="#80000000" />
     <SolidColorBrush x:Key="White05Brush" Color="#0CFFFFFF" />
     <SolidColorBrush x:Key="White25Brush" Color="#40FFFFFF" />
     <SolidColorBrush x:Key="White50Brush" Color="#80FFFFFF" />
