@@ -4,16 +4,16 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:local="clr-namespace:SampleCRM.LoginUI"
                       xmlns:controls="clr-namespace:System.Windows.Controls;assembly=OpenSilver"
-                      MinWidth="400"
-                      Style="{StaticResource LogRegWindowStyle}"
+                      MinWidth="400" Title="Login"
+                      Style="{StaticResource MaterialDesign_ChildWindow_Style}"
                       Closing="LoginWindow_Closing">
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot">   
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:LoginForm x:Name="loginForm" Grid.Row="0" />
+        <local:LoginForm x:Name="loginForm" Grid.Row="0" MinWidth="400" />
         <local:RegistrationForm x:Name="registrationForm" Grid.Row="0" Visibility="Collapsed" />
     </Grid>
 </controls:ChildWindow>

@@ -59,6 +59,56 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MaterialDesign_PasswordBox_Style" TargetType="PasswordBox">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderBrush" Value="{StaticResource MaterialDesign_DefaultAccentColor}"/>
+        <Setter Property="Background" Value="{StaticResource AlternateBackground}"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Border>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding BorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="OuterBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="LightGray"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2"
+                                Padding="6,3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0" Content="{TemplateBinding Tag}" Margin="1"/>
+                                <TextBlock Grid.Column="1" Text="{TemplateBinding PlaceholderText}"
+                                           Foreground="DarkGray"
+                                           Visibility="{Binding Path=Text, Converter={StaticResource TextToPlaceholderTextVisibilityConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                <ContentPresenter Grid.Column="1" x:Name="ContentElement"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Numeric Up Down TextBox-->
     <Style x:Key="MaterialDesign_Numeric_Style" TargetType="NumericUpDown">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

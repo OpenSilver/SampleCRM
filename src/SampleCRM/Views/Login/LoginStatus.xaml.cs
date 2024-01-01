@@ -17,7 +17,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public LoginStatus()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             if (DesignerProperties.IsInDesignTool)
             {
@@ -25,16 +25,16 @@ namespace SampleCRM.LoginUI
             }
             else
             {
-                this.DataContext = WebContext.Current;
-                WebContext.Current.Authentication.LoggedIn += this.Authentication_LoggedIn;
-                WebContext.Current.Authentication.LoggedOut += this.Authentication_LoggedOut;
-                this.UpdateLoginState();
+                DataContext = WebContext.Current;
+                WebContext.Current.Authentication.LoggedIn += Authentication_LoggedIn;
+                WebContext.Current.Authentication.LoggedOut += Authentication_LoggedOut;
+                UpdateLoginState();
             }
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginRegistrationWindow loginWindow = new LoginRegistrationWindow();
+            var loginWindow = new LoginRegistrationWindow();
             loginWindow.Show();
         }
 
@@ -52,26 +52,26 @@ namespace SampleCRM.LoginUI
 
         private void Authentication_LoggedIn(object sender, AuthenticationEventArgs e)
         {
-            this.UpdateLoginState();
+            UpdateLoginState();
         }
 
         private void Authentication_LoggedOut(object sender, AuthenticationEventArgs e)
         {
-            this.UpdateLoginState();
+            UpdateLoginState();
         }
 
         private void UpdateLoginState()
         {
             if (WebContext.Current.User.IsAuthenticated)
             {
-                this.welcomeText.Text = string.Format(
+                welcomeText.Text = string.Format(
                     CultureInfo.CurrentUICulture,
                     "Welcome {0}",
                     WebContext.Current.User.DisplayName);
             }
             else
             {
-                this.welcomeText.Text = "authenticating...";
+                welcomeText.Text = "authenticating...";
             }
 
             if (WebContext.Current.Authentication is WindowsAuthentication)

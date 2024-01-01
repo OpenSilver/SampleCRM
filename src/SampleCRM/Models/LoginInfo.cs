@@ -10,9 +10,10 @@ namespace SampleCRM.LoginUI
     /// </summary>
     public class LoginInfo : ComplexObject
     {
-        private string userName;
-        private bool rememberMe;
-        private LoginOperation currentLoginOperation;
+        private string _userName;
+        //private string _password;
+        private bool _rememberMe;
+        private LoginOperation _currentLoginOperation;
 
         /// <summary>
         /// Gets and sets the user name.
@@ -23,15 +24,15 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return this.userName;
+                return _userName;
             }
             set
             {
-                if (this.userName != value)
+                if (_userName != value)
                 {
-                    this.ValidateProperty("UserName", value);
-                    this.userName = value;
-                    this.RaisePropertyChanged("UserName");
+                    ValidateProperty("UserName", value);
+                    _userName = value;
+                    RaisePropertyChanged("UserName");
                 }
             }
         }
@@ -41,6 +42,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         internal Func<string> PasswordAccessor { get; set; }
 
+
         /// <summary>
         /// Gets and sets the password.
         /// </summary>
@@ -49,16 +51,17 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return (this.PasswordAccessor == null) ? string.Empty : this.PasswordAccessor();
+                return (PasswordAccessor == null) ? string.Empty : PasswordAccessor();
+                //return _password;
             }
             set
             {
-                this.ValidateProperty("Password", value);
+                ValidateProperty("Password", value);
 
                 // Do not store the password in a private field as it should not be stored in memory in plain-text.
                 // Instead, the supplied PasswordAccessor serves as the backing store for the value.
 
-                this.RaisePropertyChanged("Password");
+                RaisePropertyChanged("Password");
             }
         }
 
@@ -70,15 +73,15 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return this.rememberMe;
+                return _rememberMe;
             }
             set
             {
-                if (this.rememberMe != value)
+                if (_rememberMe != value)
                 {
-                    this.ValidateProperty("RememberMe", value);
-                    this.rememberMe = value;
-                    this.RaisePropertyChanged("RememberMe");
+                    ValidateProperty("RememberMe", value);
+                    _rememberMe = value;
+                    RaisePropertyChanged("RememberMe");
                 }
             }
         }
@@ -90,25 +93,25 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return this.currentLoginOperation;
+                return _currentLoginOperation;
             }
             set
             {
-                if (this.currentLoginOperation != value)
+                if (_currentLoginOperation != value)
                 {
-                    if (this.currentLoginOperation != null)
+                    if (_currentLoginOperation != null)
                     {
-                        this.currentLoginOperation.Completed -= (s, e) => this.CurrentLoginOperationChanged();
+                        _currentLoginOperation.Completed -= (s, e) => CurrentLoginOperationChanged();
                     }
 
-                    this.currentLoginOperation = value;
+                    _currentLoginOperation = value;
 
-                    if (this.currentLoginOperation != null)
+                    if (_currentLoginOperation != null)
                     {
-                        this.currentLoginOperation.Completed += (s, e) => this.CurrentLoginOperationChanged();
+                        _currentLoginOperation.Completed += (s, e) => CurrentLoginOperationChanged();
                     }
 
-                    this.CurrentLoginOperationChanged();
+                    CurrentLoginOperationChanged();
                 }
             }
         }
@@ -121,7 +124,7 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return this.CurrentLoginOperation != null && !this.CurrentLoginOperation.IsComplete;
+                return CurrentLoginOperation != null && !CurrentLoginOperation.IsComplete;
             }
         }
 
@@ -133,7 +136,7 @@ namespace SampleCRM.LoginUI
         {
             get
             {
-                return !this.IsLoggingIn;
+                return !IsLoggingIn;
             }
         }
 
@@ -142,8 +145,8 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void CurrentLoginOperationChanged()
         {
-            this.RaisePropertyChanged("IsLoggingIn");
-            this.RaisePropertyChanged("CanLogIn");
+            RaisePropertyChanged("IsLoggingIn");
+            RaisePropertyChanged("CanLogIn");
         }
 
         /// <summary>
@@ -151,7 +154,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public LoginParameters ToLoginParameters()
         {
-            return new LoginParameters(this.UserName, this.Password, this.RememberMe, null);
+            return new LoginParameters(UserName, Password, RememberMe, null);
         }
     }
 }

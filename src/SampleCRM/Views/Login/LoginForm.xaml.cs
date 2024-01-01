@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace SampleCRM.LoginUI
 {
@@ -14,8 +15,8 @@ namespace SampleCRM.LoginUI
     public partial class LoginForm : StackPanel
     {
         private LoginRegistrationWindow parentWindow;
-        private LoginInfo loginInfo = new LoginInfo();
-        private TextBox userNameTextBox;
+        private readonly LoginInfo _loginInfo = new LoginInfo();
+        //private TextBox userNameTextBox;
 
         /// <summary>
         /// Creates a new <see cref="LoginForm"/> instance.
@@ -25,7 +26,8 @@ namespace SampleCRM.LoginUI
             InitializeComponent();
 
             // Set the DataContext of this control to the LoginInfo instance to allow for easy binding.
-            this.DataContext = this.loginInfo;
+            DataContext = _loginInfo;
+            _loginInfo.PasswordAccessor = () => passwordBox.Password;
         }
 
         /// <summary>
@@ -34,25 +36,25 @@ namespace SampleCRM.LoginUI
         /// <param name="window">The window to use as the parent.</param>
         public void SetParentWindow(LoginRegistrationWindow window)
         {
-            this.parentWindow = window;
+            parentWindow = window;
         }
 
         /// <summary>
         /// Handles <see cref="DataForm.AutoGeneratingField"/> to provide the PasswordAccessor.
         /// </summary>
-        private void LoginForm_AutoGeneratingField(object sender, DataFormAutoGeneratingFieldEventArgs e)
-        {
-            if (e.PropertyName == "UserName")
-            {
-                this.userNameTextBox = (TextBox)e.Field.Content;
-            }
-            else if (e.PropertyName == "Password")
-            {
-                PasswordBox passwordBox = new PasswordBox();
-                e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
-                this.loginInfo.PasswordAccessor = () => passwordBox.Password;
-            }
-        }
+        //private void LoginForm_AutoGeneratingField(object sender, DataFormAutoGeneratingFieldEventArgs e)
+        //{
+        //    if (e.PropertyName == "UserName")
+        //    {
+        //        userNameTextBox = (TextBox)e.Field.Content;
+        //    }
+        //    else if (e.PropertyName == "Password")
+        //    {
+        //        PasswordBox passwordBox = new PasswordBox();
+        //        e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
+        //        loginInfo.PasswordAccessor = () => passwordBox.Password;
+        //    }
+        //}
 
         /// <summary>
         /// Submits the <see cref="LoginOperation"/> to the server
@@ -61,10 +63,24 @@ namespace SampleCRM.LoginUI
         {
             // We need to force validation since we are not using the standard OK button from the DataForm.
             // Without ensuring the form is valid, we get an exception invoking the operation if the entity is invalid.
-            if (this.loginForm.ValidateItem())
+            //if (loginForm.ValidateItem())
+            var context = new ValidationContext(_loginInfo, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(_loginInfo, context, results);
+            if (!isValid)
             {
-                this.loginInfo.CurrentLoginOperation = WebContext.Current.Authentication.Login(this.loginInfo.ToLoginParameters(), this.LoginOperation_Completed, null);
-                this.parentWindow.AddPendingOperation(this.loginInfo.CurrentLoginOperation);
+                foreach (var validationResult in results)
+                {
+#if DEBUG
+                    Console.WriteLine(validationResult.ErrorMessage);
+#endif
+                    throw new ValidationException(validationResult.ErrorMessage);
+                }
+            }
+            else
+            {
+                _loginInfo.CurrentLoginOperation = WebContext.Current.Authentication.Login(_loginInfo.ToLoginParameters(), LoginOperation_Completed, null);
+                parentWindow.AddPendingOperation(_loginInfo.CurrentLoginOperation);
             }
         }
 
@@ -78,16 +94,20 @@ namespace SampleCRM.LoginUI
         {
             if (loginOperation.LoginSuccess)
             {
-                this.parentWindow.DialogResult = true;
+                parentWindow.DialogResult = true;
             }
             else if (loginOperation.HasError)
             {
+                parentWindow.DialogResult = false;
                 ErrorWindow.Show(loginOperation.Error);
                 loginOperation.MarkErrorAsHandled();
             }
             else if (!loginOperation.IsCanceled)
             {
-                this.loginInfo.ValidationErrors.Add(new ValidationResult("Bad User Name Or Password" /*ErrorResources.ErrorBadUserNameOrPassword*/, new string[] { "UserName", "Password" }));
+                _loginInfo.ValidationErrors.Add(new ValidationResult("Bad User Name Or Password" /*ErrorResources.ErrorBadUserNameOrPassword*/, new string[] { "UserName", "Password" }));
+                parentWindow.DialogResult = false;
+                ErrorWindow.Show("Bad User Name Or Password");
+                loginOperation.MarkErrorAsHandled();
             }
         }
 
@@ -96,7 +116,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void RegisterNow_Click(object sender, RoutedEventArgs e)
         {
-            this.parentWindow.NavigateToRegistration();
+            parentWindow.NavigateToRegistration();
         }
 
         /// <summary>
@@ -105,13 +125,13 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            if (this.loginInfo.CurrentLoginOperation != null && this.loginInfo.CurrentLoginOperation.CanCancel)
+            if (_loginInfo.CurrentLoginOperation != null && _loginInfo.CurrentLoginOperation.CanCancel)
             {
-                this.loginInfo.CurrentLoginOperation.Cancel();
+                _loginInfo.CurrentLoginOperation.Cancel();
             }
             else
             {
-                this.parentWindow.DialogResult = false;
+                parentWindow.DialogResult = false;
             }
         }
 
@@ -122,11 +142,11 @@ namespace SampleCRM.LoginUI
         {
             if (e.Key == Key.Escape)
             {
-                this.CancelButton_Click(sender, e);
+                CancelButton_Click(sender, e);
             }
-            else if (e.Key == Key.Enter && this.loginButton.IsEnabled)
+            else if (e.Key == Key.Enter && loginButton.IsEnabled)
             {
-                this.LoginButton_Click(sender, e);
+                LoginButton_Click(sender, e);
             }
         }
 
@@ -135,7 +155,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public void SetInitialFocus()
         {
-            this.userNameTextBox.Focus();
+            userNameTextBox.Focus();
         }
     }
 }

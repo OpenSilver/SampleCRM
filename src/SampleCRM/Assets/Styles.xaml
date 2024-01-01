@@ -286,16 +286,17 @@
     <!-- ******************************* -->
     <!-- Login Container Style -->
     <Style x:Key="LoginContainerStyle" TargetType="Border">
-        <Setter Property="Margin" Value="0,0,10,0"/>
-        <Setter Property="Height" Value="11"/>
+        <!--<Setter Property="Margin" Value="0,0,10,0"/>-->
+        <!--<Setter Property="Height" Value="11"/>-->
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <!-- Login Status Style -->
     <Style x:Key="LoginStatusStyle" TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,0,15,0"/>
     </Style>
 
@@ -329,8 +330,8 @@
         <Setter Property="Margin" Value="0,1,0,1"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="10"/>
-        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -1231,10 +1232,18 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="8"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ContentControl x:Name="HeaderElement" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"/>
-                                        <TextBlock x:Name="ChangeIndicator" Margin="3,-2,8,2" VerticalAlignment="Center" Opacity="0" FontWeight="Bold" Foreground="{TemplateBinding Foreground}" Text="*"/>
-                                    </StackPanel>
+                                    <!--<StackPanel Orientation="Vertical">-->
+                                        <StackPanel Orientation="Horizontal">
+                                            <ContentControl x:Name="HeaderElement" 
+                                                            Margin="0,0,0,0" VerticalAlignment="Center"
+                                                            Foreground="{StaticResource White25Brush}"
+                                                            Content="{TemplateBinding Header}" 
+                                                            ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                                            <Ellipse  x:Name="ChangeIndicator" Fill="#FF8383" Width="2" Height="2" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                        </StackPanel>
+                                        <!--<ContentControl x:Name="HeaderElement" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"/>-->
+                                        <!--<TextBlock Margin="3,-2,8,2" VerticalAlignment="Center" Opacity="0" FontWeight="Bold" Foreground="{TemplateBinding Foreground}" Text="*"/>-->
+                                    <!--</StackPanel>-->
                                     <StackPanel Margin="0,3,0,2" Grid.Column="2" Orientation="Horizontal">
                                         <Button x:Name="FirstItemButton" Style="{StaticResource ButtonGeneric}">
                                             <Grid Height="9" Margin="6,5,5,5" Width="8" Opacity="1">
@@ -1409,18 +1418,6 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
     </Style>
 
-    <!-- BusyIndicatorControl Styles -->
-    <Style TargetType="appControls:BusyIndicator">
-        <Setter Property="DisplayAfter" Value="00:00:00.00"/>
-        <Setter Property="OverlayStyle">
-            <Setter.Value>
-                <Style TargetType="Rectangle">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <!-- **********CARD STYLES********* -->
     <!-- ******************************* -->
     <Style x:Key="CardSuperHeader" TargetType="TextBlock">
@@ -1479,6 +1476,11 @@
     </Style>
 
     <Style x:Key="DataFieldTextStyle" BasedOn="{StaticResource MaterialDesign_TextBox_Style}" TargetType="TextBox">
+        <Setter Property="Margin" Value="0,0,0,5" />
+        <Setter Property="Height" Value="25" />
+    </Style>
+
+    <Style x:Key="DataFieldPasswordStyle" BasedOn="{StaticResource MaterialDesign_PasswordBox_Style}" TargetType="PasswordBox">
         <Setter Property="Margin" Value="0,0,0,5" />
         <Setter Property="Height" Value="25" />
     </Style>

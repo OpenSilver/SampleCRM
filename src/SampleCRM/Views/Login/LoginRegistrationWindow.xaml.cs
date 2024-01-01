@@ -12,7 +12,7 @@ namespace SampleCRM.LoginUI
     /// </summary>
     public partial class LoginRegistrationWindow : ChildWindow
     {
-        private IList<OperationBase> possiblyPendingOperations = new List<OperationBase>();
+        private IList<OperationBase> _possiblyPendingOperations = new List<OperationBase>();
 
         /// <summary>
         /// Creates a new <see cref="LoginRegistrationWindow"/> instance.
@@ -21,8 +21,8 @@ namespace SampleCRM.LoginUI
         {
             InitializeComponent();
 
-            this.registrationForm.SetParentWindow(this);
-            this.loginForm.SetParentWindow(this);
+            registrationForm.SetParentWindow(this);
+            loginForm.SetParentWindow(this);
 
             NavigateToLogin();
         }
@@ -33,7 +33,7 @@ namespace SampleCRM.LoginUI
         protected override void OnOpened()
         {
             base.OnOpened();
-            this.NavigateToLogin();
+            NavigateToLogin();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void UpdateTitle(object sender, EventArgs eventArgs)
         {
-            this.Title = (this.registrationForm.Visibility == Visibility.Visible)
+            Title = (registrationForm.Visibility == Visibility.Visible)
                 ? "Register"
                 : "Login";
         }
@@ -52,7 +52,7 @@ namespace SampleCRM.LoginUI
         /// <param name="operation">The pending operation to monitor</param>
         public void AddPendingOperation(OperationBase operation)
         {
-            this.possiblyPendingOperations.Add(operation);
+            _possiblyPendingOperations.Add(operation);
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public virtual void NavigateToLogin()
         {
-            this.loginForm.Visibility = Visibility.Visible;
-            this.registrationForm.Visibility = Visibility.Collapsed;
+            loginForm.Visibility = Visibility.Visible;
+            registrationForm.Visibility = Visibility.Collapsed;
             UpdateTitle(this, EventArgs.Empty);
         }
 
@@ -70,8 +70,8 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public virtual void NavigateToRegistration()
         {
-            this.loginForm.Visibility = Visibility.Collapsed;
-            this.registrationForm.Visibility = Visibility.Visible;
+            loginForm.Visibility = Visibility.Collapsed;
+            registrationForm.Visibility = Visibility.Visible;
             UpdateTitle(this, EventArgs.Empty);
         }
 
@@ -80,7 +80,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void LoginWindow_Closing(object sender, CancelEventArgs eventArgs)
         {
-            foreach (OperationBase operation in this.possiblyPendingOperations)
+            foreach (OperationBase operation in _possiblyPendingOperations)
             {
                 if (!operation.IsComplete)
                 {

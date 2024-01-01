@@ -18,8 +18,12 @@
             <RowDefinition Height="45" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="1" x:Name="ContentBorder">
+        <Border Grid.Row="1" Grid.ColumnSpan="99" Grid.RowSpan="99" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Dashboard" 
                               Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
@@ -31,10 +35,11 @@
             </navigation:Frame>
         </Border>
 
-        <Rectangle Grid.Row="1" x:Name="busyBackground" Fill="{StaticResource Black50Brush}"
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="99" Grid.RowSpan="99" 
+                   x:Name="busyBackground" Fill="{StaticResource Black50Brush}"
                 Visibility="{Binding IsBlur, Converter={StaticResource boolToBisibilityConverter}}" />
 
-        <local:LoadingIndicator Grid.Row="1" x:Name="mainBusyIndicator"
+        <local:LoadingIndicator Grid.Row="1" Grid.ColumnSpan="99" Grid.RowSpan="99" x:Name="mainBusyIndicator" 
                                 Visibility="{Binding IsBusy, Converter={StaticResource boolToBisibilityConverter}}" />
 
         <views:ResponsivePane x:Name="menuPane" 
@@ -44,8 +49,8 @@
                 <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
                         <ContentControl Style="{StaticResource LogoIcon}" />
@@ -115,21 +120,6 @@
                             </HyperlinkButton>
                         </StackPanel>
                     </Border>
-
-                    <!--<Border Grid.Column="2" Style="{StaticResource LoginContainerStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <login:LoginStatus />
-
-                            <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Settings" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock Text="Settings" FontWeight="Bold" />
-                                </StackPanel>
-                            </HyperlinkButton>
-                        </StackPanel>
-
-                    </Border>-->
                 </Grid>
             </views:ResponsivePane.BigChildElement>
             <views:ResponsivePane.SmallChildElement>
@@ -204,24 +194,24 @@
                         </StackPanel>
                     </Border>
 
-                    <!--<Border Grid.Row="1" Style="{StaticResource LoginContainerStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <login:LoginStatus />
 
-                            <HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
-                                         NavigateUri="/Settings" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock Text="Settings" FontWeight="Bold" />
-                                </StackPanel>
-                            </HyperlinkButton>
-                        </StackPanel>
 
-                    </Border>-->
-                    
                 </Grid>
             </views:ResponsivePane.SmallChildElement>
         </views:ResponsivePane>
+
+        <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource LoginContainerStyle}">
+            <StackPanel Orientation="Horizontal">
+                <login:LoginStatus />
+                <!--<HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
+                                NavigateUri="/Settings" TargetName="ContentFrame">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
+                        <TextBlock Text="Settings" FontWeight="Bold" />
+                    </StackPanel>
+                </HyperlinkButton>-->
+            </StackPanel>
+        </Border>
 
     </Grid>
 </views:BaseUserControl>
