@@ -22,21 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteCountry(CountryCodes country)
         {
             _context.CountryCodes.Remove(country);
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertCountry(CountryCodes country)
         {
             _context.CountryCodes.AddOrUpdate(country);
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateCountry(CountryCodes country)
         {
             _context.CountryCodes.AddOrUpdate(country);

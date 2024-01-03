@@ -22,21 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteShippers(Shippers shipper)
         {
             _context.Shippers.Remove(shipper);
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertShippers(Shippers shipper)
         {
             _context.Shippers.AddOrUpdate(shipper);
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateShippers(Shippers shipper)
         {
             _context.Shippers.AddOrUpdate(shipper);

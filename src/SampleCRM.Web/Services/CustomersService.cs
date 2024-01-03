@@ -24,7 +24,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteCustomer(Customers customer)
         {
             var dCustomer = _context.Customers.FirstOrDefault(x => x.CustomerID == customer.CustomerID);
@@ -36,7 +36,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertCustomer(Customers customer)
         {
             customer.CustomerID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
@@ -49,7 +49,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateCustomer(Customers customer)
         {
             customer.LastModifiedOn = DateTime.Now.ToString();

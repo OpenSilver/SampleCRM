@@ -30,7 +30,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteOrder(Orders order)
         {
             var dorder = _context.Orders.FirstOrDefault(x => x.OrderID == order.OrderID);
@@ -42,7 +42,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertOrder(Orders order)
         {
             order.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
@@ -64,7 +64,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateOrder(Orders order)
         {
             order.LastModifiedOn = DateTime.Now.ToString();

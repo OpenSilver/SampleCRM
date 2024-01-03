@@ -22,21 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteTaxTypes(TaxTypes taxType)
         {
             _context.TaxTypes.Remove(taxType);
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertTaxTypes(TaxTypes taxType)
         {
             _context.TaxTypes.AddOrUpdate(taxType);
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateTaxTypes(TaxTypes taxType)
         {
             _context.TaxTypes.AddOrUpdate(taxType);

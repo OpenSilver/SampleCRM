@@ -22,21 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeletePaymentType(PaymentTypes paymentType)
         {
             _context.PaymentTypes.Remove(paymentType);
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertPaymentType(PaymentTypes paymentType)
         {
             _context.PaymentTypes.AddOrUpdate(paymentType);
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdatePaymentType(PaymentTypes paymentType)
         {
             _context.PaymentTypes.AddOrUpdate(paymentType);

@@ -16,9 +16,9 @@ namespace SampleCRM.LoginUI
     public partial class RegistrationForm : StackPanel
     {
         private LoginRegistrationWindow parentWindow;
-        private RegistrationData registrationData = new RegistrationData();
+        private RegistrationData _registrationData = new RegistrationData();
         private UserRegistrationContext userRegistrationContext = new UserRegistrationContext();
-        private TextBox userNameTextBox;
+        //private TextBox userNameTextBox;
 
         /// <summary>
         /// Creates a new <see cref="RegistrationForm"/> instance.
@@ -28,7 +28,11 @@ namespace SampleCRM.LoginUI
             InitializeComponent();
 
             // Set the DataContext of this control to the Registration instance to allow for easy binding.
-            this.DataContext = this.registrationData;
+            DataContext = _registrationData;
+            userNameTextBox.LostFocus += UserNameLostFocus;
+            _registrationData.PasswordAccessor = () => passwordBox.Password;
+            _registrationData.PasswordConfirmationAccessor = () => passwordConfirmationBox.Password;
+
         }
 
         /// <summary>
@@ -37,42 +41,42 @@ namespace SampleCRM.LoginUI
         /// <param name="window">The window to use as the parent.</param>
         public void SetParentWindow(LoginRegistrationWindow window)
         {
-            this.parentWindow = window;
+            parentWindow = window;
         }
 
         /// <summary>
         /// Wire up the Password and PasswordConfirmation accessors as the fields get generated.
         /// Also bind the Question field to a ComboBox full of security questions, and handle the LostFocus event for the UserName TextBox.
         /// </summary>
-        private void RegisterForm_AutoGeneratingField(object dataForm, DataFormAutoGeneratingFieldEventArgs e)
-        {
-            // Put all the fields in adding mode
-            e.Field.Mode = DataFieldMode.AddNew;
+        //private void RegisterForm_AutoGeneratingField(object dataForm, DataFormAutoGeneratingFieldEventArgs e)
+        //{
+        //    // Put all the fields in adding mode
+        //    e.Field.Mode = DataFieldMode.AddNew;
 
-            if (e.PropertyName == "UserName")
-            {
-                this.userNameTextBox = (TextBox)e.Field.Content;
-                this.userNameTextBox.LostFocus += this.UserNameLostFocus;
-            }
-            else if (e.PropertyName == "Password")
-            {
-                PasswordBox passwordBox = new PasswordBox();
-                e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
-                this.registrationData.PasswordAccessor = () => passwordBox.Password;
-            }
-            else if (e.PropertyName == "PasswordConfirmation")
-            {
-                PasswordBox passwordConfirmationBox = new PasswordBox();
-                e.Field.ReplaceTextBox(passwordConfirmationBox, PasswordBox.PasswordProperty);
-                this.registrationData.PasswordConfirmationAccessor = () => passwordConfirmationBox.Password;
-            }
-            else if (e.PropertyName == "Question")
-            {
-                ComboBox questionComboBox = new ComboBox();
-                questionComboBox.ItemsSource = RegistrationForm.GetSecurityQuestions();
-                e.Field.ReplaceTextBox(questionComboBox, ComboBox.SelectedItemProperty, binding => binding.Converter = new TargetNullValueConverter());
-            }
-        }
+        //    if (e.PropertyName == "UserName")
+        //    {
+        //       userNameTextBox = (TextBox)e.Field.Content;
+        //       userNameTextBox.LostFocus +=UserNameLostFocus;
+        //    }
+        //    else if (e.PropertyName == "Password")
+        //    {
+        //        PasswordBox passwordBox = new PasswordBox();
+        //        e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
+        //       _registrationData.PasswordAccessor = () => passwordBox.Password;
+        //    }
+        //    else if (e.PropertyName == "PasswordConfirmation")
+        //    {
+        //        PasswordBox passwordConfirmationBox = new PasswordBox();
+        //        e.Field.ReplaceTextBox(passwordConfirmationBox, PasswordBox.PasswordProperty);
+        //       _registrationData.PasswordConfirmationAccessor = () => passwordConfirmationBox.Password;
+        //    }
+        //    else if (e.PropertyName == "Question")
+        //    {
+        //        ComboBox questionComboBox = new ComboBox();
+        //        questionComboBox.ItemsSource = RegistrationForm.GetSecurityQuestions();
+        //        e.Field.ReplaceTextBox(questionComboBox, ComboBox.SelectedItemProperty, binding => binding.Converter = new TargetNullValueConverter());
+        //    }
+        //}
 
         /// <summary>
         /// The callback for when the UserName TextBox loses focus.
@@ -82,29 +86,29 @@ namespace SampleCRM.LoginUI
         /// <param name="e">The event arguments.</param>
         private void UserNameLostFocus(object sender, RoutedEventArgs e)
         {
-            this.registrationData.UserNameEntered(((TextBox)sender).Text);
+            _registrationData.UserNameEntered(((TextBox)sender).Text);
         }
 
         /// <summary>
         /// Returns a list of the resource strings defined in <see cref="SecurityQuestions" />.
         /// </summary>
-        private static IEnumerable<string> GetSecurityQuestions()
-        {
-            return new string[]
-            {
-                "What is the name of your favorite childhood friend?",
-                "What was your childhood nickname?",
-                "What was the color of your first car?",
-                "What was the make and model of your first car?",
-                "In what city or town was your first job?",
-                "Where did you vacation last year?",
-                "What is your maternal grandmother's maiden name?",
-                "What is your mother's maiden name?",
-                "What is your pet's name?",
-                "What school did you attend for sixth grade?",
-                "In what year was your father born?"
-            };
-        }
+        //private static IEnumerable<string> GetSecurityQuestions()
+        //{
+        //    return new string[]
+        //    {
+        //        "What is the name of your favorite childhood friend?",
+        //        "What was your childhood nickname?",
+        //        "What was the color of your first car?",
+        //        "What was the make and model of your first car?",
+        //        "In what city or town was your first job?",
+        //        "Where did you vacation last year?",
+        //        "What is your maternal grandmother's maiden name?",
+        //        "What is your mother's maiden name?",
+        //        "What is your pet's name?",
+        //        "What school did you attend for sixth grade?",
+        //        "In what year was your father born?"
+        //    };
+        //}
 
         /// <summary>
         /// Submit the new registration.
@@ -113,14 +117,18 @@ namespace SampleCRM.LoginUI
         {
             // We need to force validation since we are not using the standard OK button from the DataForm.
             // Without ensuring the form is valid, we would get an exception invoking the operation if the entity is invalid.
-            if (this.registerForm.ValidateItem())
+            //if (this.registerForm.ValidateItem())
+            var context = new ValidationContext(_registrationData, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(_registrationData, context, results);
+            if (!isValid)
             {
-                this.registrationData.CurrentOperation = this.userRegistrationContext.CreateUser(
-                    this.registrationData,
-                    this.registrationData.Password,
-                    this.RegistrationOperation_Completed, null);
+                _registrationData.CurrentOperation = userRegistrationContext.CreateUser(
+                    _registrationData,
+                    _registrationData.Password,
+                    RegistrationOperation_Completed, null);
 
-                this.parentWindow.AddPendingOperation(this.registrationData.CurrentOperation);
+                parentWindow.AddPendingOperation(this._registrationData.CurrentOperation);
             }
         }
 
@@ -135,28 +143,38 @@ namespace SampleCRM.LoginUI
             {
                 if (operation.HasError)
                 {
+                    parentWindow.DialogResult = false;
                     ErrorWindow.Show(operation.Error);
                     operation.MarkErrorAsHandled();
                 }
                 else if (operation.Value == CreateUserStatus.Success)
                 {
-                    this.registrationData.CurrentOperation = WebContext.Current.Authentication.Login(this.registrationData.ToLoginParameters(), this.LoginOperation_Completed, null);
-                    this.parentWindow.AddPendingOperation(this.registrationData.CurrentOperation);
+                    _registrationData.CurrentOperation = WebContext.Current.Authentication.Login(this._registrationData.ToLoginParameters(), LoginOperation_Completed, null);
+                    parentWindow.AddPendingOperation(this._registrationData.CurrentOperation);
+                    parentWindow.DialogResult = true;
                 }
                 else if (operation.Value == CreateUserStatus.DuplicateUserName)
                 {
-                    this.registrationData.ValidationErrors.Add(
-                        new ValidationResult("User name already exists. Please enter a different user name.",
-                        new string[] { "UserName" }));
+                    parentWindow.DialogResult = false;
+                    _registrationData.ValidationErrors.Add(
+                         new ValidationResult("User name already exists. Please enter a different user name.",
+                         new string[] { "UserName" }));
+                    parentWindow.DialogResult = false;
+                    ErrorWindow.Show("User name already exists. Please enter a different user name.");
+                    operation.MarkErrorAsHandled();
                 }
                 else if (operation.Value == CreateUserStatus.DuplicateEmail)
                 {
-                    this.registrationData.ValidationErrors.Add(
-                        new ValidationResult("A user name for that e-mail address already exists. Please enter a different e-mail address.",
-                        new string[] { "Email" }));
+                    _registrationData.ValidationErrors.Add(
+                         new ValidationResult("A user name for that e-mail address already exists. Please enter a different e-mail address.",
+                         new string[] { "Email" }));
+                    parentWindow.DialogResult = false;
+                    ErrorWindow.Show("A user name for that e-mail address already exists. Please enter a different e-mail address.");
+                    operation.MarkErrorAsHandled();
                 }
                 else
                 {
+                    parentWindow.DialogResult = false;
                     ErrorWindow.Show("An unknown error has occurred. Please contact your administrator for help.");
                 }
             }
@@ -171,7 +189,7 @@ namespace SampleCRM.LoginUI
         {
             if (!loginOperation.IsCanceled)
             {
-                this.parentWindow.DialogResult = true;
+                parentWindow.DialogResult = true;
 
                 if (loginOperation.HasError)
                 {
@@ -195,7 +213,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void BackToLogin_Click(object sender, RoutedEventArgs e)
         {
-            this.parentWindow.NavigateToLogin();
+            parentWindow.NavigateToLogin();
         }
 
         /// <summary>
@@ -204,13 +222,13 @@ namespace SampleCRM.LoginUI
         /// </summary>
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            if (this.registrationData.CurrentOperation != null && this.registrationData.CurrentOperation.CanCancel)
+            if (this._registrationData.CurrentOperation != null && _registrationData.CurrentOperation.CanCancel)
             {
-                this.registrationData.CurrentOperation.Cancel();
+                _registrationData.CurrentOperation.Cancel();
             }
             else
             {
-                this.parentWindow.DialogResult = false;
+                parentWindow.DialogResult = false;
             }
         }
 
@@ -221,11 +239,11 @@ namespace SampleCRM.LoginUI
         {
             if (e.Key == Key.Escape)
             {
-                this.CancelButton_Click(sender, e);
+                CancelButton_Click(sender, e);
             }
-            else if (e.Key == Key.Enter && this.registerButton.IsEnabled)
+            else if (e.Key == Key.Enter && registerButton.IsEnabled)
             {
-                this.RegisterButton_Click(sender, e);
+                RegisterButton_Click(sender, e);
             }
         }
 
@@ -234,7 +252,7 @@ namespace SampleCRM.LoginUI
         /// </summary>
         public void SetInitialFocus()
         {
-            this.userNameTextBox.Focus();
+            userNameTextBox.Focus();
         }
     }
 }

@@ -22,21 +22,21 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteStatus(OrderStatus status)
         {
             _context.OrderStatus.Remove(status);
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertStatus(OrderStatus status)
         {
             _context.OrderStatus.AddOrUpdate(status);
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateStatus(OrderStatus status)
         {
             _context.OrderStatus.AddOrUpdate(status);

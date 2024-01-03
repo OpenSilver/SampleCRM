@@ -2,7 +2,7 @@
 
 namespace SampleCRM.Web.Attributes
 {
-    public class RestrictAccessDeveloperMode : AuthorizationAttribute
+    public class RestrictAccessReadonlyMode : AuthorizationAttribute
     {
         protected override AuthorizationResult IsAuthorized(
             System.Security.Principal.IPrincipal principal, AuthorizationContext authorizationContext)

@@ -17,7 +17,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteCategory(Categories category)
         {
             _context.Categories.Remove(category);
@@ -25,7 +25,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertCategory(Categories category)
         {
             
@@ -34,7 +34,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateCategory(Categories category)
         {
             _context.Categories.AddOrUpdate(category);

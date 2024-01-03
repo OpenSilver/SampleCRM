@@ -88,7 +88,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteProduct(Products product)
         {
             _context.Products.Remove(product);
@@ -102,7 +102,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertProduct(Products product)
         {
             product.ProductID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1).ToString();
@@ -113,7 +113,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateProduct(Products product)
         {
             product.LastModifiedOn = DateTime.Now.ToString();

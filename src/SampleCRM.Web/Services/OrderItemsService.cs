@@ -36,7 +36,7 @@ namespace SampleCRM.Web
         }
 
         [Delete]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void DeleteOrderItem(OrderItems orderItem)
         {
             var dOrderItem = _context.OrderItems.FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
@@ -48,7 +48,7 @@ namespace SampleCRM.Web
         }
 
         [Insert]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void InsertOrderItem(OrderItems orderItem)
         {
             var lastItem = _context.OrderItems
@@ -78,7 +78,7 @@ namespace SampleCRM.Web
         }
 
         [Update]
-        [RestrictAccessDeveloperMode]
+        [RestrictAccessReadonlyMode]
         public void UpdateOrderItem(OrderItems orderItem)
         {
             _context.OrderItems.AddOrUpdate(orderItem);

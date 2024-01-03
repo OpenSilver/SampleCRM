@@ -8,12 +8,12 @@
                       Style="{StaticResource MaterialDesign_ChildWindow_Style}"
                       Closing="LoginWindow_Closing">
 
-    <Grid x:Name="LayoutRoot">   
+    <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <local:LoginForm x:Name="loginForm" Grid.Row="0" MinWidth="400" />
-        <local:RegistrationForm x:Name="registrationForm" Grid.Row="0" Visibility="Collapsed" />
+        <local:LoginForm x:Name="loginForm" Grid.Row="0" MinWidth="400" Visibility="Collapsed" />
+        <local:RegistrationForm x:Name="registrationForm" Grid.Row="0" Visibility="Visible" />
     </Grid>
 </controls:ChildWindow>

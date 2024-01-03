@@ -1,5 +1,6 @@
 using OpenRiaServices.DomainServices.Hosting;
 using OpenRiaServices.DomainServices.Server;
+using SampleCRM.Web.Attributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Profile;
@@ -36,6 +37,7 @@ namespace SampleCRM.Web
         /// <param name="user">The registration information for this user.</param>
         /// <param name="password">The password for the new user.</param>
         [Invoke(HasSideEffects = true)]
+        [RestrictAccessReadonlyMode]
         public CreateUserStatus CreateUser(RegistrationData user,
             [Required(ErrorMessage = "This field is required")]
             [RegularExpression("^.*[^a-zA-Z0-9].*$", ErrorMessage = "A password needs to contain at least one special character e.g. @ or #")]
