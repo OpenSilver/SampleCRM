@@ -396,4 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# OpenSilver
+**/*/wwwroot/libs/
+**/*/wwwroot/resources/
+
 /src/SampleCRM.Web/database/SampleCRM.sqbpro
