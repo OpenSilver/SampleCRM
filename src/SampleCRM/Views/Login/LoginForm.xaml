@@ -30,8 +30,7 @@
         </StackPanel>
         <PasswordBox Grid.Row="3" FontSize="12"
                      x:Name="passwordBox"
-                     Style="{StaticResource DataFieldPasswordStyle}"
-                      />
+                     Style="{StaticResource DataFieldPasswordStyle}" />
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,5">
             <CheckBox Content="Keep me signed in" 

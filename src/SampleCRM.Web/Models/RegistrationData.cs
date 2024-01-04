@@ -10,7 +10,7 @@ namespace SampleCRM.Web
         /// <summary>
         /// Gets and sets the user name.
         /// </summary>
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "User name is required")]
         [Display(Order = 0, Name = "User name")]
         [RegularExpression("^[a-zA-Z0-9_]*$", ErrorMessage = "Invalid user name. It must contain only alphanumeric characters")]
         [StringLength(255, MinimumLength = 4, ErrorMessage = "The user name must be at least 4 and at most 255 characters long")]
@@ -19,7 +19,7 @@ namespace SampleCRM.Web
         /// <summary>
         /// Gets and sets the email address.
         /// </summary>
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Email is required")]
         [Display(Order = 2, Name = "Email")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
                            ErrorMessage = "Invalid email. An email must use the format user@company.com")]
@@ -35,14 +35,14 @@ namespace SampleCRM.Web
         /// <summary>
         /// Gets and sets the security question.
         /// </summary>
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Security question is required")]
         [Display(Order = 5, Name = "Security question")]
         public string Question { get; set; }
 
         /// <summary>
         /// Gets and sets the answer to the security question.
         /// </summary>
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Security answer is required")]
         [Display(Order = 6, Name = "Security answer")]
         [StringLength(128, ErrorMessage = "The security answer cannot be more than 128 characters long")]
         public string Answer { get; set; }

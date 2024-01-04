@@ -4,6 +4,7 @@ using SampleCRM.Web;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -123,12 +124,24 @@ namespace SampleCRM.LoginUI
             var isValid = Validator.TryValidateObject(_registrationData, context, results);
             if (!isValid)
             {
+                var totalErrorMessage = string.Join(" ", results.Select(x => $"{x.ErrorMessage}"));
+                ErrorWindow.Show(totalErrorMessage);
+#if DEBUG
+                foreach (var validationResult in results)
+                {
+                    Console.WriteLine(validationResult.ErrorMessage);
+                    //throw new ValidationException(validationResult.ErrorMessage);
+                }
+#endif
+            }
+            else
+            {
                 _registrationData.CurrentOperation = userRegistrationContext.CreateUser(
                     _registrationData,
                     _registrationData.Password,
                     RegistrationOperation_Completed, null);
 
-                parentWindow.AddPendingOperation(this._registrationData.CurrentOperation);
+                parentWindow.AddPendingOperation(_registrationData.CurrentOperation);
             }
         }
 

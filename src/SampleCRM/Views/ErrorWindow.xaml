@@ -24,9 +24,7 @@
                 <Ellipse Fill="#FF8383" Width="4" Height="4" VerticalAlignment="Center" Margin="0,2.5,0,0" />
             </StackPanel>
             <Border Background="{StaticResource White05Brush}" Margin="6,0">
-                <TextBlock x:Name="ErrorTextBox"
-                     Foreground="White"
-                     FontSize="13" Padding="6,3" /> 
+                <TextBlock x:Name="ErrorTextBox" TextWrapping="Wrap" Foreground="White" FontSize="13" Padding="6,3" /> 
             </Border>
         </StackPanel>
 

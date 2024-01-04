@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SampleCRM.LoginUI
 {
@@ -69,13 +70,15 @@ namespace SampleCRM.LoginUI
             var isValid = Validator.TryValidateObject(_loginInfo, context, results);
             if (!isValid)
             {
+                var totalErrorMessage = string.Join(" ", results.Select(x => $"{x.ErrorMessage}"));
+                ErrorWindow.Show(totalErrorMessage);
+#if DEBUG
                 foreach (var validationResult in results)
                 {
-#if DEBUG
                     Console.WriteLine(validationResult.ErrorMessage);
-#endif
-                    throw new ValidationException(validationResult.ErrorMessage);
+                    //throw new ValidationException(validationResult.ErrorMessage);
                 }
+#endif
             }
             else
             {
