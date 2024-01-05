@@ -48,6 +48,7 @@
     <None Remove="Assets\List.png" />
     <None Remove="Assets\ListInBox.png" />
     <None Remove="Assets\Locked.png" />
+    <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml" />
     <None Remove="Assets\MenuIcon.png" />
     <None Remove="Assets\Microsoft.png" />
     <None Remove="Assets\Ok.png" />
@@ -182,6 +183,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TabControl_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_TextBox_Styles.xaml">
@@ -457,6 +461,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Controls\LoadingIndicator.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml" />
   </ItemGroup>
 
 </Project>

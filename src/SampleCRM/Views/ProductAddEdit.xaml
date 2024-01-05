@@ -32,6 +32,8 @@
                         Text="{Binding ProductViewModel.Name, Mode=OneWay}" Style="{StaticResource CardText}"/>
                 </Grid>
 
+                <!--<Border BorderThickness="0,1,0,0" BorderBrush="{StaticResource White25Brush}" />-->
+
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General"  />
 
@@ -99,7 +101,7 @@
                                 </DataField>
                                 <DataField Grid.Row="1" LabelVisibility="Collapsed">
                                     <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="Product" />
+                                        <controls:RequiredTextBlock Text="Category" />
                                         <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
                                                           SelectedValuePath="CategoryID"
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
@@ -208,20 +210,15 @@
                           Style="{StaticResource DefaultDataForm}">
                     <DataForm.EditTemplate>
                         <DataTemplate>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Description" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" TextWrapping="Wrap" AcceptsReturn="True" Height="150" />
-                                    </StackPanel>
-                                </DataField>
-                            </Grid>
+                            <DataField LabelVisibility="Collapsed">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Description" Style="{StaticResource DataFieldLabelStyle}" />
+                                    <TextBox Text="{Binding Description, Mode=TwoWay}" 
+                                                 Style="{StaticResource DataFieldTextStyle}" 
+                                                 VerticalContentAlignment="Top"
+                                                 TextWrapping="Wrap" AcceptsReturn="True" />
+                                </StackPanel>
+                            </DataField>
                         </DataTemplate>
                     </DataForm.EditTemplate>
                 </DataForm>
@@ -338,7 +335,7 @@
                                         </DataField>
                                         <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
                                             <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="Product" />
+                                                <controls:RequiredTextBlock Text="Category" />
                                                 <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
                                                           SelectedValuePath="CategoryID"
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
