@@ -402,3 +402,4 @@ FodyWeavers.xsd
 **/*/wwwroot/resources/
 
 /src/SampleCRM.Web/database/SampleCRM.sqbpro
+/src/SampleCRM.Web/database/Users.sqbpro
