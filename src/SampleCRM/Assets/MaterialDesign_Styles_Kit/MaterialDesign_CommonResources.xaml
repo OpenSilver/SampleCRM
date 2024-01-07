@@ -39,6 +39,7 @@
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#0085FF" />
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="RequiredColorBrush" Color="#FF8383" />
+    <SolidColorBrush x:Key="DangerColorBrush" Color="#FF0000" />
     <SolidColorBrush x:Key="ChildWindowHeaderBackground" Color="#2B303F" />
 
     <SolidColorBrush x:Key="GridBackground" Color="Transparent" />
@@ -48,7 +49,6 @@
 
     <SolidColorBrush x:Key="ComboBoxBackground" Color="#262A35" />
     <SolidColorBrush x:Key="CalendarBackground" Color="#262A35" />
-
 
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">

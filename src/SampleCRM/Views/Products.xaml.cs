@@ -186,8 +186,17 @@ namespace SampleCRM.Web.Views
                 }
                 else
                 {
-                    _ = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+                    await showEditProdocutWindow();
                 }
+            }
+        }
+
+        private async Task showEditProdocutWindow()
+        {
+            var result = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+            if (result)
+            {
+                NavigationService.Refresh();
             }
         }
 
@@ -196,14 +205,13 @@ namespace SampleCRM.Web.Views
             if (operation.IsComplete && !operation.HasError)
             {
                 SelectedProduct.Picture = operation.Value;
-                _ = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+                await showEditProdocutWindow();
             }
             else
             {
                 ErrorWindow.Show(operation.Error);
             }
         }
-
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {

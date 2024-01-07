@@ -22,6 +22,7 @@ namespace SampleCRM.Web.Views
         public ProductsAddEditWindow(Models.Products product, ProductsContext context)
             : this()
         {
+            DataContext = product;
             _context = context;
             productAddEditView.ProductViewModel = product;
             Title = product.IsNew ? "Add Product" : "Edit Product";
@@ -30,7 +31,6 @@ namespace SampleCRM.Web.Views
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             productAddEditView.Save(_context);
-            //DialogResult = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -39,12 +39,22 @@ namespace SampleCRM.Web.Views
             DialogResult = false;
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            productAddEditView.Delete(_context);
+        }
+
         private void productAddEditView_ProductDeleted(object sender, System.EventArgs e)
         {
             DialogResult = true;
         }
 
         private void productAddEditView_ProductAdded(object sender, System.EventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void productAddEditView_ProductUpdated(object sender, System.EventArgs e)
         {
             DialogResult = true;
         }

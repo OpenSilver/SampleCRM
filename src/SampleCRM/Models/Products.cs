@@ -13,6 +13,8 @@ namespace SampleCRM.Web.Models
             {
                 OnPropertyChanged(new PropertyChangedEventArgs("CategoryName"));
             }
+
+            base.OnPropertyChanged(e);
         }
 
         public bool IsNew => string.IsNullOrEmpty(ProductID);

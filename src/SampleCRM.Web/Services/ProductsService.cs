@@ -91,8 +91,6 @@ namespace SampleCRM.Web
         [RestrictAccessReadonlyMode]
         public void DeleteProduct(Products product)
         {
-            _context.Products.Remove(product);
-
             var dProduct = _context.Products.FirstOrDefault(x => x.ProductID == product.ProductID);
             if (dProduct == null)
                 return;

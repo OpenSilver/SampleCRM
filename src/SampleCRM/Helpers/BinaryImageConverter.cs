@@ -11,7 +11,7 @@ namespace SampleCRM.Web.Views
     public class BinaryImageConverter : IValueConverter
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts a value.ı98
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
@@ -24,13 +24,13 @@ namespace SampleCRM.Web.Views
         {
             if (value != null)
             {
-                //var toArrayMethod = value.GetType().GetMethod("ToArray",
-                //    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                var toArrayMethod = value.GetType().GetMethod("ToArray",
+                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
-                //if (toArrayMethod != null)
-                //{
-                //    value = toArrayMethod.Invoke(value, new object[] { });
-                //}
+                if (toArrayMethod != null)
+                {
+                    value = toArrayMethod.Invoke(value, new object[] { });
+                }
 
                 var bytes = value as byte[];
                 if (bytes != null)

@@ -1986,4 +1986,9 @@
         <Setter Property="Padding" Value="5" />
     </Style>
 
+    <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
+        <Setter Property="Background" Value="{StaticResource DangerColorBrush}" />
+        <Setter Property="Padding" Value="5" />
+    </Style>
+
 </ResourceDictionary>

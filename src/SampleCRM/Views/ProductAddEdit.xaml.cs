@@ -2,6 +2,7 @@
 using OpenSilver.Controls;
 using System;
 using System.Windows;
+using System.Windows.Data;
 
 namespace SampleCRM.Web.Views
 {
@@ -9,6 +10,7 @@ namespace SampleCRM.Web.Views
     {
         public event EventHandler ProductDeleted;
         public event EventHandler ProductAdded;
+        public event EventHandler ProductUpdated;
 
         private Models.Products _prodcutViewModel = new Models.Products();
         public Models.Products ProductViewModel
@@ -21,7 +23,10 @@ namespace SampleCRM.Web.Views
                     _prodcutViewModel = value;
                     OnPropertyChanged();
 #if DEBUG
-                    Console.WriteLine($"ProductAddEdit, ProductViewModel: {value.ProductID} {value.Name} selected");
+                    if (_prodcutViewModel.IsNew)
+                        Console.WriteLine("ProductAddEdit, New Product Generated");
+                    else
+                        Console.WriteLine($"ProductAddEdit, ProductViewModel: {value.ProductID} {value.Name} selected");
 #endif
                 }
             }
@@ -36,7 +41,7 @@ namespace SampleCRM.Web.Views
         public override void ArrangeLayout()
         {
             base.ArrangeLayout();
-            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            //grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
             grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
         }
 
@@ -63,47 +68,29 @@ namespace SampleCRM.Web.Views
             using (var fileStream = imageFile.OpenRead())
             {
                 byte[] buffer = new byte[fileStream.Length];
-                await fileStream.ReadAsync(buffer, 0, buffer.Length);
+                fileStream.Read(buffer, 0, buffer.Length);
+                //await fileStream.ReadAsync(buffer, 0, buffer.Length);
                 ProductViewModel.Picture = buffer;
 #if DEBUG
                 Console.WriteLine($"Byte buffer set to ProductViewModel.Picture");
 #endif
-                OnPropertyChanged(nameof(ProductViewModel));
             }
         }
 
-
         public void Save(ProductsContext context)
         {
-            if (ProductViewModel.IsNew && context.Products.CanAdd || context.Products.CanEdit)
+            if ((_prodcutViewModel.IsNew && context.Products.CanAdd) || context.Products.CanEdit)
             {
-                if (!formGeneral.CommitEdit())
-                {
-                    ErrorWindow.Show("Invalid General Info");
-                    return;
-                }
+#if DEBUG
+                if (_prodcutViewModel.IsNew)
+                    Console.WriteLine("ProductAddEdit, Save, New Product Submiting Changes");
+                else
+                    Console.WriteLine($"ProductAddEdit, Update, Product Id: {_prodcutViewModel.ProductID}");
+#endif
 
-                if (!formPrice.CommitEdit())
+                if (_prodcutViewModel.IsNew)
                 {
-                    ErrorWindow.Show("Invalid Price Info");
-                    return;
-                }
-
-                if (!formStock.CommitEdit())
-                {
-                    ErrorWindow.Show("Invalid Stock Info");
-                    return;
-                }
-
-                if (!formDetails.CommitEdit())
-                {
-                    ErrorWindow.Show("Invalid Details Info");
-                    return;
-                }
-
-                if (ProductViewModel.IsNew)
-                {
-                    context.Products.Add(ProductViewModel);
+                    context.Products.Add(_prodcutViewModel);
                 }
 
                 context.SubmitChanges(OnAddSubmitCompleted, null);
@@ -114,13 +101,15 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        public void Delete(ProductsContext context)
         {
-            var productContext = new ProductsContext();
-            if (productContext.Products.CanRemove)
+            if (context.Products.CanRemove)
             {
-                productContext.Products.Remove(ProductViewModel);
-                productContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+#if DEBUG
+                Console.WriteLine($"ProductAddEdit, Delete, Product Id: {_prodcutViewModel.ProductID}");
+#endif
+                context.Products.Remove(_prodcutViewModel);
+                context.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
             {
@@ -132,12 +121,17 @@ namespace SampleCRM.Web.Views
         {
             if (so.HasError)
             {
-                MessageBox.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+                ErrorWindow.Show(string.Format("Submit Failed: {0}", so.Error.Message));
+#if DEBUG
                 Console.WriteLine(string.Format("Submit Failed: {0}", so.Error.StackTrace));
+#endif
                 so.MarkErrorAsHandled();
             }
             else
             {
+#if DEBUG
+                Console.WriteLine($"ProductAddEdit, OnDeleteSubmitCompleted, Product Id: {_prodcutViewModel.ProductID}");
+#endif
                 if (ProductDeleted != null)
                     ProductDeleted(this, new EventArgs());
             }
@@ -159,29 +153,23 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (ProductAdded != null)
-                    ProductAdded(this, new EventArgs());
+#if DEBUG
+                if (_prodcutViewModel.IsNew)
+                    Console.WriteLine("ProductAddEdit, OnAddSubmitCompleted, New Product");
+                else
+                    Console.WriteLine($"ProductAddEdit, OnAddSubmitCompleted, Product Id: {_prodcutViewModel.ProductID}");
+#endif
+                if (_prodcutViewModel.IsNew)
+                {
+                    if (ProductAdded != null)
+                        ProductAdded(this, new EventArgs());
+                }
+                else
+                {
+                    if (ProductUpdated != null)
+                        ProductUpdated(this, new EventArgs());
+                }
             }
-        }
-
-        private void formGeneral_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
-        }
-
-        private void formPrice_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
-        }
-
-        private void formStock_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
-        }
-
-        private void formDetails_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
         }
     }
 }
