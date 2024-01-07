@@ -42,13 +42,11 @@ namespace SampleCRM.Web.Views
 
         private async void btnEditPicture_Click(object sender, RoutedEventArgs e)
         {
+#if DEBUG
+            Console.WriteLine("btnEditPicture_Click");
+#endif
             var fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
-            "|PNG Portable Network Graphics (*.png)|*.png" +
-            "|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
-            "|BMP Windows Bitmap (*.bmp)|*.bmp" +
-            "|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
-            "|GIF Graphics Interchange Format (*.gif)|*.gif";
+            fileDialog.Filter = _imageFileExtFilter;
 
             var result = await fileDialog.ShowDialogAsync();
             if (!result.GetValueOrDefault())
@@ -58,11 +56,19 @@ namespace SampleCRM.Web.Views
             if (imageFile.Length < 1)
                 return;
 
+#if DEBUG
+            Console.WriteLine($"imageFile: {imageFile.Name}, {imageFile.Length} bytes");
+#endif
+
             using (var fileStream = imageFile.OpenRead())
             {
                 byte[] buffer = new byte[fileStream.Length];
                 await fileStream.ReadAsync(buffer, 0, buffer.Length);
                 ProductViewModel.Picture = buffer;
+#if DEBUG
+                Console.WriteLine($"Byte buffer set to ProductViewModel.Picture");
+#endif
+                OnPropertyChanged(nameof(ProductViewModel));
             }
         }
 

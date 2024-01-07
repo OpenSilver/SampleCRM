@@ -24,19 +24,18 @@ namespace SampleCRM.Web.Views
         {
             if (value != null)
             {
-                var toArrayMethod = value.GetType().GetMethod("ToArray",
-                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                //var toArrayMethod = value.GetType().GetMethod("ToArray",
+                //    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
-                if (toArrayMethod != null)
-                {
-                    value = toArrayMethod.Invoke(value, new object[] { });
-                }
+                //if (toArrayMethod != null)
+                //{
+                //    value = toArrayMethod.Invoke(value, new object[] { });
+                //}
 
                 var bytes = value as byte[];
-
                 if (bytes != null)
                 {
-                    BitmapImage bitmapImage = new BitmapImage();
+                    var bitmapImage = new BitmapImage();
                     bitmapImage.SetSource(new MemoryStream(bytes));
                     return bitmapImage;
                 }

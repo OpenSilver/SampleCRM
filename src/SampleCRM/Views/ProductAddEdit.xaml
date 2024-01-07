@@ -21,7 +21,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Image Margin="1" Width="132" Height="132"
-                            Source="{Binding ProductViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                            Source="{Binding ProductViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}, UpdateSourceTrigger=PropertyChanged}" />
                     <Button  Click="btnEditPicture_Click"
                             Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
                         <Grid Width="132" Height="132">
