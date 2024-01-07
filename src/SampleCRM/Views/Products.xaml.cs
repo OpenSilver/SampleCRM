@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenRiaServices.DomainServices.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -179,10 +180,30 @@ namespace SampleCRM.Web.Views
                 if (SelectedProduct.CategoriesCombo == null)
                     SelectedProduct.CategoriesCombo = CategoryCollection;
 
-                var result = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
-
+                if (SelectedProduct.Picture == null || SelectedProduct.Picture.Length < 2)
+                {
+                    _productsContext.GetProductPicture(SelectedProduct.ProductID, GetProductPicture_Completed, null);
+                }
+                else
+                {
+                    _ = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+                }
             }
         }
+
+        private async void GetProductPicture_Completed(InvokeOperation<byte[]> operation)
+        {
+            if (operation.IsComplete && !operation.HasError)
+            {
+                SelectedProduct.Picture = operation.Value;
+                _ = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
+            }
+            else
+            {
+                ErrorWindow.Show(operation.Error);
+            }
+        }
+
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
