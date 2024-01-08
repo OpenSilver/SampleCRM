@@ -138,13 +138,13 @@ namespace SampleCRM.Web.Views
             var op = await _productsContext.LoadAsync(query);
             ProductsCollection = op.Entities;
 
+            foreach (var p in ProductsCollection)
+            {
+                p.CategoriesCombo = CategoryCollection;
+            }
+
 #if DEBUG
             Console.WriteLine("Products Collection:" + ProductsCollection.Count());
-            //foreach (var item in ProductsCollection)
-            //{
-            //    Console.WriteLine("Product Id:" + item.ProductID);
-            //    Console.WriteLine("Product Name:" + item.Name);
-            //}
 #endif
         }
 

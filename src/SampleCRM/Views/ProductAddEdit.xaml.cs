@@ -2,7 +2,6 @@
 using OpenSilver.Controls;
 using System;
 using System.Windows;
-using System.Windows.Data;
 
 namespace SampleCRM.Web.Views
 {
@@ -41,7 +40,7 @@ namespace SampleCRM.Web.Views
         public override void ArrangeLayout()
         {
             base.ArrangeLayout();
-            //grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
+            grdNarrow.Visibility = BoolToVisibilityConverter.Convert(IsMobileUI);
             grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
         }
 
