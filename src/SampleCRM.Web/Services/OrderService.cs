@@ -14,19 +14,19 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<Orders> GetOrders()
         {
-            return _context.Orders;
+            return _context.Orders.ToList().OrderByDescending(o => DateTime.Parse(o.OrderDate)).AsQueryable();
         }
 
         [Query]
         public IQueryable<Orders> GetLatestOrders(int limit)
         {
-            return _context.Orders.OrderByDescending(x => x.OrderDate).Take(limit);
+            return GetOrders().Take(limit);
         }
 
         [Query]
         public IQueryable<Orders> GetOrdersOfCustomer(long customerId)
         {
-            return _context.Orders.Where(x => x.CustomerID == customerId);
+            return GetOrders().Where(x => x.CustomerID == customerId);
         }
 
         [Delete]
@@ -51,7 +51,6 @@ namespace SampleCRM.Web
 
             order.OrderDate = order.LastModifiedOn = DateTime.Now.ToString();
             _context.Orders.Add(order);
-
 #if DEBUG
             var validationResult = _context.Entry(order).GetValidationResult();
             if (validationResult.ValidationErrors.Any())
@@ -59,7 +58,6 @@ namespace SampleCRM.Web
                 Console.WriteLine($"Validation Error in InsertOrder: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
             }
 #endif
-
             _context.SaveChanges();
         }
 
@@ -68,6 +66,13 @@ namespace SampleCRM.Web
         public void UpdateOrder(Orders order)
         {
             order.LastModifiedOn = DateTime.Now.ToString();
+#if DEBUG
+            var validationResult = _context.Entry(order).GetValidationResult();
+            if (validationResult.ValidationErrors.Any())
+            {
+                Console.WriteLine($"Validation Error in InsertOrder: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
+            }
+#endif
             _context.Orders.AddOrUpdate(order);
             _context.SaveChanges();
         }

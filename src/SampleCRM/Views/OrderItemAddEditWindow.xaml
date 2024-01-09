@@ -4,6 +4,9 @@
                        Title="Add Order Item"
                        xmlns:local="clr-namespace:SampleCRM.Web.Views"
                        Style="{StaticResource MaterialDesign_ChildWindow_Style}">
+    <local:BaseChildWindow.Resources>
+        <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
+    </local:BaseChildWindow.Resources>
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -11,8 +14,16 @@
         </Grid.RowDefinitions>
         <local:OrderItemAddEdit x:Name="orderItemAddEditView" Grid.Row="0" 
                                ItemAdded="orderItemAddEdit_ItemAdded"
-                               ItemDeleted="orderItemAddEdit_ItemDeleted" />
+                               ItemDeleted="orderItemAddEdit_ItemDeleted"
+                               ItemUpdated="orderItemAddEditView_ItemUpdated" />
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0,5,10,5">
+            <Button x:Name="DeleteButton" Click="DeleteButton_Click" Style="{StaticResource DangerButtonStyle}" Margin="0,0,10,0"
+                    Visibility="{Binding IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" Cursor="Hand" />
+                    <TextBlock Text="Delete" VerticalAlignment="Top" />
+                </StackPanel>
+            </Button>
             <Button x:Name="OKButton" Click="OKButton_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,10,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" Cursor="Hand" />

@@ -8,6 +8,7 @@ namespace SampleCRM.Web.Views
     {
         public event EventHandler ItemDeleted;
         public event EventHandler ItemAdded;
+        public event EventHandler ItemUpdated;
 
         private Models.OrderItems _item = new Models.OrderItems();
         public Models.OrderItems Item
@@ -41,25 +42,8 @@ namespace SampleCRM.Web.Views
 
         public void Save(OrderItemsContext context)
         {
-            if (context.OrderItems.CanAdd && Item.IsNew || context.OrderItems.CanEdit)
+            if ((context.OrderItems.CanAdd && Item.IsNew) || context.OrderItems.CanEdit)
             {
-                if (IsMobileUI)
-                {
-                    if (!mForm.CommitEdit())
-                    {
-                        ErrorWindow.Show("Invalid Order Item");
-                        return;
-                    }
-                }
-                else
-                {
-                    if (!form.CommitEdit())
-                    {
-                        ErrorWindow.Show("Invalid Order Item");
-                        return;
-                    }
-                }
-
                 if (Item.IsNew)
                 {
                     context.OrderItems.Add(Item);
@@ -110,14 +94,21 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (ItemAdded != null)
-                    ItemAdded(this, new EventArgs());
+                if (_item.IsNew)
+                {
+                    if (ItemAdded != null)
+                        ItemAdded(this, new EventArgs());
+                }
+                else
+                {
+                    if (ItemUpdated != null)
+                        ItemUpdated(this, new EventArgs());
+                }
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        public void Delete(OrderItemsContext context)
         {
-            var context = new OrderItemsContext();
             if (context.OrderItems.CanRemove)
             {
                 context.OrderItems.Remove(Item);
@@ -127,11 +118,6 @@ namespace SampleCRM.Web.Views
             {
                 throw new AccessViolationException("RIA Service Delete Entity for Order Item Context is denied");
             }
-        }
-
-        private void form_EditEnded(object sender, System.Windows.Controls.DataFormEditEndedEventArgs e)
-        {
-
         }
     }
 }

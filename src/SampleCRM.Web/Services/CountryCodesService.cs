@@ -13,7 +13,7 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<CountryCodes> GetCountries()
         {
-            return _context.CountryCodes;
+            return _context.CountryCodes.OrderBy(c => c.Name);
         }
 
         public CountryCodes GetCountryById(string countryCodeID)

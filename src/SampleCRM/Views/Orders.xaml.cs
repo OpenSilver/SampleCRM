@@ -301,7 +301,7 @@ namespace SampleCRM.Web.Views
             foreach (var o in OrdersCollection)
             {
                 o.CountryCodes = CountryCodes;
-                o.ShipCountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == o.ShipCountryCode).Name;
+                o.ShipCountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == o.ShipCountryCode)?.Name;
             }
         }
         private async Task LoadStatuses()
@@ -346,7 +346,6 @@ namespace SampleCRM.Web.Views
             }
         }
         private async Task LoadTaxRate(Models.OrderItems orderItem)
-
         {
             if (orderItem == null)
                 return;
@@ -418,10 +417,10 @@ namespace SampleCRM.Web.Views
                 Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
                 PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
             }, _orderContext);
-
             if (result)
             {
-                NavigationService.Refresh();
+                await LoadElements();
+                //NavigationService.Refresh();
             }
         }
 
@@ -545,7 +544,8 @@ namespace SampleCRM.Web.Views
             var result = await OrderItemAddEditWindow.Show(SelectedOrderItem, _orderItemsContext);
             if (result)
             {
-                NavigationService.Refresh();
+                await LoadOrderItemsOfOrder();
+                //NavigationService.Refresh();
             }
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
@@ -567,11 +567,10 @@ namespace SampleCRM.Web.Views
                 ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
             }, _orderItemsContext);
-
-            if (result)
-            {
-                NavigationService.Refresh();
-            }
+            //if (result)
+            //{
+            //    NavigationService.Refresh();
+            //}
         }
 
         private void txtOrderItemSearch_KeyUp(object sender, KeyEventArgs e)

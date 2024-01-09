@@ -159,7 +159,6 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="12,6">
                     <Grid Margin="0,12">
@@ -217,115 +216,106 @@
 
                 </StackPanel>
             </ScrollViewer>
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" BorderThickness="0,0,1,0" BorderBrush="LightGray">
-                    <StackPanel>
-
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General" />
-                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-                                <controls:RequiredTextBlock Text="Name" />
-                                <TextBox Text="{Binding Name, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
-                                <controls:RequiredTextBlock Text="Category" />
-                                <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Name" />
+                            <TextBox Text="{Binding Name, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Category" />
+                            <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
                                                           SelectedValuePath="CategoryID"
                                                           SelectedValue="{Binding CategoryID, Mode=TwoWay}"
                                                           DisplayMemberPath="Name"
                                                           Style="{StaticResource MaterialDesign_ComboBox_Style}"
                                                           Margin="0,0,0,10">
-                                    <ComboBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ComboBox.ItemsPanel>
-                                </ComboBox>
-                            </StackPanel>
-                        </Grid>
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
 
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price" />
-                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Margin="5">
-                                <controls:RequiredTextBlock Text="List Price" />
-                                <NumericUpDown Value="{Binding ListPrice, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Margin="5">
-                                <controls:RequiredTextBlock Text="Dealer Price" />
-                                <NumericUpDown Value="{Binding DealerPrice, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Margin="5">
-                                <controls:RequiredTextBlock Text="Discount" />
-                                <NumericUpDown Value="{Binding Discount, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
-                            </StackPanel>
-                        </Grid>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Margin="5">
+                            <controls:RequiredTextBlock Text="List Price" />
+                            <NumericUpDown Value="{Binding ListPrice, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Margin="5">
+                            <controls:RequiredTextBlock Text="Dealer Price" />
+                            <NumericUpDown Value="{Binding DealerPrice, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Margin="5">
+                            <controls:RequiredTextBlock Text="Discount" />
+                            <NumericUpDown Value="{Binding Discount, Mode=TwoWay, Converter={StaticResource stringToDecimalConverter}}" Minimum="0" Maximum="999999" DecimalPlaces="2" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                        </StackPanel>
+                    </Grid>
 
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Stock" />
-                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-                                <controls:RequiredTextBlock Text="Stock Units" />
-                                <NumericUpDown Value="{Binding StockUnits, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
-                            </StackPanel>
-                            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
-                                <controls:RequiredTextBlock Text="Safety Stock Level" />
-                                <NumericUpDown Value="{Binding SafetyStockLevel, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
-                            </StackPanel>
-                        </Grid>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Stock" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Stock Units" />
+                            <NumericUpDown Value="{Binding StockUnits, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Safety Stock Level" />
+                            <NumericUpDown Value="{Binding SafetyStockLevel, Mode=TwoWay}" Minimum="0" Maximum="999999" DecimalPlaces="0" Style="{StaticResource MaterialDesign_Numeric_Style}"  />
+                        </StackPanel>
+                    </Grid>
 
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Details" />
-                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
-                                <TextBlock Text="Description" Style="{StaticResource DataFieldLabelStyle}" />
-                                <TextBox Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" 
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Details" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
+                            <TextBlock Text="Description" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" 
                                          TextWrapping="Wrap" AcceptsReturn="True" Height="150" />
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </local:BaseUserControl>

@@ -14,7 +14,7 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<Customers> GetCustomers()
         {
-            return _context.Customers;
+            return _context.Customers.OrderBy(c => c.FirstName).ThenBy(c => c.LastName);
         }
 
         [Query]

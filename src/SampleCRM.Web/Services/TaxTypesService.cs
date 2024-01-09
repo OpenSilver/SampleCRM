@@ -13,7 +13,7 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<TaxTypes> GetTaxTypes()
         {
-            return _context.TaxTypes;
+            return _context.TaxTypes.OrderBy(t => t.Name);
         }
 
         public TaxTypes GetTaxTypeById(long taxTypeId)

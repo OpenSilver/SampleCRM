@@ -222,7 +222,8 @@
                           SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                           SelectionChanged="grdOrders_SelectionChanged"
                           IsReadOnly="True"
-                          AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Style="{StaticResource MaterialDesign_DataGrid_Style}">
+                          AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" 
+                          Style="{StaticResource MaterialDesign_DataGrid_Style}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />

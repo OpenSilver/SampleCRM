@@ -107,6 +107,13 @@ namespace SampleCRM.Web
             product.CreatedOn = DateTime.Now.ToString();
             product.LastModifiedOn = DateTime.Now.ToString();
             _context.Products.Add(product);
+#if DEBUG
+            var validationResult = _context.Entry(product).GetValidationResult();
+            if (validationResult.ValidationErrors.Any())
+            {
+                Console.WriteLine($"Validation Error in InsertProduct: {validationResult.ValidationErrors.FirstOrDefault().PropertyName} {validationResult.ValidationErrors.FirstOrDefault().ErrorMessage}");
+            }
+#endif
             _context.SaveChanges();
         }
 

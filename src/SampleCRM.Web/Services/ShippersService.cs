@@ -13,7 +13,7 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<Shippers> GetShippers()
         {
-            return _context.Shippers;
+            return _context.Shippers.OrderBy(s => s.Name);
         }
 
         public Shippers GetShipperById(long shipperId)

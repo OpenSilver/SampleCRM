@@ -34,7 +34,13 @@ namespace SampleCRM.Web.Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            _context.RejectChanges();
             DialogResult = false;
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            orderItemAddEditView.Delete(_context);
         }
 
         private void orderItemAddEdit_ItemAdded(object sender, System.EventArgs e)
@@ -43,6 +49,11 @@ namespace SampleCRM.Web.Views
         }
 
         private void orderItemAddEdit_ItemDeleted(object sender, System.EventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void orderItemAddEditView_ItemUpdated(object sender, System.EventArgs e)
         {
             DialogResult = true;
         }
