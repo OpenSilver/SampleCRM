@@ -13,7 +13,7 @@ namespace SampleCRM.Web.Models
             {
                 if (CustomersCombo != null && CustomersCombo.Any())
                 {
-                    Customer = CustomersCombo.FirstOrDefault(x => x.CustomerID == CustomerID);
+                    Customer = _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID);
                 }
                 else
                 {
@@ -22,9 +22,14 @@ namespace SampleCRM.Web.Models
             }
             else if (e.PropertyName == nameof(Status))
             {
-                PaymentTypesVisible = Status > 0;
-                ShippedDateVisible = ShippedViaVisible = Status > 1;
-                DeliveredDateVisible = Status > 2;
+                PaymentTypesVisible = _status > 0;
+                ShippedDateVisible = ShippedViaVisible = _status > 1;
+                DeliveredDateVisible = _status > 2;
+                StatusDesc = _statuses?.FirstOrDefault(x => x.Status == _status)?.Name;
+            }
+            else if (e.PropertyName == nameof(ShipCountryCode))
+            {
+                ShipCountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _shipCountryCode)?.Name;
             }
 
             base.OnPropertyChanged(e);
@@ -125,6 +130,10 @@ namespace SampleCRM.Web.Models
                 if (_countryCodes != value)
                 {
                     _countryCodes = value;
+                    if (_countryCodes != null)
+                    {
+                        ShipCountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == ShipCountryCode)?.Name;
+                    }
                     OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
                 }
             }
@@ -140,6 +149,7 @@ namespace SampleCRM.Web.Models
                 {
                     _statuses = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("Statuses"));
+                    OnPropertyChanged(new PropertyChangedEventArgs("Status"));
                 }
             }
         }

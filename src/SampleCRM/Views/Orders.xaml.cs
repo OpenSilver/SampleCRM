@@ -1,4 +1,5 @@
-﻿using OpenRiaServices.DomainServices.Client;
+﻿using Newtonsoft.Json.Linq;
+using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -39,7 +40,8 @@ namespace SampleCRM.Web.Views
                     _ordersCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredOrdersCollection");
-                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
+                    if (SelectedOrder == null)
+                        SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
                 }
             }
         }
@@ -97,18 +99,23 @@ namespace SampleCRM.Web.Views
                 {
                     _selectedOrder = value;
                     OnPropertyChanged();
-                    OnPropertyChanged("AnySelectedOrder");
-                    async void load()
-                    {
-                        await AsyncHelper.RunAsync(LoadCustomer);
-                        await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
-                    }
-                    load();
-#if DEBUG
-                    Console.WriteLine($"Orders, Order: {value.OrderID} selected");
-#endif
+                    NotifySelectedOrderChanges();
                 }
             }
+        }
+
+        private void NotifySelectedOrderChanges()
+        {
+            OnPropertyChanged("AnySelectedOrder");
+            async void load()
+            {
+                await AsyncHelper.RunAsync(LoadCustomer);
+                await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
+            }
+            load();
+#if DEBUG
+            Console.WriteLine($"Orders, Order: {SelectedOrder.OrderID} selected");
+#endif
         }
 
         public bool AnySelectedOrder => _selectedOrder != null;
@@ -281,6 +288,8 @@ namespace SampleCRM.Web.Views
             var op = await _orderContext.LoadAsync(query);
             OrdersCollection = op.Entities;
 
+            await AsyncHelper.RunAsync(LoadPaymentTypes);
+            await AsyncHelper.RunAsync(LoadShippers);
             await AsyncHelper.RunAsync(LoadCountryCodes);
             await AsyncHelper.RunAsync(LoadStatuses);
 #if DEBUG
@@ -291,6 +300,22 @@ namespace SampleCRM.Web.Views
                 Console.WriteLine("Customer Id:" + item.CustomerID);
             }
 #endif
+        }
+        private async Task LoadShippers()
+        {
+            var shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+            foreach (var o in OrdersCollection)
+            {
+                o.Shippers = shippers;
+            }
+        }
+        private async Task LoadPaymentTypes()
+        {
+            var paymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
+            foreach (var o in OrdersCollection)
+            {
+                o.PaymentTypes = paymentTypes;
+            }
         }
         private async Task LoadCountryCodes()
         {
@@ -420,7 +445,6 @@ namespace SampleCRM.Web.Views
             if (result)
             {
                 await LoadElements();
-                //NavigationService.Refresh();
             }
         }
 
@@ -482,15 +506,15 @@ namespace SampleCRM.Web.Views
         {
             if (e.EditAction == DataFormEditAction.Commit)
             {
-                _customersContext.SubmitChanges(OnFormOrderSubmitCompleted, null);
+                _orderContext.SubmitChanges(OnFormOrderSubmitCompleted, null);
             }
             else if (e.EditAction == DataFormEditAction.Cancel)
             {
-                SelectedOrder.IsEditMode = false;
+                _orderContext.RejectChanges();
             }
         }
 
-        private void OnFormOrderSubmitCompleted(SubmitOperation so)
+        private async void OnFormOrderSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
             {
@@ -506,10 +530,16 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                OnPropertyChanged("SelectedOrder");
-                OnPropertyChanged("OrdersCollection");
-                OnPropertyChanged("FilteredOrdersCollection");
+                await UpdateComboDataForOrder(SelectedOrder);
             }
+        }
+
+        private async Task UpdateComboDataForOrder(Models.Orders o)
+        {
+            o.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
+            o.CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
+            o.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+            o.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
         }
 
         private void btnOrderItemSearchCancel_Click(object sender, RoutedEventArgs e)
@@ -545,7 +575,6 @@ namespace SampleCRM.Web.Views
             if (result)
             {
                 await LoadOrderItemsOfOrder();
-                //NavigationService.Refresh();
             }
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
@@ -555,9 +584,7 @@ namespace SampleCRM.Web.Views
         private async Task ArrangeOrderItemWindow()
         {
             if (SelectedOrder == null)
-            {
                 throw (new ArgumentNullException("Selected Order can't be null"));
-            }
 
             var result = await OrderItemAddEditWindow.Show(new Models.OrderItems
             {
@@ -576,16 +603,12 @@ namespace SampleCRM.Web.Views
         private void txtOrderItemSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-            {
                 btnOrderItemSearch.Focus();
-            }
         }
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-            {
                 btnSearch.Focus();
-            }
         }
     }
 }

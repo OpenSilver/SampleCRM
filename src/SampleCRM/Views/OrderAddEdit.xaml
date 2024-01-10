@@ -92,8 +92,8 @@
                         <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="3">
-                        <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
-                        <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        <TextBlock Text="Ship Region" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding ShipRegion, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="4">
                         <controls:RequiredTextBlock Text="Ship Postal Code" />
@@ -265,8 +265,8 @@
                             <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5">
-                            <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
-                            <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                            <TextBlock Text="Ship Region" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding ShipRegion, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Margin="5">
                             <controls:RequiredTextBlock Text="Ship Postal Code" />
