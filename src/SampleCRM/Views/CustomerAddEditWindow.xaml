@@ -10,8 +10,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <local:CustomerAddEdit x:Name="customerAddEditView" Grid.Row="0" 
-                               CustomerAdded="customerAddEditView_CustomerAdded"
-                               CustomerDeleted="customerAddEditView_CustomerDeleted" />
+                               CustomerAdded="customerAddEditView_CustomerAdded" />
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0,5,10,5">
             <Button x:Name="OKButton" Click="OKButton_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,10,0">
                 <StackPanel Orientation="Horizontal">

@@ -287,11 +287,16 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" Stretch="Fill"></ImageBrush>
-                                            </Border.Background>
-                                        </Border>
+                                        <Grid>
+                                            <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" 
+                                                BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
+                                            </Border>
+                                            <Image Width="30" Height="30" Margin="0,0,5,0" Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}">
+                                                <Image.Clip>
+                                                    <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15" />
+                                                </Image.Clip>
+                                            </Image>
+                                        </Grid>
                                         <TextBlock Text="{Binding FullName}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -320,17 +325,20 @@
                             <RowDefinition Height="2*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}">
+                        <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}" DataContext="{Binding SelectedCustomer, Mode=OneWay}">
                             <StackPanel Margin="10">
                                 <Grid HorizontalAlignment="Stretch">
-                                    <Border HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="64" Height="64" 
-                                            BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="4"
-                                            CacheMode="BitmapCache" CornerRadius="32">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding SelectedCustomer.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"  Stretch="Fill"></ImageBrush>
-                                        </Border.Background>
-                                    </Border>
-
+                                    <Grid HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom">
+                                        <Border  Width="64" Height="64"
+                                                BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" 
+                                                BorderThickness="4" CornerRadius="32">
+                                        </Border>
+                                        <Image Width="60" Height="60" Margin="2,0,3,0" Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}">
+                                            <Image.Clip>
+                                                <EllipseGeometry RadiusX="30" RadiusY="30" Center="30,30" />
+                                            </Image.Clip>
+                                        </Image>
+                                    </Grid>
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                                         <Button x:Name="btnDelete" Click="btnDelete_Click" 
                                                 Style="{StaticResource SecondaryButtonStyle}" Margin="2" Width="80" Height="25">
@@ -342,22 +350,22 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <TextBlock Style="{StaticResource CardHeader1}" Text="{Binding SelectedCustomer.FullName, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource CardHeader1}" Text="{Binding FullName, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.EmailAddress, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding EmailAddress, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CustomerID, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.Phone, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding Phone, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding SelectedCustomer.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
                             </StackPanel>
                         </Border>
                         <Grid x:Name="grdCustomerDetails" Grid.Column="1" Grid.RowSpan="2" Grid.Row="0">
@@ -368,8 +376,8 @@
                             <Border x:Name="customerDetails" Grid.Row="1">
                                 <DataForm x:Name="formCustomer" 
                                               Style="{StaticResource DefaultDataForm}"
-                                              ItemsSource="{Binding FilteredCustomersCollection}" 
-                                              CurrentItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                                              ItemsSource="{Binding CustomersCollection}" 
+                                              CurrentItem="{Binding SelectedCustomer}"
                                               EditEnded="formCustomer_EditEnded"
                                               CommitButtonStyle="{StaticResource PrimaryButtonStyle}"
                                               CancelButtonStyle="{StaticResource SecondaryButtonStyle}"

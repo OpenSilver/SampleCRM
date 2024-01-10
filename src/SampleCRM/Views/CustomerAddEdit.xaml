@@ -6,12 +6,9 @@
     xmlns:controls="clr-namespace:SampleCRM.Controls">
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
-        <local:CountryCodeToCountryNameConverter x:Key="countryCodeConverter" />
-        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <local:InverseBoolToVisibilityConverter x:Key="inverseBoolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BaseUserControl.Resources>
-    <Grid>
+    <Grid DataContext="{Binding CustomerViewModel, Mode=OneWay}">
         <ScrollViewer x:Name="grdNarrow" Visibility="Collapsed" 
                       HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="6,3">
@@ -21,7 +18,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Image Margin="1" Width="132" Height="132"
-                            Source="{Binding CustomerViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                            Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
                     <Button Click="btnEditPicture_Click"
                         Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
                         <Grid Width="132" Height="132">
@@ -29,253 +26,165 @@
                         </Grid>
                     </Button>
                     <TextBlock Grid.Column="1" Margin="12,0,0,0" FontSize="18" VerticalAlignment="Center"
-                        Text="{Binding CustomerViewModel.FullName, Mode=OneWay}" Style="{StaticResource CardText}"/>
+                        Text="{Binding FullName, Mode=OneWay}" Style="{StaticResource CardText}"/>
                 </Grid>
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General"  />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CustomerID, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}" />
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Contact"/>
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.EmailAddress, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding EmailAddress, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.Phone, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding Phone, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Address" />
-                <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding CustomerViewModel.FullAddress, Mode=OneWay}" />
-
-                <Button Click="btnDelete_Click" 
-                        Style="{StaticResource DeleteButtonStyle}" Content=""
-                        Visibility="{Binding Order.IsNew, Mode=OneWay, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding FullAddress, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Personal Information" />
-                <DataForm x:Name="mFormPersonalInfo"                  
-                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                          EditEnded="formPersonalInfo_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Margin="0"
-                          Style="{StaticResource DefaultDataForm}">
-                    <DataForm.EditTemplate>
-                        <DataTemplate>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="First Name" />
-                                        <TextBox Text="{Binding FirstName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="1" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="Last Name" />
-                                        <TextBox Text="{Binding LastName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="2" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Middle Name" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding MiddleName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="3" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Suffix" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Suffix, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="4" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Title" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="5" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="Email Address" />
-                                        <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="6" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="Phone" />
-                                        <TextBox Text="{Binding Phone, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                            </Grid>
-                        </DataTemplate>
-                    </DataForm.EditTemplate>
-                </DataForm>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <controls:RequiredTextBlock Text="First Name" />
+                        <TextBox Text="{Binding FirstName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <controls:RequiredTextBlock Text="Last Name" />
+                        <TextBox Text="{Binding LastName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Middle Name" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding MiddleName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <TextBlock Text="Suffix" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding Suffix, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4">
+                        <TextBlock Text="Title" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="5">
+                        <controls:RequiredTextBlock Text="Email Address" />
+                        <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="6">
+                        <controls:RequiredTextBlock Text="Phone" />
+                        <TextBox Text="{Binding Phone, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                </Grid>
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Address" />
-                <DataForm x:Name="mFormAddress"              
-                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                          EditEnded="formAddress_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Style="{StaticResource DefaultDataForm}">
-                    <DataForm.EditTemplate>
-                        <DataTemplate>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Address Line 1" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="1" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Address Line 2" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding AddressLine2, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="2" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="City" />
-                                        <TextBox Text="{Binding City, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="3" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="4" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <controls:RequiredTextBlock Text="Postal Code" />
-                                        <TextBox Text="{Binding PostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="5" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="Address Line 1" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="Address Line 2" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding AddressLine2, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+                        <controls:RequiredTextBlock Text="City" />
+                        <TextBox Text="{Binding City, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4">
+                        <controls:RequiredTextBlock Text="Postal Code" />
+                        <TextBox Text="{Binding PostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="5">
+                        <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
                                               SelectedValuePath="CountryCodeID"
                                               SelectedValue="{Binding CountryCode, Mode=TwoWay}"
                                               DisplayMemberPath="Name"
                                               Style="{StaticResource MaterialDesign_ComboBox_Style}"
                                               Margin="0,0,0,10">
-                                            <ComboBox.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <VirtualizingStackPanel/>
-                                                </ItemsPanelTemplate>
-                                            </ComboBox.ItemsPanel>
-                                        </ComboBox>
-                                    </StackPanel>
-                                </DataField>
-                            </Grid>
-                        </DataTemplate>
-                    </DataForm.EditTemplate>
-                </DataForm>
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel/>
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Demographic" />
-                <DataForm x:Name="mFormDemographic"                 
-                          CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                          EditEnded="formDemographic_EditEnded"
-                          AutoGenerateFields="False"
-                          AutoEdit="True"
-                          AutoCommit="True"
-                          CommandButtonsVisibility="None"
-                          Style="{StaticResource DefaultDataForm}">
-                    <DataForm.EditTemplate>
-                        <DataTemplate>
-                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <DataField Grid.Row="0" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="1" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Education, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-
-                                <DataField Grid.Row="2" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Occupation" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding Occupation, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="3" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Yearly Income" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <!--<TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />-->
-                                        <NumericUpDown DecimalPlaces="2" Maximum="99999999" Minimum="0" Value="{Binding YearlyIncome, Mode=TwoWay}"  Style="{StaticResource MaterialDesign_Numeric_Style}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="4" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Marital Status" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <TextBox Text="{Binding MaritalStatus, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                    </StackPanel>
-                                </DataField>
-                                <DataField Grid.Row="5" LabelVisibility="Collapsed">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="Total Children" Style="{StaticResource DataFieldLabelStyle}" />
-                                        <!--<TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />-->
-                                        <NumericUpDown DecimalPlaces="0" Maximum="10" Minimum="0" Value="{Binding TotalChildren, Mode=TwoWay}" Style="{StaticResource MaterialDesign_Numeric_Style}" />
-                                    </StackPanel>
-                                </DataField>
-                            </Grid>
-                        </DataTemplate>
-                    </DataForm.EditTemplate>
-                </DataForm>
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
+                        <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding Education, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Occupation" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding Occupation, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <TextBlock Text="Yearly Income" Style="{StaticResource DataFieldLabelStyle}" />
+                        <NumericUpDown DecimalPlaces="2" Maximum="99999999" Minimum="0" Value="{Binding YearlyIncome, Mode=TwoWay}"  Style="{StaticResource MaterialDesign_Numeric_Style}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4">
+                        <TextBlock Text="Marital Status" Style="{StaticResource DataFieldLabelStyle}" />
+                        <TextBox Text="{Binding MaritalStatus, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="5">
+                        <TextBlock Text="Total Children" Style="{StaticResource DataFieldLabelStyle}" />
+                        <NumericUpDown DecimalPlaces="0" Maximum="10" Minimum="0" Value="{Binding TotalChildren, Mode=TwoWay}" Style="{StaticResource MaterialDesign_Numeric_Style}" />
+                    </StackPanel>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
         <Grid x:Name="grdWide" Visibility="Collapsed">
@@ -291,7 +200,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Image Margin="1" Width="132" Height="132"
-                            Source="{Binding CustomerViewModel.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
+                            Source="{Binding Picture, Mode=OneWay, Converter={StaticResource imgConverter}}" />
                         <Button Click="btnEditPicture_Click"
                             Opacity="0.75" BorderThickness="1" BorderBrush="White" Background="Transparent" HorizontalAlignment="Center">
                             <Grid Width="132" Height="132">
@@ -299,269 +208,169 @@
                             </Grid>
                         </Button>
                         <TextBlock Grid.Column="1" Margin="12,0,0,0" FontSize="18" VerticalAlignment="Center"
-                        Text="{Binding CustomerViewModel.FullName, Mode=OneWay}" Style="{StaticResource CardText}"/>
+                        Text="{Binding FullName, Mode=OneWay}" Style="{StaticResource CardText}"/>
                     </Grid>
 
                     <Rectangle Style="{StaticResource CardSeparator}"/>
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="General"  />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Customer ID" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CustomerID, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <Rectangle Style="{StaticResource CardSeparator}" />
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Contact"/>
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Email" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.EmailAddress, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding EmailAddress, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Phone" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerViewModel.Phone, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding Phone, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Address" />
-                    <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding CustomerViewModel.FullAddress, Mode=OneWay}" />
+                    <TextBlock Style="{StaticResource CardText}" Margin="0" Text="{Binding FullAddress, Mode=OneWay}" />
 
                 </StackPanel>
             </ScrollViewer>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <Button Click="btnDelete_Click" 
-                            Style="{StaticResource DeleteButtonStyle}" Content=""
-                            Visibility="{Binding CustomerViewModel.IsNew, Mode=OneTime, Converter={StaticResource inverseBoolToVisibilityConverter}}" />
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Personal Information" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="First Name" />
+                            <TextBox Text="{Binding FirstName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Last Name" />
+                            <TextBox Text="{Binding LastName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel  Grid.Row="1" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Middle Name" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding MiddleName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Suffix" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Suffix, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Title" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Email Address" />
+                            <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Phone" />
+                            <TextBox Text="{Binding Phone, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Address" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Address Line 1" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Address Line 2" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding AddressLine2, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel  Grid.Row="1" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="City" />
+                            <TextBox Text="{Binding City, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="5">
+                            <controls:RequiredTextBlock Text="Postal Code" />
+                            <TextBox Text="{Binding PostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
+                            <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                                    SelectedValuePath="CountryCodeID"
+                                    SelectedValue="{Binding CountryCode, Mode=TwoWay}"
+                                    DisplayMemberPath="Name"
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                    Margin="0,0,0,10">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Demographic" />
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
+                            <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
+                            <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Education, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Occupation" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding Occupation, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Yearly Income" Style="{StaticResource DataFieldLabelStyle}" />
+                            <NumericUpDown DecimalPlaces="2" Maximum="99999999" Minimum="0" Value="{Binding YearlyIncome, Mode=TwoWay}"  Style="{StaticResource MaterialDesign_Numeric_Style}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Marital Status" Style="{StaticResource DataFieldLabelStyle}" />
+                            <TextBox Text="{Binding MaritalStatus, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Margin="5">
+                            <TextBlock Text="Total Children" Style="{StaticResource DataFieldLabelStyle}" />
+                            <NumericUpDown DecimalPlaces="0" Maximum="10" Minimum="0" Value="{Binding TotalChildren, Mode=TwoWay}" Style="{StaticResource MaterialDesign_Numeric_Style}" />
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Personal Information" />
-                        <DataForm x:Name="formPersonalInfo"
-                            CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                            EditEnded="formPersonalInfo_EditEnded"
-                            AutoGenerateFields="False"
-                            AutoEdit="True"
-                            AutoCommit="True"
-                            CommandButtonsVisibility="None"
-                            Margin="0"
-                            Style="{StaticResource DefaultDataForm}">
-                            <DataForm.EditTemplate>
-                                <DataTemplate>
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <DataField Grid.Row="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="First Name" />
-                                                <TextBox Text="{Binding FirstName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="Last Name" />
-                                                <TextBox Text="{Binding LastName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Middle Name" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding MiddleName, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Suffix" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding Suffix, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Title" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="Email Address" />
-                                                <TextBox Text="{Binding EmailAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="Phone" />
-                                                <TextBox Text="{Binding Phone, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataForm.EditTemplate>
-                        </DataForm>
-
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Address" />
-                        <DataForm x:Name="formAddress"
-                            CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                            EditEnded="formAddress_EditEnded"
-                            AutoGenerateFields="False"
-                            AutoEdit="True"
-                            AutoCommit="True"
-                            CommandButtonsVisibility="None"
-                            Style="{StaticResource DefaultDataForm}">
-                            <DataForm.EditTemplate>
-                                <DataTemplate>
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <DataField Grid.Row="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Address Line 1" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding AddressLine1, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Address Line 2" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding AddressLine2, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="1" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="City" />
-                                                <TextBox Text="{Binding City, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Region" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <controls:RequiredTextBlock Text="Postal Code" />
-                                                <TextBox Text="{Binding PostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
-                                                          SelectedValuePath="CountryCodeID"
-                                                          SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                          Margin="0,0,0,10">
-                                                    <ComboBox.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <VirtualizingStackPanel/>
-                                                        </ItemsPanelTemplate>
-                                                    </ComboBox.ItemsPanel>
-                                                </ComboBox>
-                                            </StackPanel>
-                                        </DataField>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataForm.EditTemplate>
-                        </DataForm>
-
-                        <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Demographic" />
-                        <DataForm x:Name="formDemographic"              
-                                    CurrentItem="{Binding CustomerViewModel, Mode=TwoWay}"
-                                    EditEnded="formDemographic_EditEnded"
-                                    AutoGenerateFields="False"
-                                    AutoEdit="True"
-                                    AutoCommit="True"
-                                    CommandButtonsVisibility="None"
-                                    Style="{StaticResource DefaultDataForm}">
-                            <DataForm.EditTemplate>
-                                <DataTemplate>
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <DataField Grid.Row="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding Education, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-
-                                        <DataField Grid.Row="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Occupation" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding Occupation, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Yearly Income" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <!--<TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />-->
-                                                <NumericUpDown DecimalPlaces="2" Maximum="99999999" Minimum="0" Value="{Binding YearlyIncome, Mode=TwoWay}"  Style="{StaticResource MaterialDesign_Numeric_Style}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Marital Status" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <TextBox Text="{Binding MaritalStatus, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
-                                            </StackPanel>
-                                        </DataField>
-                                        <DataField Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="Total Children" Style="{StaticResource DataFieldLabelStyle}" />
-                                                <!--<TextBox Text="{Binding Region, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />-->
-                                                <NumericUpDown DecimalPlaces="0" Maximum="10" Minimum="0" Value="{Binding TotalChildren, Mode=TwoWay}" Style="{StaticResource MaterialDesign_Numeric_Style}" />
-                                            </StackPanel>
-                                        </DataField>
-                                    </Grid>
-                                </DataTemplate>
-                            </DataForm.EditTemplate>
-                        </DataForm>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </local:BaseUserControl>

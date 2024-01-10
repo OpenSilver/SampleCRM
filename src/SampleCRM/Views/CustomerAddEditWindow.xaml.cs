@@ -39,10 +39,10 @@ namespace SampleCRM.Web.Views
             DialogResult = false;
         }
 
-        private void customerAddEditView_CustomerDeleted(object sender, System.EventArgs e)
-        {
-            DialogResult = true;
-        }
+        //private void customerAddEditView_CustomerDeleted(object sender, System.EventArgs e)
+        //{
+        //    DialogResult = true;
+        //}
 
         private void customerAddEditView_CustomerAdded(object sender, System.EventArgs e)
         {

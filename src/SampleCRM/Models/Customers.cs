@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
@@ -37,6 +38,7 @@ namespace SampleCRM.Web.Models
                 if (_countryCodes != value)
                 {
                     _countryCodes = value;
+                    CountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _countryCode)?.Name;
                     OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
                 }
             }

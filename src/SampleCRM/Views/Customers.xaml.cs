@@ -35,7 +35,8 @@ namespace SampleCRM.Web.Views
                     _customersCollection = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredCustomersCollection");
-                    SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
+                    if (!AnySelectedCustomer)
+                        SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
                 }
             }
         }
@@ -323,6 +324,10 @@ namespace SampleCRM.Web.Views
 #if DEBUG
             Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
+            formCustomer.ItemsSource = null;
+            formCustomer.CurrentItem = null;
+            formCustomer.ItemsSource = FilteredCustomersCollection;
+            formCustomer.CurrentItem = SelectedCustomer;
         }
 
         private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e)
@@ -333,7 +338,7 @@ namespace SampleCRM.Web.Views
             }
             else if (e.EditAction == DataFormEditAction.Cancel)
             {
-                SelectedCustomer.IsEditMode = false;
+                _customersContext.RejectChanges();
             }
         }
         private void OnFormCustomerSubmitCompleted(SubmitOperation so)
@@ -353,6 +358,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
+                SelectedCustomer.CountryCodes = CountryCodes;
                 OnPropertyChanged("SelectedCustomer");
                 OnPropertyChanged("CustomersCollection");
                 OnPropertyChanged("FilteredCustomersCollection");
