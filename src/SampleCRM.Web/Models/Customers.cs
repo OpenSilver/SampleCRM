@@ -23,17 +23,16 @@ namespace SampleCRM.Web.Models
         [Key]public long CustomerID { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string BirthDate { get; set; }
+        public Nullable<long> BirthDateUTC { get; set; }
         public Nullable<long> ChildrenAtHome { get; set; }
         public string City { get; set; }
         public string CountryCode { get; set; }
-        public string CreatedOn { get; set; }
+        public long CreatedOnUTC { get; set; }
         public string Education { get; set; }
         public string EmailAddress { get; set; }
         public string FirstName { get; set; }
         public string Gender { get; set; }
         public Nullable<long> IsHouseOwner { get; set; }
-        public string LastModifiedOn { get; set; }
         public string LastName { get; set; }
         public string MaritalStatus { get; set; }
         public string MiddleName { get; set; }
@@ -45,10 +44,10 @@ namespace SampleCRM.Web.Models
         public string Region { get; set; }
         public string SearchTerms { get; set; }
         public string Suffix { get; set; }
-        public byte[] Thumbnail { get; set; }
         public string Title { get; set; }
         public Nullable<long> TotalChildren { get; set; }
-        public string YearlyIncome { get; set; }
+        public Nullable<decimal> YearlyIncome { get; set; }
+        public Nullable<long> LastModifiedOnUTC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }

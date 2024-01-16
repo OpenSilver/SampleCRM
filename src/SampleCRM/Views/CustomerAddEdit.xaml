@@ -36,10 +36,10 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}" />
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Contact"/>
@@ -162,7 +162,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
-                        <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding BirthDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                     <StackPanel Grid.Row="1">
                         <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />
@@ -218,10 +218,10 @@
                     <TextBlock Style="{StaticResource CardText}" Text="{Binding CustomerID, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <Rectangle Style="{StaticResource CardSeparator}" />
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Contact"/>
@@ -346,7 +346,7 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="5">
                             <TextBlock Text="Birth Date" Style="{StaticResource DataFieldLabelStyle}" />
-                            <DatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                            <DatePicker SelectedDate="{Binding BirthDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
                             <TextBlock Text="Education" Style="{StaticResource DataFieldLabelStyle}" />

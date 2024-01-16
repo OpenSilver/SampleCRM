@@ -18,6 +18,5 @@ namespace SampleCRM.Web.Models
         public string Description { get; set; }
         public string Name { get; set; }
         public byte[] Picture { get; set; }
-        public byte[] Thumbnail { get; set; }
     }
 }

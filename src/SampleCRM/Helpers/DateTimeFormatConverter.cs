@@ -7,41 +7,42 @@ namespace SampleCRM.Web.Views
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value is null)
+                return null;
+
             try
             {
-                if (value is string str)
-                {
-                    if (DateTime.TryParse(value.ToString(), out var datetime))
-                    {
-                        return datetime.ToShortDateString();
-                    }
-                    else
-                    {
-                        return value.ToString();
-                    }
-                }
-                else if (value is DateTime dateTime)
-                {
-                    if (dateTime == DateTime.MinValue)
-
-                        return "N/A";
-                    else
-                        return dateTime.ToShortDateString();
-                }
-                else
-                {
-                    return "N/A";
-                }
+                var unixTimeInSeconds = (long)value;
+                return DateTimeOffset.FromUnixTimeSeconds(unixTimeInSeconds).ToLocalTime().DateTime;
             }
-            catch
+            catch (Exception ex)
             {
-                return "N/A";
+#if DEBUG
+                Console.WriteLine(ex);
+#endif
+                return null;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value is null)
+                return null;
+            try
+            {
+                var dateTime = (DateTime)value;
+                var dateTimeOffset = new DateTimeOffset(dateTime.ToUniversalTime());
+                var unixTimeInSeconds = dateTimeOffset.ToUnixTimeSeconds();
+                return unixTimeInSeconds;
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine(ex);
+#endif
+                return null;
+            }
+
         }
     }
 }

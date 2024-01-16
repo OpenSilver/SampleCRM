@@ -41,10 +41,10 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding CategoryName, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price"/>
@@ -86,10 +86,10 @@
                     <StackPanel Grid.Row="1">
                         <controls:RequiredTextBlock Text="Category" />
                         <ComboBox ItemsSource="{Binding CategoriesCombo}"                                                          
-                                                          SelectedValuePath="CategoryID"
-                                                          SelectedValue="{Binding CategoryID, Mode=TwoWay}"
-                                                          DisplayMemberPath="Name"
-                                                          Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                SelectedValuePath="CategoryID"
+                                SelectedValue="{Binding CategoryID, Mode=TwoWay}"
+                                DisplayMemberPath="Name"
+                                Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -188,10 +188,10 @@
                     <TextBlock Style="{StaticResource CardText}" Text="{Binding CategoryName, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <Rectangle Style="{StaticResource CardSeparator}"/>
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Price"/>

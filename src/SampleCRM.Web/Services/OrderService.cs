@@ -14,7 +14,8 @@ namespace SampleCRM.Web
         [Query]
         public IQueryable<Orders> GetOrders()
         {
-            return _context.Orders.ToList().OrderByDescending(o => DateTime.Parse(o.OrderDate)).AsQueryable();
+            return _context.Orders.OrderByDescending(o => o.OrderDateUTC)
+                                  .AsQueryable();
         }
 
         [Query]
@@ -49,7 +50,7 @@ namespace SampleCRM.Web
             if (order.OrderID < 0)
                 order.OrderID *= -1;
 
-            order.OrderDate = order.LastModifiedOn = DateTime.Now.ToString();
+            order.OrderDateUTC = order.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Orders.Add(order);
 #if DEBUG
             var validationResult = _context.Entry(order).GetValidationResult();
@@ -65,7 +66,7 @@ namespace SampleCRM.Web
         [RestrictAccessReadonlyMode]
         public void UpdateOrder(Orders order)
         {
-            order.LastModifiedOn = DateTime.Now.ToString();
+            order.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 #if DEBUG
             var validationResult = _context.Entry(order).GetValidationResult();
             if (validationResult.ValidationErrors.Any())

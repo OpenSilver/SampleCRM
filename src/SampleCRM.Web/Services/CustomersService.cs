@@ -25,11 +25,11 @@ namespace SampleCRM.Web
                 CustomerID = x.CustomerID,
                 AddressLine1 = x.AddressLine1,
                 AddressLine2 = x.AddressLine2,
-                BirthDate = x.BirthDate,
+                BirthDateUTC = x.BirthDateUTC,
                 ChildrenAtHome = x.ChildrenAtHome,
                 City = x.City,
                 CountryCode = x.CountryCode,
-                CreatedOn = x.CreatedOn,
+                CreatedOnUTC = x.CreatedOnUTC,
                 Education = x.Education,
                 EmailAddress = x.EmailAddress,
                 FirstName = x.FirstName,
@@ -44,13 +44,12 @@ namespace SampleCRM.Web
                 MiddleName = x.MiddleName,
                 Occupation = x.Occupation,
                 PostalCode = x.PostalCode,
-                LastModifiedOn = x.LastModifiedOn,
+                LastModifiedOnUTC = x.LastModifiedOnUTC,
                 Region = x.Region,
                 SearchTerms = x.SearchTerms,
                 Title = x.Title,
                 TotalChildren = x.TotalChildren,
-                Picture = new byte[] { 0 },
-                Thumbnail = new byte[] { 0 }
+                Picture = new byte[] { 0 }
             }).AsQueryable();
         }
 
@@ -58,7 +57,7 @@ namespace SampleCRM.Web
         public IQueryable<Customers> GetLatestCustomers(int limit)
         {
             return GetCustomersWithoutPictures()
-                .OrderByDescending(x => x.CreatedOn)
+                .OrderByDescending(x => x.CreatedOnUTC)
                 .Take(limit);
         }
 
@@ -82,7 +81,7 @@ namespace SampleCRM.Web
             if (customer.CustomerID < 0)
                 customer.CustomerID *= -1;
 
-            customer.LastModifiedOn = customer.CreatedOn = DateTime.Now.ToString();
+            customer.LastModifiedOnUTC = customer.CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Customers.Add(customer);
             _context.SaveChanges();
         }
@@ -91,7 +90,7 @@ namespace SampleCRM.Web
         [RestrictAccessReadonlyMode]
         public void UpdateCustomer(Customers customer)
         {
-            customer.LastModifiedOn = DateTime.Now.ToString();
+            customer.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Customers.AddOrUpdate(customer);
             _context.SaveChanges();
         }
@@ -105,13 +104,10 @@ namespace SampleCRM.Web
         {
             var customer = GetCustomerById(customerId);
             if (customer != null)
-            {
                 return customer.Picture;
-            }
             else
-            {
-                throw new ArgumentNullException("No Such Customer");
-            }
+                throw new ArgumentNullException($"No Such Customer {customerId}");
+
         }
     }
 }

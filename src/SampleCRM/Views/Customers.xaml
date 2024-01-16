@@ -363,10 +363,10 @@
                                 <TextBlock Style="{StaticResource CardText}" Text="{Binding Phone, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Created On" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding CreatedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
                             </StackPanel>
                         </Border>
                         <Grid x:Name="grdCustomerDetails" Grid.Column="1" Grid.RowSpan="2" Grid.Row="0">
@@ -475,9 +475,9 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Id" Binding="{Binding OrderID}" IsReadOnly="True" />
-                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
-                            <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
-                            <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" CellStyle="{StaticResource DataGridCell}" />
                         </DataGrid.Columns>

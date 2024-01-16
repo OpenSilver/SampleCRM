@@ -26,22 +26,20 @@ namespace SampleCRM.Web
                 Name = x.Name,
                 CategoryID = x.CategoryID,
                 Color = x.Color,
-                CreatedOn = x.CreatedOn,
+                CreatedOnUTC = x.CreatedOnUTC,
                 DealerPrice = x.DealerPrice,
                 Description = x.Description,
                 Discount = x.Discount,
-                DiscountEndDate = x.DiscountEndDate,
-                DiscountStartDate = x.DiscountStartDate,
-                LastModifiedOn = x.LastModifiedOn,
+                DiscountEndDateUTC = x.DiscountEndDateUTC,
+                DiscountStartDateUTC = x.DiscountStartDateUTC,
+                LastModifiedOnUTC = x.LastModifiedOnUTC,
                 ListPrice = x.ListPrice,
-                //OrderItems = x.OrderItems,
                 SafetyStockLevel = x.SafetyStockLevel,
                 SearchTerms = x.SearchTerms,
                 Size = x.Size,
                 StockUnits = x.StockUnits,
                 TaxType = x.TaxType,
-                Picture = new byte[] { 0 },
-                Thumbnail = new byte[] { 0 }
+                Picture = new byte[] { 0 }
             }).AsQueryable();
         }
 
@@ -62,8 +60,7 @@ namespace SampleCRM.Web
                                     ProductID = x.ProductID,
                                     Name = x.Name,
                                     ListPrice = x.ListPrice,
-                                    Picture = new byte[] { 0 },
-                                    Thumbnail = new byte[] { 0 }
+                                    Picture = new byte[] { 0 }
                                 })
                                 .AsQueryable();
             return topProducts;
@@ -78,13 +75,9 @@ namespace SampleCRM.Web
         {
             var product = GetProductById(productId);
             if (product != null)
-            {
                 return product.Picture;
-            }
             else
-            {
-                throw new ArgumentNullException("No Such Product"); 
-            }
+                throw new ArgumentNullException($"No Such Product {productId}");
         }
 
         [Delete]
@@ -104,8 +97,8 @@ namespace SampleCRM.Web
         public void InsertProduct(Products product)
         {
             product.ProductID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1).ToString();
-            product.CreatedOn = DateTime.Now.ToString();
-            product.LastModifiedOn = DateTime.Now.ToString();
+            product.CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            product.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Products.Add(product);
 #if DEBUG
             var validationResult = _context.Entry(product).GetValidationResult();
@@ -121,7 +114,7 @@ namespace SampleCRM.Web
         [RestrictAccessReadonlyMode]
         public void UpdateProduct(Products product)
         {
-            product.LastModifiedOn = DateTime.Now.ToString();
+            product.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Products.AddOrUpdate(product);
             _context.SaveChanges();
         }

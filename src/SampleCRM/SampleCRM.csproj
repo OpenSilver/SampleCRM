@@ -68,7 +68,6 @@
     <None Remove="Controls\RequiredTextBlock.xaml" />
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
-    <None Remove="Views\About.xaml" />
     <None Remove="Views\Categories.xaml" />
     <None Remove="Views\CustomerAddEdit.xaml" />
     <None Remove="Views\CustomerAddEditWindow.xaml" />
@@ -236,9 +235,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Views\ErrorWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Content>
-    <Content Include="Views\About.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Views\Home.xaml">

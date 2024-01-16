@@ -19,7 +19,7 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding StatusDesc, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Order Date" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <Rectangle Style="{StaticResource CardSeparator}"/>
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer"  />
@@ -49,10 +49,10 @@
                 <TextBlock Style="{StaticResource CardText}" Text="{Binding ShipViaDesc, Mode=OneWay}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Shipped Date" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding ShippedDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <TextBlock Style="{StaticResource CardHeader2}" Text="Delivered Date" />
-                <TextBlock Style="{StaticResource CardText}" Text="{Binding DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                <TextBlock Style="{StaticResource CardText}" Text="{Binding DeliveredDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                 <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer Information" />
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -152,7 +152,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="2" Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Shipped Date" />
-                        <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding ShippedDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                     <StackPanel Grid.Row="3" Visibility="{Binding ShippedViaVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <TextBlock Text="Shipped Via" Style="{StaticResource DataFieldLabelStyle}" />
@@ -170,7 +170,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="4" Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Delivered Date" />
-                        <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding DeliveredDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -190,7 +190,7 @@
                     <TextBlock Style="{StaticResource CardText}" Text="{Binding StatusDesc, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Order Date" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <Rectangle Style="{StaticResource CardSeparator}"/>
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Customer"  />
@@ -220,10 +220,10 @@
                     <TextBlock Style="{StaticResource CardText}" Text="{Binding ShipViaDesc, Mode=OneWay}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Shipped Date" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding ShippedDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                     <TextBlock Style="{StaticResource CardHeader2}" Text="Delivered Date" />
-                    <TextBlock Style="{StaticResource CardText}" Text="{Binding DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                    <TextBlock Style="{StaticResource CardText}" Text="{Binding DeliveredDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
                 </StackPanel>
             </ScrollViewer>
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
@@ -336,7 +336,7 @@
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Margin="5" 
                                     Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                             <controls:RequiredTextBlock Text="Shipped Date" />
-                            <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                            <DatePicker SelectedDate="{Binding ShippedDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Margin="5" 
                                     Visibility="{Binding ShippedViaVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
@@ -357,7 +357,7 @@
                         <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5" 
                                     Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                             <controls:RequiredTextBlock Text="Delivered Date" />
-                            <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                            <DatePicker SelectedDate="{Binding DeliveredDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

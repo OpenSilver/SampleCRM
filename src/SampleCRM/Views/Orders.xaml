@@ -108,7 +108,7 @@
                 <DataField Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
                     <StackPanel Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Shipped Date" />
-                        <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding ShippedDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                 </DataField>
                 <DataField Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" LabelVisibility="Collapsed">
@@ -131,7 +131,7 @@
                 <DataField Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
                     <StackPanel Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Delivered Date" />
-                        <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding DeliveredDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                 </DataField>
             </Grid>
@@ -230,7 +230,7 @@
                 <DataField Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
                     <StackPanel Visibility="{Binding ShippedDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Shipped Date" />
-                        <DatePicker SelectedDate="{Binding ShippedDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding ShippedDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                 </DataField>
                 <DataField Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
@@ -253,7 +253,7 @@
                 <DataField Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" LabelVisibility="Collapsed">
                     <StackPanel Visibility="{Binding DeliveredDateVisible, Mode=OneWay, Converter={StaticResource boolToVisibilityConverter}}">
                         <controls:RequiredTextBlock Text="Delivered Date" />
-                        <DatePicker SelectedDate="{Binding DeliveredDate, Mode=TwoWay}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
+                        <DatePicker SelectedDate="{Binding DeliveredDateUTC, Mode=TwoWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource MaterialDesign_DatePicker_Style}" />
                     </StackPanel>
                 </DataField>
             </Grid>
@@ -321,9 +321,9 @@
                         <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTextColumn Header="Status" Binding="{Binding StatusDesc}" CellStyle="{StaticResource DataGridCell}" />
-                        <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
-                        <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
-                        <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Shipped Date" Binding="{Binding ShippedDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTextColumn Header="Delivered Date" Binding="{Binding DeliveredDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTextColumn Header="Region" Binding="{Binding ShipRegion}" CellStyle="{StaticResource DataGridCell}" />
                         <DataGridTextColumn Header="Country" Binding="{Binding ShipCountryName}" CellStyle="{StaticResource DataGridCell}" />
                     </DataGrid.Columns>
@@ -368,7 +368,7 @@
                                 <TextBlock Style="{StaticResource CardText}" Text="{Binding StatusDesc, Mode=OneWay}" />
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Order Date" />
-                                <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+                                <TextBlock Style="{StaticResource CardText}" Text="{Binding OrderDateUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                                 <Rectangle Style="{StaticResource CardSeparator}"/>
                                 <TextBlock Style="{StaticResource CardSection}" Text="Customer"  />

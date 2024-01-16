@@ -468,7 +468,7 @@ namespace SampleCRM.Web.Views
                 IsEditMode = true,
                 CountryCodes = CountryCodes,
                 CountryCode = CountryCodes.FirstOrDefault().CountryCodeID,
-                BirthDate = DateTime.Now.ToShortDateString()
+                BirthDateUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, _customersContext);
 
             if (result)

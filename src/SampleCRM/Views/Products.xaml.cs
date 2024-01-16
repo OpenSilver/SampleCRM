@@ -153,8 +153,8 @@ namespace SampleCRM.Web.Views
             var result = await ProductsAddEditWindow.Show(new Models.Products
             {
                 CategoriesCombo = CategoryCollection,
-                CreatedOn = DateTime.Now.ToString(),
-                LastModifiedOn = DateTime.Now.ToString()
+                CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+                LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, _productsContext);
 
             if (result)

@@ -23,14 +23,14 @@ namespace SampleCRM.Web.Models
         [Key]public string ProductID { get; set; }
         public long CategoryID { get; set; }
         public string Color { get; set; }
-        public string CreatedOn { get; set; }
-        public string DealerPrice { get; set; }
+        public long CreatedOnUTC { get; set; }
+        public decimal DealerPrice { get; set; }
         public string Description { get; set; }
-        public string Discount { get; set; }
-        public string DiscountEndDate { get; set; }
-        public string DiscountStartDate { get; set; }
-        public string LastModifiedOn { get; set; }
-        public string ListPrice { get; set; }
+        public decimal Discount { get; set; }
+        public Nullable<long> DiscountEndDateUTC { get; set; }
+        public Nullable<long> DiscountStartDateUTC { get; set; }
+        public long LastModifiedOnUTC { get; set; }
+        public decimal ListPrice { get; set; }
         public string Name { get; set; }
         public byte[] Picture { get; set; }
         public long SafetyStockLevel { get; set; }
@@ -38,7 +38,6 @@ namespace SampleCRM.Web.Models
         public string Size { get; set; }
         public long StockUnits { get; set; }
         public long TaxType { get; set; }
-        public byte[] Thumbnail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItems> OrderItems { get; set; }

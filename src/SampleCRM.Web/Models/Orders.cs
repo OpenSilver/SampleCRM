@@ -22,9 +22,9 @@ namespace SampleCRM.Web.Models
     
         [Key]public long OrderID { get; set; }
         public long CustomerID { get; set; }
-        public string DeliveredDate { get; set; }
-        public string LastModifiedOn { get; set; }
-        public string OrderDate { get; set; }
+        public Nullable<long> DeliveredDateUTC { get; set; }
+        public long LastModifiedOnUTC { get; set; }
+        public long OrderDateUTC { get; set; }
         public Nullable<long> PaymentType { get; set; }
         public string SearchTerms { get; set; }
         public string ShipAddress { get; set; }
@@ -34,7 +34,7 @@ namespace SampleCRM.Web.Models
         public string ShipPostalCode { get; set; }
         public string ShipRegion { get; set; }
         public Nullable<long> ShipVia { get; set; }
-        public string ShippedDate { get; set; }
+        public Nullable<long> ShippedDateUTC { get; set; }
         public long Status { get; set; }
         public string TrackingNumber { get; set; }
     

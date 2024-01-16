@@ -16,11 +16,11 @@ namespace SampleCRM.Web.Models
     {
         [Key]public long OrderID { get; set; }
         [Key]public long OrderLine { get; set; }
-        public string Discount { get; set; }
+        public decimal Discount { get; set; }
         public string ProductID { get; set; }
         public long Quantity { get; set; }
         public long TaxType { get; set; }
-        public string UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
     
         public virtual Products Products { get; set; }
         public virtual Orders Orders { get; set; }

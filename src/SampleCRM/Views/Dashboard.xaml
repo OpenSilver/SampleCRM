@@ -74,7 +74,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
-                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
+                            <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDateUTC, Converter={StaticResource DateTimeFormatConverter}}" CellStyle="{StaticResource DataGridCell}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

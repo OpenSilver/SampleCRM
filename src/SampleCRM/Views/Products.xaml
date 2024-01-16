@@ -8,7 +8,6 @@
         Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
     <ContentControl Style="{StaticResource MaterialDesign_Card_Style}">
         <Grid x:Name="grdHead">
