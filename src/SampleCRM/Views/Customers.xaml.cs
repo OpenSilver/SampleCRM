@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -34,9 +35,12 @@ namespace SampleCRM.Web.Views
                 {
                     _customersCollection = value;
                     OnPropertyChanged();
-                    OnPropertyChanged("FilteredCustomersCollection");
+
                     if (!AnySelectedCustomer)
                         SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
+
+                    OnPropertyChanged("FilteredCustomersCollection");
+                    OnPropertyChanged("PagedFilteredCustomersCollection");
                 }
             }
         }
@@ -47,12 +51,35 @@ namespace SampleCRM.Web.Views
             {
                 if (string.IsNullOrWhiteSpace(_searchText))
                 {
+                    if (_pagedFilteredCustomersCollection == null)
+                        _pagedFilteredCustomersCollection = new PagedCollectionView(_customersCollection);
+
+                    _pagedFilteredCustomersCollection.Filter = null;
                     return _customersCollection;
                 }
                 else
                 {
-                    return _customersCollection.Where(x => x.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant()));
+                    var retval = _customersCollection.Where(x => x.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant()));
+                    _pagedFilteredCustomersCollection.Filter = delegate (object item)
+                    {
+                        Models.Customers c = item as Models.Customers;
+                        if (c != null)
+                        {
+                            return c.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant());
+                        }
+                        return false;
+                    };
+                    return retval;
                 }
+            }
+        }
+
+        private PagedCollectionView _pagedFilteredCustomersCollection;
+        public PagedCollectionView PagedFilteredCustomersCollection
+        {
+            get
+            {
+                return _pagedFilteredCustomersCollection;
             }
         }
 
@@ -106,6 +133,7 @@ namespace SampleCRM.Web.Views
                     _searchText = value;
                     OnPropertyChanged();
                     OnPropertyChanged("FilteredCustomersCollection");
+                    OnPropertyChanged("PagedFilteredCustomersCollection");
                     SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
                     //OnPropertyChanged("SelectedCustomer");
                     //OnPropertyChanged("AnySelectedCustomer");
@@ -362,6 +390,8 @@ namespace SampleCRM.Web.Views
                 OnPropertyChanged("SelectedCustomer");
                 OnPropertyChanged("CustomersCollection");
                 OnPropertyChanged("FilteredCustomersCollection");
+                OnPropertyChanged("PagedFilteredCustomersCollection");
+
             }
         }
 
