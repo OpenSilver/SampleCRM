@@ -1,5 +1,8 @@
 # SampleCRM
-**SampleCRM** is a **OpenSilver** / Open RIA Services Business Application Template Demo Application. This application is a guidance how to implement RIA Domain Services, CRUD Operations over SQLite database along with XAML UI. 
+**SampleCRM** is a demo application that serves as a **OpenSilver** / Open RIA Services Business Application Template. As an open-source application, it provides guidance on how to implement RIA Domain Services and CRUD Operations over a SQLite database, accompanied by a XAML-based UI.
+
+## Live Demo URL
+https://samplecrm.azurewebsites.net/
 
 ## Screenshot
 ![Mockup1](images/SampleCRMMockup1.png)
@@ -135,4 +138,4 @@ public string UsingDirectives(bool inHeader, bool includeCollections = true)
 Once it done you can click right button on .tt and select "Run custom tool"
 
 ## Credits 
-This app was inspired by the **InventorySample** app: https://github.com/microsoft/InventorySample (Note: the implementation is very different because it uses RIA Services)
+This app was inspired by the **InventorySample** app: https://github.com/microsoft/InventorySample (Note: the implementation is very different because this one uses RIA Services and OpenSilver)
