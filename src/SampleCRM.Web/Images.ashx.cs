@@ -7,12 +7,22 @@ namespace SampleCRM.Web
 {
     public class ImagesHandler : IHttpHandler
     {
+        private const string QUERYPARAM_CUSTOMER_ID = "customerid";
+        private const string QUERYPARAM_PRODUCT_ID = "productid";
+
         public void ProcessRequest(HttpContext context)
         {
             if (context.Request.QueryString.HasKeys()
-                && context.Request.QueryString.AllKeys.Contains("productid"))
+                && context.Request.QueryString.AllKeys.Contains(QUERYPARAM_PRODUCT_ID))
             {
                 GetProductImage(context);
+                return;
+            }
+
+            if (context.Request.QueryString.HasKeys()
+                && context.Request.QueryString.AllKeys.Contains(QUERYPARAM_CUSTOMER_ID))
+            {
+                GetCustomerImage(context);
                 return;
             }
 
@@ -21,13 +31,27 @@ namespace SampleCRM.Web
             return;
         }
 
+        private static void GetCustomerImage(HttpContext context)
+        {
+            if (!long.TryParse(context.Request.QueryString[QUERYPARAM_CUSTOMER_ID], out var customerid))
+                throw new MissingFieldException($"{QUERYPARAM_CUSTOMER_ID} required");
+
+            if (customerid < 1)
+                throw new MissingFieldException($"{QUERYPARAM_CUSTOMER_ID} required");
+
+            var customerService = new CustomersService();
+            var pict = customerService.GetCustomerPicture(customerid);
+            context.Response.ContentType = "image/jpeg";
+            context.Response.BinaryWrite(pict);
+        }
+
         private static void GetProductImage(HttpContext context)
         {
             try
             {
-                var productId = context.Request.QueryString["productid"];
+                var productId = context.Request.QueryString[QUERYPARAM_PRODUCT_ID];
                 if (string.IsNullOrEmpty(productId))
-                    throw new MissingFieldException("productid required");
+                    throw new MissingFieldException($"{QUERYPARAM_PRODUCT_ID} required");
 
                 var productService = new ProductsService();
                 var pict = productService.GetProductPicture(productId);

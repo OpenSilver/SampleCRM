@@ -10,13 +10,13 @@ namespace SampleCRM.Web.Models
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "FirstName" 
+            if (e.PropertyName == "FirstName"
                 || e.PropertyName == "LastName")
             {
                 RaisePropertyChanged("FullName");
                 RaisePropertyChanged("Initials");
-            } 
-            else if (e.PropertyName == "AddressLine1" 
+            }
+            else if (e.PropertyName == "AddressLine1"
                 || e.PropertyName == "AddressLine2"
                 || e.PropertyName == "City"
                 || e.PropertyName == "Region"
@@ -79,5 +79,15 @@ namespace SampleCRM.Web.Models
         public string Initials => String.Format("{0}{1}", $"{FirstName} "[0], $"{LastName} "[0]).Trim().ToUpper();
 
         public string FullAddress => $"{AddressLine1} {AddressLine2}\n{City}, {Region} {PostalCode}\n{CountryName}";
+
+        public string PictureUrl
+        {
+            get
+            {
+                var app = (System.Windows.Application.Current as App);
+                var imageUrl = app.ImageUrl;
+                return $"{imageUrl}?customerid={CustomerID}";
+            }
+        }
     }
 }

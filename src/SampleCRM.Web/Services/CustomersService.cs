@@ -18,9 +18,48 @@ namespace SampleCRM.Web
         }
 
         [Query]
+        public IQueryable<Customers> GetCustomersWithoutPictures()
+        {
+            return GetCustomers().ToList().Select(x => new Customers
+            {
+                CustomerID = x.CustomerID,
+                AddressLine1 = x.AddressLine1,
+                AddressLine2 = x.AddressLine2,
+                BirthDate = x.BirthDate,
+                ChildrenAtHome = x.ChildrenAtHome,
+                City = x.City,
+                CountryCode = x.CountryCode,
+                CreatedOn = x.CreatedOn,
+                Education = x.Education,
+                EmailAddress = x.EmailAddress,
+                FirstName = x.FirstName,
+                Phone = x.Phone,
+                NumberCarsOwned = x.NumberCarsOwned,
+                Gender = x.Gender,
+                YearlyIncome = x.YearlyIncome,
+                Suffix = x.Suffix,
+                IsHouseOwner = x.IsHouseOwner,
+                LastName = x.LastName,
+                MaritalStatus = x.MaritalStatus,
+                MiddleName = x.MiddleName,
+                Occupation = x.Occupation,
+                PostalCode = x.PostalCode,
+                LastModifiedOn = x.LastModifiedOn,
+                Region = x.Region,
+                SearchTerms = x.SearchTerms,
+                Title = x.Title,
+                TotalChildren = x.TotalChildren,
+                Picture = new byte[] { 0 },
+                Thumbnail = new byte[] { 0 }
+            }).AsQueryable();
+        }
+
+        [Query]
         public IQueryable<Customers> GetLatestCustomers(int limit)
         {
-            return _context.Customers.OrderByDescending(x => x.CreatedOn).Take(limit);
+            return GetCustomersWithoutPictures()
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(limit);
         }
 
         [Delete]
@@ -55,6 +94,24 @@ namespace SampleCRM.Web
             customer.LastModifiedOn = DateTime.Now.ToString();
             _context.Customers.AddOrUpdate(customer);
             _context.SaveChanges();
+        }
+
+        public Customers GetCustomerById(long customerId)
+        {
+            return _context.Customers.SingleOrDefault(x => x.CustomerID == customerId);
+        }
+
+        public byte[] GetCustomerPicture(long customerId)
+        {
+            var customer = GetCustomerById(customerId);
+            if (customer != null)
+            {
+                return customer.Picture;
+            }
+            else
+            {
+                throw new ArgumentNullException("No Such Customer");
+            }
         }
     }
 }

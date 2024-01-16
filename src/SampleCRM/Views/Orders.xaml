@@ -9,7 +9,6 @@
                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                 Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
-        <local:BinaryImageConverter x:Key="imgConverter" />
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
@@ -480,7 +479,7 @@
                             <DataGridTemplateColumn CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Product.Picture, Mode=OneWay, Converter={StaticResource imgConverter}}"
+                                        <Image Source="{Binding Product.PictureUrl, Mode=OneWay}"
                                                Stretch="Fill" Width="64" Height="64" Margin="1" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
