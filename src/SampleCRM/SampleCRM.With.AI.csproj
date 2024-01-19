@@ -16,19 +16,19 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_DEBUG|AnyCPU'">
-    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>OPENSILVER</DefineConstants>
+    <DefineConstants>OPENSILVER;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_RELEASE|AnyCPU'">
-    <DefineConstants>OPENSILVER</DefineConstants>
+    <DefineConstants>OPENSILVER;USEAI</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>
@@ -255,6 +255,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <PackageReference Include="OpenSilver" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
+    <PackageReference Include="OpenSilver.AI.Client" Version="1.1.0-private-2024-01-18-3" />
 
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
 

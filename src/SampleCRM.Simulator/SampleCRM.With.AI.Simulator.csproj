@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net472</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="OpenSilver.Simulator" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SampleCRM\SampleCRM.With.AI.csproj" />
+	</ItemGroup>
+
+</Project>

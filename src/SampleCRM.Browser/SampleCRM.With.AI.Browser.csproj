@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SampleCRM\SampleCRM.csproj" />
+    <ProjectReference Include="..\SampleCRM\SampleCRM.With.AI.csproj" />
   </ItemGroup>
 
 </Project>
