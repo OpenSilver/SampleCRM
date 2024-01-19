@@ -6,7 +6,6 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <Configurations>Debug;Release;LOCAL_DEBUG;LOCAL_RELEASE</Configurations>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -17,21 +16,21 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_DEBUG|AnyCPU'">
-    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT</DefineConstants>
+    <DefineConstants>DEBUG;OPENSILVER;OPENRIA;SILVERLIGHT;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>OPENSILVER</DefineConstants>
+    <DefineConstants>OPENSILVER;USEAI</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_RELEASE|AnyCPU'">
-    <DefineConstants>OPENSILVER</DefineConstants>
+    <DefineConstants>OPENSILVER;USEAI</DefineConstants>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <None Remove="Assets\Barcode.png" />
     <None Remove="Assets\Bitcoin.png" />
@@ -49,8 +48,6 @@
     <None Remove="Assets\List.png" />
     <None Remove="Assets\ListInBox.png" />
     <None Remove="Assets\Locked.png" />
-    <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_AutoCompleteBox_Styles.xaml" />
-    <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataPager_Styles.xaml" />
     <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml" />
     <None Remove="Assets\MenuIcon.png" />
     <None Remove="Assets\Microsoft.png" />
@@ -147,9 +144,6 @@
     <Content Include="Assets\MenuIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_AutoCompleteBox_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,9 +163,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_ContextMenu_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataPager_Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataGrid_Styles.xaml">
@@ -263,20 +254,18 @@
     <Content Include="Views\Login\RegistrationForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OpenSilver" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
+    <PackageReference Include="OpenSilver.AI.Client" Version="1.1.0-private-2024-01-18-3" />
 
-    <PackageReference Include="OpenSilver" Version="2.2.0-preview-2024-03-20-215002-2ea5041e" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.2.0-preview-2024-02-14-205133-5e37e8b5" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.2.0-preview-2024-02-14-205133-5e37e8b5" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.2.0-preview-2024-02-14-205133-5e37e8b5">
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
+
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
+
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
+
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OpenSilver.OpenRiaServices.DomainDataSource.4.6" Version="2.2.0-preview-2024-02-14-205133-5e37e8b5" />
-    <!--<PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />-->
-    
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -478,14 +467,6 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataPager_Styles.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_AutoCompleteBox_Styles.xaml" />
   </ItemGroup>
 
   <ItemGroup>

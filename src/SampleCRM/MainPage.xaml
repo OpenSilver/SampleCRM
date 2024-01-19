@@ -110,6 +110,14 @@
                                     <Run FontWeight="Bold" Text=")" />
                                 </TextBlock>
                             </HyperlinkButton>
+
+                            <HyperlinkButton x:Name="lnkAssistant" Style="{StaticResource LinkStyle}"
+                                    NavigateUri="/Assistant" TargetName="ContentFrame">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
+                                    <TextBlock FontWeight="Bold" Text="Assistant" />
+                                </StackPanel>
+                            </HyperlinkButton>
                         </StackPanel>
                     </Border>
                 </Grid>
