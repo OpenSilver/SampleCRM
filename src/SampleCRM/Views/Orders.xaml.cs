@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using OpenRiaServices.DomainServices.Client;
+﻿using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
