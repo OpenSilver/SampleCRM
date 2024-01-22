@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
-  <Import Project="$(SolutionDir)packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('$(SolutionDir)packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -28,7 +27,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44350</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -66,13 +65,19 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="OpenRiaServices.DomainServices.EntityFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\OpenRiaServices.EntityFramework.4.6.0\lib\net45\OpenRiaServices.DomainServices.EntityFramework.dll</HintPath>
+      <HintPath>..\packages\OpenRiaServices.EntityFramework.5.0.0-preview0003\lib\net46\OpenRiaServices.DomainServices.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="OpenRiaServices.DomainServices.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\lib\net45\OpenRiaServices.DomainServices.Hosting.dll</HintPath>
+      <HintPath>..\packages\OpenRiaServices.Server.5.0.0-preview0003\lib\net46\OpenRiaServices.DomainServices.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenRiaServices.DomainServices.Hosting.Endpoint, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenRiaServices.Endpoints.5.0.0-preview0003\lib\net46\OpenRiaServices.DomainServices.Hosting.Endpoint.dll</HintPath>
     </Reference>
     <Reference Include="OpenRiaServices.DomainServices.Server, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\lib\net45\OpenRiaServices.DomainServices.Server.dll</HintPath>
+      <HintPath>..\packages\OpenRiaServices.Server.5.0.0-preview0003\lib\net46\OpenRiaServices.DomainServices.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenRiaServices.DomainServices.Server.Authentication.AspNetMembership, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2e0b7ccb1ae5b4c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenRiaServices.Server.Authentication.AspNetMembership.5.0.0-preview0003\lib\net46\OpenRiaServices.DomainServices.Server.Authentication.AspNetMembership.dll</HintPath>
     </Reference>
     <Reference Include="SQLiteMembershipProvider, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)packages\SQLiteMembershipProvider.1.1.0.0\lib\net40\SQLiteMembershipProvider.dll</HintPath>
@@ -89,8 +94,14 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -261,9 +272,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54837</DevelopmentServerPort>
+          <DevelopmentServerPort>44350</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54837/</IISUrl>
+          <IISUrl>https://localhost:44350/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -275,7 +286,6 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\build\OpenRiaServices.Server.targets" Condition="Exists('$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\build\OpenRiaServices.Server.targets')" />
   <Import Project="$(SolutionDir)packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('$(SolutionDir)packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
-  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -283,8 +293,10 @@
     <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\OpenRiaServices.Server.5.0.0-preview0003\build\OpenRiaServices.Server.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenRiaServices.Server.5.0.0-preview0003\build\OpenRiaServices.Server.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\OpenRiaServices.Server.5.0.0-preview0003\build\OpenRiaServices.Server.targets" Condition="Exists('..\packages\OpenRiaServices.Server.5.0.0-preview0003\build\OpenRiaServices.Server.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

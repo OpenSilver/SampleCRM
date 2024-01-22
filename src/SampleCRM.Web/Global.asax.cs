@@ -56,7 +56,12 @@ namespace SampleCRM.Web
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+#if RELEASE
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "https://samplecrm-webservices.azurewebsites.net");
+#else
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "https://localhost:54845");
+#endif
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
 
             if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
             {

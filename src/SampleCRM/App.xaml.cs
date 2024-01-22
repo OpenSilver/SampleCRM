@@ -7,6 +7,7 @@ using SampleCRM.Web;
 #endif
 
 using System;
+using System.Net;
 using System.Windows;
 
 namespace SampleCRM
@@ -20,6 +21,8 @@ namespace SampleCRM
 
         public App()
         {
+            Current.Host.Settings.DefaultSoapCredentialsMode = CredentialsMode.Enabled;
+
             Startup += Application_Startup;
             UnhandledException += Application_UnhandledException;
 
@@ -33,7 +36,7 @@ namespace SampleCRM
 #if LOCAL_DEBUG
             BaseUrl = "http://localhost:7002/";
 #elif DEBUG
-            BaseUrl = "http://localhost:54837/";
+            BaseUrl = "https://localhost:44350/";
 #elif LOCAL_RELEASE
             BaseUrl = "http://localhost:7002/";
 #elif RELEASE
@@ -41,7 +44,10 @@ namespace SampleCRM
 #else
             throw new NotSupportedException();
 #endif
-            ((DomainClientFactory)DomainContext.DomainClientFactory).ServerBaseUri = new Uri(BaseUrl);
+            DomainContext.DomainClientFactory = new OpenRiaServices.DomainServices.Client.Web.WebAssemblySoapDomainClientFactory()
+            {
+                ServerBaseUri = new Uri(BaseUrl)
+            };
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
