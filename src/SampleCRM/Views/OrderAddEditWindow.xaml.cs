@@ -19,12 +19,13 @@ namespace SampleCRM.Web.Views
             InitializeComponent();
         }
 
-        public OrderAddEditWindow(Models.Orders orderItem, OrderContext context)
+        public OrderAddEditWindow(Models.Orders order, OrderContext context)
             : this()
         {
+            DataContext = order;
             _context = context;
-            orderAddEditView.Order = orderItem;
-            Title = orderItem.IsNew ? "Add Order" : "Edit Order";
+            orderAddEditView.Order = order;
+            Title = order.IsNew ? "Add Order" : "Edit Order";
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)

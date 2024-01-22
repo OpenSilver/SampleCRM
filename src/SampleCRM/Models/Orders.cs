@@ -9,27 +9,23 @@ namespace SampleCRM.Web.Models
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CustomerID))
+            switch (e.PropertyName)
             {
-                if (CustomersCombo != null && CustomersCombo.Any())
-                {
-                    Customer = _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID);
-                }
-                else
-                {
-                    Customer = new Customers();
-                }
-            }
-            else if (e.PropertyName == nameof(Status))
-            {
-                PaymentTypesVisible = _status > 0;
-                ShippedDateVisible = ShippedViaVisible = _status > 1;
-                DeliveredDateVisible = _status > 2;
-                StatusDesc = _statuses?.FirstOrDefault(x => x.Status == _status)?.Name;
-            }
-            else if (e.PropertyName == nameof(ShipCountryCode))
-            {
-                ShipCountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _shipCountryCode)?.Name;
+                case nameof(CustomerID):
+                    Customer = CustomersCombo != null && CustomersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
+                    break;
+                case nameof(Status):
+                    {
+                        PaymentTypesVisible = _status > 0;
+                        ShippedDateVisible = ShippedViaVisible = _status > 1;
+                        DeliveredDateVisible = _status > 2;
+                        StatusDesc = _statuses?.FirstOrDefault(x => x.Status == _status)?.Name;
+                        break;
+                    }
+                case nameof(ShipCountryCode):
+                    ShipCountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _shipCountryCode)?.Name;
+                    break;
+
             }
 
             base.OnPropertyChanged(e);
@@ -190,6 +186,7 @@ namespace SampleCRM.Web.Models
                 if (_customersCombo != value)
                 {
                     _customersCombo = value;
+                    Customer = _customersCombo != null && _customersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomersCombo)));
                 }
             }
@@ -204,14 +201,14 @@ namespace SampleCRM.Web.Models
                 if (_customer != value)
                 {
                     _customer = value;
-                    //if (_customer != null)
-                    //{
-                    //    ShipAddress = _customer.AddressLine1;
-                    //    ShipCity = _customer.City;
-                    //    ShipRegion = _customer.Region;
-                    //    ShipCountryCode = _customer.CountryCode;
-                    //    ShipPostalCode = _customer.PostalCode;
-                    //}
+                    if (_customer != null && _isEditMode)
+                    {
+                        ShipAddress = _customer.AddressLine1;
+                        ShipCity = _customer.City;
+                        ShipRegion = _customer.Region;
+                        ShipCountryCode = _customer.CountryCode;
+                        ShipPostalCode = _customer.PostalCode;
+                    }
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(Customer)));
                 }
             }

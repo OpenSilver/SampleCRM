@@ -365,6 +365,12 @@ namespace SampleCRM.Web.Views
             if (SelectedOrder == null)
                 return;
 
+            SelectedOrder.CountryCodes = CountryCodes;
+            SelectedOrder.CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities;
+            SelectedOrder.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
+            SelectedOrder.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+            SelectedOrder.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
+
             await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
         }
         private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
@@ -373,16 +379,21 @@ namespace SampleCRM.Web.Views
         }
         private async Task ArrangeOrderAddEditWindow()
         {
-            var result = await OrderAddEditWindow.Show(new Models.Orders
+            if (SelectedCustomer == null)
+                return;
+
+            var order = new Models.Orders
             {
                 IsEditMode = true,
-                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities,
-                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
                 CountryCodes = CountryCodes,
+                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities,
+                CustomerID = SelectedCustomer.CustomerID,
+                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
                 Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
                 PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
-            }, _orderContext);
+            };
 
+            var result = await OrderAddEditWindow.Show(order, _orderContext);
             if (result)
             {
                 NavigationService.Refresh();

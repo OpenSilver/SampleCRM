@@ -11,7 +11,7 @@ namespace SampleCRM.Web.Models
         {
             if (e.PropertyName == nameof(CategoryID))
             {
-                OnPropertyChanged(new PropertyChangedEventArgs("CategoryName"));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(CategoryName)));
             }
 
             base.OnPropertyChanged(e);
@@ -28,8 +28,8 @@ namespace SampleCRM.Web.Models
                 if (_categoriesCombo != value)
                 {
                     _categoriesCombo = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("CategoriesCombo"));
-                    OnPropertyChanged(new PropertyChangedEventArgs("CategoryName"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CategoriesCombo)));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CategoryName)));
                 }
             }
         }

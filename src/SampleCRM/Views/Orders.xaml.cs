@@ -313,34 +313,7 @@ namespace SampleCRM.Web.Views
                 orderItem.TaxRate = taxRate;
             }
         }
-        //        private async Task LoadOrderItemsOfSelectedOrder()
-        //        {
-        //            if (SelectedOrder == null)
-        //                return;
-
-        //            if (!_orderItemsTabSelected)
-        //                return;
-
-        //            var orderId = SelectedOrder.OrderID;
-        //            var query = _orderItemsContext.GetOrderItemsOfOrderQuery(SelectedOrder.OrderID);
-        //            var op = await _orderItemsContext.LoadAsync(query);
-        //            OrderItemsCollection = op.Entities;
-
-        //            foreach (var orderItem in OrderItemsCollection)
-        //            {
-        //                await AsyncHelper.RunAsync(LoadProduct, orderItem);
-        //                await AsyncHelper.RunAsync(LoadTaxRate, orderItem);
-        //            }
-
-        //#if DEBUG
-        //            Console.WriteLine("Order Items Collection:" + OrderItemsCollection.Count());
-        //            foreach (var item in OrderItemsCollection)
-        //            {
-        //                Console.WriteLine("Order Item Id:" + item.OrderLine);
-        //            }
-        //#endif
-        //        }
-
+        
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
@@ -378,10 +351,10 @@ namespace SampleCRM.Web.Views
             
             UpdateComboDataForOrder(newOrder);
             var result = await OrderAddEditWindow.Show(newOrder, _orderContext);
-            //if (result)
-            //{
-            //    await LoadOrderItemsOfSelectedOrder();
-            //}
+            if (result)
+            {
+                NavigationService.Refresh();
+            }
         }
 
         private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -512,10 +485,10 @@ namespace SampleCRM.Web.Views
             }
 
             var result = await OrderItemAddEditWindow.Show(SelectedOrderItem, _orderItemsContext);
-            //if (result)
-            //{
-            //    await LoadOrderItemsOfSelectedOrder();
-            //}
+            if (result)
+            {
+                orderItemsDataSource.Load();
+            }
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
         {
@@ -534,10 +507,10 @@ namespace SampleCRM.Web.Views
                 ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsComboQuery())).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
             }, _orderItemsContext);
-            //if (result)
-            //{
-            //    NavigationService.Refresh();
-            //}
+            if (result)
+            {
+                orderItemsDataSource.Load();
+            }
         }
 
         private void txtOrderItemSearch_KeyUp(object sender, KeyEventArgs e)

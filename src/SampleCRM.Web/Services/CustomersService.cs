@@ -22,16 +22,7 @@ namespace SampleCRM.Web
 
         [Query]
         public IQueryable<Customers> GetCustomersCombo() =>
-            GetCustomers(string.Empty)
-            .ToList()
-            .Select(c => new Customers
-            {
-                CustomerID = c.CustomerID,
-                FirstName = c.FirstName,
-                LastName = c.LastName,
-                MiddleName = c.MiddleName
-            })
-            .AsQueryable();
+            GetCustomers(string.Empty);
 
         [Query]
         public IQueryable<Customers> GetCustomersWithoutPictures(string search) =>

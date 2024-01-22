@@ -1,7 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
@@ -11,22 +10,21 @@ namespace SampleCRM.Web.Views
         public event EventHandler OrderAdded;
         public event EventHandler OrderUpdated;
 
-        private Models.Orders _order = new Models.Orders();
         public Models.Orders Order
         {
-            get { return _order; }
-            set
-            {
-                if (_order != value)
-                {
-                    _order = value;
-                    //OnPropertyChanged();
-#if DEBUG
-                    Console.WriteLine($"OrderItemAddEdit, Item: {value.OrderID} selected");
-#endif
-                }
-            }
+            get { return (Models.Orders)GetValue(OrderProperty); }
+            set { SetValue(OrderProperty, value); }
         }
+        public static readonly DependencyProperty OrderProperty =
+            DependencyProperty.Register("CustomerViewModel", typeof(Models.Orders), typeof(OrderAddEdit),
+                new PropertyMetadata(new PropertyChangedCallback((s, t) =>
+                {
+                    var page = s as OrderAddEdit;
+                    var value = t.NewValue as Models.Orders;
+#if DEBUG
+                    Console.WriteLine($"OrderAddEdit, Item: {value.OrderID} selected");
+#endif
+                })));
 
         public OrderAddEdit()
         {
@@ -106,7 +104,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (_order.IsNew)
+                if (Order.IsNew)
                 {
                     if (OrderAdded != null)
                         OrderAdded(this, new EventArgs());

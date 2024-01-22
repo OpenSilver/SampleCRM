@@ -74,8 +74,7 @@
                                                       SelectedValuePath="CustomerID"
                                                       SelectedValue="{Binding CustomerID, Mode=TwoWay}"
                                                       DisplayMemberPath="FullName"
-                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                     >
+                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -85,25 +84,25 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1">
                         <controls:RequiredTextBlock Text="Ship Address" />
-                        <TextBox Text="{Binding ShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        <TextBox Text="{Binding BShipAddress, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="2">
                         <controls:RequiredTextBlock Text="Ship City" />
-                        <TextBox Text="{Binding ShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        <TextBox Text="{Binding BShipCity, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="3">
                         <TextBlock Text="Ship Region" Style="{StaticResource DataFieldLabelStyle}" />
-                        <TextBox Text="{Binding ShipRegion, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        <TextBox Text="{Binding BShipRegion, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="4">
                         <controls:RequiredTextBlock Text="Ship Postal Code" />
-                        <TextBox Text="{Binding ShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
+                        <TextBox Text="{Binding BShipPostalCode, Mode=TwoWay}" Style="{StaticResource DataFieldTextStyle}" />
                     </StackPanel>
                     <StackPanel Grid.Row="5">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
                         <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
                                 SelectedValuePath="CountryCodeID"
-                                SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
+                                SelectedValue="{Binding BShipCountryCode, Mode=TwoWay}"
                                 DisplayMemberPath="Name"
                                 Style="{StaticResource MaterialDesign_ComboBox_Style}"
                                 />
@@ -125,10 +124,10 @@
                     <StackPanel Grid.Row="0" >
                         <TextBlock Text="Status" Style="{StaticResource DataFieldLabelStyle}" />
                         <ComboBox ItemsSource="{Binding Statuses}"
-                                                      SelectedValuePath="Status"
-                                                      SelectedValue="{Binding Status, Mode=TwoWay}"
-                                                      DisplayMemberPath="Name"
-                                                      Style="{StaticResource MaterialDesign_ComboBox_Style}">
+                                SelectedValuePath="Status"
+                                SelectedValue="{Binding Status, Mode=TwoWay}"
+                                DisplayMemberPath="Name"
+                                Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -244,11 +243,11 @@
                         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
                             <controls:RequiredTextBlock Text="Customer" />
                             <ComboBox ItemsSource="{Binding CustomersCombo}"                                                          
-                                                            SelectedValuePath="CustomerID"
-                                                            SelectedValue="{Binding CustomerID, Mode=TwoWay}"
-                                                            DisplayMemberPath="FullName"
-                                                            Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                                            Margin="0,0,0,10">
+                                    SelectedValuePath="CustomerID"
+                                    SelectedValue="{Binding CustomerID, Mode=TwoWay}"
+                                    DisplayMemberPath="FullName"
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
+                                    Margin="0,0,0,10">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel/>

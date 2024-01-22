@@ -9,20 +9,21 @@ namespace SampleCRM.Web.Models
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(FirstName)
-                || e.PropertyName == nameof(LastName))
+            switch (e.PropertyName)
             {
-                RaisePropertyChanged(nameof(FullName));
-                RaisePropertyChanged(nameof(Initials));
-            }
-            else if (e.PropertyName == nameof(AddressLine1)
-                || e.PropertyName == nameof(AddressLine2)
-                || e.PropertyName == nameof(City)
-                || e.PropertyName == nameof(Region)
-                || e.PropertyName == nameof(PostalCode)
-                || e.PropertyName == nameof(CountryName))
-            {
-                RaisePropertyChanged(nameof(FullAddress));
+                case nameof(FirstName):
+                case nameof(LastName):
+                    RaisePropertyChanged(nameof(FullName));
+                    RaisePropertyChanged(nameof(Initials));
+                    break;
+                case nameof(AddressLine1):
+                case nameof(AddressLine2):
+                case nameof(City):
+                case nameof(Region):
+                case nameof(PostalCode):
+                case nameof(CountryName):
+                    RaisePropertyChanged(nameof(FullAddress));
+                    break;
             }
 
             base.OnPropertyChanged(e);
