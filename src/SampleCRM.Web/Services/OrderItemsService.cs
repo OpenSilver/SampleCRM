@@ -12,28 +12,26 @@ namespace SampleCRM.Web
     public class OrderItemsService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderItems> GetOrderItems()
-        {
-            return _context.OrderItems;
-        }
+        public IQueryable<OrderItems> GetOrderItems(string search) => 
+            _context.OrderItems.OrderBy(o => o.OrderLine)
+                           .Where(x => x.ProductID.ToString().Contains(search) 
+                                       || x.OrderID.ToString().Contains(search)
+                                       || search == "")
+                           .AsQueryable();
 
-        public OrderItems GetOrderItemById(int orderId)
-        {
-            return _context.OrderItems.SingleOrDefault(x => x.OrderID == orderId);
-        }
-
-        [Query]
-        public IQueryable<OrderItems> GetOrderItemsOfOrder(long orderId)
-        {
-            var itemsQuery = _context.OrderItems.Where(x => x.OrderID == orderId);
-            return itemsQuery;
-        }
+        public OrderItems GetOrderItemById(int orderId, int orderLine) => 
+            GetOrderItems(string.Empty)
+                .SingleOrDefault(x => x.OrderID == orderId && x.OrderLine == orderLine);
 
         [Query]
-        public IQueryable<OrderItems> GetOrderItemsOfProduct(string productId)
-        {
-            return _context.OrderItems.Where(x => x.ProductID == productId);
-        }
+        public IQueryable<OrderItems> GetOrderItemsOfOrder(long orderId, string search) => 
+            GetOrderItems(search)
+                .Where(x => x.OrderID == orderId);
+
+        [Query]
+        public IQueryable<OrderItems> GetOrderItemsOfProduct(string productId, string search) => 
+            GetOrderItems(search)
+                .Where(x => x.ProductID == productId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

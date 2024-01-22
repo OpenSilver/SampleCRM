@@ -11,15 +11,10 @@ namespace SampleCRM.Web
     public class OrderStatusService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderStatus> GetOrderStatus()
-        {
-            return _context.OrderStatus;
-        }
+        public IQueryable<OrderStatus> GetOrderStatus() => _context.OrderStatus;
 
-        public OrderStatus GetOrderStatusById(long statusId)
-        {
-            return _context.OrderStatus.SingleOrDefault(x => x.Status == statusId);
-        }
+        public OrderStatus GetOrderStatusById(long statusId) => 
+            GetOrderStatus().SingleOrDefault(x => x.Status == statusId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

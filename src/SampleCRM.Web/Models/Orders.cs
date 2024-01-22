@@ -38,8 +38,11 @@ namespace SampleCRM.Web.Models
         public long Status { get; set; }
         public string TrackingNumber { get; set; }
     
+        public virtual CountryCodes CountryCodes { get; set; }
         public virtual Customers Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItems> OrderItems { get; set; }
+        public virtual PaymentTypes PaymentTypes { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
     }
 }

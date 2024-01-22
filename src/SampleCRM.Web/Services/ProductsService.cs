@@ -12,72 +12,75 @@ namespace SampleCRM.Web
     public class ProductsService : SampleCRMService
     {
         [Query]
-        public IQueryable<Products> GetProducts()
-        {
-            return _context.Products;
-        }
+        public IQueryable<Products> GetProducts(string search) =>
+            _context.Products
+                    .Where(x => x.Name.ToLower().Contains(search.ToLower())
+                            || search == "")
+                    .OrderBy(c => c.Name);
+
+        public IQueryable<Products> GetProductsCombo() =>
+            GetProducts(string.Empty)
+                .ToList()
+                .Select(x => new Products
+                {
+                    ProductID = x.ProductID,
+                    Name = x.Name
+                })
+                .AsQueryable();
 
         [Query]
-        public IQueryable<Products> GetProductsWithoutPictures()
-        {
-            return GetProducts().ToList().Select(x => new Products
-            {
-                ProductID = x.ProductID,
-                Name = x.Name,
-                CategoryID = x.CategoryID,
-                Color = x.Color,
-                CreatedOnUTC = x.CreatedOnUTC,
-                DealerPrice = x.DealerPrice,
-                Description = x.Description,
-                Discount = x.Discount,
-                DiscountEndDateUTC = x.DiscountEndDateUTC,
-                DiscountStartDateUTC = x.DiscountStartDateUTC,
-                LastModifiedOnUTC = x.LastModifiedOnUTC,
-                ListPrice = x.ListPrice,
-                SafetyStockLevel = x.SafetyStockLevel,
-                SearchTerms = x.SearchTerms,
-                Size = x.Size,
-                StockUnits = x.StockUnits,
-                TaxType = x.TaxType,
-                Picture = new byte[] { 0 }
-            }).AsQueryable();
-        }
+        public IQueryable<Products> GetProductsWithoutPictures(string search) =>
+            GetProducts(search)
+                .ToList()
+                .Select(x => new Products
+                {
+                    ProductID = x.ProductID,
+                    Name = x.Name,
+                    CategoryID = x.CategoryID,
+                    Color = x.Color,
+                    CreatedOnUTC = x.CreatedOnUTC,
+                    DealerPrice = x.DealerPrice,
+                    Description = x.Description,
+                    Discount = x.Discount,
+                    DiscountEndDateUTC = x.DiscountEndDateUTC,
+                    DiscountStartDateUTC = x.DiscountStartDateUTC,
+                    LastModifiedOnUTC = x.LastModifiedOnUTC,
+                    ListPrice = x.ListPrice,
+                    SafetyStockLevel = x.SafetyStockLevel,
+                    SearchTerms = x.SearchTerms,
+                    Size = x.Size,
+                    StockUnits = x.StockUnits,
+                    TaxType = x.TaxType,
+                    Picture = new byte[] { 0 }
+                })
+                .AsQueryable();
 
         [Query]
-        public IQueryable<Products> GetTopSaleProducts(int limit)
-        {
-            var query = GetProducts();
-            var topProducts = query
-                                .Join(_context.OrderItems, p => p.ProductID, oi => oi.ProductID, (p, oi) => new { Product = p, OrderItem = oi })
-                                .Join(_context.Orders, oi => oi.OrderItem.OrderID, o => o.OrderID, (oi, o) => new { oi.Product, o.OrderID })
-                                .GroupBy(po => po.Product)
-                                .OrderByDescending(group => group.Count())
-                                .Take(5)
-                                .Select(group => group.Key)
-                                .ToList()
-                                .Select(x => new Products
-                                {
-                                    ProductID = x.ProductID,
-                                    Name = x.Name,
-                                    ListPrice = x.ListPrice,
-                                    Picture = new byte[] { 0 }
-                                })
-                                .AsQueryable();
-            return topProducts;
-        }
+        public IQueryable<Products> GetTopSaleProducts(int limit) =>
+            GetProducts(string.Empty)
+                .Join(_context.OrderItems, p => p.ProductID, oi => oi.ProductID, (p, oi) => new { Product = p, OrderItem = oi })
+                .Join(_context.Orders, oi => oi.OrderItem.OrderID, o => o.OrderID, (oi, o) => new { oi.Product, o.OrderID })
+                .GroupBy(po => po.Product)
+                .OrderByDescending(group => group.Count())
+                .Take(5)
+                .Select(group => group.Key)
+                .ToList()
+                .Select(x => new Products
+                {
+                    ProductID = x.ProductID,
+                    Name = x.Name,
+                    ListPrice = x.ListPrice,
+                    Picture = new byte[] { 0 }
+                })
+                .AsQueryable();
 
-        public Products GetProductById(string productId)
-        {
-            return _context.Products.SingleOrDefault(x => x.ProductID == productId);
-        }
+        public Products GetProductById(string productId) =>
+            GetProducts(string.Empty).SingleOrDefault(x => x.ProductID == productId);
 
         public byte[] GetProductPicture(string productId)
         {
             var product = GetProductById(productId);
-            if (product != null)
-                return product.Picture;
-            else
-                throw new ArgumentNullException($"No Such Product {productId}");
+            return product != null ? product.Picture : throw new ArgumentNullException($"No Such Product {productId}");
         }
 
         [Delete]

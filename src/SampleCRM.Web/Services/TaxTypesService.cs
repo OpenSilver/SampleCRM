@@ -11,15 +11,10 @@ namespace SampleCRM.Web
     public class TaxTypesService : SampleCRMService
     {
         [Query]
-        public IQueryable<TaxTypes> GetTaxTypes()
-        {
-            return _context.TaxTypes.OrderBy(t => t.Name);
-        }
+        public IQueryable<TaxTypes> GetTaxTypes() => _context.TaxTypes.OrderBy(t => t.Name);
 
-        public TaxTypes GetTaxTypeById(long taxTypeId)
-        {
-            return _context.TaxTypes.SingleOrDefault(x => x.TaxTypeID == taxTypeId);
-        }
+        public TaxTypes GetTaxTypeById(long taxTypeId) => 
+            GetTaxTypes().SingleOrDefault(x => x.TaxTypeID == taxTypeId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

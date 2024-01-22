@@ -13,97 +13,67 @@ namespace SampleCRM.Web.Views
     public partial class Products : BasePage
     {
         #region Contexts
-        private ProductsContext _productsContext = new ProductsContext();
+        private ProductsContext _productsContext => productsDataSource.DomainContext as ProductsContext;
         private CategoryContext _categoryContext = new CategoryContext();
         #endregion
 
-        #region DataContext Properties
-        private IEnumerable<Models.Products> _productsCollection;
-        public IEnumerable<Models.Products> ProductsCollection
-        {
-            get { return _productsCollection; }
-            set
-            {
-                if (_productsCollection != value)
-                {
-                    _productsCollection = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredProductsCollection");
-                }
-            }
-        }
-
-        public IEnumerable<Models.Products> FilteredProductsCollection
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchText))
-                {
-                    return _productsCollection;
-                }
-                else
-                {
-                    return _productsCollection.Where(x => x.Name.Contains(_searchText.ToLowerInvariant()));
-                }
-            }
-        }
-
-        private Models.Products _selectedProduct;
+        #region Properties
         public Models.Products SelectedProduct
         {
-            get { return _selectedProduct; }
-            set
-            {
-                if (_selectedProduct != value)
-                {
-                    _selectedProduct = value;
-                    OnPropertyChanged();
-#if DEBUG
-                    Console.WriteLine($"Products, Product: {value.ProductID} {value.Name} selected");
-#endif
-                }
-            }
+            get { return (Models.Products)GetValue(SelectedProductProperty); }
+            set { SetValue(SelectedProductProperty, value); }
         }
+        public static readonly DependencyProperty SelectedProductProperty =
+            DependencyProperty.Register("SelectedProduct", typeof(Models.Products), typeof(Products),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as Models.Products;
+                        //var page = (Products)s;
+                        if (value != null)
+                        {
+#if DEBUG
+                            Console.WriteLine($"Products, Product: {value.ProductID} {value.Name} selected");
+#endif
+                        }
 
-        private string _searchText;
+                    })));
+
         public string SearchText
         {
-            get { return _searchText; }
-            set
-            {
-                if (_searchText != value)
-                {
-                    _searchText = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredProductsCollection");
-                }
-            }
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
         }
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(Products),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as string;
+                        var page = s as Products;
+                        var searchParam = page.productsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
+                        searchParam.Value = value;
+                        page.productsDataSource.Load();
+#if DEBUG
+                        Console.WriteLine($"SearchText Changed {value}");
+#endif
+                    })));
 
-        private IEnumerable<Models.Categories> _categoryCollection;
-        public IEnumerable<Models.Categories> CategoryCollection
+        public IEnumerable<Models.Categories> CategoriesCombo
         {
-            get { return _categoryCollection; }
-            set
-            {
-                if (_categoryCollection != value)
-                {
-                    _categoryCollection = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (IEnumerable<Models.Categories>)GetValue(CategoriesComboProperty); }
+            set { SetValue(CategoriesComboProperty, value); }
         }
+        public static readonly DependencyProperty CategoriesComboProperty =
+            DependencyProperty.Register("CategoriesCombo", typeof(IEnumerable<Models.Categories>), typeof(Products), new PropertyMetadata(null));
+
+
         #endregion
 
         public Products()
         {
             InitializeComponent();
             DataContext = this;
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -128,31 +98,35 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async Task LoadElements()
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var categoriesQuery = _categoryContext.GetCategoriesQuery();
-            var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
-            CategoryCollection = categoriesOp.Entities;
-
-            var query = _productsContext.GetProductsWithoutPicturesQuery();
-            var op = await _productsContext.LoadAsync(query);
-            ProductsCollection = op.Entities;
-
-            foreach (var p in ProductsCollection)
-            {
-                p.CategoriesCombo = CategoryCollection;
-            }
-
-#if DEBUG
-            Console.WriteLine("Products Collection:" + ProductsCollection.Count());
-#endif
+            await AsyncHelper.RunAsync(LoadCategoriesCombo);
+            productsDataSource.Load();
         }
+
+        private void productsDataSource_LoadingData(object sender, OpenRiaServices.Controls.LoadingDataEventArgs e)
+        {
+            lstProducts.SelectionChanged -= lstProducts_SelectionChanged;
+        }
+        private void productsDataSource_LoadedData(object sender, OpenRiaServices.Controls.LoadedDataEventArgs e)
+        {
+            if (e.HasError)
+                return;
+
+            var products = e.Entities.Cast<Models.Products>();
+            foreach (var product in products)
+                product.CategoriesCombo = CategoriesCombo;
+            
+            lstProducts.SelectionChanged += lstProducts_SelectionChanged;
+        }
+
+        private async Task LoadCategoriesCombo() => CategoriesCombo = (await _categoryContext.LoadAsync(_categoryContext.GetCategoriesQuery())).Entities;
 
         private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
             var result = await ProductsAddEditWindow.Show(new Models.Products
             {
-                CategoriesCombo = CategoryCollection,
+                CategoriesCombo = CategoriesCombo,
                 CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, _productsContext);
@@ -170,23 +144,30 @@ namespace SampleCRM.Web.Views
             SearchText = string.Empty;
         }
 
-        private async void lstProducts_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void lstProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 #if DEBUG
-            Console.WriteLine("lstProducts_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+            Console.WriteLine("lstProducts_SelectionChanged, {0} Items Added, {1} Items Removed", e.AddedItems.Count, e.RemovedItems.Count);
 #endif
-            if (e.AddedItems.Count > 0)
-            {
-                if (SelectedProduct.CategoriesCombo == null)
-                    SelectedProduct.CategoriesCombo = CategoryCollection;
 
-                if (SelectedProduct.Picture == null || SelectedProduct.Picture.Length < 2)
+            if (e.RemovedItems.Count < 1)
+            {
+                SelectedProduct = null;
+                return;
+            }
+
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Products)
+            {
+                SelectedProduct = e.AddedItems[0] as Models.Products;
+                if (SelectedProduct != null)
                 {
-                    _productsContext.GetProductPicture(SelectedProduct.ProductID, GetProductPicture_Completed, null);
-                }
-                else
-                {
-                    await showEditProdocutWindow();
+                    if (SelectedProduct.CategoriesCombo == null)
+                        SelectedProduct.CategoriesCombo = CategoriesCombo;
+
+                    if (SelectedProduct.Picture == null || SelectedProduct.Picture.Length < 2)
+                        _productsContext.GetProductPicture(SelectedProduct.ProductID, GetProductPicture_Completed, null);
+                    else
+                        await showEditProdocutWindow();
                 }
             }
         }
@@ -220,6 +201,5 @@ namespace SampleCRM.Web.Views
                 btnSearch.Focus();
             }
         }
-
     }
 }

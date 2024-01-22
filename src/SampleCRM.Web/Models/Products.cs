@@ -39,7 +39,9 @@ namespace SampleCRM.Web.Models
         public long StockUnits { get; set; }
         public long TaxType { get; set; }
     
+        public virtual Categories Categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItems> OrderItems { get; set; }
+        public virtual TaxTypes TaxTypes { get; set; }
     }
 }

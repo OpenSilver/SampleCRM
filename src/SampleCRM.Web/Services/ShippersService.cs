@@ -11,15 +11,10 @@ namespace SampleCRM.Web
     public class ShippersService: SampleCRMService
     {
         [Query]
-        public IQueryable<Shippers> GetShippers()
-        {
-            return _context.Shippers.OrderBy(s => s.Name);
-        }
+        public IQueryable<Shippers> GetShippers() => _context.Shippers.OrderBy(s => s.Name);
 
-        public Shippers GetShipperById(long shipperId)
-        {
-            return _context.Shippers.SingleOrDefault(x => x.ShipperID == shipperId);
-        }
+        public Shippers GetShipperById(long shipperId) => 
+            GetShippers().SingleOrDefault(x => x.ShipperID == shipperId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

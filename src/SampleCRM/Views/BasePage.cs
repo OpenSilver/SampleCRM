@@ -5,11 +5,7 @@ using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    /// <summary>
-    /// BasePage is a Navigation Page with INotifyPropertyChanged interface implemented
-    /// BasePage can be it selft a view model for the corresponding Page UI
-    /// </summary>
-    public class BasePage : Page, INotifyPropertyChanged
+    public class BasePage : Page
     {
         protected virtual double MaxMobileWidth => 640d;
 
@@ -21,18 +17,15 @@ namespace SampleCRM.Web.Views
 
         protected virtual void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(IsMobileUI));
+            IsMobileUI= ActualWidth <= MaxMobileWidth;
         }
 
         public bool IsMobileUI
         {
-            get { return ActualWidth <= MaxMobileWidth; }
+            get { return (bool)GetValue(IsMobileUIProperty); }
+            set { SetValue(IsMobileUIProperty, value); }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public static readonly DependencyProperty IsMobileUIProperty =
+            DependencyProperty.Register("IsMobileUI", typeof(bool), typeof(BaseUserControl), new PropertyMetadata(null));
     }
 }

@@ -10,26 +10,26 @@ namespace SampleCRM.Web.Models
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "UnitPrice"
-                || e.PropertyName == "Quantity")
+            switch (e.PropertyName)
             {
-                RaisePropertyChanged("Subtotal");
-            }
-            else if (e.PropertyName == "Subtotal" 
-                || e.PropertyName == "Discount")
-            {
-                RaisePropertyChanged("Total");
-            }
-            else if (e.PropertyName == "OrderLine")
-            {
-                RaisePropertyChanged("IsNew");
-            }
-            else if (e.PropertyName == nameof(ProductID))
-            {
-                if (ProductsCombo != null && ProductsCombo.Any())
-                {
-                    Product = ProductsCombo.FirstOrDefault(x => x.ProductID == ProductID);
-                }
+                case nameof(UnitPrice):
+                case nameof(Quantity):
+                    RaisePropertyChanged(nameof(Subtotal));
+                    break;
+                case nameof(Subtotal):
+                case nameof(Discount):
+                    RaisePropertyChanged(nameof(Total));
+                    break;
+                case nameof(OrderLine):
+                    RaisePropertyChanged(nameof(IsNew));
+                    break;
+                case nameof(ProductID):
+                    {
+                        if (ProductsCombo != null && ProductsCombo.Any())
+                            Product = ProductsCombo.FirstOrDefault(x => x.ProductID == ProductID);
+
+                        break;
+                    }
             }
 
             base.OnPropertyChanged(e);
@@ -46,7 +46,7 @@ namespace SampleCRM.Web.Models
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("IsEditMode"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace SampleCRM.Web.Models
                 if (_taxTypes != value)
                 {
                     _taxTypes = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("TaxTypes"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(TaxTypes)));
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace SampleCRM.Web.Models
                 if (_productsCombo != value)
                 {
                     _productsCombo = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ProductsCombo"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProductsCombo)));
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace SampleCRM.Web.Models
                 if (_product != value)
                 {
                     _product = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Product"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Product)));
                 }
             }
         }

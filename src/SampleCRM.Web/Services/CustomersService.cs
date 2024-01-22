@@ -12,15 +12,23 @@ namespace SampleCRM.Web
     public class CustomersService : SampleCRMService
     {
         [Query]
-        public IQueryable<Customers> GetCustomers()
-        {
-            return _context.Customers.OrderBy(c => c.FirstName).ThenBy(c => c.LastName);
-        }
+        public IQueryable<Customers> GetCustomers(string search) =>
+            _context.Customers
+                    .Where(x => x.FirstName.ToLower().Contains(search.ToLower())
+                            || x.LastName.ToLower().Contains(search.ToLower())
+                            || search == "")
+                    .OrderBy(c => c.FirstName)
+                    .ThenBy(c => c.LastName);
 
         [Query]
-        public IQueryable<Customers> GetCustomersWithoutPictures()
-        {
-            return GetCustomers().ToList().Select(x => new Customers
+        public IQueryable<Customers> GetCustomersCombo() =>
+            GetCustomers(string.Empty);
+
+        [Query]
+        public IQueryable<Customers> GetCustomersWithoutPictures(string search) =>
+            GetCustomers(search)
+            .ToList()
+            .Select(x => new Customers
             {
                 CustomerID = x.CustomerID,
                 AddressLine1 = x.AddressLine1,
@@ -51,15 +59,12 @@ namespace SampleCRM.Web
                 TotalChildren = x.TotalChildren,
                 Picture = new byte[] { 0 }
             }).AsQueryable();
-        }
 
         [Query]
-        public IQueryable<Customers> GetLatestCustomers(int limit)
-        {
-            return GetCustomersWithoutPictures()
+        public IQueryable<Customers> GetLatestCustomers(string search, int limit) =>
+            GetCustomersWithoutPictures(search)
                 .OrderByDescending(x => x.CreatedOnUTC)
                 .Take(limit);
-        }
 
         [Delete]
         [RestrictAccessReadonlyMode]
@@ -95,19 +100,13 @@ namespace SampleCRM.Web
             _context.SaveChanges();
         }
 
-        public Customers GetCustomerById(long customerId)
-        {
-            return _context.Customers.SingleOrDefault(x => x.CustomerID == customerId);
-        }
+        public Customers GetCustomerById(long customerId) =>
+            GetCustomers(string.Empty).SingleOrDefault(x => x.CustomerID == customerId);
 
         public byte[] GetCustomerPicture(long customerId)
         {
             var customer = GetCustomerById(customerId);
-            if (customer != null)
-                return customer.Picture;
-            else
-                throw new ArgumentNullException($"No Such Customer {customerId}");
-
+            return customer != null ? customer.Picture : throw new ArgumentNullException($"No Such Customer {customerId}");
         }
     }
 }

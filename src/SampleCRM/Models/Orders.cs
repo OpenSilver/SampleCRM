@@ -9,27 +9,23 @@ namespace SampleCRM.Web.Models
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CustomerID))
+            switch (e.PropertyName)
             {
-                if (CustomersCombo != null && CustomersCombo.Any())
-                {
-                    Customer = _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID);
-                }
-                else
-                {
-                    Customer = new Customers();
-                }
-            }
-            else if (e.PropertyName == nameof(Status))
-            {
-                PaymentTypesVisible = _status > 0;
-                ShippedDateVisible = ShippedViaVisible = _status > 1;
-                DeliveredDateVisible = _status > 2;
-                StatusDesc = _statuses?.FirstOrDefault(x => x.Status == _status)?.Name;
-            }
-            else if (e.PropertyName == nameof(ShipCountryCode))
-            {
-                ShipCountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _shipCountryCode)?.Name;
+                case nameof(CustomerID):
+                    Customer = CustomersCombo != null && CustomersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
+                    break;
+                case nameof(Status):
+                    {
+                        PaymentTypesVisible = _status > 0;
+                        ShippedDateVisible = ShippedViaVisible = _status > 1;
+                        DeliveredDateVisible = _status > 2;
+                        StatusDesc = _statuses?.FirstOrDefault(x => x.Status == _status)?.Name;
+                        break;
+                    }
+                case nameof(ShipCountryCode):
+                    ShipCountryName = _countryCodes?.FirstOrDefault(x => x.CountryCodeID == _shipCountryCode)?.Name;
+                    break;
+
             }
 
             base.OnPropertyChanged(e);
@@ -46,7 +42,7 @@ namespace SampleCRM.Web.Models
                 if (_paymentTypesVisible != value)
                 {
                     _paymentTypesVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypesVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(PaymentTypesVisible)));
                 }
             }
         }
@@ -60,7 +56,7 @@ namespace SampleCRM.Web.Models
                 if (_shippedDateVisible != value)
                 {
                     _shippedDateVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedDateVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShippedDateVisible)));
                 }
             }
         }
@@ -74,7 +70,7 @@ namespace SampleCRM.Web.Models
                 if (_shippedViaVisible != value)
                 {
                     _shippedViaVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedViaVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShippedViaVisible)));
                 }
             }
         }
@@ -88,7 +84,7 @@ namespace SampleCRM.Web.Models
                 if (_deliveredDateVisible != value)
                 {
                     _deliveredDateVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("DeliveredDateVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(DeliveredDateVisible)));
                 }
             }
         }
@@ -102,7 +98,7 @@ namespace SampleCRM.Web.Models
                 if (_shippers != value)
                 {
                     _shippers = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Shippers"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Shippers)));
                 }
             }
         }
@@ -116,7 +112,7 @@ namespace SampleCRM.Web.Models
                 if (_paymentTypes != value)
                 {
                     _paymentTypes = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypes"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(PaymentTypes)));
                 }
             }
         }
@@ -130,12 +126,10 @@ namespace SampleCRM.Web.Models
                 if (_countryCodes != value)
                 {
                     _countryCodes = value;
-                    if (_countryCodes != null)
-                    {
-                        ShipCountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == ShipCountryCode)?.Name;
-                    }
-                    OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryCodes)));
                 }
+                if (_countryCodes != null)
+                    ShipCountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == ShipCountryCode)?.Name;
             }
         }
 
@@ -148,9 +142,9 @@ namespace SampleCRM.Web.Models
                 if (_statuses != value)
                 {
                     _statuses = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Statuses"));
-                    OnPropertyChanged(new PropertyChangedEventArgs("Status"));
                 }
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Statuses)));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Status)));
             }
         }
 
@@ -164,8 +158,8 @@ namespace SampleCRM.Web.Models
                 if (_shipCountryName != value)
                 {
                     _shipCountryName = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShipCountryName"));
                 }
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShipCountryName)));
             }
         }
 
@@ -178,7 +172,7 @@ namespace SampleCRM.Web.Models
                 if (_statusDesc != value)
                 {
                     _statusDesc = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("StatusDesc"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(StatusDesc)));
                 }
             }
         }
@@ -192,7 +186,8 @@ namespace SampleCRM.Web.Models
                 if (_customersCombo != value)
                 {
                     _customersCombo = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("CustomersCombo"));
+                    Customer = _customersCombo != null && _customersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomersCombo)));
                 }
             }
         }
@@ -206,15 +201,15 @@ namespace SampleCRM.Web.Models
                 if (_customer != value)
                 {
                     _customer = value;
-                    //if (_customer != null)
-                    //{
-                    //    ShipAddress = _customer.AddressLine1;
-                    //    ShipCity = _customer.City;
-                    //    ShipRegion = _customer.Region;
-                    //    ShipCountryCode = _customer.CountryCode;
-                    //    ShipPostalCode = _customer.PostalCode;
-                    //}
-                    OnPropertyChanged(new PropertyChangedEventArgs("Customer"));
+                    if (_customer != null && _isEditMode)
+                    {
+                        ShipAddress = _customer.AddressLine1;
+                        ShipCity = _customer.City;
+                        ShipRegion = _customer.Region;
+                        ShipCountryCode = _customer.CountryCode;
+                        ShipPostalCode = _customer.PostalCode;
+                    }
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Customer)));
                 }
             }
         }
@@ -228,7 +223,7 @@ namespace SampleCRM.Web.Models
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("IsEditMode"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
                 }
             }
         }

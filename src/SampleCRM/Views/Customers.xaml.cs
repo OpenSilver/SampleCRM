@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -14,9 +13,10 @@ namespace SampleCRM.Web.Views
     public partial class Customers : BasePage
     {
         #region Contexts
-        private CustomersContext _customersContext = new CustomersContext();
+        private CustomersContext _customersContext => customersDataSource.DomainContext as CustomersContext;
+        private OrderContext _orderContext => ordersDataSource.DomainContext as OrderContext;
+
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
-        private OrderContext _orderContext = new OrderContext();
         private OrderStatusContext _orderStatusContext = new OrderStatusContext();
         private ShippersContext _shippersContext = new ShippersContext();
         private PaymentTypeContext _paymentTypesContext = new PaymentTypeContext();
@@ -25,193 +25,122 @@ namespace SampleCRM.Web.Views
         private bool _ordersTabSelected;
 
         #region DataContext Properties
-        private IEnumerable<Models.Customers> _customersCollection;
-        public IEnumerable<Models.Customers> CustomersCollection
-        {
-            get { return _customersCollection; }
-            set
-            {
-                if (_customersCollection != value)
-                {
-                    _customersCollection = value;
-                    OnPropertyChanged();
-
-                    if (!AnySelectedCustomer)
-                        SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
-
-                    OnPropertyChanged("FilteredCustomersCollection");
-                    OnPropertyChanged("PagedFilteredCustomersCollection");
-                }
-            }
-        }
-
-        public IEnumerable<Models.Customers> FilteredCustomersCollection
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchText))
-                {
-                    if (_pagedFilteredCustomersCollection == null)
-                        _pagedFilteredCustomersCollection = new PagedCollectionView(_customersCollection);
-
-                    _pagedFilteredCustomersCollection.Filter = null;
-                    return _customersCollection;
-                }
-                else
-                {
-                    var retval = _customersCollection.Where(x => x.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant()));
-                    _pagedFilteredCustomersCollection.Filter = delegate (object item)
-                    {
-                        Models.Customers c = item as Models.Customers;
-                        if (c != null)
-                        {
-                            return c.FullName.ToLowerInvariant().Contains(_searchText.ToLowerInvariant());
-                        }
-                        return false;
-                    };
-                    return retval;
-                }
-            }
-        }
-
-        private PagedCollectionView _pagedFilteredCustomersCollection;
-        public PagedCollectionView PagedFilteredCustomersCollection
-        {
-            get
-            {
-                return _pagedFilteredCustomersCollection;
-            }
-        }
-
-        private IEnumerable<Models.CountryCodes> _countryCodes;
         public IEnumerable<Models.CountryCodes> CountryCodes
         {
-            get { return _countryCodes; }
-            set
-            {
-                if (_countryCodes != value)
-                {
-                    _countryCodes = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (IEnumerable<Models.CountryCodes>)GetValue(CountryCodesProperty); }
+            set { SetValue(CountryCodesProperty, value); }
         }
+        public static readonly DependencyProperty CountryCodesProperty =
+            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCodes>), typeof(Customers), new PropertyMetadata(null));
 
-        private Models.Customers _selectedCustomer;
         public Models.Customers SelectedCustomer
         {
-            get { return _selectedCustomer; }
-            set
-            {
-                if (_selectedCustomer != value)
-                {
-                    _selectedCustomer = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("AnySelectedCustomer");
-                    async void load()
-                    {
-                        await AsyncHelper.RunAsync(LoadOrdersOfCustomer);
-                    }
-                    load();
-#if DEBUG
-                    Console.WriteLine($"Customers, Customer: {value.FirstName} selected");
-#endif
-                }
-            }
+            get { return (Models.Customers)GetValue(SelectedCustomerProperty); }
+            set { SetValue(SelectedCustomerProperty, value); }
         }
+        public static readonly DependencyProperty SelectedCustomerProperty =
+            DependencyProperty.Register("SelectedCustomer", typeof(Models.Customers), typeof(Customers),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as Models.Customers;
+                        var page = (Customers)s;
 
-        public bool AnySelectedCustomer => _selectedCustomer != null;
+                        page.AnySelectedCustomer = value != null;
 
-        private string _searchText;
+                        if (value != null)
+                        {
+                            if (page._ordersTabSelected)
+                            {
+                                var customerId = value.CustomerID;
+                                var customerParam = page.ordersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
+                                customerParam.Value = customerId;
+                                page.ordersDataSource.Load();
+                            }
+#if DEBUG
+                            Console.WriteLine($"Customers, Customer: {value.FullName} selected");
+#endif
+                        }
+
+                    })));
+
+        public bool AnySelectedCustomer
+        {
+            get { return (bool)GetValue(AnySelectedCustomerProperty); }
+            set { SetValue(AnySelectedCustomerProperty, value); }
+        }
+        private static readonly DependencyProperty AnySelectedCustomerProperty =
+            DependencyProperty.Register("AnySelectedCustomer", typeof(bool), typeof(Customers),
+                new PropertyMetadata(false));
+
         public string SearchText
         {
-            get { return _searchText; }
-            set
-            {
-                if (_searchText != value)
-                {
-                    _searchText = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredCustomersCollection");
-                    OnPropertyChanged("PagedFilteredCustomersCollection");
-                    SelectedCustomer = FilteredCustomersCollection.FirstOrDefault();
-                    //OnPropertyChanged("SelectedCustomer");
-                    //OnPropertyChanged("AnySelectedCustomer");
-                }
-            }
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
         }
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(Customers),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as string;
+                        var page = s as Customers;
+                        var searchParam = page.customersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
+                        searchParam.Value = value;
+                        page.customersDataSource.Load();
+                    })));
 
 
-        private IEnumerable<Models.Orders> _ordersCollection;
-        public IEnumerable<Models.Orders> OrdersCollection
-        {
-            get { return _ordersCollection; }
-            set
-            {
-                if (_ordersCollection != value)
-                {
-                    _ordersCollection = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrdersCollection");
-                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
-                }
-            }
-        }
-
-        public IEnumerable<Models.Orders> FilteredOrdersCollection
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchOrderText))
-                {
-                    return _ordersCollection;
-                }
-                else
-                {
-                    return _ordersCollection.Where(x => x.OrderID.ToString().Contains(_searchOrderText));
-                }
-            }
-        }
-
-        private Models.Orders _selectedOrder;
         public Models.Orders SelectedOrder
         {
-            get { return _selectedOrder; }
-            set
-            {
-                if (_selectedOrder != value)
-                {
-                    _selectedOrder = value;
-                    OnPropertyChanged();
-#if DEBUG
-                    Console.WriteLine($"Orders, Order: {value.OrderID} selected");
-#endif
-                }
-            }
+            get { return (Models.Orders)GetValue(SelectedOrderProperty); }
+            set { SetValue(SelectedOrderProperty, value); }
         }
+        public static readonly DependencyProperty SelectedOrderProperty =
+            DependencyProperty.Register("SelectedOrder", typeof(Models.Orders), typeof(Customers),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as Models.Orders;
+                        //var page = (Customers)s;
+                        if (value != null)
+                        {
+#if DEBUG
+                            Console.WriteLine($"Orders, Order: {value.OrderID} selected");
+#endif
+                        }
+                    })));
 
-        private string _searchOrderText;
         public string SearchOrderText
         {
-            get { return _searchOrderText; }
-            set
-            {
-                if (_searchOrderText != value)
-                {
-                    _searchOrderText = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrdersCollection");
-                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
-                    //OnPropertyChanged("SelectedOrder");
-                }
-            }
+            get { return (string)GetValue(SearchOrderTextProperty); }
+            set { SetValue(SearchOrderTextProperty, value); }
         }
-        #endregion 
+        public static readonly DependencyProperty SearchOrderTextProperty =
+            DependencyProperty.Register("SearchOrderText", typeof(string), typeof(Customers),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as string;
+                        var page = s as Customers;
+                        var searchParam = page.ordersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
+                        searchParam.Value = value;
+                        page.ordersDataSource.Load();
+                    })));
+
+        #endregion
 
         public Customers()
         {
             InitializeComponent();
             DataContext = this;
+        }
+
+        private void customersDataSource_LoadedData(object sender, OpenRiaServices.Controls.LoadedDataEventArgs e)
+        {
+            var customers = e.Entities.Cast<Models.Customers>();
+            foreach (var customer in customers)
+                customer.CountryCodes = CountryCodes;
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -280,63 +209,11 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await AsyncHelper.RunAsync(LoadElements);
-        }
-
-        private async Task LoadElements()
-        {
-            var customersQuery = _customersContext.GetCustomersQuery();
-            var customersOp = await _customersContext.LoadAsync(customersQuery);
-            CustomersCollection = customersOp.Entities;
-
             await AsyncHelper.RunAsync(LoadCountryCodes);
-#if DEBUG
-            Console.WriteLine("Customers Collection:" + CustomersCollection.Count());
-            foreach (var item in CustomersCollection)
-            {
-                Console.WriteLine("Customer Name:" + item.FirstName);
-                Console.WriteLine("Customer Picture Bytes:" + item.Picture.Length);
-            }
-#endif
+            customersDataSource.Load();
         }
-        private async Task LoadCountryCodes()
-        {
-            var countryCodesquery = _countryCodesContext.GetCountriesQuery();
-            var countriesOp = await _countryCodesContext.LoadAsync(countryCodesquery);
-            CountryCodes = countriesOp.Entities;
 
-            foreach (var c in CustomersCollection)
-            {
-                c.CountryCodes = CountryCodes;
-                c.CountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == c.CountryCode).Name;
-            }
-        }
-        private async Task LoadOrdersOfCustomer()
-        {
-            if (SelectedCustomer == null)
-                return;
-
-            if (!_ordersTabSelected)
-                return;
-
-            var customerId = SelectedCustomer.CustomerID;
-            var ordersQuery = _orderContext.GetOrdersOfCustomerQuery(customerId);
-            var ordersOp = await _orderContext.LoadAsync(ordersQuery);
-            OrdersCollection = ordersOp.Entities;
-
-            foreach (var o in OrdersCollection)
-            {
-                o.ShipCountryName = CountryCodes.SingleOrDefault(x => x.CountryCodeID == o.ShipCountryCode)?.Name;
-            }
-
-#if DEBUG
-            Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
-            foreach (var item in OrdersCollection)
-            {
-                Console.WriteLine("Order Id:" + item.OrderID);
-            }
-#endif
-        }
+        private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
 
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -349,13 +226,20 @@ namespace SampleCRM.Web.Views
 
         private void grdCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Customers)
+            {
+                SelectedCustomer = e.AddedItems[0] as Models.Customers;
+            }
+            else
+            {
+                SelectedCustomer = null;
+            }
+
 #if DEBUG
             Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
+            if (e.AddedItems.Count > 0)
+                Console.WriteLine(e.AddedItems[0]);
 #endif
-            formCustomer.ItemsSource = null;
-            formCustomer.CurrentItem = null;
-            formCustomer.ItemsSource = FilteredCustomersCollection;
-            formCustomer.CurrentItem = SelectedCustomer;
         }
 
         private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e)
@@ -386,12 +270,8 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                SelectedCustomer.CountryCodes = CountryCodes;
-                OnPropertyChanged("SelectedCustomer");
-                OnPropertyChanged("CustomersCollection");
-                OnPropertyChanged("FilteredCustomersCollection");
-                OnPropertyChanged("PagedFilteredCustomersCollection");
-
+                //SelectedCustomer.CountryCodes = CountryCodes;
+                SelectedCustomer.CountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == SelectedCustomer.CountryCode)?.Name;
             }
         }
 
@@ -400,20 +280,15 @@ namespace SampleCRM.Web.Views
             SearchOrderText = string.Empty;
         }
 
-        private async void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var anySelected = e.AddedItems.Count > 0;
-            if (anySelected)
+            _ordersTabSelected = e.AddedItems.Count > 0 && e.AddedItems.Contains(tbOrders);
+            if (_ordersTabSelected && SelectedCustomer != null)
             {
-                _ordersTabSelected = e.AddedItems.Contains(tbOrders);
-                if (_ordersTabSelected)
-                {
-                    await AsyncHelper.RunAsync(LoadOrdersOfCustomer);
-                }
-            }
-            else
-            {
-                _ordersTabSelected = false;
+                var customerId = SelectedCustomer.CustomerID;
+                var customerParam = ordersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
+                customerParam.Value = customerId;
+                ordersDataSource.Load();
             }
         }
 
@@ -422,6 +297,14 @@ namespace SampleCRM.Web.Views
 #if DEBUG
             Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Orders)
+            {
+                SelectedOrder = e.AddedItems[0] as Models.Orders;
+            }
+            else
+            {
+                SelectedOrder = null;
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -482,6 +365,12 @@ namespace SampleCRM.Web.Views
             if (SelectedOrder == null)
                 return;
 
+            SelectedOrder.CountryCodes = CountryCodes;
+            SelectedOrder.CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities;
+            SelectedOrder.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
+            SelectedOrder.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+            SelectedOrder.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
+
             await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
         }
         private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
@@ -490,16 +379,21 @@ namespace SampleCRM.Web.Views
         }
         private async Task ArrangeOrderAddEditWindow()
         {
-            var result = await OrderAddEditWindow.Show(new Models.Orders
+            if (SelectedCustomer == null)
+                return;
+
+            var order = new Models.Orders
             {
                 IsEditMode = true,
-                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersQuery())).Entities,
+                CountryCodes = CountryCodes,
+                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities,
+                CustomerID = SelectedCustomer.CustomerID,
                 Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
-                CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities,
                 Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
                 PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
-            }, _orderContext);
+            };
 
+            var result = await OrderAddEditWindow.Show(order, _orderContext);
             if (result)
             {
                 NavigationService.Refresh();

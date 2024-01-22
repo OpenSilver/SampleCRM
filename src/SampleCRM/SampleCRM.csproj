@@ -30,7 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LOCAL_RELEASE|AnyCPU'">
     <DefineConstants>OPENSILVER</DefineConstants>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <None Remove="Assets\Barcode.png" />
     <None Remove="Assets\Bitcoin.png" />
@@ -255,7 +255,7 @@
 
     <PackageReference Include="OpenSilver" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client" Version="2.0.0" />
-    
+
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

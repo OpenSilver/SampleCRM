@@ -14,8 +14,17 @@ namespace SampleCRM.Web.Models
     
     public partial class TaxTypes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TaxTypes()
+        {
+            this.Products = new HashSet<Products>();
+        }
+    
         [Key]public long TaxTypeID { get; set; }
         public string Name { get; set; }
         public string Rate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
@@ -9,68 +6,10 @@ namespace SampleCRM.Web.Views
 {
     public partial class Dashboard : BasePage
     {
-        #region Contexts
-        private CustomersContext _customersContext = new CustomersContext();
-        private ProductsContext _productsContext = new ProductsContext();
-        private OrderContext _orderContext = new OrderContext();
-        #endregion
-
-        public const int ROW_LIMIT = 5;
-
-        #region DataContext Properties
-        private IEnumerable<Models.Customers> _customers;
-        public IEnumerable<Models.Customers> Customers
-        {
-            get { return _customers; }
-            set
-            {
-                if (_customers != value)
-                {
-                    _customers = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private IEnumerable<Models.Orders> _orders;
-        public IEnumerable<Models.Orders> Orders
-        {
-            get { return _orders; }
-            set
-            {
-                if (_orders != value)
-                {
-                    _orders = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private IEnumerable<Models.Products> _products;
-        public IEnumerable<Models.Products> Products
-        {
-            get { return _products; }
-            set
-            {
-                if (_products != value)
-                {
-                    _products = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        #endregion
-
         public Dashboard()
         {
             InitializeComponent();
             DataContext = this;
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (!DesignerProperties.GetIsInDesignMode(this))
-                await AsyncHelper.RunAsync(LoadElements);
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -116,33 +55,12 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async Task LoadElements()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await AsyncHelper.RunAsync(LoadCustomers);
-            await AsyncHelper.RunAsync(LoadOrders);
-            await AsyncHelper.RunAsync(LoadProducts);
-        }
-
-        private async Task LoadCustomers()
-        {
-            var q = _customersContext.GetLatestCustomersQuery(ROW_LIMIT);
-            var o = await _customersContext.LoadAsync(q);
-            Customers = o.Entities;
-        }
-
-        private async Task LoadOrders()
-        {
-            var q = _orderContext.GetLatestOrdersQuery(ROW_LIMIT);
-            var o = await _orderContext.LoadAsync(q);
-            Orders = o.Entities;
-        }
-
-        private async Task LoadProducts()
-        {
-            var q = _productsContext.GetTopSaleProductsQuery(ROW_LIMIT);
-            //var q = _productsContext.GetProductsQuery().Take(ROW_LIMIT);
-            var o = await _productsContext.LoadAsync(q);
-            Products = o.Entities;
+            customersDataSource.Load();
+            ordersDataSource.Load();
+            productsDataSource.Load();
+            base.OnNavigatedTo(e);
         }
     }
 }

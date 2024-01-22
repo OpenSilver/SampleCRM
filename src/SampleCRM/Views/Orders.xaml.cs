@@ -14,11 +14,13 @@ namespace SampleCRM.Web.Views
     public partial class Orders : BasePage
     {
         #region Contexts
-        private OrderStatusContext _orderStatusContext = new OrderStatusContext();
+
+        private OrderContext _orderContext => ordersDataSource.DomainContext as OrderContext;
+        private OrderItemsContext _orderItemsContext => orderItemsDataSource.DomainContext as OrderItemsContext;
+
         private CountryCodesContext _countryCodesContext = new CountryCodesContext();
-        private OrderContext _orderContext = new OrderContext();
-        private OrderItemsContext _orderItemsContext = new OrderItemsContext();
         private CustomersContext _customersContext = new CustomersContext();
+        private OrderStatusContext _orderStatusContext = new OrderStatusContext();
         private ProductsContext _productsContext = new ProductsContext();
         private TaxTypesContext _taxTypesContext = new TaxTypesContext();
         private ShippersContext _shippersContext = new ShippersContext();
@@ -28,182 +30,144 @@ namespace SampleCRM.Web.Views
         private bool _orderItemsTabSelected;
 
         #region DataContext Properties
-        private IEnumerable<Models.Orders> _ordersCollection;
-        public IEnumerable<Models.Orders> OrdersCollection
-        {
-            get { return _ordersCollection; }
-            set
-            {
-                if (_ordersCollection != value)
-                {
-                    _ordersCollection = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrdersCollection");
-                    if (SelectedOrder == null)
-                        SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
-                }
-            }
-        }
 
-        public IEnumerable<Models.Orders> FilteredOrdersCollection
+        public IEnumerable<Models.Customers> CustomersCombo
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchText))
-                {
-                    return _ordersCollection;
-                }
-                else
-                {
-                    return _ordersCollection.Where(x => x.OrderID.ToString().Contains(_searchText.ToLowerInvariant()));
-                }
-            }
+            get { return (IEnumerable<Models.Customers>)GetValue(CustomersComboProperty); }
+            set { SetValue(CustomersComboProperty, value); }
         }
+        public static readonly DependencyProperty CustomersComboProperty =
+            DependencyProperty.Register("CustomersCombo", typeof(IEnumerable<Models.Customers>), typeof(Orders), new PropertyMetadata(null));
 
-        private IEnumerable<Models.CountryCodes> _countryCodes;
         public IEnumerable<Models.CountryCodes> CountryCodes
         {
-            get { return _countryCodes; }
-            set
-            {
-                if (_countryCodes != value)
-                {
-                    _countryCodes = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (IEnumerable<Models.CountryCodes>)GetValue(CountryCodesProperty); }
+            set { SetValue(CountryCodesProperty, value); }
         }
+        public static readonly DependencyProperty CountryCodesProperty =
+            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCodes>), typeof(Orders), new PropertyMetadata(null));
 
-        private IEnumerable<Models.OrderStatus> _statuses;
+        public IEnumerable<Models.Shippers> Shippers
+        {
+            get { return (IEnumerable<Models.Shippers>)GetValue(ShippersProperty); }
+            set { SetValue(ShippersProperty, value); }
+        }
+        public static readonly DependencyProperty ShippersProperty =
+            DependencyProperty.Register("Shippers", typeof(IEnumerable<Models.Shippers>), typeof(Orders), new PropertyMetadata(null));
+
+        public IEnumerable<Models.PaymentTypes> PaymentTypes
+        {
+            get { return (IEnumerable<Models.PaymentTypes>)GetValue(PaymentTypesProperty); }
+            set { SetValue(PaymentTypesProperty, value); }
+        }
+        public static readonly DependencyProperty PaymentTypesProperty =
+            DependencyProperty.Register("PaymentTypes", typeof(IEnumerable<Models.PaymentTypes>), typeof(Orders), new PropertyMetadata(null));
+
         public IEnumerable<Models.OrderStatus> Statuses
         {
-            get { return _statuses; }
-            set
-            {
-                if (_statuses != value)
-                {
-                    _statuses = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (IEnumerable<Models.OrderStatus>)GetValue(StatusesProperty); }
+            set { SetValue(StatusesProperty, value); }
         }
+        public static readonly DependencyProperty StatusesProperty =
+            DependencyProperty.Register("Statuses", typeof(IEnumerable<Models.OrderStatus>), typeof(Orders), new PropertyMetadata(null));
 
-        private Models.Orders _selectedOrder = new Models.Orders();
         public Models.Orders SelectedOrder
         {
-            get { return _selectedOrder; }
-            set
-            {
-                if (_selectedOrder != value)
-                {
-                    _selectedOrder = value;
-                    OnPropertyChanged();
-                    NotifySelectedOrderChanges();
-                }
-            }
+            get { return (Models.Orders)GetValue(SelectedOrderProperty); }
+            set { SetValue(SelectedOrderProperty, value); }
         }
+        public static readonly DependencyProperty SelectedOrderProperty =
+            DependencyProperty.Register("SelectedOrder", typeof(Models.Orders), typeof(Orders),
+                new PropertyMetadata(
+                    new PropertyChangedCallback(async (s, t) =>
+                    {
+                        var value = t.NewValue as Models.Orders;
+                        var page = (Orders)s;
 
-        private void NotifySelectedOrderChanges()
-        {
-            OnPropertyChanged("AnySelectedOrder");
-            async void load()
-            {
-                await AsyncHelper.RunAsync(LoadCustomer);
-                await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
-            }
-            load();
+                        page.AnySelectedOrder = value != null;
+
+                        if (value != null)
+                        {
+                            await AsyncHelper.RunAsync(async () => await page.LoadCustomer(value));
+                            if (page._orderItemsTabSelected)
+                            {
+                                var orderId = value.OrderID;
+                                var orderParam = page.orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "orderId");
+                                orderParam.Value = orderId;
+                                page.orderItemsDataSource.Load();
+                            }
 #if DEBUG
-            Console.WriteLine($"Orders, Order: {SelectedOrder.OrderID} selected");
+                            Console.WriteLine($"Orders, Order: {value.OrderID} selected");
 #endif
+                        }
+
+                    })));
+
+        public bool AnySelectedOrder
+        {
+            get { return (bool)GetValue(AnySelectedOrderProperty); }
+            set { SetValue(AnySelectedOrderProperty, value); }
         }
+        private static readonly DependencyProperty AnySelectedOrderProperty =
+            DependencyProperty.Register("AnySelectedOrder", typeof(bool), typeof(Orders),
+                new PropertyMetadata(false));
 
-        public bool AnySelectedOrder => _selectedOrder != null;
 
-        private string _searchText;
         public string SearchText
         {
-            get { return _searchText; }
-            set
-            {
-                if (_searchText != value)
-                {
-                    _searchText = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrdersCollection");
-                    SelectedOrder = FilteredOrdersCollection.FirstOrDefault();
-                    //OnPropertyChanged("SelectedOrder");
-                    //OnPropertyChanged("AnySelectedOrder");
-                }
-            }
+            get { return (string)GetValue(SearchTextProperty); }
+            set { SetValue(SearchTextProperty, value); }
         }
+        public static readonly DependencyProperty SearchTextProperty =
+            DependencyProperty.Register("SearchText", typeof(string), typeof(Orders),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as string;
+                        var page = s as Orders;
+                        var searchParam = page.ordersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
+                        searchParam.Value = value;
+                        page.ordersDataSource.Load();
+                    })));
 
 
-        private IEnumerable<Models.OrderItems> _orderItemsCollection;
-        public IEnumerable<Models.OrderItems> OrderItemsCollection
-        {
-            get { return _orderItemsCollection; }
-            set
-            {
-                if (_orderItemsCollection != value)
-                {
-                    _orderItemsCollection = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrderItemsCollection");
-                    SelectedOrderItem = FilteredOrderItemsCollection.FirstOrDefault();
-
-                }
-            }
-        }
-
-        public IEnumerable<Models.OrderItems> FilteredOrderItemsCollection
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(_searchOrderItemText))
-                {
-                    return _orderItemsCollection;
-                }
-                else
-                {
-                    return _orderItemsCollection.Where(x => x.ProductID.ToString().Contains(_searchOrderItemText) || x.OrderID.ToString().Contains(_searchOrderItemText));
-                }
-            }
-        }
-
-        private Models.OrderItems _selectedOrderItem;
         public Models.OrderItems SelectedOrderItem
         {
-            get { return _selectedOrderItem; }
-            set
-            {
-                if (_selectedOrderItem != value)
-                {
-                    _selectedOrderItem = value;
-                    OnPropertyChanged();
-                    //LoadProduct();
-#if DEBUG
-                    Console.WriteLine($"OrderItems, OrderItem: {value.OrderLine} selected");
-#endif
-                }
-            }
+            get { return (Models.OrderItems)GetValue(SelectedOrderItemProperty); }
+            set { SetValue(SelectedOrderItemProperty, value); }
         }
+        public static readonly DependencyProperty SelectedOrderItemProperty =
+            DependencyProperty.Register("SelectedOrderItem", typeof(Models.OrderItems), typeof(Customers),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as Models.OrderItems;
+                        //var page = (Customers)s;
+                        if (value != null)
+                        {
+#if DEBUG
+                            Console.WriteLine($"OrderItems, OrderItem: {value.OrderID}, {value.OrderLine} selected");
+#endif
+                        }
+                    })));
 
-        private string _searchOrderItemText;
         public string SearchOrderItemText
         {
-            get { return _searchOrderItemText; }
-            set
-            {
-                if (_searchOrderItemText != value)
-                {
-                    _searchOrderItemText = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged("FilteredOrderItemsCollection");
-                    SelectedOrderItem = FilteredOrderItemsCollection.FirstOrDefault();
-                    //OnPropertyChanged("SelectedOrder");
-                }
-            }
+            get { return (string)GetValue(SearchOrderItemTextProperty); }
+            set { SetValue(SearchOrderItemTextProperty, value); }
         }
+        public static readonly DependencyProperty SearchOrderItemTextProperty =
+            DependencyProperty.Register("SearchOrderItemText", typeof(string), typeof(Orders),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var value = t.NewValue as string;
+                        var page = s as Orders;
+                        var searchParam = page.orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
+                        searchParam.Value = value;
+                        page.orderItemsDataSource.Load();
+                    })));
+
         #endregion
 
         public Orders()
@@ -214,7 +178,12 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await AsyncHelper.RunAsync(LoadElements);
+            await AsyncHelper.RunAsync(LoadPaymentTypes);
+            await AsyncHelper.RunAsync(LoadShippers);
+            await AsyncHelper.RunAsync(LoadCountryCodes);
+            await AsyncHelper.RunAsync(LoadStatuses);
+            await AsyncHelper.RunAsync(LoadCustomers);
+            ordersDataSource.Load();
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -281,79 +250,41 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async Task LoadElements()
+        private void ordersDataSource_LoadedData(object sender, OpenRiaServices.Controls.LoadedDataEventArgs e)
         {
-            var query = _orderContext.GetOrdersQuery();
-            var op = await _orderContext.LoadAsync(query);
-            OrdersCollection = op.Entities;
-
-            await AsyncHelper.RunAsync(LoadPaymentTypes);
-            await AsyncHelper.RunAsync(LoadShippers);
-            await AsyncHelper.RunAsync(LoadCountryCodes);
-            await AsyncHelper.RunAsync(LoadStatuses);
-#if DEBUG
-            Console.WriteLine("Orders Collection:" + OrdersCollection.Count());
-            foreach (var item in OrdersCollection)
-            {
-                Console.WriteLine("Order Id:" + item.OrderID);
-                Console.WriteLine("Customer Id:" + item.CustomerID);
-            }
-#endif
-        }
-        private async Task LoadShippers()
-        {
-            var shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
-            foreach (var o in OrdersCollection)
-            {
-                o.Shippers = shippers;
-            }
-        }
-        private async Task LoadPaymentTypes()
-        {
-            var paymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
-            foreach (var o in OrdersCollection)
-            {
-                o.PaymentTypes = paymentTypes;
-            }
-        }
-        private async Task LoadCountryCodes()
-        {
-            var query = _countryCodesContext.GetCountriesQuery();
-            var op = await _countryCodesContext.LoadAsync(query);
-            CountryCodes = op.Entities;
-
-            foreach (var o in OrdersCollection)
-            {
-                o.CountryCodes = CountryCodes;
-                o.ShipCountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == o.ShipCountryCode)?.Name;
-            }
-        }
-        private async Task LoadStatuses()
-        {
-            var query = _orderStatusContext.GetOrderStatusQuery();
-            var op = await _orderStatusContext.LoadAsync(query);
-            Statuses = op.Entities;
-
-            foreach (var o in OrdersCollection)
-            {
-                o.Statuses = Statuses;
-                o.StatusDesc = Statuses.FirstOrDefault(x => x.Status == o.Status)?.Name;
-            }
-        }
-        private async Task LoadCustomer()
-        {
-            if (SelectedOrder == null)
+            if (e.HasError)
                 return;
 
-            if (SelectedOrder.CustomersCombo != null && SelectedOrder.CustomersCombo.Any())
+            var orders = e.Entities.Cast<Models.Orders>();
+            foreach (var order in orders)
+            {
+                order.CustomersCombo = CustomersCombo;
+                order.CountryCodes = CountryCodes;
+                order.Shippers = Shippers;
+                order.PaymentTypes = PaymentTypes;
+                order.Statuses = Statuses;
+            }
+        }
+
+        private async Task LoadCustomers() => CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities;
+        private async Task LoadShippers() => Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+        private async Task LoadPaymentTypes() => PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
+        private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
+        private async Task LoadStatuses() => Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
+
+        private async Task LoadCustomer(Models.Orders order)
+        {
+            if (order == null)
                 return;
 
-            if (SelectedOrder.Customer == null || SelectedOrder.Customer.CustomerID != SelectedOrder.CustomerID)
+            if (order.CustomersCombo != null && order.CustomersCombo.Any())
+                return;
+
+            if (order.Customer == null || order.Customer.CustomerID != order.CustomerID)
             {
-                var query = _customersContext.GetCustomersQuery().Where(x => x.CustomerID == SelectedOrder.CustomerID);
+                var query = _customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID);
                 var op = await _customersContext.LoadAsync(query);
-                var customer = op.Entities.FirstOrDefault();
-                SelectedOrder.Customer = customer;
+                order.Customer = op.Entities.FirstOrDefault();
             }
         }
         private async Task LoadProduct(Models.OrderItems orderItem)
@@ -363,7 +294,7 @@ namespace SampleCRM.Web.Views
 
             if (orderItem.Product == null)
             {
-                var query = _productsContext.GetProductsQuery().Where(x => x.ProductID == orderItem.ProductID);
+                var query = _productsContext.GetProductByIdQuery(orderItem.ProductID);
                 var op = await _productsContext.LoadAsync(query);
                 var product = op.Entities.FirstOrDefault();
                 orderItem.Product = product;
@@ -376,40 +307,13 @@ namespace SampleCRM.Web.Views
 
             if (orderItem.TaxRate == 0)
             {
-                var query = _taxTypesContext.GetTaxTypesQuery().Where(x => x.TaxTypeID == orderItem.TaxType);
+                var query = _taxTypesContext.GetTaxTypeByIdQuery(orderItem.TaxType);
                 var op = await _taxTypesContext.LoadAsync(query);
                 var taxRate = Convert.ToDecimal(op.Entities.FirstOrDefault()?.Rate, CultureInfo.InvariantCulture);
                 orderItem.TaxRate = taxRate;
             }
         }
-        private async Task LoadOrderItemsOfOrder()
-        {
-            if (SelectedOrder == null)
-                return;
-
-            if (!_orderItemsTabSelected)
-                return;
-
-            var orderId = SelectedOrder.OrderID;
-            var query = _orderItemsContext.GetOrderItemsOfOrderQuery(SelectedOrder.OrderID);
-            var op = await _orderItemsContext.LoadAsync(query);
-            OrderItemsCollection = op.Entities;
-
-            foreach (var orderItem in OrderItemsCollection)
-            {
-                await AsyncHelper.RunAsync(LoadProduct, orderItem);
-                await AsyncHelper.RunAsync(LoadTaxRate, orderItem);
-            }
-
-#if DEBUG
-            Console.WriteLine("Order Items Collection:" + OrderItemsCollection.Count());
-            foreach (var item in OrderItemsCollection)
-            {
-                Console.WriteLine("Order Item Id:" + item.OrderLine);
-            }
-#endif
-        }
-
+        
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
@@ -421,6 +325,14 @@ namespace SampleCRM.Web.Views
 
         private void grdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Orders)
+            {
+                SelectedOrder = e.AddedItems[0] as Models.Orders;
+            }
+            else
+            {
+                SelectedOrder = null;
+            }
 #if DEBUG
             Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
@@ -432,35 +344,28 @@ namespace SampleCRM.Web.Views
         }
         private async Task ArrangeOrderAddEditWindow()
         {
-            var result = await OrderAddEditWindow.Show(new Models.Orders
+            var newOrder = new Models.Orders
             {
-                IsEditMode = true,
-                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersQuery())).Entities,
-                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
-                CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities,
-                Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
-                PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
-            }, _orderContext);
+                IsEditMode = true
+            };
+            
+            UpdateComboDataForOrder(newOrder);
+            var result = await OrderAddEditWindow.Show(newOrder, _orderContext);
             if (result)
             {
-                await LoadElements();
+                NavigationService.Refresh();
             }
         }
 
-        private async void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var anySelected = e.AddedItems.Count > 0;
-            if (anySelected)
+            _orderItemsTabSelected = e.AddedItems.Count > 0 && e.AddedItems.Contains(tbOrderItems);
+            if (_orderItemsTabSelected && SelectedOrder != null)
             {
-                _orderItemsTabSelected = e.AddedItems.Contains(tbOrderItems);
-                if (_orderItemsTabSelected)
-                {
-                    await AsyncHelper.RunAsync(LoadOrderItemsOfOrder);
-                }
-            }
-            else
-            {
-                _orderItemsTabSelected = false;
+                var orderId = SelectedOrder.OrderID;
+                var orderParam = orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "orderId");
+                orderParam.Value = orderId;
+                orderItemsDataSource.Load();
             }
         }
 
@@ -513,7 +418,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async void OnFormOrderSubmitCompleted(SubmitOperation so)
+        private void OnFormOrderSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
             {
@@ -529,16 +434,17 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                await UpdateComboDataForOrder(SelectedOrder);
+                UpdateComboDataForOrder(SelectedOrder);
             }
         }
 
-        private async Task UpdateComboDataForOrder(Models.Orders o)
+        private void UpdateComboDataForOrder(Models.Orders order)
         {
-            o.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
-            o.CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
-            o.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
-            o.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
+            order.CustomersCombo = CustomersCombo;
+            order.CountryCodes = CountryCodes;
+            order.Shippers = Shippers;
+            order.PaymentTypes = PaymentTypes;
+            order.Statuses = Statuses;
         }
 
         private void btnOrderItemSearchCancel_Click(object sender, RoutedEventArgs e)
@@ -548,6 +454,14 @@ namespace SampleCRM.Web.Views
 
         private void grdOrderItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.OrderItems)
+            {
+                SelectedOrderItem = e.AddedItems[0] as Models.OrderItems;
+            }
+            else
+            {
+                SelectedOrderItem = null;
+            }
 #if DEBUG
             Console.WriteLine("grdOrderItems_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
@@ -562,7 +476,7 @@ namespace SampleCRM.Web.Views
 
             if (SelectedOrderItem.ProductsCombo == null)
             {
-                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities;
+                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsComboQuery())).Entities;
             }
 
             if (SelectedOrderItem.TaxTypes == null)
@@ -573,7 +487,7 @@ namespace SampleCRM.Web.Views
             var result = await OrderItemAddEditWindow.Show(SelectedOrderItem, _orderItemsContext);
             if (result)
             {
-                await LoadOrderItemsOfOrder();
+                orderItemsDataSource.Load();
             }
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
@@ -590,13 +504,13 @@ namespace SampleCRM.Web.Views
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,
                 OrderLine = 0,
-                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery())).Entities,
+                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsComboQuery())).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
             }, _orderItemsContext);
-            //if (result)
-            //{
-            //    NavigationService.Refresh();
-            //}
+            if (result)
+            {
+                orderItemsDataSource.Load();
+            }
         }
 
         private void txtOrderItemSearch_KeyUp(object sender, KeyEventArgs e)

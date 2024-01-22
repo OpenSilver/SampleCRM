@@ -11,10 +11,8 @@ namespace SampleCRM.Web
     public class CategoryService : SampleCRMService
     {
         [Query]
-        public IQueryable<Categories> GetCategories()
-        {
-            return _context.Categories;
-        }
+        public IQueryable<Categories> GetCategories() => 
+            _context.Categories.OrderBy(x => x.Name);
 
         [Delete]
         [RestrictAccessReadonlyMode]
@@ -28,7 +26,7 @@ namespace SampleCRM.Web
         [RestrictAccessReadonlyMode]
         public void InsertCategory(Categories category)
         {
-            
+
             _context.Categories.AddOrUpdate(category);
             _context.SaveChanges();
         }

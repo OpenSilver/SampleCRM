@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
 {
-    public class BaseUserControl : UserControl, INotifyPropertyChanged
+    public class BaseUserControl : UserControl
     {
         protected const string _imageFileExtFilter = "All Images Files (*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif)|*.png;*.jpeg;*.gif;*.jpg;*.bmp;*.tiff;*.tif" +
             "|PNG Portable Network Graphics (*.png)|*.png" +
@@ -25,8 +25,8 @@ namespace SampleCRM.Web.Views
 
         private void MainWindow_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
+            IsMobileUI = Application.Current.MainWindow.ActualWidth <= MaxMobileWidth;
             ArrangeLayout();
-            OnPropertyChanged(nameof(IsMobileUI));
         }
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
@@ -38,13 +38,10 @@ namespace SampleCRM.Web.Views
 
         public bool IsMobileUI
         {
-            get { return Application.Current.MainWindow.ActualWidth <= MaxMobileWidth; }
+            get { return (bool)GetValue(IsMobileUIProperty); }
+            set { SetValue(IsMobileUIProperty, value); }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public static readonly DependencyProperty IsMobileUIProperty =
+            DependencyProperty.Register("IsMobileUI", typeof(bool), typeof(BaseUserControl), new PropertyMetadata(null));
     }
 }

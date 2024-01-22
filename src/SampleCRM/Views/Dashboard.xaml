@@ -3,7 +3,9 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                 xmlns:domain="clr-namespace:SampleCRM.Web" 
+                 xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices"
                  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
@@ -31,29 +33,46 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Latest Customers" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+
+                    <riaControls:DomainDataSource Name="customersDataSource" QueryName="GetLatestCustomersQuery" 
+                                                      AutoLoad="False">
+                        <riaControls:DomainDataSource.DomainContext>
+                            <domain:CustomersContext />
+                        </riaControls:DomainDataSource.DomainContext>
+                        <riaControls:DomainDataSource.QueryParameters>
+                            <riaControls:Parameter ParameterName="search" Value="" />
+                            <riaControls:Parameter ParameterName="limit" Value="5" />
+                        </riaControls:DomainDataSource.QueryParameters>
+                    </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdCustomers" HorizontalContentAlignment="Stretch"
-                  ItemsSource="{Binding Customers}" 
-                  IsReadOnly="True"
-                  Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                  AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Grid.Row="1">
+                              ItemsSource="{Binding Data, ElementName=customersDataSource}"
+                              IsReadOnly="True"
+                              Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}" />
-                            <DataGridTemplateColumn Header="Image" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn Header="Name" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding PictureUrl, Mode=OneWay}" Stretch="Fill"></ImageBrush>
-                                            </Border.Background>
-                                        </Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Border Width="32" Height="32" BorderBrush="{StaticResource MaterialDesign_DefaultAccentColor}" 
+                                                BorderThickness="2" CornerRadius="16" Margin="0,0,5,0">
+                                                </Border>
+                                                <Image Width="30" Height="30" Margin="0,0,5,0" Source="{Binding PictureUrl, Mode=OneWay}">
+                                                    <Image.Clip>
+                                                        <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15" />
+                                                    </Image.Clip>
+                                                </Image>
+                                            </Grid>
+                                            <TextBlock Text="{Binding FullName}" VerticalAlignment="Center" />
+                                        </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Name" Binding="{Binding FullName}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" CellStyle="{StaticResource DataGridCell}" />
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </ContentControl>
 
@@ -64,13 +83,24 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Latest Orders" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+
+                    <riaControls:DomainDataSource Name="ordersDataSource" QueryName="GetLatestOrdersQuery" 
+                                                      AutoLoad="False">
+                        <riaControls:DomainDataSource.DomainContext>
+                            <domain:OrderContext />
+                        </riaControls:DomainDataSource.DomainContext>
+                        <riaControls:DomainDataSource.QueryParameters>
+                            <riaControls:Parameter ParameterName="limit" Value="5" />
+                            <riaControls:Parameter ParameterName="search" Value="" />
+                        </riaControls:DomainDataSource.QueryParameters>
+                    </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdOrders" 
-                      Grid.Row="1"
-                      HorizontalContentAlignment="Stretch"
-                      ItemsSource="{Binding Orders}" 
-                      IsReadOnly="True"
-                      Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                      AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+                              Grid.Row="1"
+                              HorizontalContentAlignment="Stretch"
+                              ItemsSource="{Binding Data, ElementName=ordersDataSource}"
+                              IsReadOnly="True"
+                              Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
@@ -87,13 +117,23 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Top Sale Products" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+
+                    <riaControls:DomainDataSource Name="productsDataSource" QueryName="GetTopSaleProductsQuery" 
+                                                      AutoLoad="False">
+                        <riaControls:DomainDataSource.DomainContext>
+                            <domain:ProductsContext />
+                        </riaControls:DomainDataSource.DomainContext>
+                        <riaControls:DomainDataSource.QueryParameters>
+                            <riaControls:Parameter ParameterName="limit" Value="5" />
+                        </riaControls:DomainDataSource.QueryParameters>
+                    </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdProducts" 
-                      Grid.Row="1"
-                      HorizontalContentAlignment="Stretch"
-                      ItemsSource="{Binding Products}" 
-                      IsReadOnly="True"
-                      Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                      AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+                              Grid.Row="1"
+                              HorizontalContentAlignment="Stretch"
+                              ItemsSource="{Binding Data, ElementName=productsDataSource}"
+                              IsReadOnly="True"
+                              Style="{StaticResource MaterialDesign_DataGrid_Style}"
+                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ProductId" Binding="{Binding ProductID}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTemplateColumn Header="Image" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
