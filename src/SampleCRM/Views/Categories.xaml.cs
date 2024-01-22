@@ -23,7 +23,7 @@ namespace SampleCRM.Web.Views
                 if (_categoryCollection != value)
                 {
                     _categoryCollection = value;
-                    base.OnPropertyChanged();
+                    //base.OnPropertyChanged();
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace SampleCRM.Web.Views
                 if (_selectedCategory != value)
                 {
                     _selectedCategory = value;
-                    OnPropertyChanged();
+                    //OnPropertyChanged();
                 }
             }
         }

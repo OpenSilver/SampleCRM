@@ -49,6 +49,7 @@ namespace SampleCRM.Web.Models
         public Nullable<decimal> YearlyIncome { get; set; }
         public Nullable<long> LastModifiedOnUTC { get; set; }
     
+        public virtual CountryCodes CountryCodes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

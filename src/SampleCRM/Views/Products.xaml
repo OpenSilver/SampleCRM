@@ -3,8 +3,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices" xmlns:domain="clr-namespace:SampleCRM.Web"
+                mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
         Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
@@ -52,12 +52,25 @@
                            FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
             </Grid>
 
+            <riaControls:DomainDataSource Name="productsDataSource" 
+                                          QueryName="GetProducts" 
+                                          LoadingData="productsDataSource_LoadingData"
+                                          LoadedData="productsDataSource_LoadedData"
+                                          AutoLoad="False">
+                <riaControls:DomainDataSource.DomainContext>
+                    <domain:ProductsContext />
+                </riaControls:DomainDataSource.DomainContext>
+                <riaControls:DomainDataSource.QueryParameters>
+                    <riaControls:Parameter ParameterName="search" Value="" />
+                </riaControls:DomainDataSource.QueryParameters>
+                <riaControls:DomainDataSource.SortDescriptors>
+                    <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
+                </riaControls:DomainDataSource.SortDescriptors>
+            </riaControls:DomainDataSource>
             <ListBox x:Name="lstProducts" Grid.ColumnSpan="3" Grid.Row="3"
                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                      Background="Transparent" BorderThickness="0"
-                     ItemsSource="{Binding FilteredProductsCollection}"
-                     SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                     SelectionChanged="lstProducts_SelectionChanged">
+                     ItemsSource="{Binding Data, ElementName=productsDataSource}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel x:Name="wrpList" 

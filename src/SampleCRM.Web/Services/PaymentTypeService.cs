@@ -11,15 +11,10 @@ namespace SampleCRM.Web
     public class PaymentTypeService : SampleCRMService
     {
         [Query]
-        public IQueryable<PaymentTypes> GetPaymentTypes()
-        {
-            return _context.PaymentTypes;
-        }
+        public IQueryable<PaymentTypes> GetPaymentTypes() => _context.PaymentTypes;
 
-        public PaymentTypes GetPaymentTypeById(long paymentTypeId)
-        {
-            return _context.PaymentTypes.SingleOrDefault(x => x.PaymentTypeID == paymentTypeId);
-        }
+        public PaymentTypes GetPaymentTypeById(long paymentTypeId) => 
+            GetPaymentTypes().SingleOrDefault(x => x.PaymentTypeID == paymentTypeId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

@@ -14,7 +14,16 @@ namespace SampleCRM.Web.Models
     
     public partial class OrderStatus
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderStatus()
+        {
+            this.Orders = new HashSet<Orders>();
+        }
+    
         [Key]public long Status { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace SampleCRM.Web.Views
                 if (_order != value)
                 {
                     _order = value;
-                    OnPropertyChanged();
+                    //OnPropertyChanged();
 #if DEBUG
                     Console.WriteLine($"OrderItemAddEdit, Item: {value.OrderID} selected");
 #endif

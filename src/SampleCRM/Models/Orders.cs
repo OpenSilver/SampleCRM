@@ -46,7 +46,7 @@ namespace SampleCRM.Web.Models
                 if (_paymentTypesVisible != value)
                 {
                     _paymentTypesVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypesVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(PaymentTypesVisible)));
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace SampleCRM.Web.Models
                 if (_shippedDateVisible != value)
                 {
                     _shippedDateVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedDateVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShippedDateVisible)));
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace SampleCRM.Web.Models
                 if (_shippedViaVisible != value)
                 {
                     _shippedViaVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShippedViaVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShippedViaVisible)));
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace SampleCRM.Web.Models
                 if (_deliveredDateVisible != value)
                 {
                     _deliveredDateVisible = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("DeliveredDateVisible"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(DeliveredDateVisible)));
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace SampleCRM.Web.Models
                 if (_shippers != value)
                 {
                     _shippers = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Shippers"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Shippers)));
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace SampleCRM.Web.Models
                 if (_paymentTypes != value)
                 {
                     _paymentTypes = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("PaymentTypes"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(PaymentTypes)));
                 }
             }
         }
@@ -130,12 +130,10 @@ namespace SampleCRM.Web.Models
                 if (_countryCodes != value)
                 {
                     _countryCodes = value;
-                    if (_countryCodes != null)
-                    {
-                        ShipCountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == ShipCountryCode)?.Name;
-                    }
-                    OnPropertyChanged(new PropertyChangedEventArgs("CountryCodes"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryCodes)));
                 }
+                if (_countryCodes != null)
+                    ShipCountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == ShipCountryCode)?.Name;
             }
         }
 
@@ -148,9 +146,9 @@ namespace SampleCRM.Web.Models
                 if (_statuses != value)
                 {
                     _statuses = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("Statuses"));
-                    OnPropertyChanged(new PropertyChangedEventArgs("Status"));
                 }
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Statuses)));
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Status)));
             }
         }
 
@@ -164,8 +162,8 @@ namespace SampleCRM.Web.Models
                 if (_shipCountryName != value)
                 {
                     _shipCountryName = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("ShipCountryName"));
                 }
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(ShipCountryName)));
             }
         }
 
@@ -178,7 +176,7 @@ namespace SampleCRM.Web.Models
                 if (_statusDesc != value)
                 {
                     _statusDesc = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("StatusDesc"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(StatusDesc)));
                 }
             }
         }
@@ -192,7 +190,7 @@ namespace SampleCRM.Web.Models
                 if (_customersCombo != value)
                 {
                     _customersCombo = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("CustomersCombo"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomersCombo)));
                 }
             }
         }
@@ -214,7 +212,7 @@ namespace SampleCRM.Web.Models
                     //    ShipCountryCode = _customer.CountryCode;
                     //    ShipPostalCode = _customer.PostalCode;
                     //}
-                    OnPropertyChanged(new PropertyChangedEventArgs("Customer"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Customer)));
                 }
             }
         }
@@ -228,7 +226,7 @@ namespace SampleCRM.Web.Models
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("IsEditMode"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
                 }
             }
         }

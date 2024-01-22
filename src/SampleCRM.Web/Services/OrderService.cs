@@ -12,23 +12,19 @@ namespace SampleCRM.Web
     public class OrderService : SampleCRMService
     {
         [Query]
-        public IQueryable<Orders> GetOrders()
-        {
-            return _context.Orders.OrderByDescending(o => o.OrderDateUTC)
-                                  .AsQueryable();
-        }
+        public IQueryable<Orders> GetOrders(string search) =>
+            _context.Orders.OrderByDescending(o => o.OrderDateUTC)
+                           .Where(x => x.OrderID.ToString().Contains(search) 
+                                       || search == "")
+                           .AsQueryable();
 
         [Query]
-        public IQueryable<Orders> GetLatestOrders(int limit)
-        {
-            return GetOrders().Take(limit);
-        }
+        public IQueryable<Orders> GetLatestOrders(int limit, string search) => 
+            GetOrders(search).Take(limit);
 
         [Query]
-        public IQueryable<Orders> GetOrdersOfCustomer(long customerId)
-        {
-            return GetOrders().Where(x => x.CustomerID == customerId);
-        }
+        public IQueryable<Orders> GetOrdersOfCustomer(long customerId, string search) => 
+            GetOrders(search).Where(x => x.CustomerID == customerId);
 
         [Delete]
         [RestrictAccessReadonlyMode]

@@ -1,12 +1,11 @@
-﻿using SampleCRM.Web;
+﻿using OpenRiaServices.Controls;
+using SampleCRM.Web;
+using SampleCRM.Web.Models;
 using SampleCRM.Web.Views;
 using System;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media.Effects;
 using System.Windows.Navigation;
 
@@ -14,117 +13,51 @@ namespace SampleCRM
 {
     public partial class MainPage : BaseUserControl, IBusyCapablePage
     {
-        private CountContext _countContext = new CountContext();
-
-        private int _categoriesCount;
-        public int CategoriesCount
+        #region Properties
+        public CountModel CountModel
         {
-            get { return _categoriesCount; }
-            set
-            {
-                if (_categoriesCount != value)
-                {
-                    _categoriesCount = value;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (CountModel)GetValue(CountModelProperty); }
+            set { SetValue(CountModelProperty, value); }
         }
+        public static readonly DependencyProperty CountModelProperty =
+            DependencyProperty.Register("CountModel", typeof(CountModel), typeof(MainPage), new PropertyMetadata(null));
 
-        private int _customersCount;
-        public int CustomersCount
-        {
-            get { return _customersCount; }
-            set
-            {
-                if (_customersCount != value)
-                {
-                    _customersCount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _ordersCount;
-        public int OrdersCount
-        {
-            get { return _ordersCount; }
-            set
-            {
-                if (_ordersCount != value)
-                {
-                    _ordersCount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _productsCount;
-        public int ProductsCount
-        {
-            get { return _productsCount; }
-            set
-            {
-                if (_productsCount != value)
-                {
-                    _productsCount = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _isBlur = false;
         public bool IsBlur
         {
-            get { return _isBlur; }
-            set
-            {
-                if (_isBlur != value)
-                {
-                    _isBlur = value;
-                    ContentBorder.Effect = _isBlur ? new BlurEffect { Radius = 5 } : null;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (bool)GetValue(IsBlurProperty); }
+            set { SetValue(IsBlurProperty, value); }
         }
+        public static readonly DependencyProperty IsBlurProperty =
+            DependencyProperty.Register("IsBlur", typeof(bool), typeof(MainPage),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var page = s as MainPage;
+                        var value = Convert.ToBoolean(t.NewValue);
+                        page.ContentBorder.Effect = value ? new BlurEffect { Radius = 5 } : null;
+                    })));
 
-        private bool _isBusy = false;
         public bool IsBusy
         {
-            get { return _isBusy; }
-            set
-            {
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    IsBlur = _isBusy;
-                    OnPropertyChanged();
-                }
-            }
+            get { return (bool)GetValue(IsBusyProperty); }
+            set { SetValue(IsBusyProperty, value); }
         }
+        public static readonly DependencyProperty IsBusyProperty =
+            DependencyProperty.Register("IsBusy", typeof(bool), typeof(MainPage),
+                new PropertyMetadata(
+                    new PropertyChangedCallback((s, t) =>
+                    {
+                        var page = s as MainPage;
+                        var value = Convert.ToBoolean(t.NewValue);
+                        page.IsBlur = value;
+                    })));
+        #endregion
 
         public MainPage()
         {
             AsyncHelper.ContentPage = this;
-            InitializeComponent();
             DataContext = this;
-            Loaded += MainPage_Loaded;
-        }
-
-        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!DesignerProperties.GetIsInDesignMode(this))
-                await AsyncHelper.RunAsync(LoadCounts);
-        }
-
-        private async Task LoadCounts()
-        {
-            var query = _countContext.GetAllCountsQuery();
-            var op = await _countContext.LoadAsync(query);
-            var counts = op.Entities.FirstOrDefault();
-            CategoriesCount = counts.CategoryCount;
-            CustomersCount = counts.CustomerCount;
-            OrdersCount = counts.OrderCount;
-            ProductsCount = counts.ProductCount;
+            InitializeComponent();
         }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
@@ -163,6 +96,14 @@ namespace SampleCRM
         private void menuPane_OnCurrentStateChanged(object sender, ResponsivePane.CurrentState e)
         {
             IsBlur = e == ResponsivePane.CurrentState.SmallResolution_ShowMenu;
+        }
+
+        private void countDataSource_LoadedData(object sender, LoadedDataEventArgs e)
+        {
+            if (e.HasError)
+                return;
+
+            CountModel = e.AllEntities.Cast<CountModel>().FirstOrDefault();
         }
     }
 }

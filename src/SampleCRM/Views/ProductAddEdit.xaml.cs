@@ -11,25 +11,24 @@ namespace SampleCRM.Web.Views
         public event EventHandler ProductAdded;
         public event EventHandler ProductUpdated;
 
-        private Models.Products _prodcutViewModel = new Models.Products();
         public Models.Products ProductViewModel
         {
-            get { return _prodcutViewModel; }
-            set
-            {
-                if (_prodcutViewModel != value)
+            get { return (Models.Products)GetValue(ProductViewModelProperty); }
+            set { SetValue(ProductViewModelProperty, value); }
+        }
+        public static readonly DependencyProperty ProductViewModelProperty =
+            DependencyProperty.Register("ProductViewModel", typeof(Models.Products), typeof(ProductAddEdit), 
+                new PropertyMetadata(new PropertyChangedCallback((s,t) =>
                 {
-                    _prodcutViewModel = value;
-                    OnPropertyChanged();
+                    var page = s as ProductAddEdit;
+                    var value = t.NewValue as Models.Products;
 #if DEBUG
-                    if (_prodcutViewModel.IsNew)
+                    if (value.IsNew)
                         Console.WriteLine("ProductAddEdit, New Product Generated");
                     else
                         Console.WriteLine($"ProductAddEdit, ProductViewModel: {value.ProductID} {value.Name} selected");
 #endif
-                }
-            }
-        }
+                })));
 
         public ProductAddEdit()
         {
@@ -78,18 +77,18 @@ namespace SampleCRM.Web.Views
 
         public void Save(ProductsContext context)
         {
-            if ((_prodcutViewModel.IsNew && context.Products.CanAdd) || context.Products.CanEdit)
+            if ((ProductViewModel.IsNew && context.Products.CanAdd) || context.Products.CanEdit)
             {
 #if DEBUG
-                if (_prodcutViewModel.IsNew)
+                if (ProductViewModel.IsNew)
                     Console.WriteLine("ProductAddEdit, Save, New Product Submiting Changes");
                 else
-                    Console.WriteLine($"ProductAddEdit, Update, Product Id: {_prodcutViewModel.ProductID}");
+                    Console.WriteLine($"ProductAddEdit, Update, Product Id: {ProductViewModel.ProductID}");
 #endif
 
-                if (_prodcutViewModel.IsNew)
+                if (ProductViewModel.IsNew)
                 {
-                    context.Products.Add(_prodcutViewModel);
+                    context.Products.Add(ProductViewModel);
                 }
 
                 context.SubmitChanges(OnAddSubmitCompleted, null);
@@ -105,9 +104,9 @@ namespace SampleCRM.Web.Views
             if (context.Products.CanRemove)
             {
 #if DEBUG
-                Console.WriteLine($"ProductAddEdit, Delete, Product Id: {_prodcutViewModel.ProductID}");
+                Console.WriteLine($"ProductAddEdit, Delete, Product Id: {ProductViewModel.ProductID}");
 #endif
-                context.Products.Remove(_prodcutViewModel);
+                context.Products.Remove(ProductViewModel);
                 context.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
@@ -129,7 +128,7 @@ namespace SampleCRM.Web.Views
             else
             {
 #if DEBUG
-                Console.WriteLine($"ProductAddEdit, OnDeleteSubmitCompleted, Product Id: {_prodcutViewModel.ProductID}");
+                Console.WriteLine($"ProductAddEdit, OnDeleteSubmitCompleted, Product Id: {ProductViewModel.ProductID}");
 #endif
                 if (ProductDeleted != null)
                     ProductDeleted(this, new EventArgs());
@@ -153,12 +152,12 @@ namespace SampleCRM.Web.Views
             else
             {
 #if DEBUG
-                if (_prodcutViewModel.IsNew)
+                if (ProductViewModel.IsNew)
                     Console.WriteLine("ProductAddEdit, OnAddSubmitCompleted, New Product");
                 else
-                    Console.WriteLine($"ProductAddEdit, OnAddSubmitCompleted, Product Id: {_prodcutViewModel.ProductID}");
+                    Console.WriteLine($"ProductAddEdit, OnAddSubmitCompleted, Product Id: {ProductViewModel.ProductID}");
 #endif
-                if (_prodcutViewModel.IsNew)
+                if (ProductViewModel.IsNew)
                 {
                     if (ProductAdded != null)
                         ProductAdded(this, new EventArgs());

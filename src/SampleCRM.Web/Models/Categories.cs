@@ -14,9 +14,18 @@ namespace SampleCRM.Web.Models
     
     public partial class Categories
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Categories()
+        {
+            this.Products = new HashSet<Products>();
+        }
+    
         [Key]public long CategoryID { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
         public byte[] Picture { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Products> Products { get; set; }
     }
 }
