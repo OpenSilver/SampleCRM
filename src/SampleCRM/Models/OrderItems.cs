@@ -25,8 +25,18 @@ namespace SampleCRM.Web.Models
                     break;
                 case nameof(ProductID):
                     {
-                        if (ProductsCombo != null && ProductsCombo.Any())
+                        if (ProductsCombo != null)
                             Product = ProductsCombo.FirstOrDefault(x => x.ProductID == ProductID);
+
+                        break;
+                    }
+                case nameof(TaxType):
+                    {
+                        if (TaxTypes != null)
+                        {
+                            decimal.TryParse(TaxTypes.FirstOrDefault(x => x.TaxTypeID == TaxType).Rate, out var taxRate);
+                            TaxRate = taxRate;
+                        }
 
                         break;
                     }
@@ -35,7 +45,7 @@ namespace SampleCRM.Web.Models
             base.OnPropertyChanged(e);
         }
 
-        public bool IsNew => OrderLine <= 0;
+        public bool IsNew => OrderLine < 1;
 
         private bool _isEditMode;
         public bool IsEditMode
@@ -51,8 +61,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Models.TaxTypes> _taxTypes;
-        public IEnumerable<Models.TaxTypes> TaxTypes
+        private IEnumerable<TaxTypes> _taxTypes;
+        public IEnumerable<TaxTypes> TaxTypes
         {
             get { return _taxTypes; }
             set
@@ -74,14 +84,14 @@ namespace SampleCRM.Web.Models
                 if (_taxRate != value)
                 {
                     _taxRate = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs("TaxRate"));
-                    OnPropertyChanged(new PropertyChangedEventArgs("Total"));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(TaxRate)));
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Total)));
                 }
             }
         }
 
-        private IEnumerable<Models.Products> _productsCombo;
-        public IEnumerable<Models.Products> ProductsCombo
+        private IEnumerable<Products> _productsCombo;
+        public IEnumerable<Products> ProductsCombo
         {
             get { return _productsCombo; }
             set
@@ -104,6 +114,13 @@ namespace SampleCRM.Web.Models
                 {
                     _product = value;
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(Product)));
+                    if (_product != null)
+                    {
+                        Quantity = 1;
+                        UnitPrice = _product.ListPrice;
+                        Discount = _product.Discount;
+                        TaxType = _product.TaxType;
+                    }
                 }
             }
         }

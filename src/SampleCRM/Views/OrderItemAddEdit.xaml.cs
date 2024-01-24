@@ -10,22 +10,21 @@ namespace SampleCRM.Web.Views
         public event EventHandler ItemAdded;
         public event EventHandler ItemUpdated;
 
-        private Models.OrderItems _item = new Models.OrderItems();
         public Models.OrderItems Item
         {
-            get { return _item; }
-            set
-            {
-                if (_item != value)
+            get { return (Models.OrderItems)GetValue(ItemProperty); }
+            set { SetValue(ItemProperty, value); }
+        }
+        public static readonly DependencyProperty ItemProperty =
+            DependencyProperty.Register("Item", typeof(Models.OrderItems), typeof(OrderItemAddEdit),
+                new PropertyMetadata(new PropertyChangedCallback((s, t) =>
                 {
-                    _item = value;
-                    //OnPropertyChanged();
+                    var page = s as OrderItemAddEdit;
+                    var value = t.NewValue as Models.OrderItems;
 #if DEBUG
                     Console.WriteLine($"OrderItemAddEdit, Item: {value.ProductID} selected");
 #endif
-                }
-            }
-        }
+                })));
 
         public OrderItemAddEdit()
         {
@@ -94,7 +93,7 @@ namespace SampleCRM.Web.Views
             }
             else
             {
-                if (_item.IsNew)
+                if (Item.IsNew)
                 {
                     if (ItemAdded != null)
                         ItemAdded(this, new EventArgs());

@@ -476,8 +476,9 @@
                     </Grid>
 
                     <riaControls:DomainDataSource Name="orderItemsDataSource" 
-                                                      QueryName="GetOrderItemsOfOrder"
-                                                      PageSize="10" LoadSize="10" AutoLoad="False">
+                                                  QueryName="GetOrderItemsOfOrder"
+                                                  LoadedData="orderItemsDataSource_LoadedData"      
+                                                  PageSize="10" LoadSize="10" AutoLoad="False">
                         <riaControls:DomainDataSource.DomainContext>
                             <domain:OrderItemsContext />
                         </riaControls:DomainDataSource.DomainContext>
@@ -490,8 +491,7 @@
                         </riaControls:DomainDataSource.SortDescriptors>
                     </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdOrderItems" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
-                              ItemsSource="{Binding FilteredOrderItemsCollection}" 
-                              SelectedItem="{Binding SelectedOrderItem, Mode=TwoWay}"
+                              ItemsSource="{Binding Data, ElementName=orderItemsDataSource}"
                               SelectionChanged="grdOrderItems_SelectionChanged"
                               HorizontalContentAlignment="Stretch"
                               IsReadOnly="True"

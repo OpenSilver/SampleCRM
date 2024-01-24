@@ -22,6 +22,7 @@ namespace SampleCRM.Web.Views
         public OrderItemAddEditWindow(Models.OrderItems orderItem, OrderItemsContext context)
             : this()
         {
+            DataContext = orderItem;
             _context = context;
             orderItemAddEditView.Item = orderItem;
             Title = orderItem.IsNew ? "Add Order Item" : "Edit Order Item";

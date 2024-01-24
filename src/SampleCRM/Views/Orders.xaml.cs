@@ -313,7 +313,7 @@ namespace SampleCRM.Web.Views
                 orderItem.TaxRate = taxRate;
             }
         }
-        
+
         private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
         {
             SearchText = string.Empty;
@@ -348,7 +348,7 @@ namespace SampleCRM.Web.Views
             {
                 IsEditMode = true
             };
-            
+
             UpdateComboDataForOrder(newOrder);
             var result = await OrderAddEditWindow.Show(newOrder, _orderContext);
             if (result)
@@ -476,7 +476,7 @@ namespace SampleCRM.Web.Views
 
             if (SelectedOrderItem.ProductsCombo == null)
             {
-                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsComboQuery())).Entities;
+                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery(string.Empty))).Entities;
             }
 
             if (SelectedOrderItem.TaxTypes == null)
@@ -499,14 +499,16 @@ namespace SampleCRM.Web.Views
             if (SelectedOrder == null)
                 throw (new ArgumentNullException("Selected Order can't be null"));
 
-            var result = await OrderItemAddEditWindow.Show(new Models.OrderItems
+            var newOrderItem = new Models.OrderItems
             {
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,
                 OrderLine = 0,
-                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsComboQuery())).Entities,
+                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery(string.Empty))).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
-            }, _orderItemsContext);
+            };
+
+            var result = await OrderItemAddEditWindow.Show(newOrderItem, _orderItemsContext);
             if (result)
             {
                 orderItemsDataSource.Load();
@@ -522,6 +524,20 @@ namespace SampleCRM.Web.Views
         {
             if (e.Key == Key.Enter)
                 btnSearch.Focus();
+        }
+
+        private async void orderItemsDataSource_LoadedData(object sender, OpenRiaServices.Controls.LoadedDataEventArgs e)
+        {
+            if (e.HasError)
+                return;
+
+            var orderItems = e.Entities.Cast<Models.OrderItems>();
+
+            foreach (var item in orderItems)
+            {
+                await AsyncHelper.RunAsync(() => LoadProduct(item));
+                await AsyncHelper.RunAsync(() => LoadTaxRate(item));
+            }
         }
     }
 }
