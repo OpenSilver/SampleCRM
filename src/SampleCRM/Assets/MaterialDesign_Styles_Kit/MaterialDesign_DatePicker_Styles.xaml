@@ -567,6 +567,7 @@
         <Setter Property="Foreground" Value="{StaticResource White75Brush}"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="SelectionBackground" Value="#FF444444"/>
+        <Setter Property="Height" Value="25" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DatePicker">
