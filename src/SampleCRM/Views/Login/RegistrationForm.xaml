@@ -37,7 +37,7 @@
         </StackPanel>
         <TextBox x:Name="userNameTextBox" Grid.Row="2" PlaceholderText="Enter user name" 
                  Text="{Binding UserName, Mode=TwoWay}"
-                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" />
+                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" Height="30" />
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Friendly Name" />
@@ -45,7 +45,7 @@
         </StackPanel>
         <TextBox Grid.Row="4" PlaceholderText="Enter Friendly name" 
                  Text="{Binding FriendlyName, Mode=TwoWay}"
-                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" />
+                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" Height="30" />
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Email" />
@@ -53,26 +53,26 @@
         </StackPanel>
         <TextBox Grid.Row="6" PlaceholderText="Enter Email" 
                  Text="{Binding Email, Mode=TwoWay}"
-                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" />
+                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" Height="30" />
 
         <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Password" />
         </StackPanel>
-        <PasswordBox Grid.Row="8" FontSize="12"
+        <PasswordBox Grid.Row="8" FontSize="12" Height="30"
                      x:Name="passwordBox"
                      Style="{StaticResource DataFieldPasswordStyle}" />
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Confirm Password" />
         </StackPanel>
-        <PasswordBox Grid.Row="10" FontSize="12"
+        <PasswordBox Grid.Row="10" FontSize="12" Height="30"
                      x:Name="passwordConfirmationBox"
                      Style="{StaticResource DataFieldPasswordStyle}" />
 
         <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Security Question" />
         </StackPanel>
-        <ComboBox Grid.Row="12" FontSize="12" x:Name="questionComboBox" 
+        <ComboBox Grid.Row="12" FontSize="12" Height="30" x:Name="questionComboBox" 
                   Style="{StaticResource MaterialDesign_ComboBox_Style}"
                   SelectedItem="{Binding Question, Mode=TwoWay}">
             <ComboBoxItem>What is the name of your favorite childhood friend?</ComboBoxItem>
@@ -94,7 +94,7 @@
         </StackPanel>
         <TextBox Grid.Row="14" PlaceholderText="Enter Security Answer" 
                  Text="{Binding Answer, Mode=TwoWay}"
-                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" />
+                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" Height="30" />
 
         <StackPanel Grid.Row="15" Grid.Column="0" Orientation="Horizontal" Margin="0,10">
             <TextBlock Text="Already registered?  " FontSize="12" Foreground="{StaticResource White75Brush}" />
@@ -103,7 +103,7 @@
                              IsEnabled="{Binding IsLoggingIn, Converter={StaticResource NotOperatorValueConverter}}" />
         </StackPanel>
 
-
+        
         <StackPanel Grid.Row="16" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button x:Name="registerButton" Click="RegisterButton_Click" IsEnabled="{Binding Path=CanLogIn}"
                 Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="5,8" Padding="5,8"

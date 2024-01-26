@@ -23,12 +23,12 @@
         </StackPanel>
         <TextBox x:Name="userNameTextBox" Grid.Row="1" PlaceholderText="Enter user name" 
                  Text="{Binding UserName, Mode=TwoWay}"
-                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" />
+                 Style="{StaticResource DataFieldTextStyle}" FontSize="12" Height="30" />
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,5">
             <TextBlock TextWrapping="Wrap" Foreground="{StaticResource White25Brush}" FontSize="10" Text="Password" />
         </StackPanel>
-        <PasswordBox Grid.Row="3" FontSize="12"
+        <PasswordBox Grid.Row="3" FontSize="12" Height="30"
                      x:Name="passwordBox"
                      Style="{StaticResource DataFieldPasswordStyle}" />
 
