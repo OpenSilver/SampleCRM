@@ -93,6 +93,11 @@ namespace SampleCRM
             IsBusy = isBusy;
         }
 
+        public void MakeBlur(bool isBlur)
+        {
+            IsBlur = isBlur;
+        }
+
         private void menuPane_OnCurrentStateChanged(object sender, ResponsivePane.CurrentState e)
         {
             IsBlur = e == ResponsivePane.CurrentState.SmallResolution_ShowMenu;

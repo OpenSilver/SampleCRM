@@ -91,6 +91,7 @@ namespace SampleCRM.Web.Views
                             await AsyncHelper.RunAsync(async () => await page.LoadCustomer(value));
                             if (page._orderItemsTabSelected)
                             {
+                                page.orderItemsDataSource.Clear();
                                 var orderId = value.OrderID;
                                 var orderParam = page.orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "orderId");
                                 orderParam.Value = orderId;
@@ -163,6 +164,7 @@ namespace SampleCRM.Web.Views
                     {
                         var value = t.NewValue as string;
                         var page = s as Orders;
+                        page.orderItemsDataSource.Clear();
                         var searchParam = page.orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
                         searchParam.Value = value;
                         page.orderItemsDataSource.Load();
@@ -282,9 +284,7 @@ namespace SampleCRM.Web.Views
 
             if (order.Customer == null || order.Customer.CustomerID != order.CustomerID)
             {
-                var query = _customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID);
-                var op = await _customersContext.LoadAsync(query);
-                order.Customer = op.Entities.FirstOrDefault();
+                order.Customer = (await _customersContext.LoadAsync(_customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID))).Entities.FirstOrDefault();
             }
         }
         private async Task LoadProduct(Models.OrderItems orderItem)
@@ -294,10 +294,7 @@ namespace SampleCRM.Web.Views
 
             if (orderItem.Product == null)
             {
-                var query = _productsContext.GetProductByIdQuery(orderItem.ProductID);
-                var op = await _productsContext.LoadAsync(query);
-                var product = op.Entities.FirstOrDefault();
-                orderItem.Product = product;
+                orderItem.Product = (await _productsContext.LoadAsync(_productsContext.GetProductByIdQuery(orderItem.ProductID))).Entities.FirstOrDefault();
             }
         }
         private async Task LoadTaxRate(Models.OrderItems orderItem)
@@ -362,6 +359,7 @@ namespace SampleCRM.Web.Views
             _orderItemsTabSelected = e.AddedItems.Count > 0 && e.AddedItems.Contains(tbOrderItems);
             if (_orderItemsTabSelected && SelectedOrder != null)
             {
+                orderItemsDataSource.Clear();
                 var orderId = SelectedOrder.OrderID;
                 var orderParam = orderItemsDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "orderId");
                 orderParam.Value = orderId;
@@ -535,8 +533,8 @@ namespace SampleCRM.Web.Views
 
             foreach (var item in orderItems)
             {
-                await AsyncHelper.RunAsync(() => LoadProduct(item));
-                await AsyncHelper.RunAsync(() => LoadTaxRate(item));
+                await LoadProduct(item);
+                await LoadTaxRate(item);
             }
         }
     }

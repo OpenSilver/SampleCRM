@@ -11,20 +11,30 @@ namespace SampleCRM.Web.Views
 
         public BaseUserControl InnerControl { get; protected set; }
 
-        public bool IsMobileUI
-        {
-            get { return Application.Current.MainWindow.ActualWidth <= MaxMobileWidth; }
-        }
+        public bool IsMobileUI => Application.Current.MainWindow.ActualWidth <= MaxMobileWidth;
 
         public BaseChildWindow()
         {
             arrangeSize();
             Application.Current.MainWindow.SizeChanged += MainWindow_SizeChanged;
+            Loaded += BaseChildWindow_Loaded;
+            Unloaded += BaseChildWindow_Unloaded;
+        }
+
+        private void BaseChildWindow_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (AsyncHelper.ContentPage != null)
+                AsyncHelper.ContentPage.MakeBlur(false);
+        }
+
+        private void BaseChildWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (AsyncHelper.ContentPage != null)
+                AsyncHelper.ContentPage.MakeBlur(true);
         }
 
         private void MainWindow_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            //Console.WriteLine($"MainWindow_SizeChanged, w:{Application.Current.MainWindow.ActualWidth} h:{Application.Current.MainWindow.ActualHeight}");
             arrangeSize();
         }
 
