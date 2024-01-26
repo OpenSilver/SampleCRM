@@ -1,7 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Client;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,33 +13,23 @@ namespace SampleCRM.Web.Views
     {
         private CategoryContext _categoryContext = new CategoryContext();
 
-        private IEnumerable<Models.Categories> _categoryCollection = new ObservableCollection<Models.Categories>();
+
         public IEnumerable<Models.Categories> CategoryCollection
         {
-            get { return _categoryCollection; }
-            set
-            {
-                if (_categoryCollection != value)
-                {
-                    _categoryCollection = value;
-                    //base.OnPropertyChanged();
-                }
-            }
+            get { return (IEnumerable<Models.Categories>)GetValue(CategoryCollectionProperty); }
+            set { SetValue(CategoryCollectionProperty, value); }
         }
+        public static readonly DependencyProperty CategoryCollectionProperty =
+            DependencyProperty.Register("CategoryCollection", typeof(IEnumerable<Models.Categories>), typeof(Categories), new PropertyMetadata(null));
 
-        private Models.Categories _selectedCategory;
         public Models.Categories SelectedCategory
         {
-            get { return _selectedCategory; }
-            set
-            {
-                if (_selectedCategory != value)
-                {
-                    _selectedCategory = value;
-                    //OnPropertyChanged();
-                }
-            }
+            get { return (Models.Categories)GetValue(SelectedCategoryProperty); }
+            set { SetValue(SelectedCategoryProperty, value); }
         }
+        public static readonly DependencyProperty SelectedCategoryProperty =
+            DependencyProperty.Register("SelectedCategory", typeof(Models.Categories), typeof(Categories), new PropertyMetadata(null));
+
 
         public Categories()
         {
@@ -61,16 +50,9 @@ namespace SampleCRM.Web.Views
 
         private async Task LoadElements()
         {
-            var categoriesQuery = _categoryContext.GetCategoriesQuery();
-            var categoriesOp = await _categoryContext.LoadAsync(categoriesQuery);
-            CategoryCollection = categoriesOp.Entities;
+            CategoryCollection = (await _categoryContext.LoadAsync(_categoryContext.GetCategoriesQuery())).Entities;
 #if DEBUG
             Console.WriteLine("Categories Collection:" + CategoryCollection.Count());
-            foreach (var item in CategoryCollection)
-            {
-                Console.WriteLine("Category Name:" + item.Name);
-                Console.WriteLine("Category Picture Bytes:" + item.Picture.Length);
-            }
 #endif
         }
 
@@ -97,10 +79,7 @@ namespace SampleCRM.Web.Views
 
         private void CheckChanges()
         {
-            //EntityChangeSet changeSet = _categoryContext.EntityContainer.GetChanges();
-            //ChangeText.Text = changeSet.ToString();
-
-            bool hasChanges = _categoryContext.HasChanges;
+            var hasChanges = _categoryContext.HasChanges;
             SaveButton.IsEnabled = hasChanges;
             RejectButton.IsEnabled = hasChanges;
         }

@@ -42,7 +42,18 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150" CellStyle="{StaticResource DataGridCell}" />
+                        <DataGridTemplateColumn Header="Name" Width="150" CellStyle="{StaticResource DataGridCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Description" Width="*" CellStyle="{StaticResource DataGridCell}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
