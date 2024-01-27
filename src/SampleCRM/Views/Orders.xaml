@@ -348,7 +348,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 <DataPager Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" x:Name="pagerOrders" 
-                           HorizontalAlignment="Stretch" Foreground="Black"
+                           HorizontalAlignment="Stretch" 
                            Source="{Binding Data, ElementName=ordersDataSource}" PageSize="10"  />
             </Grid>
         </ContentControl>
@@ -529,7 +529,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataPager Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" x:Name="pagerOrderItemss" 
-                           HorizontalAlignment="Stretch" Foreground="Black"
+                           HorizontalAlignment="Stretch" 
                            Source="{Binding Data, ElementName=orderItemsDataSource}" PageSize="10"  />
                 </Grid>
             </TabItem>

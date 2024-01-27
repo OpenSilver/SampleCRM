@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_ComboBox_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_ContextMenu_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_DataGrid_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_DataPager_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_DatePicker_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Expander_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_Popup_Styles.xaml"/>

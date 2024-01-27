@@ -47,7 +47,7 @@
                                     <ControlTemplate TargetType="ToggleButton">
                                         <ContentControl Padding="{TemplateBinding Padding}"
                                             Background="#FFF9F9F9"
-                                            Foreground="Black"
+                                            
                                             BorderThickness="0,0,0,1"
                                             BorderBrush="#FFF0F0F0">
                                             <VisualStateManager.VisualStateGroups>
@@ -71,7 +71,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <ContentControl x:Name="header" Foreground="Black" Margin="4,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                                <ContentControl x:Name="header"  Margin="4,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
                                                 <Path x:Name="arrow"
                                                       Visibility="Visible"

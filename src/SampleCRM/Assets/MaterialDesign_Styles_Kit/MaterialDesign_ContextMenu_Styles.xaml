@@ -129,7 +129,7 @@
                                 CornerRadius="2">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Margin="{TemplateBinding Padding}">
                                 <ContentControl x:Name="ContentPresenter"
-                                                  Foreground="Black"
+                                                  
                                                   Background="{TemplateBinding Background}"
                                                   FontSize="{TemplateBinding FontSize}"
                                                   FontWeight="{TemplateBinding FontWeight}"
