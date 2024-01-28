@@ -20,6 +20,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="SeparatorBrush" Value="#FF363535" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
@@ -81,6 +82,7 @@
     <Style x:Key="GridRowStyle" TargetType="DataGridRow">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridRow">

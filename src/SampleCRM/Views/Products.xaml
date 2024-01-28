@@ -81,7 +81,7 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderThickness="0" Background="#919399">
+                        <Border BorderThickness="0" Background="#919399" Cursor="Hand">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="110"/>
