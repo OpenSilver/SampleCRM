@@ -9,8 +9,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using SampleCRM.Web.Models;
+using System.ServiceModel.Channels;
+
 #if USEAI
-using OpenSilver.AI.Client; 
+using OpenSilver.AI.Client;
+using OpenSilver.AI.Controls;
 #endif
 
 
@@ -19,7 +22,7 @@ namespace SampleCRM.Web.Views
     public partial class Assistant : BasePage
     {
         int _count = 0;
-        
+
         public Assistant()
         {
             InitializeComponent();
@@ -32,15 +35,34 @@ namespace SampleCRM.Web.Views
                 FontSize = 26,
                 TextWrapping = TextWrapping.Wrap
             };
-
+#else
+            InitializeAIAssistant();
 #endif
         }
 
 
-        private async void ButtonRunAssistant_Click(object sender, RoutedEventArgs e)
-        {
+        #region AI-related stuff
 #if USEAI
-            var assistant = new AIAssistant
+
+        ObservableCollection<ChatMessage> _messages;
+        AIAssistant _assistant;
+        Action _isAlive;
+        AIChatControl AIChat;
+
+        BusyIndicator busyIndicatorForAICall;
+        BusyIndicator busyIndicatorForCodeExecution;
+
+        void InitializeAIAssistant()
+        {
+            //Programmatically creating the AIChatControl so the CRMSample that does not use AI can still build.
+            AIChat = new AIChatControl() { Header = "Assistant", MinWidth = 150, MaxWidth = 250 };
+            AIChatControlContainer.Children.Add(AIChat);
+
+            busyIndicatorForAICall = new BusyIndicator();
+            busyIndicatorForCodeExecution = new BusyIndicator();
+            busyIndicatorForAICall.Content = busyIndicatorForCodeExecution;
+
+            _assistant = new AIAssistant
                 (
                      placeWhereToDisplayGeneratedUI: PlaceWhereGeneratedUIIsShown,
                      assemblyContainingRIAGeneratedCode: Assembly.GetExecutingAssembly(),
@@ -49,13 +71,57 @@ namespace SampleCRM.Web.Views
                      busyIndicatorForCodeExecution: busyIndicatorForCodeExecution,
                      domainContextType: typeof(CustomersContext)
                 );
+            LogMessageQueueListBox.ItemsSource = _assistant.LogMessageQueue;
 
-            LogMessageQueueListBox.ItemsSource = assistant.LogMessageQueue;
 
-            Action isAlive = () => { _count++; ShowHideDebugPanel.Content = $"Debug ({_count})"; };
+            _assistant.AIMessage += Assistant_AIMessage;
 
-            await assistant.Start(InputTextBox.Text, isAlive);
-#endif
+            _isAlive = () => { _count++; ShowHideDebugPanel.Content = $"Debug ({_count})"; };
+
+            _messages = AIChat.ChatMessages;
+
+            AIChat.UserMessage += AiChatControl_UserMessage;
+            AIChat.QueryCancel += AiChatControl_QueryCancel;
         }
+
+
+        private void Assistant_AIMessage(object sender, AIMessageEventArgs e)
+        {
+            if (e.Type == AIMessageType.Error)
+            {
+                _messages.Add(new ChatMessage(Owner.AIError, e.MessageText));
+            }
+            else
+            {
+                _messages.Add(new ChatMessage(Owner.AI, e.MessageText));
+            }
+        }
+
+        private void AiChatControl_QueryCancel(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async void AiChatControl_UserMessage(object sender, UserMessageEventArgs e)
+        {
+            string message = e.MessageText;
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                _messages.Add(new ChatMessage(Owner.AI, "Sure thing! Please wait while I do that for you."));
+                ChatMessage chatMessage = new ChatMessage(Owner.None, busyIndicatorForAICall);
+                _messages.Add(chatMessage);
+                await _assistant.Start(message, _isAlive);
+                _messages.Remove(chatMessage);
+            }
+        }
+
+        private async void ButtonRunAssistant_Click(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+#endif
+
+        #endregion
     }
 }

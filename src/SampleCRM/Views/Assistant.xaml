@@ -4,6 +4,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ai="clr-namespace:OpenSilver.AI.Controls;assembly=OpenSilver.AI.Controls"
                  mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                  Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
@@ -16,20 +17,11 @@
                     <ToggleButton x:Name="ShowHideDebugPanel" Content="Debug" DockPanel.Dock="Top"/>
                     <ListBox x:Name="LogMessageQueueListBox" Width="300" DisplayMemberPath="Text" Visibility="{Binding ElementName=ShowHideDebugPanel, Path=IsChecked, Converter={StaticResource boolToBisibilityConverter}}"/>
                 </DockPanel>
-                <BusyIndicator x:Name="busyIndicatorForAICall">
-                    <BusyIndicator x:Name="busyIndicatorForCodeExecution">
-                        <DockPanel>
-
-                            <DockPanel DockPanel.Dock="Top" Margin="20">
-                                <Button Content="Run the AI Assistant" DockPanel.Dock="Right" Click="ButtonRunAssistant_Click"/>
-                                <TextBox x:Name="InputTextBox" FontSize="18" Text=""/>
-                            </DockPanel>
-
-                            <ContentControl x:Name="PlaceWhereGeneratedUIIsShown" />
-                        </DockPanel>
-
-                    </BusyIndicator>
-                </BusyIndicator>
+                <DockPanel>
+                    <DockPanel x:Name="AIChatControlContainer" DockPanel.Dock="Right" Margin="20">
+                    </DockPanel>
+                    <ContentControl x:Name="PlaceWhereGeneratedUIIsShown" />
+                </DockPanel>
             </DockPanel>
         </ContentControl>
     </Grid>

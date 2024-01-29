@@ -25,7 +25,7 @@
 
         <Border Grid.Row="1" Grid.ColumnSpan="99" Grid.RowSpan="99" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Dashboard" 
-                              Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+                              Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Dashboard.xaml" />
