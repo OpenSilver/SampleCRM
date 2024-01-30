@@ -15,18 +15,17 @@ namespace SampleCRM.Web
         public IQueryable<Products> GetProducts(string search) =>
             _context.Products
                     .Where(x => x.Name.ToLower().Contains(search.ToLower())
-                            || search == "")
-                    .OrderBy(c => c.Name);
+                            || search == "");
 
-        public IQueryable<Products> GetProductsCombo() =>
-            GetProducts(string.Empty)
-                .ToList()
-                .Select(x => new Products
-                {
-                    ProductID = x.ProductID,
-                    Name = x.Name
-                })
-                .AsQueryable();
+        //public IQueryable<Products> GetProductsCombo() =>
+        //    GetProducts(string.Empty)
+        //        .ToList()
+        //        .Select(x => new Products
+        //        {
+        //            ProductID = x.ProductID,
+        //            Name = x.Name
+        //        })
+        //        .AsQueryable();
 
         [Query]
         public IQueryable<Products> GetProductsWithoutPictures(string search) =>

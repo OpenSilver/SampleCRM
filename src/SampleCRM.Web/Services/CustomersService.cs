@@ -16,13 +16,7 @@ namespace SampleCRM.Web
             _context.Customers
                     .Where(x => x.FirstName.ToLower().Contains(search.ToLower())
                             || x.LastName.ToLower().Contains(search.ToLower())
-                            || search == "")
-                    .OrderBy(c => c.FirstName)
-                    .ThenBy(c => c.LastName);
-
-        [Query]
-        public IQueryable<Customers> GetCustomersCombo() =>
-            GetCustomers(string.Empty);
+                            || search == "");
 
         [Query]
         public IQueryable<Customers> GetCustomersWithoutPictures(string search) =>

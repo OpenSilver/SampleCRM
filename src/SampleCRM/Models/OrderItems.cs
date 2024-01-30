@@ -23,13 +23,6 @@ namespace SampleCRM.Web.Models
                 case nameof(OrderLine):
                     RaisePropertyChanged(nameof(IsNew));
                     break;
-                case nameof(ProductID):
-                    {
-                        if (ProductsCombo != null)
-                            Product = ProductsCombo.FirstOrDefault(x => x.ProductID == ProductID);
-
-                        break;
-                    }
                 case nameof(TaxType):
                     {
                         if (TaxTypes != null)
@@ -37,7 +30,6 @@ namespace SampleCRM.Web.Models
                             decimal.TryParse(TaxTypes.FirstOrDefault(x => x.TaxTypeID == TaxType).Rate, out var taxRate);
                             TaxRate = taxRate;
                         }
-
                         break;
                     }
             }
@@ -90,16 +82,16 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Products> _productsCombo;
-        public IEnumerable<Products> ProductsCombo
+        private string _productSearchText;
+        public string ProductSearchText
         {
-            get { return _productsCombo; }
+            get { return _productSearchText; }
             set
             {
-                if (_productsCombo != value)
+                if (_productSearchText != value)
                 {
-                    _productsCombo = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProductsCombo)));
+                    _productSearchText = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProductSearchText)));
                 }
             }
         }
@@ -113,14 +105,20 @@ namespace SampleCRM.Web.Models
                 if (_product != value)
                 {
                     _product = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Product)));
-                    if (_product != null)
+
+                    if (_product != null && _isEditMode)
                     {
+                        if (ProductID != _product.ProductID)
+                            ProductID = _product.ProductID;
+
                         Quantity = 1;
                         UnitPrice = _product.ListPrice;
                         Discount = _product.Discount;
                         TaxType = _product.TaxType;
                     }
+
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Product)));
+
                 }
             }
         }

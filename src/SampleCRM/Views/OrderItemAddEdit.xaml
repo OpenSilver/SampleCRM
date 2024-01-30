@@ -2,7 +2,9 @@
                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                        xmlns:local="clr-namespace:SampleCRM.Web.Views" 
-                       xmlns:controls="clr-namespace:SampleCRM.Controls">
+                       xmlns:controls="clr-namespace:SampleCRM.Controls" 
+                       xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices" 
+                       xmlns:domain="clr-namespace:SampleCRM.Web">
     <local:BaseUserControl.Resources>
         <local:BinaryImageConverter x:Key="imgConverter" />
     </local:BaseUserControl.Resources>
@@ -48,18 +50,39 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <controls:RequiredTextBlock Text="Product" />
-                        <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
-                                    SelectedValuePath="ProductID"
-                                    SelectedValue="{Binding ProductID, Mode=TwoWay}"
-                                    DisplayMemberPath="Name"
-                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                    Margin="0,0,0,10">
-                            <ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <VirtualizingStackPanel/>
-                                </ItemsPanelTemplate>
-                            </ComboBox.ItemsPanel>
-                        </ComboBox>
+                        <riaControls:DomainDataSource Name="nProductsDataSource" QueryName="GetProducts"            
+                                      PageSize="10" LoadSize="10" AutoLoad="True">
+                            <riaControls:DomainDataSource.DomainContext>
+                                <domain:ProductsContext />
+                            </riaControls:DomainDataSource.DomainContext>
+                            <riaControls:DomainDataSource.QueryParameters>
+                                <riaControls:Parameter ParameterName="search" Value="{Binding SearchText, ElementName=nAcbProducts, UpdateSourceTrigger=PropertyChanged}" />
+                            </riaControls:DomainDataSource.QueryParameters>
+                            <riaControls:DomainDataSource.SortDescriptors>
+                                <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
+                            </riaControls:DomainDataSource.SortDescriptors>
+                        </riaControls:DomainDataSource>
+                        <AutoCompleteBox
+                                x:Name="nAcbProducts"
+                                ItemsSource="{Binding Data, ElementName=nProductsDataSource, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Product, Mode=TwoWay}"
+                                ValueMemberPath="Name"
+                                Margin="0,0,0,10"
+                                FilterMode="StartsWithOrdinal"
+                                MinimumPrefixLength="1">
+                            <AutoCompleteBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Margin="3" Source="{Binding PictureUrl, Mode=OneWay}">
+                                            <Image.Clip>
+                                                <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </AutoCompleteBox.ItemTemplate>
+                        </AutoCompleteBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
                         <controls:RequiredTextBlock Text="Quantity" />
@@ -151,18 +174,39 @@
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
                             <controls:RequiredTextBlock Text="Product" />
-                            <ComboBox ItemsSource="{Binding ProductsCombo}"                                                          
-                                        SelectedValuePath="ProductID"
-                                        SelectedValue="{Binding ProductID, Mode=TwoWay}"
-                                        DisplayMemberPath="Name"
-                                        Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                        Margin="0,0,0,10">
-                                <ComboBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel/>
-                                    </ItemsPanelTemplate>
-                                </ComboBox.ItemsPanel>
-                            </ComboBox>
+                            <riaControls:DomainDataSource Name="wProductsDataSource" QueryName="GetProducts"            
+                                      PageSize="10" LoadSize="10" AutoLoad="True">
+                                <riaControls:DomainDataSource.DomainContext>
+                                    <domain:ProductsContext />
+                                </riaControls:DomainDataSource.DomainContext>
+                                <riaControls:DomainDataSource.QueryParameters>
+                                    <riaControls:Parameter ParameterName="search" Value="{Binding SearchText, ElementName=wAcbProducts, UpdateSourceTrigger=PropertyChanged}" />
+                                </riaControls:DomainDataSource.QueryParameters>
+                                <riaControls:DomainDataSource.SortDescriptors>
+                                    <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
+                                </riaControls:DomainDataSource.SortDescriptors>
+                            </riaControls:DomainDataSource>
+                            <AutoCompleteBox
+                                x:Name="wAcbProducts"
+                                ItemsSource="{Binding Data, ElementName=wProductsDataSource, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Product, Mode=TwoWay}"
+                                ValueMemberPath="Name"
+                                Margin="0,0,0,10"
+                                FilterMode="StartsWithOrdinal"
+                                MinimumPrefixLength="1">
+                                <AutoCompleteBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Width="30" Height="30" Margin="3" Source="{Binding PictureUrl, Mode=OneWay}">
+                                                <Image.Clip>
+                                                    <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15" />
+                                                </Image.Clip>
+                                            </Image>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </AutoCompleteBox.ItemTemplate>
+                            </AutoCompleteBox>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Margin="5">
                             <controls:RequiredTextBlock Text="Quantity" />

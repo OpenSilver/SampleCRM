@@ -14,7 +14,6 @@ namespace SampleCRM.Web.Views
     public partial class Orders : BasePage
     {
         #region Contexts
-
         private OrderContext _orderContext => ordersDataSource.DomainContext as OrderContext;
         private OrderItemsContext _orderItemsContext => orderItemsDataSource.DomainContext as OrderItemsContext;
 
@@ -30,14 +29,6 @@ namespace SampleCRM.Web.Views
         private bool _orderItemsTabSelected;
 
         #region DataContext Properties
-
-        public IEnumerable<Models.Customers> CustomersCombo
-        {
-            get { return (IEnumerable<Models.Customers>)GetValue(CustomersComboProperty); }
-            set { SetValue(CustomersComboProperty, value); }
-        }
-        public static readonly DependencyProperty CustomersComboProperty =
-            DependencyProperty.Register("CustomersCombo", typeof(IEnumerable<Models.Customers>), typeof(Orders), new PropertyMetadata(null));
 
         public IEnumerable<Models.CountryCodes> CountryCodes
         {
@@ -184,7 +175,6 @@ namespace SampleCRM.Web.Views
             await AsyncHelper.RunAsync(LoadShippers);
             await AsyncHelper.RunAsync(LoadCountryCodes);
             await AsyncHelper.RunAsync(LoadStatuses);
-            await AsyncHelper.RunAsync(LoadCustomers);
             ordersDataSource.Load();
         }
 
@@ -260,7 +250,6 @@ namespace SampleCRM.Web.Views
             var orders = e.Entities.Cast<Models.Orders>();
             foreach (var order in orders)
             {
-                order.CustomersCombo = CustomersCombo;
                 order.CountryCodes = CountryCodes;
                 order.Shippers = Shippers;
                 order.PaymentTypes = PaymentTypes;
@@ -268,7 +257,6 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private async Task LoadCustomers() => CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities;
         private async Task LoadShippers() => Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
         private async Task LoadPaymentTypes() => PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
         private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
@@ -279,13 +267,8 @@ namespace SampleCRM.Web.Views
             if (order == null)
                 return;
 
-            if (order.CustomersCombo != null && order.CustomersCombo.Any())
-                return;
-
             if (order.Customer == null || order.Customer.CustomerID != order.CustomerID)
-            {
                 order.Customer = (await _customersContext.LoadAsync(_customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID))).Entities.FirstOrDefault();
-            }
         }
         private async Task LoadProduct(Models.OrderItems orderItem)
         {
@@ -438,7 +421,6 @@ namespace SampleCRM.Web.Views
 
         private void UpdateComboDataForOrder(Models.Orders order)
         {
-            order.CustomersCombo = CustomersCombo;
             order.CountryCodes = CountryCodes;
             order.Shippers = Shippers;
             order.PaymentTypes = PaymentTypes;
@@ -468,25 +450,16 @@ namespace SampleCRM.Web.Views
         private async void btnShowOrderItem_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedOrderItem == null)
-            {
                 throw (new ArgumentNullException("Selected Order Item can't be null"));
-            }
 
-            if (SelectedOrderItem.ProductsCombo == null)
-            {
-                SelectedOrderItem.ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery(string.Empty))).Entities;
-            }
 
             if (SelectedOrderItem.TaxTypes == null)
-            {
                 SelectedOrderItem.TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities;
-            }
 
             var result = await OrderItemAddEditWindow.Show(SelectedOrderItem, _orderItemsContext);
             if (result)
-            {
                 orderItemsDataSource.Load();
-            }
+            
         }
         private async void btnNewOrderItem_Click(object sender, RoutedEventArgs e)
         {
@@ -502,7 +475,6 @@ namespace SampleCRM.Web.Views
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,
                 OrderLine = 0,
-                ProductsCombo = (await _productsContext.LoadAsync(_productsContext.GetProductsQuery(string.Empty))).Entities,
                 TaxTypes = (await _taxTypesContext.LoadAsync(_taxTypesContext.GetTaxTypesQuery())).Entities
             };
 

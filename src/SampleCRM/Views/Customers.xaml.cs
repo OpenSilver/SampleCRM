@@ -366,7 +366,7 @@ namespace SampleCRM.Web.Views
                 return;
 
             SelectedOrder.CountryCodes = CountryCodes;
-            SelectedOrder.CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities;
+            SelectedOrder.Customer = SelectedCustomer;
             SelectedOrder.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
             SelectedOrder.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
             SelectedOrder.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
@@ -386,8 +386,8 @@ namespace SampleCRM.Web.Views
             {
                 IsEditMode = true,
                 CountryCodes = CountryCodes,
-                CustomersCombo = (await _customersContext.LoadAsync(_customersContext.GetCustomersComboQuery())).Entities,
                 CustomerID = SelectedCustomer.CustomerID,
+                Customer = SelectedCustomer,
                 Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
                 Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
                 PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities

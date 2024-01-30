@@ -11,9 +11,6 @@ namespace SampleCRM.Web.Models
         {
             switch (e.PropertyName)
             {
-                case nameof(CustomerID):
-                    Customer = CustomersCombo != null && CustomersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
-                    break;
                 case nameof(Status):
                     {
                         PaymentTypesVisible = _status > 0;
@@ -177,21 +174,6 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Customers> _customersCombo;
-        public IEnumerable<Customers> CustomersCombo
-        {
-            get { return _customersCombo; }
-            set
-            {
-                if (_customersCombo != value)
-                {
-                    _customersCombo = value;
-                    Customer = _customersCombo != null && _customersCombo.Any() ? _customersCombo.FirstOrDefault(x => x.CustomerID == _customerID) : null;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomersCombo)));
-                }
-            }
-        }
-
         private Customers _customer = new Customers();
         public Customers Customer
         {
@@ -201,14 +183,19 @@ namespace SampleCRM.Web.Models
                 if (_customer != value)
                 {
                     _customer = value;
+
                     if (_customer != null && _isEditMode)
                     {
+                        if (CustomerID != _customer.CustomerID)
+                            CustomerID = _customer.CustomerID;
+
                         ShipAddress = _customer.AddressLine1;
                         ShipCity = _customer.City;
                         ShipRegion = _customer.Region;
                         ShipCountryCode = _customer.CountryCode;
                         ShipPostalCode = _customer.PostalCode;
                     }
+
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(Customer)));
                 }
             }
@@ -224,6 +211,20 @@ namespace SampleCRM.Web.Models
                 {
                     _isEditMode = value;
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
+                }
+            }
+        }
+
+        private string _customerSearchText;
+        public string CustomerSearchText
+        {
+            get { return _customerSearchText; }
+            set
+            {
+                if (_customerSearchText != value)
+                {
+                    _customerSearchText = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomerSearchText)));
                 }
             }
         }

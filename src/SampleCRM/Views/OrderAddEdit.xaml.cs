@@ -45,7 +45,7 @@ namespace SampleCRM.Web.Views
             {
                 if (Order.IsNew)
                     context.Orders.Add(Order);
-                
+
                 context.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else
