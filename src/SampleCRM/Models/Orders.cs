@@ -223,7 +223,7 @@ namespace SampleCRM.Web.Models
             {
                 if (_customerSearchText != value)
                 {
-                    _customerSearchText = value;
+                    _customerSearchText = value.Trim();
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomerSearchText)));
                 }
             }

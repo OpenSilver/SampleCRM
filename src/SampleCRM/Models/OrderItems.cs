@@ -90,7 +90,7 @@ namespace SampleCRM.Web.Models
             {
                 if (_productSearchText != value)
                 {
-                    _productSearchText = value;
+                    _productSearchText = value.Trim();
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(ProductSearchText)));
                 }
             }

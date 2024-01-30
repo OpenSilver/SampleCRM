@@ -28,9 +28,8 @@
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_RadioButton_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_TabControl_Styles.xaml"/>
                 <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_TextBox_Styles.xaml"/>
+                <ResourceDictionary Source="Assets/MaterialDesign_Styles_Kit/MaterialDesign_AutoCompleteBox_Styles.xaml"/>
 
-
-                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

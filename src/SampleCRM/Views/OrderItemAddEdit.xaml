@@ -62,7 +62,7 @@
                                 <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
                             </riaControls:DomainDataSource.SortDescriptors>
                         </riaControls:DomainDataSource>
-                        <AutoCompleteBox
+                        <AutoCompleteBox Style="{StaticResource MaterialDesign_AutoCompleteBox_Style}"
                                 x:Name="nAcbProducts"
                                 ItemsSource="{Binding Data, ElementName=nProductsDataSource, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{Binding Product, Mode=TwoWay}"
@@ -186,7 +186,7 @@
                                     <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
                                 </riaControls:DomainDataSource.SortDescriptors>
                             </riaControls:DomainDataSource>
-                            <AutoCompleteBox
+                            <AutoCompleteBox Style="{StaticResource MaterialDesign_AutoCompleteBox_Style}"
                                 x:Name="wAcbProducts"
                                 ItemsSource="{Binding Data, ElementName=wProductsDataSource, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{Binding Product, Mode=TwoWay}"
