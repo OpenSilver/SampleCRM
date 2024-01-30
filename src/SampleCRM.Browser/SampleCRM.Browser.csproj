@@ -9,6 +9,7 @@
     <!-- Uncomment to enable AOT compilation when publishing -->
     <!--<RunAOTCompilation Condition="'$(IsSecondPass)'!='True'">true</RunAOTCompilation>-->
     <Configurations>Debug;Release;LOCAL_DEBUG;LOCAL_RELEASE</Configurations>
+	<WasmEnableSIMD>false</WasmEnableSIMD>
   </PropertyGroup>
 
   <ItemGroup>
