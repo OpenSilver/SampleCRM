@@ -255,7 +255,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <PackageReference Include="OpenSilver" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
-    <PackageReference Include="OpenSilver.AI.Client" Version="1.1.0-private-2024-01-26-5" />
+    <PackageReference Include="OpenSilver.AI.Client" Version="1.1.0-private-2024-01-29" />
 
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
 
