@@ -26,7 +26,7 @@
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Normal">
                                 </VisualState>
-                                <VisualState Name="PointerOver">
+                                <VisualState Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="InnerBorder">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
@@ -63,7 +63,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="InnerBorder" Background="{TemplateBinding Background}" CornerRadius="4">
                             <Border.Effect>
-                                <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.4" BlurRadius="6" Direction="-30" ShadowDepth="5"/>
+                                <DropShadowEffect x:Name="DropShadowEffect" Color="{StaticResource Black15Color}" Opacity="0.1" BlurRadius="6" Direction="-30" ShadowDepth="5"/>
                             </Border.Effect>
                             <ContentControl x:Name="ContentPresenter"
                                                 Foreground="{TemplateBinding Foreground}"
@@ -702,23 +702,15 @@
     </Style>
 
     <!--Search Button-->
-    <Style x:Key="SearchButtonStyle" TargetType="Button">
+    <Style x:Key="SearchButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <ContentPresenter />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <!--Edit Button-->
-    <Style x:Key="EditButtonStyle" TargetType="Button">
+    <Style x:Key="EditButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesign_ColoredButton_Style}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="Black" />
@@ -729,13 +721,6 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Opacity" Value="0.75" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <ContentPresenter />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
     
     <!--Delete Button-->

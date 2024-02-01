@@ -306,7 +306,7 @@
                           Style="{StaticResource MaterialDesign_DataGrid_Style}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}" />
-                        <DataGridTemplateColumn Header="Name" IsReadOnly="True"  CellStyle="{StaticResource DataGridCell}">
+                        <DataGridTemplateColumn Header="Name" IsReadOnly="True" SortMemberPath="FirstName" CellStyle="{StaticResource DataGridCell}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

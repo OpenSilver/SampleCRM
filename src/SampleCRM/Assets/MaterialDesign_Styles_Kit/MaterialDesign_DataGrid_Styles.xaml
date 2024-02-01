@@ -28,7 +28,15 @@
                         <vsm:VisualStateManager.VisualStateGroups>
                             <vsm:VisualStateGroup x:Name="CommonStates">
                                 <vsm:VisualState x:Name="Normal" />
-                                <vsm:VisualState x:Name="MouseOver" />
+                                <vsm:VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames
+                                                        Storyboard.TargetName="ContentPresenter" 
+                                                        Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#0085FF"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </vsm:VisualState>
                                 <vsm:VisualState x:Name="Pressed"/>
                             </vsm:VisualStateGroup>
                             <vsm:VisualStateGroup x:Name="SortStates">
@@ -57,7 +65,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <ContentControl Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" />
+                            <ContentControl x:Name="ContentPresenter" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" />
                             <!--<ContentPresenter Content="{TemplateBinding Content}" />-->
                             <Path Grid.Column="1" Name="SortIcon" 
                                   Fill="#FFBBBBBB" RenderTransformOrigin=".5,.5" 

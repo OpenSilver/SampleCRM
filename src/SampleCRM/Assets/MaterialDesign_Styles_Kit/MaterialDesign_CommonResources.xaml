@@ -35,6 +35,7 @@
     <SolidColorBrush x:Key="White75Brush" Color="#BFFFFFFF" />
     <SolidColorBrush x:Key="White15Brush" Color="#26FFFFFF" />
     <Color x:Key="Black15Color">#26000000</Color>
+    <Color x:Key="White25Color">#40FFFFFF</Color>
     <SolidColorBrush x:Key="Black15Brush" Color="{StaticResource Black15Color}" />
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#0085FF" />
     <SolidColorBrush x:Key="SecondaryColorBrush" Color="#26FFFFFF" />
