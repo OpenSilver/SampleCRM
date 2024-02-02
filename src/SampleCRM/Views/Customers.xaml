@@ -254,10 +254,10 @@
 
                 <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" 
                         Click="btnNewCustomer_Click" 
-                        Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="0.5" Foreground="White" />
-                        <TextBlock Text="Add Customer" VerticalAlignment="Top" />
+                        Style="{StaticResource MaterialDesign_ColoredButton_Style}">
+                    <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                        <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
+                        <TextBlock Text="Add Customer" Style="{StaticResource ButtonTextStyle}" />
                     </StackPanel>
                 </Button>
 
@@ -367,10 +367,10 @@
                                     </Grid>
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                                         <Button x:Name="btnDelete" Click="btnDelete_Click" 
-                                                Style="{StaticResource SecondaryButtonStyle}" Margin="2" Width="80" Height="25">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
-                                                <TextBlock Text="Delete" VerticalAlignment="Top" />
+                                                Style="{StaticResource SecondaryButtonStyle}">
+                                            <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                                <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
+                                                <TextBlock Text="Delete" Style="{StaticResource ButtonTextStyle}"/>
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
@@ -410,17 +410,15 @@
                                               EditTemplate="{StaticResource dtWideCustomers}"
                                               CommandButtonsVisibility="Commit, Cancel">
                                     <DataForm.CommitButtonContent>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" 
-                                                           Margin="2,0,5,0" Opacity="0.5" Foreground="White" Cursor="Hand" />
-                                            <TextBlock Text="Save" VerticalAlignment="Top" />
+                                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                            <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
+                                            <TextBlock Text="Save" Style="{StaticResource ButtonTextStyle}"/>
                                         </StackPanel>
                                     </DataForm.CommitButtonContent>
                                     <DataForm.CancelButtonContent>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" 
-                                                           Margin="2,0,5,0" Opacity="0.25" Foreground="White" Cursor="Hand" />
-                                            <TextBlock Text="Cancel" VerticalAlignment="Top" />
+                                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                            <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
+                                            <TextBlock Text="Cancel" Style="{StaticResource ButtonTextStyle}" />
                                         </StackPanel>
                                     </DataForm.CancelButtonContent>
                                 </DataForm>
@@ -447,10 +445,10 @@
 
                     <Button x:Name="btnNewOrder" Grid.Column="0" Grid.Row="0" 
                             Click="btnNewOrder_Click"
-                            Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="0.5" Foreground="White" />
-                            <TextBlock Text="Add Order" VerticalAlignment="Top" />
+                            Style="{StaticResource MaterialDesign_ColoredButton_Style}">
+                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                            <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
+                            <TextBlock Text="Add Order" Style="{StaticResource ButtonTextStyle}" />
                         </StackPanel>
                     </Button>
 

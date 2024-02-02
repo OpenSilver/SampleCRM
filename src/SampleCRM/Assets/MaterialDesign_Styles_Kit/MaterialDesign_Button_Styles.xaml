@@ -755,7 +755,29 @@
     </Style>
 
     <Style TargetType="RepeatButton" BasedOn="{StaticResource MaterialDesign_RepeatButton_Style}">
-        
+
+    </Style>
+
+    <Style x:Key="ButtonPanelStyle" TargetType="StackPanel">
+        <Setter Property="Margin" Value="7"/>
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <Style x:Key="ButtonIconStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+        <Setter Property="Margin" Value="0,0,7,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="ButtonTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
 </ResourceDictionary>

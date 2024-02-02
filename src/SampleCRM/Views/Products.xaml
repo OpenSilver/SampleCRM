@@ -12,7 +12,7 @@
     <ContentControl Style="{StaticResource MaterialDesign_Card_Style}">
         <Grid x:Name="grdHead">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="155" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="405" />
             </Grid.ColumnDefinitions>
@@ -24,10 +24,10 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" 
                     Click="btnNew_Click" 
-                    Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,7,0" Opacity="0.5" Foreground="White" />
-                    <TextBlock Text="Add Product" VerticalAlignment="Top" />
+                    Style="{StaticResource MaterialDesign_ColoredButton_Style}">
+                <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                    <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
+                    <TextBlock Text="Add Product" Style="{StaticResource ButtonTextStyle}" />
                 </StackPanel>
             </Button>
 

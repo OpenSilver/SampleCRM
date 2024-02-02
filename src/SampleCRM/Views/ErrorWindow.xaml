@@ -29,20 +29,20 @@
         </StackPanel>
 
         <Button x:Name="OKButton" Grid.Row="3" Click="OKButton_Click"
-                Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="5,8" Padding="5,8"
+                Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="5,8"
                 TabIndex="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" />
-                <TextBlock Margin="3,-1,0,0">OK</TextBlock>
+            <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="" />
+                <TextBlock Style="{StaticResource ButtonTextStyle}">OK</TextBlock>
             </StackPanel>
         </Button>
 
         <Button x:Name="CopyButton" Grid.Row="3" Click="CopyButton_Click"
-                Style="{StaticResource SecondaryButtonStyle}" HorizontalAlignment="Left" Margin="5,8" Padding="5,8"
+                Style="{StaticResource SecondaryButtonStyle}" HorizontalAlignment="Left" Margin="5,8"
                 TabIndex="1">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" />
-                <TextBlock Margin="3,-1,0,0">Copy to clipboard</TextBlock>
+            <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="" />
+                <TextBlock Style="{StaticResource ButtonTextStyle}">Copy to clipboard</TextBlock>
             </StackPanel> 
         </Button>
     </Grid>

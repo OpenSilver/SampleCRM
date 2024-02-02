@@ -61,8 +61,7 @@
                                     SelectedValuePath="CountryCodeID"
                                     SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
                                     DisplayMemberPath="Name"
-                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                    >
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -79,8 +78,7 @@
                                     SelectedValuePath="Status"
                                     SelectedValue="{Binding Status, Mode=TwoWay}"
                                     DisplayMemberPath="Name"
-                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                    >
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -96,8 +94,7 @@
                                     SelectedValuePath="PaymentTypeID"
                                     SelectedValue="{Binding PaymentType, Mode=TwoWay}"
                                     DisplayMemberPath="Name"
-                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                    >
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -120,8 +117,7 @@
                                         SelectedValuePath="ShipperID"
                                         SelectedValue="{Binding ShipVia, Mode=TwoWay}"
                                         DisplayMemberPath="Name"
-                                        Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                        >
+                                        Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -188,8 +184,7 @@
                                   SelectedValuePath="CountryCodeID"
                                   SelectedValue="{Binding ShipCountryCode, Mode=TwoWay}"
                                   DisplayMemberPath="Name"
-                                  Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                  >
+                                  Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -205,8 +200,7 @@
                                   SelectedValuePath="Status"
                                   SelectedValue="{Binding Status, Mode=TwoWay}"
                                   DisplayMemberPath="Name"
-                                  Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                  >
+                                  Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -222,8 +216,7 @@
                                     SelectedValuePath="PaymentTypeID"
                                     SelectedValue="{Binding PaymentType, Mode=TwoWay}"
                                     DisplayMemberPath="Name"
-                                    Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                    >
+                                    Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -245,8 +238,7 @@
                                         SelectedValuePath="ShipperID"
                                         SelectedValue="{Binding ShipVia, Mode=TwoWay}"
                                         DisplayMemberPath="Name"
-                                        Style="{StaticResource MaterialDesign_ComboBox_Style}"
-                                        >
+                                        Style="{StaticResource MaterialDesign_ComboBox_Style}">
                             <ComboBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel/>
@@ -284,12 +276,12 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0" Width="100" Height="25"
+                <Button x:Name="btnNew" Grid.Column="0" Grid.Row="0"
                         Click="btnNew_Click" 
                         Style="{StaticResource MaterialDesign_ColoredButton_Style}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,10,0" Opacity="0.5" Foreground="White" />
-                        <TextBlock Text="Add Order" VerticalAlignment="Top" />
+                    <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                        <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
+                        <TextBlock Text="Add Order" Style="{StaticResource ButtonTextStyle}" />
                     </StackPanel>
                 </Button>
 
@@ -377,10 +369,10 @@
 
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                                         <Button x:Name="btnDelete" Click="btnDelete_Click" 
-                                                Style="{StaticResource SecondaryButtonStyle}" Margin="2" Width="80" Height="25">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="0,0,5,0" Opacity="1" Foreground="White" />
-                                                <TextBlock Text="Delete" VerticalAlignment="Top" />
+                                                Style="{StaticResource SecondaryButtonStyle}" Margin="2">
+                                            <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                                <TextBlock Text="" Style="{StaticResource ButtonIconStyle}" />
+                                                <TextBlock Text="Delete" Style="{StaticResource ButtonTextStyle}" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
@@ -421,15 +413,15 @@
                                           CommandButtonsVisibility="Commit, Cancel"
                                           Style="{StaticResource DefaultDataForm}">
                                     <DataForm.CommitButtonContent>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.5" Foreground="White" />
-                                            <TextBlock Text="Save" VerticalAlignment="Center" />
+                                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                            <TextBlock Text="" Style="{StaticResource ButtonIconStyle}" />
+                                            <TextBlock Text="Save" Style="{StaticResource ButtonTextStyle}" />
                                         </StackPanel>
                                     </DataForm.CommitButtonContent>
                                     <DataForm.CancelButtonContent>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="" FontSize="16" FontFamily="{StaticResource FontAwesome}" Margin="5,0,10,0" Opacity="0.25" Foreground="White" />
-                                            <TextBlock Text="Cancel" VerticalAlignment="Center" />
+                                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                            <TextBlock Text="" Style="{StaticResource ButtonIconStyle}" />
+                                            <TextBlock Text="Cancel" Style="{StaticResource ButtonTextStyle}"/>
                                         </StackPanel>
                                     </DataForm.CancelButtonContent>
                                 </DataForm>
@@ -454,11 +446,11 @@
                     </Grid.RowDefinitions>
 
                     <Button x:Name="btnNewOrderItem" Grid.Column="0" Grid.Row="0" 
-                            Style="{StaticResource MaterialDesign_ColoredButton_Style}" Width="100" Height="25" 
+                            Style="{StaticResource MaterialDesign_ColoredButton_Style}"
                             Click="btnNewOrderItem_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="+" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.5" Foreground="White" />
-                            <TextBlock Text="Add Order Item" VerticalAlignment="Center" />
+                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                            <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
+                            <TextBlock Text="Add Order Item" Style="{StaticResource ButtonTextStyle}"/>
                         </StackPanel>
                     </Button>
 
