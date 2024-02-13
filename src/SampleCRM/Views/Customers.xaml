@@ -229,9 +229,11 @@
                 </DataField>
             </Grid>
         </DataTemplate>
+
+        <models:CustomersPageVM x:Key="customersPageVM" />
     </local:BasePage.Resources>
 
-    <Grid VerticalAlignment="Stretch">
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" DataContext="{StaticResource customersPageVM}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -284,7 +286,7 @@
                 </Grid>
 
                 <riaControls:DomainDataSource Name="customersDataSource" 
-                                                  QueryName="GetCustomers" LoadedData="customersDataSource_LoadedData"
+                                                  QueryName="GetCustomers" 
                                                   PageSize="5" LoadSize="5" AutoLoad="False">
                     <riaControls:DomainDataSource.DomainContext>
                         <domain:CustomersContext />
@@ -366,7 +368,7 @@
                                         </Image>
                                     </Grid>
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                        <Button x:Name="btnDelete" Click="btnDelete_Click" 
+                                        <Button x:Name="btnDelete" Command="{Binding Delete}" Click="btnDelete_Click" 
                                                 Style="{StaticResource SecondaryButtonStyle}">
                                             <StackPanel Style="{StaticResource ButtonPanelStyle}">
                                                 <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
