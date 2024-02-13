@@ -6,6 +6,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <Configurations>Debug;Release;LOCAL_DEBUG;LOCAL_RELEASE</Configurations>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -260,7 +261,8 @@
     <Content Include="Views\Login\RegistrationForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <!--<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />-->
+    
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
     <PackageReference Include="OpenSilver" Version="2.2.0-preview-2024-03-04-104904-2ad0b167" />

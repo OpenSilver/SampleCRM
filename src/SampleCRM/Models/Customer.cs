@@ -1,7 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Client;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows;
 
 namespace SampleCRM.Web.Models
 {
@@ -34,45 +33,24 @@ namespace SampleCRM.Web.Models
         private bool _isEditMode;
         public bool IsEditMode
         {
-            get { return _isEditMode; }
+            get => _isEditMode;
             set
             {
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
-                }
-            }
-        }
-
-        private IEnumerable<CountryCode> _countryCodes;
-        public IEnumerable<CountryCode> CountryCodes
-        {
-            get { return _countryCodes; }
-            set
-            {
-                if (_countryCodes != value)
-                {
-                    _countryCodes = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryCodes)));
-                    if (_countryCodes != null)
-                        CountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == CountryCode)?.Name;
+                    RaisePropertyChanged(nameof(IsEditMode));
                 }
             }
         }
 
         private string _countryName;
-        public string CountryName
+        public string CountryName => _countryName;
+
+        partial void OnCountryCodeChanged()
         {
-            get { return _countryName; }
-            set
-            {
-                if (_countryName != value)
-                {
-                    _countryName = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryName)));
-                }
-            }
+            _countryName = CustomersPageVM.Countries.ContainsKey(CountryCode) ? CustomersPageVM.Countries[CountryCode] : null;
+            RaisePropertyChanged(nameof(CountryName));
         }
 
         public string FullName => $"{FirstName} {LastName}";
@@ -81,14 +59,6 @@ namespace SampleCRM.Web.Models
 
         public string FullAddress => $"{AddressLine1} {AddressLine2}\n{City}, {Region} {PostalCode}\n{CountryName}";
 
-        public string PictureUrl
-        {
-            get
-            {
-                var app = (System.Windows.Application.Current as App);
-                var imageUrl = app.ImageUrl;
-                return $"{imageUrl}?customerid={CustomerID}";
-            }
-        }
+        public string PictureUrl => $"{(Application.Current as App).ImageUrl}?customerid={CustomerID}";
     }
 }

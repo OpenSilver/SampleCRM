@@ -1,9 +1,5 @@
-﻿using OpenRiaServices.DomainServices.Client;
-using SampleCRM.LoginUI;
-using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
@@ -12,7 +8,6 @@ namespace SampleCRM.Web.Views
         public Dashboard()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
