@@ -260,10 +260,10 @@
     <Content Include="Views\Login\RegistrationForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <!--<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />-->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
-    <PackageReference Include="OpenSilver" Version="2.1.0-preview-2024-01-06-151852-9c24678f" />
+    <PackageReference Include="OpenSilver" Version="2.1.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
@@ -271,7 +271,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="OpenSilver.OpenRiaServices.DomainDataSource.4.6" Version="2.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />
+    <!--<PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />-->
     
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
