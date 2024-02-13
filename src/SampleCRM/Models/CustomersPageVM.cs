@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using OpenRiaServices.Controls;
 using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
@@ -8,9 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using CommunityToolkit.Mvvm.Input;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Models
 {
@@ -267,9 +266,9 @@ namespace SampleCRM.Web.Models
             await OrderAddEditWindow.Show(SelectedOrder, OrderContext);
         }
 
-        public async void btnNewOrder_Click(object sender, RoutedEventArgs e)
+        public Task btnNewOrder_Click(object sender, RoutedEventArgs e)
         {
-            await AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
+             return AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
         }
         private async Task ArrangeOrderAddEditWindow()
         {
