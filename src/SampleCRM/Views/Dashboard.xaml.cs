@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
@@ -9,7 +8,6 @@ namespace SampleCRM.Web.Views
         public Dashboard()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -53,14 +51,6 @@ namespace SampleCRM.Web.Views
                 Grid.SetRow(cntOrders, 1);
                 Grid.SetRow(cntProducts, 1);
             }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            customersDataSource.Load();
-            ordersDataSource.Load();
-            productsDataSource.Load();
-            base.OnNavigatedTo(e);
         }
     }
 }
