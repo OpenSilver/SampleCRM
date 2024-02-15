@@ -1,4 +1,6 @@
-﻿using OpenRiaServices.DomainServices.Client;
+﻿using CommunityToolkit.Mvvm.Input;
+using OpenRiaServices.DomainServices.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +9,9 @@ namespace SampleCRM.Web.Models
 {
     public partial class Orders : Entity
     {
+        public event EventHandler OrderShown;
+        public event EventHandler Deleted;
+
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -227,6 +232,20 @@ namespace SampleCRM.Web.Models
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(CustomerSearchText)));
                 }
             }
+        }
+
+        [RelayCommand]
+        public void ShowOrder()
+        {
+            if (OrderShown != null)
+                OrderShown(this, new EventArgs());
+        }
+
+        [RelayCommand]
+        public void Delete()
+        {
+            if (Deleted != null)
+                Deleted(this, new EventArgs());
         }
     }
 }

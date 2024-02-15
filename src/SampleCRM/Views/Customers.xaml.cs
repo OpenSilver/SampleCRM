@@ -1,23 +1,24 @@
 ﻿using SampleCRM.Web.Models;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
     public partial class Customers : BasePage
     {
+        private readonly CustomersPageVM _vm;
+
         public Customers()
         {
             InitializeComponent();
 
-            var vm = (LayoutRoot.DataContext as CustomersPageVM);
-            vm.OrdersDataSource = ordersDataSource;
-            vm.CustomersDataSource = customersDataSource;
-            vm.OrderContext = ordersDataSource.DomainContext as OrderContext;
-            vm.CustomersContext = customersDataSource.DomainContext as CustomersContext;
+            _vm = Resources["customersPageVM"] as CustomersPageVM;
+
+            _vm.OrdersDataSource = ordersDataSource;
+            _vm.CustomersDataSource = customersDataSource;
+            _vm.OrderContext = ordersDataSource.DomainContext as OrderContext;
+            _vm.CustomersContext = customersDataSource.DomainContext as CustomersContext;
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -86,159 +87,11 @@ namespace SampleCRM.Web.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-
-            await (LayoutRoot.DataContext as CustomersPageVM).Navigated();
-
+            await _vm.Initialize();
+            base.OnNavigatedTo(e);
         }
 
-        private void btnSearchCancel_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
+        private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e) => _vm.CustomerFormEditEnded(e.EditAction);
 
-            (LayoutRoot.DataContext as CustomersPageVM).SearchText = string.Empty;
-        }
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void grdCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Customers)
-            {
-                (LayoutRoot.DataContext as CustomersPageVM).SelectedCustomer = e.AddedItems[0] as Models.Customers;
-            }
-            else
-            {
-                (LayoutRoot.DataContext as CustomersPageVM).SelectedCustomer = null;
-            }
-
-#if DEBUG
-            Console.WriteLine("grdCustomers_SelectionChanged, {0} Items Added", e.AddedItems.Count);
-            if (e.AddedItems.Count > 0)
-                Console.WriteLine(e.AddedItems[0]);
-#endif
-        }
-
-        private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).formCustomer_EditEnded(sender, e);
-        }
-
-        private void btnOrderSearchCancel_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).SearchOrderText = string.Empty;
-        }
-
-        private void tcDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).OrdersTabSelected = e.AddedItems.Count > 0 && e.AddedItems.Contains(tbOrders);
-            (LayoutRoot.DataContext as CustomersPageVM).tcDetails_SelectionChanged(sender, e);
-        }
-
-        private void grdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).grdOrders_SelectionChanged(sender, e);
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).btnDelete_Click(sender, e);
-        }
-
-        private void btnNewCustomer_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).btnNewCustomer_Click(sender, e);
-        }
-
-        private void btnShowOrder_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            (LayoutRoot.DataContext as CustomersPageVM).btnShowOrder_Click(sender, e);
-        }
-        private async void btnNewOrder_Click(object sender, RoutedEventArgs e)
-        {
-            if (LayoutRoot == null)
-                return;
-            if (LayoutRoot.DataContext == null)
-                return;
-            if (LayoutRoot.DataContext is not CustomersPageVM)
-                return;
-            await (LayoutRoot.DataContext as CustomersPageVM).btnNewOrder_Click(sender, e);
-        }
-
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                btnSearch.Focus();
-            }
-        }
-        private void txtOrderSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                btnOrderSearch.Focus();
-            }
-        }
     }
 }
