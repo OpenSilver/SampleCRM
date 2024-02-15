@@ -255,7 +255,7 @@
                 </Grid.RowDefinitions>
 
                 <Button x:Name="btnNewCustomer" Grid.Column="0" Grid.Row="0" 
-                        Click="btnNewCustomer_Click" 
+                        Command="{Binding NewCustomerCommand}"
                         Style="{StaticResource MaterialDesign_ColoredButton_Style}">
                     <StackPanel Style="{StaticResource ButtonPanelStyle}">
                         <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
@@ -271,16 +271,15 @@
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
                     <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" x:Name="txtSearch" HorizontalAlignment="Stretch" 
-                             KeyUp="txtSearch_KeyUp"
                              Text="{Binding SearchText, Mode=TwoWay}" 
                              PlaceholderText="Search Name"
                              Style="{StaticResource MaterialDesign_TextBox_Style}" />
                     <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
-                               Content="" Tapped="btnSearch_Click"
+                               Content="" Command="{Binding SearchCommand}"
                                FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                     <Button Grid.Column="2" Style="{StaticResource SearchButtonStyle}" 
-                               Content="" Tapped="btnSearchCancel_Click"
+                               Content="" Command="{Binding SearchCancelCommand}"
                                FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
@@ -301,8 +300,8 @@
                 <DataGrid Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" x:Name="grdCustomers"  
                           HorizontalContentAlignment="Stretch"
                           ItemsSource="{Binding Data, ElementName=customersDataSource}"
-                          AlternatingRowBackground="Transparent" RowBackground="Transparent" 
-                          SelectionChanged="grdCustomers_SelectionChanged" 
+                          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                          AlternatingRowBackground="Transparent" RowBackground="Transparent"
                           IsReadOnly="True"                          
                           AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" 
                           Style="{StaticResource MaterialDesign_DataGrid_Style}">
@@ -341,7 +340,9 @@
 
         <TabControl x:Name="tcDetails" Grid.Row="1" 
                             Visibility="{Binding AnySelectedCustomer, Converter={StaticResource boolToVisibilityConverter}}"
-                            SelectionChanged="tcDetails_SelectionChanged" Style="{StaticResource MaterialDesign_TabControl_Style}">
+                            Style="{StaticResource MaterialDesign_TabControl_Style}"
+                            SelectedIndex="{Binding SelectedDetailsTabIndex, Mode=TwoWay}"
+                    >
             <TabItem x:Name="tbCustomer" Header="Customer" Style="{StaticResource MaterialDesign_TabItem_Style}">
                 <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbCustomer">
@@ -443,7 +444,7 @@
                     </Grid.RowDefinitions>
 
                     <Button x:Name="btnNewOrder" Grid.Column="0" Grid.Row="0" 
-                            Click="btnNewOrder_Click"
+                            Command="{Binding NewOrderCommand}"
                             Style="{StaticResource MaterialDesign_ColoredButton_Style}">
                         <StackPanel Style="{StaticResource ButtonPanelStyle}">
                             <TextBlock Text="+" Style="{StaticResource ButtonIconStyle}" />
@@ -459,17 +460,16 @@
                             <ColumnDefinition Width="10" />
                         </Grid.ColumnDefinitions>
                         <TextBox Height="25" Grid.Column="0" Grid.ColumnSpan="4" 
-                                 x:Name="txtOrderSearch" HorizontalAlignment="Stretch" 
-                                 KeyUp="txtOrderSearch_KeyUp"
+                                 x:Name="txtOrderSearch" HorizontalAlignment="Stretch"
                                  Text="{Binding SearchOrderText, Mode=TwoWay}" 
                                  PlaceholderText="Search Order ID"
                                  Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <Button x:Name="btnOrderSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
-                                   Content="" Tapped="btnSearch_Click"
+                                   Content="" Command="{Binding SearchOrderCommand}"
                                    FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                    VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                         <Button Grid.Column="2" Style="{StaticResource SearchButtonStyle}"
-                                   Content="" Tapped="btnSearchCancel_Click"
+                                   Content="" Command="{Binding SearchOrderCancelCommand}"
                                    FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                    Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                     </Grid>
@@ -490,7 +490,7 @@
                     </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                               ItemsSource="{Binding Data, ElementName=ordersDataSource}"
-                              SelectionChanged="grdOrders_SelectionChanged"
+                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                               HorizontalContentAlignment="Stretch"
                               IsReadOnly="True"
                               AutoGenerateColumns="False"
@@ -503,7 +503,8 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Button x:Name="btnShowOrder" Click="btnShowOrder_Click" 
+                                            <Button x:Name="btnShowOrder" 
+                                                    Command="{Binding ShowOrderCommand}"
                                                     Style="{StaticResource EditButtonStyle}" Content="" />
                                         </StackPanel>
                                     </DataTemplate>
