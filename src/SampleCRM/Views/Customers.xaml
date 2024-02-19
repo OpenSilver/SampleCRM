@@ -344,14 +344,11 @@
                 <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbCustomer">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}" DataContext="{Binding SelectedCustomer, Mode=OneWay}">
+                        <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}" 
+                                DataContext="{Binding SelectedCustomer, Mode=OneWay}">
                             <StackPanel Margin="10">
                                 <Grid HorizontalAlignment="Stretch">
                                     <Grid HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom">
@@ -365,15 +362,6 @@
                                             </Image.Clip>
                                         </Image>
                                     </Grid>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                        <Button x:Name="btnDelete" Click="btnDelete_Click" 
-                                                Style="{StaticResource SecondaryButtonStyle}">
-                                            <StackPanel Style="{StaticResource ButtonPanelStyle}">
-                                                <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
-                                                <TextBlock Text="Delete" Style="{StaticResource ButtonTextStyle}"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
                                 </Grid>
 
                                 <TextBlock Style="{StaticResource CardHeader1}" Text="{Binding FullName, Mode=OneWay}" />
@@ -392,9 +380,18 @@
 
                                 <TextBlock Style="{StaticResource CardHeader2}" Text="Last Update" />
                                 <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,5,5">
+                                    <Button x:Name="btnDelete" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
+                                        <StackPanel Style="{StaticResource ButtonPanelStyle}">
+                                            <TextBlock Text="" Style="{StaticResource ButtonIconStyle}" Foreground="{StaticResource DangerBrush}" />
+                                            <TextBlock Text="Delete" Style="{StaticResource ButtonTextStyle}" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
                             </StackPanel>
                         </Border>
-                        <Grid x:Name="grdCustomerDetails" Grid.Column="1" Grid.RowSpan="2" Grid.Row="0">
+                        <Grid x:Name="grdCustomerDetails" Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />

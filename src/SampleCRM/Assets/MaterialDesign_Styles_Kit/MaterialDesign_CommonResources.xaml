@@ -51,6 +51,8 @@
     <SolidColorBrush x:Key="ComboBoxBackground" Color="#262A35" />
     <SolidColorBrush x:Key="CalendarBackground" Color="#262A35" />
 
+    <SolidColorBrush x:Key="DangerBrush" Color="#E45D67" />
+
     <!-- LayoutRoot Grid Style -->
     <Style x:Key="LayoutRootGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource Background}"/>
