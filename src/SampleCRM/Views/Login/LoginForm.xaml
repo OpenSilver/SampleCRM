@@ -49,17 +49,17 @@
             <Button x:Name="loginButton" Click="LoginButton_Click" IsEnabled="{Binding Path=CanLogIn}"
                 Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Margin="5,8" Padding="5,8"
                 TabIndex="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" />
-                    <TextBlock Margin="3,-1,0,0">OK</TextBlock>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource ButtonPanelStyle}">
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" Style="{StaticResource ButtonIconStyle}" />
+                    <TextBlock Margin="3,-1,0,0" Style="{StaticResource ButtonTextStyle}" Text="Ok"/>
                 </StackPanel>
             </Button>
             <Button x:Name="loginCancel" Click="CancelButton_Click" IsEnabled="{Binding Path=CanLogIn}"
                 Style="{StaticResource SecondaryButtonStyle}" HorizontalAlignment="Right" Margin="5,8" Padding="5,8"
                 TabIndex="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" />
-                    <TextBlock Margin="3,-1,0,0">Cancel</TextBlock>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource ButtonPanelStyle}">
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="" Style="{StaticResource ButtonIconStyle}" />
+                    <TextBlock Margin="3,-1,0,0" Style="{StaticResource ButtonTextStyle}" Text="Cancel"/>
                 </StackPanel>
             </Button>
         </StackPanel>
