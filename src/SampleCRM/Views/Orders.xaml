@@ -298,7 +298,6 @@
                              PlaceholderText="Search Order ID"
                              Style="{StaticResource MaterialDesign_TextBox_Style}" 
                              Grid.Column="0" Grid.ColumnSpan="4" />
-
                     <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"   
                             Content="" Tapped="btnSearch_Click"   
                             FontSize="12" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
@@ -466,8 +465,13 @@
                                  PlaceholderText="Search Order or Product ID"
                                  Text="{Binding SearchOrderItemText, Mode=TwoWay}" 
                                  Style="{StaticResource MaterialDesign_TextBox_Style}" />
-                        <Button x:Name="btnOrderItemSearch" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="" Tapped="btnSearch_Click" FontSize="16" FontFamily="{StaticResource FontAwesome}" VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
-                        <Button Style="{StaticResource SearchButtonStyle}" Grid.Column="2" Tapped="btnOrderItemSearchCancel_Click" Content="" FontSize="14" FontFamily="{StaticResource FontAwesome}" Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
+                        <Button x:Name="btnOrderItemSearch" Style="{StaticResource SearchButtonStyle}" 
+                                Grid.Column="1" Content="" Tapped="btnSearch_Click" 
+                                FontSize="12" FontFamily="{StaticResource FontAwesome}" 
+                                VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
+                        <Button Style="{StaticResource SearchButtonStyle}" Grid.Column="2" 
+                                Tapped="btnOrderItemSearchCancel_Click" Content="" 
+                                FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="2,0,2,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                     </Grid>
 
                     <riaControls:DomainDataSource Name="orderItemsDataSource" 
