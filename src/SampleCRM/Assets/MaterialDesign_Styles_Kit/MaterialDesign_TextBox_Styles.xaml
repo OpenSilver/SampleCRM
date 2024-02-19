@@ -33,27 +33,25 @@
                                 <VisualState x:Name="Unfocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="OuterBorder"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="LightGray"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="2"
-                                Padding="3,1">
+                        <Border x:Name="OuterBorder" Background="{TemplateBinding Background}"
+                                BorderBrush="LightGray" BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2" Padding="3,1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter Grid.Column="0" Content="{TemplateBinding Tag}" Margin="1"/>
-                                <TextBlock Grid.Column="1" Text="{TemplateBinding PlaceholderText}"
-                                           Foreground="DarkGray"
-                                           Visibility="{Binding Path=Text, Converter={StaticResource TextToPlaceholderTextVisibilityConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                 <ScrollViewer Grid.Column="1" 
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
-                                    <ContentPresenter  x:Name="ContentElement" />
+                                    <Grid>
+                                        <TextBlock Text="{TemplateBinding PlaceholderText}"
+                                                   Foreground="DarkGray"
+                                                   Visibility="{Binding Path=Text, Converter={StaticResource TextToPlaceholderTextVisibilityConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        <ContentPresenter  x:Name="ContentElement" />
+                                    </Grid>
                                 </ScrollViewer>
-                                
                             </Grid>
                         </Border>
                     </Border>
