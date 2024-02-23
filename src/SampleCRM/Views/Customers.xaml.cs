@@ -90,8 +90,5 @@ namespace SampleCRM.Web.Views
             await _vm.Initialize();
             base.OnNavigatedTo(e);
         }
-
-        private void formCustomer_EditEnded(object sender, DataFormEditEndedEventArgs e) => _vm.CustomerFormEditEnded(e.EditAction);
-
     }
 }
