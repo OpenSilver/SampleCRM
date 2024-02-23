@@ -1,7 +1,6 @@
 ﻿using OpenRiaServices.DomainServices.Client;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows;
 
 namespace SampleCRM.Web.Models
 {
@@ -34,7 +33,7 @@ namespace SampleCRM.Web.Models
         private bool _isEditMode;
         public bool IsEditMode
         {
-            get { return _isEditMode; }
+            get => _isEditMode;
             set
             {
                 if (_isEditMode != value)
@@ -48,7 +47,7 @@ namespace SampleCRM.Web.Models
         private string _countryName;
         public string CountryName
         {
-            get { return _countryName; }
+            get => _countryName;
             set
             {
                 if (_countryName != value)
@@ -65,14 +64,6 @@ namespace SampleCRM.Web.Models
 
         public string FullAddress => $"{AddressLine1} {AddressLine2}\n{City}, {Region} {PostalCode}\n{CountryName}";
 
-        public string PictureUrl
-        {
-            get
-            {
-                var app = (System.Windows.Application.Current as App);
-                var imageUrl = app.ImageUrl;
-                return $"{imageUrl}?customerid={CustomerID}";
-            }
-        }
+        public string PictureUrl => $"{(Application.Current as App).ImageUrl}?customerid={CustomerID}";
     }
 }

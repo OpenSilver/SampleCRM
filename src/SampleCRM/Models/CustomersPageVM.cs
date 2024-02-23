@@ -5,6 +5,7 @@ using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,34 @@ namespace SampleCRM.Web.Models
     public partial class CustomersPageVM : ObservableObject
     {
         #region Initialization
+        public CustomersPageVM()
+        {
+            CustomersDataSource = new DomainDataSource
+            {
+                Name = "customersDataSource",
+                QueryName = "GetCustomers",
+                PageSize = 5,
+                LoadSize = 5,
+                DomainContext = _customersContext,
+            };
+            CustomersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
+            CustomersDataSource.SortDescriptors.Add(new SortDescriptor("FirstName", ListSortDirection.Ascending));
+            CustomersDataSource.LoadedData += customersDataSource_LoadedData;
+
+            OrdersDataSource = new DomainDataSource
+            {
+                Name = "ordersDataSource",
+                QueryName = "GetOrdersOfCustomer",
+                PageSize = 10,
+                LoadSize = 10,
+                DomainContext = _orderContext,
+            };
+            OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
+            OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "customerId", Value = "" });
+            OrdersDataSource.SortDescriptors.Add(new SortDescriptor("OrderDateUTC", ListSortDirection.Descending));
+            OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
+        }
+
         [RelayCommand]
         public async Task Initialize()
         {
@@ -22,14 +51,14 @@ namespace SampleCRM.Web.Models
             CustomersDataSource.Load();
         }
 
-        private async Task LoadCountryCodes() => CountryCodes = (await CountryCodesContext.LoadAsync(CountryCodesContext.GetCountriesQuery())).Entities;
+        private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
         #endregion
 
         #region Handle changing properties
         partial void OnSelectedDetailsTabIndexChanged(int value)
         {
-            OrdersTabSelected = SelectedDetailsTabIndex == 1;
-            if (OrdersTabSelected && SelectedCustomer != null)
+            _ordersTabSelected = SelectedDetailsTabIndex == 1;
+            if (_ordersTabSelected && SelectedCustomer != null)
             {
                 var customerId = SelectedCustomer.CustomerID;
                 var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
@@ -43,7 +72,7 @@ namespace SampleCRM.Web.Models
             AnySelectedCustomer = value != null;
             if (value != null)
             {
-                if (OrdersTabSelected)
+                if (_ordersTabSelected)
                 {
                     var customerId = value.CustomerID;
                     var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
@@ -64,16 +93,6 @@ namespace SampleCRM.Web.Models
                 Console.WriteLine($"Orders, Order: {value.OrderID} selected");
 #endif
             }
-        }
-
-        partial void OnCustomersDataSourceChanged(DomainDataSource value)
-        {
-            CustomersDataSource.LoadedData += customersDataSource_LoadedData;
-        }
-
-        partial void OnOrdersDataSourceChanged(DomainDataSource value)
-        {
-            OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
         }
 
         private void ordersDataSource_LoadedData(object sender, LoadedDataEventArgs e)
@@ -101,11 +120,11 @@ namespace SampleCRM.Web.Models
         {
             if (e == DataFormEditAction.Commit)
             {
-                CustomersContext.SubmitChanges(OnFormCustomerSubmitCompleted, null);
+                _customersContext.SubmitChanges(OnFormCustomerSubmitCompleted, null);
             }
             else if (e == DataFormEditAction.Cancel)
             {
-                CustomersContext.RejectChanges();
+                _customersContext.RejectChanges();
             }
         }
 
@@ -179,12 +198,12 @@ namespace SampleCRM.Web.Models
                 CountryCodes = CountryCodes,
                 CustomerID = SelectedCustomer.CustomerID,
                 Customer = SelectedCustomer,
-                Statuses = (await OrderStatusContext.LoadAsync(OrderStatusContext.GetOrderStatusQuery())).Entities,
-                Shippers = (await ShippersContext.LoadAsync(ShippersContext.GetShippersQuery())).Entities,
-                PaymentTypes = (await PaymentTypesContext.LoadAsync(PaymentTypesContext.GetPaymentTypesQuery())).Entities
+                Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities,
+                Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities,
+                PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities
             };
 
-            var result = await OrderAddEditWindow.Show(order, OrderContext);
+            var result = await OrderAddEditWindow.Show(order, _orderContext);
             if (result)
             {
                 OrdersDataSource.Load();
@@ -201,7 +220,7 @@ namespace SampleCRM.Web.Models
                 CountryName = countryCode?.Name,
                 CountryCode = countryCode?.CountryCodeID,
                 BirthDateUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
-            }, CustomersContext);
+            }, _customersContext);
 
             if (result)
             {
@@ -219,11 +238,11 @@ namespace SampleCRM.Web.Models
 
             SelectedOrder.CountryCodes = CountryCodes;
             SelectedOrder.Customer = SelectedCustomer;
-            SelectedOrder.Statuses = (await OrderStatusContext.LoadAsync(OrderStatusContext.GetOrderStatusQuery())).Entities;
-            SelectedOrder.Shippers = (await ShippersContext.LoadAsync(ShippersContext.GetShippersQuery())).Entities;
-            SelectedOrder.PaymentTypes = (await PaymentTypesContext.LoadAsync(PaymentTypesContext.GetPaymentTypesQuery())).Entities;
+            SelectedOrder.Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
+            SelectedOrder.Shippers = (await _shippersContext.LoadAsync(_shippersContext.GetShippersQuery())).Entities;
+            SelectedOrder.PaymentTypes = (await _paymentTypesContext.LoadAsync(_paymentTypesContext.GetPaymentTypesQuery())).Entities;
 
-            await OrderAddEditWindow.Show(SelectedOrder, OrderContext);
+            await OrderAddEditWindow.Show(SelectedOrder, _orderContext);
         }
 
         [RelayCommand]
@@ -232,14 +251,14 @@ namespace SampleCRM.Web.Models
             if (customer == null)
                 return;
 
-            if (CustomersContext.Customers.CanRemove)
+            if (_customersContext.Customers.CanRemove)
             {
                 var result = MessageBox.Show("Are you sure to delete the customer and all orders belong that customer?", MessageBoxButton.OKCancel);
                 if (result != MessageBoxResult.OK)
                     return;
 
-                CustomersContext.Customers.Remove(customer);
-                CustomersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
+                _customersContext.Customers.Remove(customer);
+                _customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
             {
@@ -270,45 +289,42 @@ namespace SampleCRM.Web.Models
         #endregion
 
         #region Properties
-        [ObservableProperty]
-        public bool ordersTabSelected;
+        private bool _ordersTabSelected;
+
         [ObservableProperty]
         public int selectedDetailsTabIndex;
 
-        [ObservableProperty]
-        public DomainDataSource ordersDataSource;
-        [ObservableProperty]
-        public OrderContext orderContext;
+        public DomainDataSource OrdersDataSource { get; }
 
-        [ObservableProperty]
-        public DomainDataSource customersDataSource;
-        [ObservableProperty]
-        public CustomersContext customersContext;
+        private readonly OrderContext _orderContext = new();
 
-        [ObservableProperty]
-        public CountryCodesContext countryCodesContext = new();
+        public DomainDataSource CustomersDataSource { get; }
 
-        [ObservableProperty]
-        public OrderStatusContext orderStatusContext = new();
+        private readonly CustomersContext _customersContext = new();
 
-        [ObservableProperty]
-        public ShippersContext shippersContext = new();
+        private readonly CountryCodesContext _countryCodesContext = new();
 
-        [ObservableProperty]
-        public PaymentTypeContext paymentTypesContext = new();
+        private readonly OrderStatusContext _orderStatusContext = new();
+
+        private readonly ShippersContext _shippersContext = new();
+
+        private readonly PaymentTypeContext _paymentTypesContext = new();
 
         [ObservableProperty]
         public IEnumerable<CountryCodes> countryCodes;
 
         [ObservableProperty]
         public Customers selectedCustomer;
+
         [ObservableProperty]
         public bool anySelectedCustomer;
+
         [ObservableProperty]
         public string searchText;
 
         [ObservableProperty]
         public Orders selectedOrder;
+
         [ObservableProperty]
         public string searchOrderText;
         #endregion
