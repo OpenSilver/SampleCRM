@@ -238,6 +238,10 @@
             <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+    <local:BasePage.DataContext>
+        <models:CustomersPageVM/>
+    </local:BasePage.DataContext>
     
     <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -290,22 +294,9 @@
                                Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                 </Grid>
 
-                <riaControls:DomainDataSource Name="customersDataSource" 
-                                                  QueryName="GetCustomers" 
-                                                  PageSize="5" LoadSize="5" AutoLoad="False">
-                    <riaControls:DomainDataSource.DomainContext>
-                        <domain:CustomersContext />
-                    </riaControls:DomainDataSource.DomainContext>
-                    <riaControls:DomainDataSource.QueryParameters>
-                        <riaControls:Parameter ParameterName="search" Value="" />
-                    </riaControls:DomainDataSource.QueryParameters>
-                    <riaControls:DomainDataSource.SortDescriptors>
-                        <riaControls:SortDescriptor PropertyPath="FirstName" Direction="Ascending" />
-                    </riaControls:DomainDataSource.SortDescriptors>
-                </riaControls:DomainDataSource>
                 <DataGrid Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" x:Name="grdCustomers"  
                           HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding Data, ElementName=customersDataSource}"
+                          ItemsSource="{Binding CustomersDataSource.Data}"
                           SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
                           AlternatingRowBackground="Transparent" RowBackground="Transparent"
                           IsReadOnly="True"                          
@@ -340,7 +331,7 @@
                 </DataGrid>
                 <DataPager Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" x:Name="pagerCustomers" 
                            HorizontalAlignment="Stretch" 
-                           Source="{Binding Data, ElementName=customersDataSource}" PageSize="5"  />
+                           Source="{Binding ItemsSource, ElementName=grdCustomers}" PageSize="5" />
             </Grid>
         </ContentControl>
 
@@ -485,22 +476,8 @@
                                    Margin="5,0,5,0" Opacity="0.25" Foreground="White" VerticalAlignment="Center" Cursor="Hand" />
                     </Grid>
 
-                    <riaControls:DomainDataSource Name="ordersDataSource" 
-                                                      QueryName="GetOrdersOfCustomer"
-                                                      PageSize="10" LoadSize="10" AutoLoad="False">
-                        <riaControls:DomainDataSource.DomainContext>
-                            <domain:OrderContext />
-                        </riaControls:DomainDataSource.DomainContext>
-                        <riaControls:DomainDataSource.QueryParameters>
-                            <riaControls:Parameter ParameterName="search" Value="" />
-                            <riaControls:Parameter ParameterName="customerId" Value="" />
-                        </riaControls:DomainDataSource.QueryParameters>
-                        <riaControls:DomainDataSource.SortDescriptors>
-                            <riaControls:SortDescriptor PropertyPath="OrderDateUTC" Direction="Descending" />
-                        </riaControls:DomainDataSource.SortDescriptors>
-                    </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
-                              ItemsSource="{Binding Data, ElementName=ordersDataSource}"
+                              ItemsSource="{Binding OrdersDataSource.Data}"
                               SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                               HorizontalContentAlignment="Stretch"
                               IsReadOnly="True"
@@ -531,7 +508,7 @@
                     </DataGrid>
                     <DataPager Grid.Row="4" Grid.ColumnSpan="4" Grid.Column="0" Margin="5" x:Name="pagerOrders" 
                            HorizontalAlignment="Stretch" 
-                           Source="{Binding Data, ElementName=ordersDataSource}" PageSize="10"  />
+                           Source="{Binding ItemsSource, ElementName=grdOrders}" PageSize="10" />
                 </Grid>
             </TabItem>
         </TabControl>
