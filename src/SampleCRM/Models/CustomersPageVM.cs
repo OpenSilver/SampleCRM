@@ -15,25 +15,57 @@ namespace SampleCRM.Web.Models
 {
     public partial class CustomersPageVM : ObservableObject
     {
+        #region Properties
         public static Dictionary<string, string> Countries { get; private set; }
 
-        #region Initialization
+        private bool _ordersTabSelected;
+
+        private readonly CustomersContext _customersContext = new();
+        private readonly OrderContext _orderContext = new();
+        private readonly CountryCodesContext _countryCodesContext = new();
+        private readonly OrderStatusContext _orderStatusContext = new();
+        private readonly ShippersContext _shippersContext = new();
+        private readonly PaymentTypeContext _paymentTypesContext = new();
+
+        public DomainDataSource OrdersDataSource { get; }
+        public DomainDataSource CustomersDataSource { get; }
+
+        [ObservableProperty]
+        private IEnumerable<CountryCodes> countryCodes;
+
+        [ObservableProperty]
+        private int selectedDetailsTabIndex;
+
+        [ObservableProperty]
+        private Customers selectedCustomer;
+
+        [ObservableProperty]
+        private bool anySelectedCustomer;
+
+        [ObservableProperty]
+        private string searchText;
+
+        [ObservableProperty]
+        private Orders selectedOrder;
+
+        [ObservableProperty]
+        private string searchOrderText;
+        #endregion
+
         public CustomersPageVM()
         {
             CustomersDataSource = new DomainDataSource
             {
-                Name = "customersDataSource",
                 QueryName = "GetCustomers",
                 PageSize = 5,
                 LoadSize = 5,
                 DomainContext = _customersContext,
             };
             CustomersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
-            CustomersDataSource.SortDescriptors.Add(new SortDescriptor("FirstName", ListSortDirection.Ascending));
+            CustomersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Customers.FirstName), ListSortDirection.Ascending));
 
             OrdersDataSource = new DomainDataSource
             {
-                Name = "ordersDataSource",
                 QueryName = "GetOrdersOfCustomer",
                 PageSize = 10,
                 LoadSize = 10,
@@ -41,23 +73,9 @@ namespace SampleCRM.Web.Models
             };
             OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
             OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "customerId", Value = "" });
-            OrdersDataSource.SortDescriptors.Add(new SortDescriptor("OrderDateUTC", ListSortDirection.Descending));
+            OrdersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Orders.OrderDateUTC), ListSortDirection.Descending));
             OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
         }
-
-        [RelayCommand]
-        public async Task Initialize()
-        {
-            await AsyncHelper.RunAsync(LoadCountryCodes);
-            CustomersDataSource.Load();
-        }
-
-        private async Task LoadCountryCodes()
-        {
-            CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
-            Countries = CountryCodes.ToDictionary(x => x.CountryCodeID, x => x.Name);
-        }
-        #endregion
 
         #region Handle changing properties
         partial void OnSelectedDetailsTabIndexChanged(int value)
@@ -90,15 +108,15 @@ namespace SampleCRM.Web.Models
             }
         }
 
+#if DEBUG
         partial void OnSelectedOrderChanged(Orders value)
         {
             if (value != null)
             {
-#if DEBUG
                 Console.WriteLine($"Orders, Order: {value.OrderID} selected");
-#endif
             }
         }
+#endif
 
         private void ordersDataSource_LoadedData(object sender, LoadedDataEventArgs e)
         {
@@ -112,6 +130,19 @@ namespace SampleCRM.Web.Models
         #endregion
 
         #region Commands
+        [RelayCommand]
+        public async Task Initialize()
+        {
+            await AsyncHelper.RunAsync(LoadCountryCodes);
+            CustomersDataSource.Load();
+        }
+
+        private async Task LoadCountryCodes()
+        {
+            CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
+            Countries = CountryCodes.ToDictionary(x => x.CountryCodeID, x => x.Name);
+        }
+
         [RelayCommand]
         public void CustomerFormEditEnded(DataFormEditAction e)
         {
@@ -175,10 +206,8 @@ namespace SampleCRM.Web.Models
         }
 
         [RelayCommand]
-        public Task NewOrder()
-        {
-            return AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
-        }
+        public Task NewOrder() => AsyncHelper.RunAsync(ArrangeOrderAddEditWindow);
+
         private async Task ArrangeOrderAddEditWindow()
         {
             if (SelectedCustomer == null)
@@ -277,47 +306,6 @@ namespace SampleCRM.Web.Models
                 CustomersDataSource.Load();
             }
         }
-        #endregion
-
-        #region Properties
-        private bool _ordersTabSelected;
-
-        [ObservableProperty]
-        public int selectedDetailsTabIndex;
-
-        public DomainDataSource OrdersDataSource { get; }
-
-        private readonly OrderContext _orderContext = new();
-
-        public DomainDataSource CustomersDataSource { get; }
-
-        private readonly CustomersContext _customersContext = new();
-
-        private readonly CountryCodesContext _countryCodesContext = new();
-
-        private readonly OrderStatusContext _orderStatusContext = new();
-
-        private readonly ShippersContext _shippersContext = new();
-
-        private readonly PaymentTypeContext _paymentTypesContext = new();
-
-        [ObservableProperty]
-        public IEnumerable<CountryCodes> countryCodes;
-
-        [ObservableProperty]
-        public Customers selectedCustomer;
-
-        [ObservableProperty]
-        public bool anySelectedCustomer;
-
-        [ObservableProperty]
-        public string searchText;
-
-        [ObservableProperty]
-        public Orders selectedOrder;
-
-        [ObservableProperty]
-        public string searchOrderText;
         #endregion
     }
 }
