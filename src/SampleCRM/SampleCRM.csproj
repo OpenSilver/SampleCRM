@@ -265,7 +265,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
-    <PackageReference Include="OpenSilver" Version="2.1.0" />
+    <PackageReference Include="OpenSilver" Version="2.2.0-preview-2024-02-23-091622-63938eaa" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
