@@ -15,7 +15,7 @@
             <Setter Property="Foreground" Value="{StaticResource GridForeground}"/>
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="True"/>
             <Setter Property="RowBackground" Value="{StaticResource GridBackground}"/>
             <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridBackground}"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
