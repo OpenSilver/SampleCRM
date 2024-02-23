@@ -229,11 +229,9 @@
                 </DataField>
             </Grid>
         </DataTemplate>
-
-        <models:CustomersPageVM x:Key="customersPageVM" />
     </local:BasePage.Resources>
 
-    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch" DataContext="{StaticResource customersPageVM}">
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
