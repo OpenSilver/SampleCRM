@@ -20,6 +20,9 @@ namespace SampleCRM.Web
             string path = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", path);
 
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls13;
+
+
             initDomainServiceQueries();
         }
 
