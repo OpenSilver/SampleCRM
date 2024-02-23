@@ -5,7 +5,6 @@ using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,17 +14,7 @@ namespace SampleCRM.Web.Models
 {
     public partial class CustomersPageVM : ObservableObject
     {
-        #region Constructor
-        public CustomersPageVM()
-        {
-            PropertyChanged += customersPageVM_PropertyChanged;
-
-            countryCodesContext = new CountryCodesContext();
-            orderStatusContext = new OrderStatusContext();
-            shippersContext = new ShippersContext();
-            paymentTypesContext = new PaymentTypeContext();
-        }
-
+        #region Initialization
         [RelayCommand]
         public async Task Initialize()
         {
@@ -36,64 +25,55 @@ namespace SampleCRM.Web.Models
         private async Task LoadCountryCodes() => CountryCodes = (await CountryCodesContext.LoadAsync(CountryCodesContext.GetCountriesQuery())).Entities;
         #endregion
 
-        #region Events
-        private void customersPageVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        #region Handle changing properties
+        partial void OnSelectedDetailsTabIndexChanged(int value)
         {
-            switch (e.PropertyName)
+            OrdersTabSelected = SelectedDetailsTabIndex == 1;
+            if (OrdersTabSelected && SelectedCustomer != null)
             {
-                case nameof(SelectedDetailsTabIndex):
-                    OrdersTabSelected = SelectedDetailsTabIndex == 1;
-                    if (OrdersTabSelected && SelectedCustomer != null)
-                    {
-                        var customerId = SelectedCustomer.CustomerID;
-                        var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
-                        customerParam.Value = customerId;
-                        OrdersDataSource.Load();
-                    }
-                    break;
-                case nameof(SelectedCustomer):
-                    {
-                        var value = SelectedCustomer;
-                        AnySelectedCustomer = value != null;
-                        if (value != null)
-                        {
-                            if (OrdersTabSelected)
-                            {
-                                var customerId = value.CustomerID;
-                                var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
-                                customerParam.Value = customerId;
-                                OrdersDataSource.Load();
-                            }
-#if DEBUG
-                            Console.WriteLine($"Customers, Customer: {value.FullName} selected");
-#endif
-                        }
-                    }
-                    break;
-                case nameof(SelectedOrder):
-                    {
-                        var value = SelectedOrder;
-                        if (value != null)
-                        {
-#if DEBUG
-                            Console.WriteLine($"Orders, Order: {value.OrderID} selected");
-#endif
-                        }
-                    }
-                    break;
-                case nameof(CustomersDataSource):
-                    {
-                        CustomersDataSource.LoadedData += customersDataSource_LoadedData;
-                    }
-                    break;
-                case nameof(OrdersDataSource):
-                    {
-                        OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
-                    }
-                    break;
-                default:
-                    break;
+                var customerId = SelectedCustomer.CustomerID;
+                var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
+                customerParam.Value = customerId;
+                OrdersDataSource.Load();
             }
+        }
+
+        partial void OnSelectedCustomerChanged(Customers value)
+        {
+            AnySelectedCustomer = value != null;
+            if (value != null)
+            {
+                if (OrdersTabSelected)
+                {
+                    var customerId = value.CustomerID;
+                    var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
+                    customerParam.Value = customerId;
+                    OrdersDataSource.Load();
+                }
+#if DEBUG
+                Console.WriteLine($"Customers, Customer: {value.FullName} selected");
+#endif
+            }
+        }
+
+        partial void OnSelectedOrderChanged(Orders value)
+        {
+            if (value != null)
+            {
+#if DEBUG
+                Console.WriteLine($"Orders, Order: {value.OrderID} selected");
+#endif
+            }
+        }
+
+        partial void OnCustomersDataSourceChanged(DomainDataSource value)
+        {
+            CustomersDataSource.LoadedData += customersDataSource_LoadedData;
+        }
+
+        partial void OnOrdersDataSourceChanged(DomainDataSource value)
+        {
+            OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
         }
 
         private void ordersDataSource_LoadedData(object sender, LoadedDataEventArgs e)
@@ -306,13 +286,16 @@ namespace SampleCRM.Web.Models
         public CustomersContext customersContext;
 
         [ObservableProperty]
-        public CountryCodesContext countryCodesContext;
+        public CountryCodesContext countryCodesContext = new();
+
         [ObservableProperty]
-        public OrderStatusContext orderStatusContext;
+        public OrderStatusContext orderStatusContext = new();
+
         [ObservableProperty]
-        public ShippersContext shippersContext;
+        public ShippersContext shippersContext = new();
+
         [ObservableProperty]
-        public PaymentTypeContext paymentTypesContext;
+        public PaymentTypeContext paymentTypesContext = new();
 
         [ObservableProperty]
         public IEnumerable<CountryCodes> countryCodes;
