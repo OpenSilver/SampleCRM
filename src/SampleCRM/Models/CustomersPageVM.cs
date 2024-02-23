@@ -109,7 +109,6 @@ namespace SampleCRM.Web.Models
             foreach (var customer in customers)
             {
                 customer.CountryCodes = CountryCodes;
-                customer.Deleted += (s, e) => Delete(s as Customers);
             }
         }
         #endregion
@@ -246,8 +245,6 @@ namespace SampleCRM.Web.Models
         public void Delete(Customers customer)
         {
             if (customer == null)
-                customer = SelectedCustomer;
-            if (customer == null)
                 return;
 
             if (CustomersContext.Customers.CanRemove)
@@ -264,6 +261,7 @@ namespace SampleCRM.Web.Models
                 throw new AccessViolationException("RIA Service Delete Entity for Customer Context is denied");
             }
         }
+
         private void OnDeleteSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
