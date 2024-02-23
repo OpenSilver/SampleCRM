@@ -233,6 +233,12 @@
         </DataTemplate>
     </local:BasePage.Resources>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition />

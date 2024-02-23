@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SampleCRM.Web.Models
 {
@@ -26,11 +26,13 @@ namespace SampleCRM.Web.Models
             paymentTypesContext = new PaymentTypeContext();
         }
 
+        [RelayCommand]
         public async Task Initialize()
         {
             await AsyncHelper.RunAsync(LoadCountryCodes);
             CustomersDataSource.Load();
         }
+
         private async Task LoadCountryCodes() => CountryCodes = (await CountryCodesContext.LoadAsync(CountryCodesContext.GetCountriesQuery())).Entities;
         #endregion
 

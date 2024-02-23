@@ -1,24 +1,22 @@
 ﻿using SampleCRM.Web.Models;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Views
 {
     public partial class Customers : BasePage
     {
-        private readonly CustomersPageVM _vm = new();
-
         public Customers()
         {
             InitializeComponent();
 
-            DataContext = _vm;
-
-            _vm.OrdersDataSource = ordersDataSource;
-            _vm.CustomersDataSource = customersDataSource;
-            _vm.OrderContext = ordersDataSource.DomainContext as OrderContext;
-            _vm.CustomersContext = customersDataSource.DomainContext as CustomersContext;
+            DataContext = new CustomersPageVM
+            {
+                OrdersDataSource = ordersDataSource,
+                CustomersDataSource = customersDataSource,
+                OrderContext = ordersDataSource.DomainContext as OrderContext,
+                CustomersContext = customersDataSource.DomainContext as CustomersContext
+            };
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -83,12 +81,6 @@ namespace SampleCRM.Web.Views
                 Grid.SetRow(grdOrderSearch, 0);
                 grdOrderSearch.Margin = new Thickness();
             }
-        }
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            await _vm.Initialize();
-            base.OnNavigatedTo(e);
         }
     }
 }
