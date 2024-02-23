@@ -6,7 +6,6 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                xmlns:helpers="clr-namespace:SampleCRM.Web.Helpers"
                 xmlns:controls="clr-namespace:SampleCRM.Controls"
                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                 Style="{StaticResource PageStyle}">
@@ -407,8 +406,8 @@
                                     </DataForm.CancelButtonContent>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="EditEnded">
-                                            <helpers:InvokeCommandAction Command="{Binding CustomerFormEditEndedCommand}"
-                                                                         PassEventArgsToCommand="True" EventArgsParameterPath="EditAction"/>
+                                            <i:InvokeCommandAction Command="{Binding CustomerFormEditEndedCommand}"
+                                                                   PassEventArgsToCommand="True" EventArgsParameterPath="EditAction"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </DataForm>
