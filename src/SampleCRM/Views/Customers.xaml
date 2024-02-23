@@ -102,7 +102,7 @@
                 <DataField Grid.Row="3" Grid.Column="3" LabelVisibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                        <ComboBox ItemsSource="{Binding CountryCodes}"
+                        <ComboBox ItemsSource="{Binding DataContext.CountryCodes, RelativeSource={RelativeSource AncestorType=DataForm}}"
                                   SelectedValuePath="CountryCodeID"
                                   SelectedValue="{Binding CountryCode, Mode=TwoWay}"
                                   DisplayMemberPath="Name"
@@ -203,7 +203,7 @@
                 <DataField Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" LabelVisibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                        <ComboBox ItemsSource="{Binding CountryCodes}"                                                          
+                        <ComboBox ItemsSource="{Binding DataContext.CountryCodes, RelativeSource={RelativeSource AncestorType=DataForm}}"
                                   SelectedValuePath="CountryCodeID"
                                   SelectedValue="{Binding CountryCode, Mode=TwoWay}"
                                   DisplayMemberPath="Name"

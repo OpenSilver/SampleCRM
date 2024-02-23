@@ -45,22 +45,6 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<CountryCode> _countryCodes;
-        public IEnumerable<CountryCode> CountryCodes
-        {
-            get { return _countryCodes; }
-            set
-            {
-                if (_countryCodes != value)
-                {
-                    _countryCodes = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryCodes)));
-                    if (_countryCodes != null)
-                        CountryName = _countryCodes.FirstOrDefault(x => x.CountryCodeID == CountryCode)?.Name;
-                }
-            }
-        }
-
         private string _countryName;
         public string CountryName
         {

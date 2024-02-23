@@ -110,7 +110,7 @@ namespace SampleCRM.Web.Models
             var customers = e.Entities.Cast<Customers>();
             foreach (var customer in customers)
             {
-                customer.CountryCodes = CountryCodes;
+                customer.CountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == customer.CountryCode)?.Name;
             }
         }
         #endregion
@@ -214,11 +214,12 @@ namespace SampleCRM.Web.Models
         [RelayCommand]
         public async Task NewCustomer()
         {
+            var countryCode = CountryCodes.FirstOrDefault();
             var result = await CustomerAddEditWindow.Show(new Customers
             {
                 IsEditMode = true,
-                CountryCodes = CountryCodes,
-                CountryCode = CountryCodes.FirstOrDefault().CountryCodeID,
+                CountryName = countryCode?.Name,
+                CountryCode = countryCode?.CountryCodeID,
                 BirthDateUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, CustomersContext);
 
