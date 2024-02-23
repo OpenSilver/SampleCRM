@@ -5,6 +5,8 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                xmlns:helpers="clr-namespace:SampleCRM.Web.Helpers"
                 xmlns:controls="clr-namespace:SampleCRM.Controls"
                 xmlns:domain="clr-namespace:SampleCRM.Web"
                 xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices"
@@ -400,8 +402,7 @@
                             <Border x:Name="customerDetails" Grid.Row="1">
                                 <DataForm x:Name="formCustomer" 
                                               Style="{StaticResource DefaultDataForm}"
-                                              CurrentItem="{Binding SelectedCustomer}"
-                                              EditEnded="formCustomer_EditEnded"
+                                              CurrentItem="{Binding SelectedCustomer}"                                          
                                               CommitButtonStyle="{StaticResource PrimaryButtonStyle}"
                                               CancelButtonStyle="{StaticResource SecondaryButtonStyle}"
                                               AutoGenerateFields="False" AutoEdit="True" AutoCommit="False"
@@ -419,6 +420,12 @@
                                             <TextBlock Text="Cancel" Style="{StaticResource ButtonTextStyle}" />
                                         </StackPanel>
                                     </DataForm.CancelButtonContent>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="EditEnded">
+                                            <helpers:InvokeCommandAction Command="{Binding CustomerFormEditEndedCommand}"
+                                                                         PassEventArgsToCommand="True" EventArgsParameterPath="EditAction"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </DataForm>
                             </Border>
                         </Grid>
