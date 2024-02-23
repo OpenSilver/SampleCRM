@@ -39,23 +39,18 @@ namespace SampleCRM.Web.Models
                 if (_isEditMode != value)
                 {
                     _isEditMode = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsEditMode)));
+                    RaisePropertyChanged(nameof(IsEditMode));
                 }
             }
         }
 
         private string _countryName;
-        public string CountryName
+        public string CountryName => _countryName;
+
+        partial void OnCountryCodeChanged()
         {
-            get => _countryName;
-            set
-            {
-                if (_countryName != value)
-                {
-                    _countryName = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(CountryName)));
-                }
-            }
+            _countryName = CustomersPageVM.Countries.ContainsKey(CountryCode) ? CustomersPageVM.Countries[CountryCode] : null;
+            RaisePropertyChanged(nameof(CountryName));
         }
 
         public string FullName => $"{FirstName} {LastName}";
