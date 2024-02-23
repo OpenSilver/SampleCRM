@@ -15,6 +15,8 @@ namespace SampleCRM.Web.Models
 {
     public partial class CustomersPageVM : ObservableObject
     {
+        public static Dictionary<string, string> Countries { get; private set; }
+
         #region Initialization
         public CustomersPageVM()
         {
@@ -28,7 +30,6 @@ namespace SampleCRM.Web.Models
             };
             CustomersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
             CustomersDataSource.SortDescriptors.Add(new SortDescriptor("FirstName", ListSortDirection.Ascending));
-            CustomersDataSource.LoadedData += customersDataSource_LoadedData;
 
             OrdersDataSource = new DomainDataSource
             {
@@ -51,7 +52,11 @@ namespace SampleCRM.Web.Models
             CustomersDataSource.Load();
         }
 
-        private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
+        private async Task LoadCountryCodes()
+        {
+            CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
+            Countries = CountryCodes.ToDictionary(x => x.CountryCodeID, x => x.Name);
+        }
         #endregion
 
         #region Handle changing properties
@@ -104,14 +109,6 @@ namespace SampleCRM.Web.Models
                 order.OrderShown += async (s, e) => await ShowOrder(s as Orders);
             }
         }
-        private void customersDataSource_LoadedData(object sender, LoadedDataEventArgs e)
-        {
-            var customers = e.Entities.Cast<Customers>();
-            foreach (var customer in customers)
-            {
-                customer.CountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == customer.CountryCode)?.Name;
-            }
-        }
         #endregion
 
         #region Commands
@@ -142,11 +139,6 @@ namespace SampleCRM.Web.Models
                 }
 
                 so.MarkErrorAsHandled();
-            }
-            else
-            {
-                //SelectedCustomer.CountryCodes = CountryCodes;
-                SelectedCustomer.CountryName = CountryCodes.FirstOrDefault(x => x.CountryCodeID == SelectedCustomer.CountryCode)?.Name;
             }
         }
 
@@ -217,7 +209,6 @@ namespace SampleCRM.Web.Models
             var result = await CustomerAddEditWindow.Show(new Customers
             {
                 IsEditMode = true,
-                CountryName = countryCode?.Name,
                 CountryCode = countryCode?.CountryCodeID,
                 BirthDateUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, _customersContext);

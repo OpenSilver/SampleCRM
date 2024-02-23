@@ -8,23 +8,11 @@
                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                 xmlns:helpers="clr-namespace:SampleCRM.Web.Helpers"
                 xmlns:controls="clr-namespace:SampleCRM.Controls"
-                xmlns:domain="clr-namespace:SampleCRM.Web"
-                xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices"
                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                 Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
-
-        <riaControls:DomainDataSource x:Key="countryCodesDataSource" 
-                                                  QueryName="GetCountries" AutoLoad="True">
-            <riaControls:DomainDataSource.DomainContext>
-                <domain:CountryCodesContext />
-            </riaControls:DomainDataSource.DomainContext>
-            <riaControls:DomainDataSource.SortDescriptors>
-                <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
-            </riaControls:DomainDataSource.SortDescriptors>
-        </riaControls:DomainDataSource>
 
         <DataTemplate x:Key="dtWideCustomers" DataType="models:Customers">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -102,10 +90,10 @@
                 <DataField Grid.Row="3" Grid.Column="3" LabelVisibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                        <ComboBox ItemsSource="{Binding DataContext.CountryCodes, RelativeSource={RelativeSource AncestorType=DataForm}}"
-                                  SelectedValuePath="CountryCodeID"
+                        <ComboBox ItemsSource="{Binding DataContext.Countries, RelativeSource={RelativeSource AncestorType=DataForm}}"
+                                  SelectedValuePath="Key"
                                   SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                  DisplayMemberPath="Name"
+                                  DisplayMemberPath="Value"
                                   Style="{StaticResource MaterialDesign_ComboBox_Style}"
                                   Margin="0,0,0,10">
                             <ComboBox.ItemsPanel>
@@ -203,10 +191,10 @@
                 <DataField Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" LabelVisibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Country" Style="{StaticResource DataFieldLabelStyle}" />
-                        <ComboBox ItemsSource="{Binding DataContext.CountryCodes, RelativeSource={RelativeSource AncestorType=DataForm}}"
-                                  SelectedValuePath="CountryCodeID"
+                        <ComboBox ItemsSource="{Binding DataContext.Countries, RelativeSource={RelativeSource AncestorType=DataForm}}"
+                                  SelectedValuePath="Key"
                                   SelectedValue="{Binding CountryCode, Mode=TwoWay}"
-                                  DisplayMemberPath="Name"
+                                  DisplayMemberPath="Value"
                                   Style="{StaticResource MaterialDesign_ComboBox_Style}"
                                   Margin="0,0,0,10">
                             <ComboBox.ItemsPanel>
