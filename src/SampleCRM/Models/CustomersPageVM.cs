@@ -114,6 +114,7 @@ namespace SampleCRM.Web.Models
         #endregion
 
         #region Commands
+        [RelayCommand]
         public void CustomerFormEditEnded(DataFormEditAction e)
         {
             if (e == DataFormEditAction.Commit)
@@ -125,6 +126,7 @@ namespace SampleCRM.Web.Models
                 CustomersContext.RejectChanges();
             }
         }
+
         private void OnFormCustomerSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
