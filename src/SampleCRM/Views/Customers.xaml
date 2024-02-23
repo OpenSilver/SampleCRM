@@ -370,7 +370,7 @@
                                         </Image>
                                     </Grid>
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                        <Button x:Name="btnDelete" Command="{Binding DeleteCommand}"
+                                        <Button Command="{Binding DataContext.DeleteCommand, ElementName=grdTbCustomer}" CommandParameter="{Binding}"
                                                 Style="{StaticResource SecondaryButtonStyle}">
                                             <StackPanel Style="{StaticResource ButtonPanelStyle}">
                                                 <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
