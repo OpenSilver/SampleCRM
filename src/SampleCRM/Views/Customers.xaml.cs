@@ -1,5 +1,4 @@
-﻿using SampleCRM.Web.Models;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
@@ -9,14 +8,6 @@ namespace SampleCRM.Web.Views
         public Customers()
         {
             InitializeComponent();
-
-            DataContext = new CustomersPageVM
-            {
-                OrdersDataSource = ordersDataSource,
-                CustomersDataSource = customersDataSource,
-                OrderContext = ordersDataSource.DomainContext as OrderContext,
-                CustomersContext = customersDataSource.DomainContext as CustomersContext
-            };
         }
 
         protected override void OnSizeChanged(object sender, SizeChangedEventArgs e)
