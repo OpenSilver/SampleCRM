@@ -7,13 +7,13 @@ namespace SampleCRM.Web.Views
 {
     public partial class Customers : BasePage
     {
-        private readonly CustomersPageVM _vm;
+        private readonly CustomersPageVM _vm = new();
 
         public Customers()
         {
             InitializeComponent();
 
-            _vm = Resources["customersPageVM"] as CustomersPageVM;
+            DataContext = _vm;
 
             _vm.OrdersDataSource = ordersDataSource;
             _vm.CustomersDataSource = customersDataSource;
