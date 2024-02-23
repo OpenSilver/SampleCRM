@@ -55,7 +55,7 @@ namespace SampleCRM.Web.Views
         void InitializeAIAssistant()
         {
             //Programmatically creating the AIChatControl so the CRMSample that does not use AI can still build.
-            AIChat = new AIChatControl() { Header = "Assistant", MinWidth = 150, MaxWidth = 250 };
+            AIChat = new AIChatControl() { Header = "Assistant", Width=250, FontSize=22 };
             AIChatControlContainer.Children.Add(AIChat);
 
             busyIndicatorForAICall = new BusyIndicator();
@@ -107,11 +107,13 @@ namespace SampleCRM.Web.Views
             string message = e.MessageText;
             if (!string.IsNullOrWhiteSpace(message))
             {
-                _messages.Add(new ChatMessage(Owner.AI, "Sure thing! Please wait while I do that for you."));
+                ChatMessage acknowledgement = new ChatMessage(Owner.AI, "Please wait while I Process your request...");
+                _messages.Add(acknowledgement);
                 ChatMessage chatMessage = new ChatMessage(Owner.None, busyIndicatorForAICall);
                 _messages.Add(chatMessage);
                 await _assistant.Start(message, _isAlive);
                 _messages.Remove(chatMessage);
+                _messages.Remove(acknowledgement);
             }
         }
 
