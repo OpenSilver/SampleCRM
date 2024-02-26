@@ -478,7 +478,7 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <Button x:Name="btnShowOrder" 
-                                                    Command="{Binding ShowOrderCommand}"
+                                                    Command="{Binding DataContext.ShowSelectedOrderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                     Style="{StaticResource EditButtonStyle}" Content="" />
                                         </StackPanel>
                                     </DataTemplate>
