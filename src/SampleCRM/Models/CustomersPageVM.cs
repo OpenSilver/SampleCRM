@@ -29,8 +29,8 @@ namespace SampleCRM.Web.Models
         private readonly Parameter _ordersSearchParameter = new() { ParameterName = "search", Value = "" };
         private readonly Parameter _ordersCustomerIdParameter = new() { ParameterName = "customerId", Value = "" };
 
-        public DomainDataSource OrdersDataSource { get; }
-        public DomainDataSource CustomersDataSource { get; }
+        public DomainDataSource CustomersDataSource { get; } = new() { QueryName = "GetCustomers", PageSize = 5, LoadSize = 5 };
+        public DomainDataSource OrdersDataSource { get; } = new() { QueryName = "GetOrdersOfCustomer", PageSize = 10, LoadSize = 10 };
 
         // todo: remove this property after applying similar changes to Orders
         [ObservableProperty]
@@ -54,23 +54,11 @@ namespace SampleCRM.Web.Models
 
         public CustomersPageVM()
         {
-            CustomersDataSource = new DomainDataSource
-            {
-                QueryName = "GetCustomers",
-                PageSize = 5,
-                LoadSize = 5,
-                DomainContext = _customersContext,
-            };
+            CustomersDataSource.DomainContext = _customersContext;
             CustomersDataSource.QueryParameters.Add(_customersSearchParameter);
             CustomersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Customers.FirstName), ListSortDirection.Ascending));
 
-            OrdersDataSource = new DomainDataSource
-            {
-                QueryName = "GetOrdersOfCustomer",
-                PageSize = 10,
-                LoadSize = 10,
-                DomainContext = _orderContext,
-            };
+            OrdersDataSource.DomainContext = _orderContext;
             OrdersDataSource.QueryParameters.Add(_ordersSearchParameter);
             OrdersDataSource.QueryParameters.Add(_ordersCustomerIdParameter);
             OrdersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Orders.OrderDateUTC), ListSortDirection.Descending));
@@ -95,7 +83,6 @@ namespace SampleCRM.Web.Models
             {
                 _ordersCustomerIdParameter.Value = SelectedCustomer.CustomerID;
                 OrdersDataSource.Load();
-
 #if DEBUG
                 Console.WriteLine($"Customers, Customer: {SelectedCustomer.FullName} selected");
 #endif
@@ -115,7 +102,6 @@ namespace SampleCRM.Web.Models
             foreach (var order in orders)
             {
                 order.CountryCodes = CountryCodes;
-                order.OrderShown += async (s, e) => await ShowOrder(s as Orders);
             }
         }
         #endregion
@@ -236,10 +222,8 @@ namespace SampleCRM.Web.Models
         }
 
         [RelayCommand]
-        public async Task ShowOrder(Orders order)
+        public async Task ShowSelectedOrder()
         {
-            if (order == null)
-                order = SelectedOrder;
             if (SelectedOrder == null)
                 return;
 
@@ -253,9 +237,9 @@ namespace SampleCRM.Web.Models
         }
 
         [RelayCommand]
-        public void Delete(Customers customer)
+        public void DeleteSelectedCustomer()
         {
-            if (customer == null)
+            if (SelectedCustomer == null)
                 return;
 
             if (_customersContext.Customers.CanRemove)
@@ -264,7 +248,7 @@ namespace SampleCRM.Web.Models
                 if (result != MessageBoxResult.OK)
                     return;
 
-                _customersContext.Customers.Remove(customer);
+                _customersContext.Customers.Remove(SelectedCustomer);
                 _customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else

@@ -353,7 +353,7 @@
                                         </Image>
                                     </Grid>
                                     <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                        <Button Command="{Binding DataContext.DeleteCommand, ElementName=grdTbCustomer}" CommandParameter="{Binding}"
+                                        <Button Command="{Binding DataContext.DeleteSelectedCustomerCommand, ElementName=grdTbCustomer}"
                                                 Style="{StaticResource SecondaryButtonStyle}">
                                             <StackPanel Style="{StaticResource ButtonPanelStyle}">
                                                 <TextBlock Text="" Style="{StaticResource ButtonIconStyle}"/>
@@ -482,7 +482,7 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                             <Button x:Name="btnShowOrder" 
-                                                    Command="{Binding ShowOrderCommand}"
+                                                    Command="{Binding DataContext.ShowSelectedOrderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                     Style="{StaticResource EditButtonStyle}" Content="" />
                                         </StackPanel>
                                     </DataTemplate>
