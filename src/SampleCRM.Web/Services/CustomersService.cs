@@ -9,6 +9,7 @@ using System.Linq;
 namespace SampleCRM.Web
 {
     [EnableClientAccess]
+    //[RequiresAuthentication]
     public class CustomersService : SampleCRMService
     {
         [Query]

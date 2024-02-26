@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using OpenRiaServices.DomainServices.Client;
+using SampleCRM.LoginUI;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
@@ -53,14 +56,6 @@ namespace SampleCRM.Web.Views
                 Grid.SetRow(cntOrders, 1);
                 Grid.SetRow(cntProducts, 1);
             }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            customersDataSource.Load();
-            ordersDataSource.Load();
-            productsDataSource.Load();
-            base.OnNavigatedTo(e);
         }
     }
 }

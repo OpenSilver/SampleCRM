@@ -138,6 +138,9 @@ namespace SampleCRM.Web.Views
 
         private void customersDataSource_LoadedData(object sender, OpenRiaServices.Controls.LoadedDataEventArgs e)
         {
+            if (e.HasError)
+                return;
+
             var customers = e.Entities.Cast<Models.Customers>();
             foreach (var customer in customers)
                 customer.CountryCodes = CountryCodes;

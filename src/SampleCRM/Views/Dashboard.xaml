@@ -35,7 +35,7 @@
                     <TextBlock Text="Latest Customers" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
 
                     <riaControls:DomainDataSource Name="customersDataSource" QueryName="GetLatestCustomersQuery" 
-                                                      AutoLoad="False">
+                                                  AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
                             <domain:CustomersContext />
                         </riaControls:DomainDataSource.DomainContext>
@@ -85,7 +85,7 @@
                     <TextBlock Text="Latest Orders" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
 
                     <riaControls:DomainDataSource Name="ordersDataSource" QueryName="GetLatestOrdersQuery" 
-                                                      AutoLoad="False">
+                                                      AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
                             <domain:OrderContext />
                         </riaControls:DomainDataSource.DomainContext>
@@ -119,7 +119,7 @@
                     <TextBlock Text="Top Sale Products" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
 
                     <riaControls:DomainDataSource Name="productsDataSource" QueryName="GetTopSaleProductsQuery" 
-                                                      AutoLoad="False">
+                                                      AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
                             <domain:ProductsContext />
                         </riaControls:DomainDataSource.DomainContext>
