@@ -16,12 +16,12 @@
     <SolidColorBrush x:Key="Foreground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="Background" Color="#2B303F" />
 
-    <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#FF484848"/>
-    <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="NavigationBackgroundColorBrush" Color="#484848"/>
+    <SolidColorBrush x:Key="NavigationForegroundColorBrush" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="NavigationActiveForegroundColorBrush" Color="#0085FF"/>
     <SolidColorBrush x:Key="HighLightColorBrush" Color="#FF0097FC"/>
-    <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#FFEBF7FF"/>
-    <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#FF747474"/>
+    <SolidColorBrush x:Key="HoverHyperlinkForegroundColorBrush" Color="#EBF7FF"/>
+    <SolidColorBrush x:Key="HoverHyperLinkBackgroundColorBrush" Color="#747474"/>
     <SolidColorBrush x:Key="BodyTextColorBrush" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="Black05Brush" Color="#0C000000" />
     <SolidColorBrush x:Key="Black10Brush" Color="#1A000000" />

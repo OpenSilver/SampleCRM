@@ -123,14 +123,14 @@
         <Setter Property="Background" Value="{StaticResource Black10Brush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="BorderBrush" Value="{StaticResource GridSelectionColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource NavigationForegroundColorBrush}"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="MinHeight" Value="14"/>
         <Setter Property="MinWidth" Value="40"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="2,5,2,5"/>
+        <Setter Property="Padding" Value="15,8"/>
         <Setter Property="Margin" Value="0,0,10,0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -146,6 +146,10 @@
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                                                       Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Red"/>
+                                        </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity" To=".35"/>
                                     </Storyboard>
                                 </VisualState>
@@ -166,11 +170,22 @@
                                     <Storyboard>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ActiveBorder" Storyboard.TargetProperty="Opacity" To="1"/>
                                         <DoubleAnimation Duration="0" Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Opacity" To="1"/>
-                                        <ObjectAnimationUsingKeyFrames
-                                                        Storyboard.TargetName="ContentPresenter" 
+                                        <!--<ObjectAnimationUsingKeyFrames
                                                         Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="#0085FF"/>
-                                        </ObjectAnimationUsingKeyFrames>
+                                        </ObjectAnimationUsingKeyFrames>-->
+                                        <!--<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" 
+                                                                      Storyboard.TargetName="ContentPresenter">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#FFFFFF"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.2" Value="#0085FF"/>
+                                        </ColorAnimationUsingKeyFrames>-->
+                                        <!--<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="myContentPresenter">
+                                            <EasingColorKeyFrame KeyTime="0" Value="Black"/>
+                                            <EasingColorKeyFrame KeyTime="0:0:0.2" Value="White"/>
+                                        </ColorAnimationUsingKeyFrames>-->
+                                        <!--<ColorAnimation Duration="0" 
+                                                        Storyboard.TargetProperty="Foreground"  
+                                                        To="#0085FF"/>-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="InactiveLink"/>
@@ -183,17 +198,14 @@
                         <Rectangle x:Name="FocusVisualElement" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2" Opacity="0" Margin="-1" RadiusX="1" RadiusY="1"/>
                         <Border x:Name="ActiveBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" Opacity="0"/>
                         <Border x:Name="ContentBorder" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Opacity="1">
-                            <ContentControl x:Name="ContentPresenter" 
+                            <ContentPresenter x:Name="ContentPresenter" 
                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
                                              Margin="{TemplateBinding Padding}" 
                                              Content="{TemplateBinding Content}" 
-                                             ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                             Foreground="{TemplateBinding Foreground}"
+                                             ContentTemplate="{TemplateBinding ContentTemplate}"
                                              Opacity="1">
-
-                            </ContentControl>
-                            <!--<ContentPresenter x:Name="ContentPresenter" />-->
+                            </ContentPresenter>
                         </Border>
                         <TextBlock x:Name="DisabledOverlay" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Text="{TemplateBinding Content}" Foreground="Red" Visibility="Collapsed"/>
                     </Grid>
@@ -1217,16 +1229,16 @@
                                         <ColumnDefinition Width="8"/>
                                     </Grid.ColumnDefinitions>
                                     <!--<StackPanel Orientation="Vertical">-->
-                                        <StackPanel Orientation="Horizontal">
-                                            <ContentControl x:Name="HeaderElement" 
+                                    <StackPanel Orientation="Horizontal">
+                                        <ContentControl x:Name="HeaderElement" 
                                                             Margin="0,0,0,0" VerticalAlignment="Center"
                                                             Foreground="{StaticResource White25Brush}"
                                                             Content="{TemplateBinding Header}" 
                                                             ContentTemplate="{TemplateBinding HeaderTemplate}" />
-                                            <Ellipse  x:Name="ChangeIndicator" Fill="#FF8383" Width="2" Height="2" VerticalAlignment="Center" Margin="0,2,0,0" />
-                                        </StackPanel>
-                                        <!--<ContentControl x:Name="HeaderElement" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"/>-->
-                                        <!--<TextBlock Margin="3,-2,8,2" VerticalAlignment="Center" Opacity="0" FontWeight="Bold" Foreground="{TemplateBinding Foreground}" Text="*"/>-->
+                                        <Ellipse  x:Name="ChangeIndicator" Fill="#FF8383" Width="2" Height="2" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                    </StackPanel>
+                                    <!--<ContentControl x:Name="HeaderElement" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"/>-->
+                                    <!--<TextBlock Margin="3,-2,8,2" VerticalAlignment="Center" Opacity="0" FontWeight="Bold" Foreground="{TemplateBinding Foreground}" Text="*"/>-->
                                     <!--</StackPanel>-->
                                     <StackPanel Margin="0,3,0,2" Grid.Column="2" Orientation="Horizontal">
                                         <Button x:Name="FirstItemButton" Style="{StaticResource ButtonGeneric}">

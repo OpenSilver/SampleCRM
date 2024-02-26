@@ -25,8 +25,8 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <riaControls:DomainDataSource Name="countDataSource" QueryName="GetAllCountsQuery" AutoLoad="True"
-                                          LoadedData="countDataSource_LoadedData">
+        <riaControls:DomainDataSource Name="countDataSource" QueryName="GetAllCountsQuery" 
+                                      AutoLoad="True" LoadedData="countDataSource_LoadedData">
             <riaControls:DomainDataSource.DomainContext>
                 <domain:CountContext />
             </riaControls:DomainDataSource.DomainContext>
@@ -67,65 +67,48 @@
                     </StackPanel>
                     <Border Grid.Column="1" x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
                         <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-                            <!--<HyperlinkButton x:Name="lnkHome" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/Home" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock Text="Home" FontWeight="Bold" />
-                                </StackPanel>
-                            </HyperlinkButton>-->
                             <HyperlinkButton x:Name="lnkDashboard" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock Text="Dashboard" FontWeight="Bold" />
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run FontFamily="{StaticResource FontAwesome}" Text="" />
+                                    <Run FontWeight="Bold" Text=" Dashboard"/>
+                                </TextBlock>
                             </HyperlinkButton>
-
                             <HyperlinkButton x:Name="lnkCustomers" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Customers (" />
-                                        <Run Text="{Binding CountModel.CustomerCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run FontFamily="{StaticResource FontAwesome}" Text="" />
+                                    <Run FontWeight="Bold" Text=" Customers (" />
+                                    <Run FontWeight="Bold" Text="{Binding CountModel.CustomerCount, Mode=OneWay}" />
+                                    <Run FontWeight="Bold" Text=")" />
+                               </TextBlock>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lnkOrders" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Orders" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Orders (" />
-                                        <Run Text="{Binding CountModel.OrderCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run Text="" FontFamily="{StaticResource FontAwesome}" />
+                                    <Run FontWeight="Bold" Text=" Orders (" />
+                                    <Run FontWeight="Bold" Text="{Binding CountModel.OrderCount, Mode=OneWay}" />
+                                    <Run FontWeight="Bold" Text=")" />
+                                </TextBlock>
                             </HyperlinkButton>
                             <HyperlinkButton x:Name="lnkProducts" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Products" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Products (" />
-                                        <Run Text="{Binding CountModel.ProductCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center" >
+                                    <Run Text="" FontFamily="{StaticResource FontAwesome}" />
+                                    <Run FontWeight="Bold" Text=" Products (" />
+                                    <Run FontWeight="Bold" Text="{Binding CountModel.ProductCount, Mode=OneWay}" />
+                                    <Run FontWeight="Bold" Text=")" />
+                                </TextBlock>
                             </HyperlinkButton>
-
                             <HyperlinkButton x:Name="lnkCategories" Style="{StaticResource LinkStyle}"
                                      NavigateUri="/Categories" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock FontWeight="Bold">
-                                        <Run Text="Categories (" />
-                                        <Run Text="{Binding CountModel.CategoryCount, Mode=OneWay}" />
-                                        <Run Text=")" />
-                                    </TextBlock>
-                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center">
+                                    <Run Text="" FontFamily="{StaticResource FontAwesome}" />
+                                    <Run FontWeight="Bold" Text=" Categories (" />
+                                    <Run FontWeight="Bold" Text="{Binding CountModel.CategoryCount, Mode=OneWay}" />
+                                    <Run FontWeight="Bold" Text=")" />
+                                </TextBlock>
                             </HyperlinkButton>
                         </StackPanel>
                     </Border>
@@ -137,16 +120,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-
                     <Border Grid.Row="0" x:Name="MobileLinksBorder" Style="{StaticResource MobileLinksBorderStyle}">
                         <StackPanel x:Name="MobileLinksStackPanel" Style="{StaticResource MobileLinksStackPanelStyle}">
-                            <!--<HyperlinkButton x:Name="mlnkHome" Style="{StaticResource MobileLinkStyle}"
-                                     NavigateUri="/Home" TargetName="ContentFrame">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25"  VerticalAlignment="Center" />
-                                    <TextBlock Text="Home" FontWeight="Bold" />
-                                </StackPanel>
-                            </HyperlinkButton>-->
                             <HyperlinkButton x:Name="mlnkDashboard" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Dashboard" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -154,7 +129,6 @@
                                     <TextBlock Text="Dashboard" FontWeight="Bold" />
                                 </StackPanel>
                             </HyperlinkButton>
-
                             <HyperlinkButton x:Name="mlnkCustomers" Style="{StaticResource MobileLinkStyle}"
                                      NavigateUri="/Customers" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -188,7 +162,6 @@
                                     </TextBlock>
                                 </StackPanel>
                             </HyperlinkButton>
-
                             <HyperlinkButton x:Name="mlnkCategories" Style="{StaticResource MobileLinkStyle}"
                                              NavigateUri="/Categories" TargetName="ContentFrame">
                                 <StackPanel Orientation="Horizontal">
@@ -202,11 +175,9 @@
                             </HyperlinkButton>
                         </StackPanel>
                     </Border>
-
                 </Grid>
             </views:ResponsivePane.SmallChildElement>
         </views:ResponsivePane>
-
         <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource LoginContainerStyle}">
             <StackPanel Orientation="Horizontal">
                 <login:LoginStatus />
@@ -219,6 +190,5 @@
                 </HyperlinkButton>-->
             </StackPanel>
         </Border>
-
     </Grid>
 </views:BaseUserControl>
