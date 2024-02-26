@@ -10,7 +10,7 @@
                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                 Style="{StaticResource PageStyle}">
     <local:BasePage.Resources>
-        <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <local:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
         <DataTemplate x:Key="dtWideCustomers" DataType="models:Customers">
@@ -323,10 +323,9 @@
         </ContentControl>
 
         <TabControl x:Name="tcDetails" Grid.Row="1" 
-                            Visibility="{Binding AnySelectedCustomer, Converter={StaticResource boolToVisibilityConverter}}"
+                            Visibility="{Binding SelectedCustomer, Converter={StaticResource NullableToVisibilityConverter}}"
                             Style="{StaticResource MaterialDesign_TabControl_Style}"
-                            SelectedIndex="{Binding SelectedDetailsTabIndex, Mode=TwoWay}"
-                    >
+                            SelectedIndex="{Binding SelectedDetailsTabIndex, Mode=TwoWay}">
             <TabItem x:Name="tbCustomer" Header="Customer" Style="{StaticResource MaterialDesign_TabItem_Style}">
                 <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbCustomer">

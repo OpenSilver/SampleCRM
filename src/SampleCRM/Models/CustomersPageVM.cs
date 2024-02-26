@@ -40,9 +40,6 @@ namespace SampleCRM.Web.Models
         private Customers selectedCustomer;
 
         [ObservableProperty]
-        private bool anySelectedCustomer;
-
-        [ObservableProperty]
         private string searchText;
 
         [ObservableProperty]
@@ -92,7 +89,6 @@ namespace SampleCRM.Web.Models
 
         partial void OnSelectedCustomerChanged(Customers value)
         {
-            AnySelectedCustomer = value != null;
             if (value != null)
             {
                 if (_ordersTabSelected)
