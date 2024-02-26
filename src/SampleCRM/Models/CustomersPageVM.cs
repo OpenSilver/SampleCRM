@@ -18,8 +18,6 @@ namespace SampleCRM.Web.Models
         #region Properties
         public static Dictionary<string, string> Countries { get; private set; }
 
-        private bool _ordersTabSelected;
-
         private readonly CustomersContext _customersContext = new();
         private readonly OrderContext _orderContext = new();
         private readonly CountryCodesContext _countryCodesContext = new();
@@ -27,9 +25,14 @@ namespace SampleCRM.Web.Models
         private readonly ShippersContext _shippersContext = new();
         private readonly PaymentTypeContext _paymentTypesContext = new();
 
+        private readonly Parameter _customersSearchParameter = new() { ParameterName = "search", Value = "" };
+        private readonly Parameter _ordersSearchParameter = new() { ParameterName = "search", Value = "" };
+        private readonly Parameter _ordersCustomerIdParameter = new() { ParameterName = "customerId", Value = "" };
+
         public DomainDataSource OrdersDataSource { get; }
         public DomainDataSource CustomersDataSource { get; }
 
+        // todo: remove this property after applying similar changes to Orders
         [ObservableProperty]
         private IEnumerable<CountryCodes> countryCodes;
 
@@ -58,7 +61,7 @@ namespace SampleCRM.Web.Models
                 LoadSize = 5,
                 DomainContext = _customersContext,
             };
-            CustomersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
+            CustomersDataSource.QueryParameters.Add(_customersSearchParameter);
             CustomersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Customers.FirstName), ListSortDirection.Ascending));
 
             OrdersDataSource = new DomainDataSource
@@ -68,8 +71,8 @@ namespace SampleCRM.Web.Models
                 LoadSize = 10,
                 DomainContext = _orderContext,
             };
-            OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "search", Value = "" });
-            OrdersDataSource.QueryParameters.Add(new Parameter { ParameterName = "customerId", Value = "" });
+            OrdersDataSource.QueryParameters.Add(_ordersSearchParameter);
+            OrdersDataSource.QueryParameters.Add(_ordersCustomerIdParameter);
             OrdersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Orders.OrderDateUTC), ListSortDirection.Descending));
             OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
         }
@@ -77,29 +80,24 @@ namespace SampleCRM.Web.Models
         #region Handle changing properties
         partial void OnSelectedDetailsTabIndexChanged(int value)
         {
-            _ordersTabSelected = SelectedDetailsTabIndex == 1;
-            if (_ordersTabSelected && SelectedCustomer != null)
-            {
-                var customerId = SelectedCustomer.CustomerID;
-                var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
-                customerParam.Value = customerId;
-                OrdersDataSource.Load();
-            }
+            LoadOrdersForSelectedCustomer();
         }
 
         partial void OnSelectedCustomerChanged(Customers value)
         {
-            if (value != null)
+            LoadOrdersForSelectedCustomer();
+        }
+
+        private void LoadOrdersForSelectedCustomer()
+        {
+            // orders tab is selected
+            if (SelectedDetailsTabIndex == 1 && SelectedCustomer != null)
             {
-                if (_ordersTabSelected)
-                {
-                    var customerId = value.CustomerID;
-                    var customerParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "customerId");
-                    customerParam.Value = customerId;
-                    OrdersDataSource.Load();
-                }
+                _ordersCustomerIdParameter.Value = SelectedCustomer.CustomerID;
+                OrdersDataSource.Load();
+
 #if DEBUG
-                Console.WriteLine($"Customers, Customer: {value.FullName} selected");
+                Console.WriteLine($"Customers, Customer: {SelectedCustomer.FullName} selected");
 #endif
             }
         }
@@ -107,10 +105,7 @@ namespace SampleCRM.Web.Models
 #if DEBUG
         partial void OnSelectedOrderChanged(Orders value)
         {
-            if (value != null)
-            {
-                Console.WriteLine($"Orders, Order: {value.OrderID} selected");
-            }
+            Console.WriteLine($"Orders, Order: {value?.OrderID} selected");
         }
 #endif
 
@@ -172,9 +167,7 @@ namespace SampleCRM.Web.Models
         [RelayCommand]
         public void Search()
         {
-            var value = SearchText;
-            var searchParam = CustomersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
-            searchParam.Value = value;
+            _customersSearchParameter.Value = SearchText;
             CustomersDataSource.Load();
         }
 
@@ -188,9 +181,7 @@ namespace SampleCRM.Web.Models
         [RelayCommand]
         public void SearchOrder()
         {
-            var value = SearchOrderText;
-            var searchParam = OrdersDataSource.QueryParameters.FirstOrDefault(x => x.ParameterName == "search");
-            searchParam.Value = value;
+            _ordersSearchParameter.Value = SearchOrderText;
             OrdersDataSource.Load();
         }
 
