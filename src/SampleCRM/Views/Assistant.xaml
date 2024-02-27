@@ -316,17 +316,7 @@
     </local:BasePage.Resources>
     <Grid>
         <ContentControl Style="{StaticResource MaterialDesign_Card_Style}">
-            <DockPanel>
-                <DockPanel DockPanel.Dock="Left">
-                    <ToggleButton x:Name="ShowHideDebugPanel" Content="Debug" DockPanel.Dock="Top"/>
-                    <ListBox x:Name="LogMessageQueueListBox" Width="300" DisplayMemberPath="Text" Visibility="{Binding ElementName=ShowHideDebugPanel, Path=IsChecked, Converter={StaticResource boolToBisibilityConverter}}"/>
-                </DockPanel>
-                <DockPanel>
-                    <DockPanel x:Name="AIChatControlContainer" DockPanel.Dock="Right" Margin="20">
-                    </DockPanel>
-                    <ContentControl x:Name="PlaceWhereGeneratedUIIsShown" />
-                </DockPanel>
-            </DockPanel>
+            <ai:ConversationalUI x:Name="MyConversationalUI"/>
         </ContentControl>
     </Grid>
 </local:BasePage>
