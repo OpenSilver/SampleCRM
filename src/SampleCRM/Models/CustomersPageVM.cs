@@ -44,7 +44,7 @@ namespace SampleCRM.Web.Models
         private IEnumerable<CountryCodes> countryCodes;
 
         [ObservableProperty]
-        private int selectedDetailsTabIndex;
+        private bool isOrdersTabSelected;
 
         [ObservableProperty]
         private Customers selectedCustomer;
@@ -60,7 +60,7 @@ namespace SampleCRM.Web.Models
         #endregion
 
         #region Handle changing properties
-        partial void OnSelectedDetailsTabIndexChanged(int value)
+        partial void OnIsOrdersTabSelectedChanged(bool value)
         {
             Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
@@ -141,8 +141,7 @@ namespace SampleCRM.Web.Models
         [RelayCommand]
         public async Task LoadOrdersForSelectedCustomer()
         {
-            // orders tab is selected
-            if (SelectedDetailsTabIndex == 1 && SelectedCustomer != null)
+            if (IsOrdersTabSelected && SelectedCustomer != null)
             {
                 var query = _orderContext.GetOrdersOfCustomerQuery(SelectedCustomer.CustomerID, SearchOrderText).OrderByDescending(o => o.OrderDateUTC);
                 var result = await _orderContext.LoadAsync(query);
