@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using OpenRiaServices.Controls;
 using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
 using System;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace SampleCRM.Web.Models
 {
@@ -25,12 +25,19 @@ namespace SampleCRM.Web.Models
         private readonly ShippersContext _shippersContext = new();
         private readonly PaymentTypeContext _paymentTypesContext = new();
 
-        private readonly Parameter _customersSearchParameter = new() { ParameterName = "search", Value = "" };
-        private readonly Parameter _ordersSearchParameter = new() { ParameterName = "search", Value = "" };
-        private readonly Parameter _ordersCustomerIdParameter = new() { ParameterName = "customerId", Value = "" };
+        private ICollectionView _customersView;
+        public ICollectionView CustomersView
+        {
+            get => _customersView;
+            private set => SetProperty(ref _customersView, value);
+        }
 
-        public DomainDataSource CustomersDataSource { get; } = new() { QueryName = "GetCustomers", PageSize = 5, LoadSize = 5 };
-        public DomainDataSource OrdersDataSource { get; } = new() { QueryName = "GetOrdersOfCustomer", PageSize = 10, LoadSize = 10 };
+        private ICollectionView _ordersView;
+        public ICollectionView OrdersView
+        {
+            get => _ordersView;
+            private set => SetProperty(ref _ordersView, value);
+        }
 
         // todo: remove this property after applying similar changes to Orders
         [ObservableProperty]
@@ -43,50 +50,24 @@ namespace SampleCRM.Web.Models
         private Customers selectedCustomer;
 
         [ObservableProperty]
-        private string searchText;
+        private string searchText = "";
 
         [ObservableProperty]
         private Orders selectedOrder;
 
         [ObservableProperty]
-        private string searchOrderText;
+        private string searchOrderText = "";
         #endregion
-
-        public CustomersPageVM()
-        {
-            CustomersDataSource.DomainContext = _customersContext;
-            CustomersDataSource.QueryParameters.Add(_customersSearchParameter);
-            CustomersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Customers.FirstName), ListSortDirection.Ascending));
-
-            OrdersDataSource.DomainContext = _orderContext;
-            OrdersDataSource.QueryParameters.Add(_ordersSearchParameter);
-            OrdersDataSource.QueryParameters.Add(_ordersCustomerIdParameter);
-            OrdersDataSource.SortDescriptors.Add(new SortDescriptor(nameof(Orders.OrderDateUTC), ListSortDirection.Descending));
-            OrdersDataSource.LoadedData += ordersDataSource_LoadedData;
-        }
 
         #region Handle changing properties
         partial void OnSelectedDetailsTabIndexChanged(int value)
         {
-            LoadOrdersForSelectedCustomer();
+            Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
         partial void OnSelectedCustomerChanged(Customers value)
         {
-            LoadOrdersForSelectedCustomer();
-        }
-
-        private void LoadOrdersForSelectedCustomer()
-        {
-            // orders tab is selected
-            if (SelectedDetailsTabIndex == 1 && SelectedCustomer != null)
-            {
-                _ordersCustomerIdParameter.Value = SelectedCustomer.CustomerID;
-                OrdersDataSource.Load();
-#if DEBUG
-                Console.WriteLine($"Customers, Customer: {SelectedCustomer.FullName} selected");
-#endif
-            }
+            Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
 #if DEBUG
@@ -95,15 +76,6 @@ namespace SampleCRM.Web.Models
             Console.WriteLine($"Orders, Order: {value?.OrderID} selected");
         }
 #endif
-
-        private void ordersDataSource_LoadedData(object sender, LoadedDataEventArgs e)
-        {
-            var orders = e.Entities.Cast<Orders>();
-            foreach (var order in orders)
-            {
-                order.CountryCodes = CountryCodes;
-            }
-        }
         #endregion
 
         #region Commands
@@ -111,13 +83,22 @@ namespace SampleCRM.Web.Models
         public async Task Initialize()
         {
             await AsyncHelper.RunAsync(LoadCountryCodes);
-            CustomersDataSource.Load();
+            await LoadCustomers();
         }
 
         private async Task LoadCountryCodes()
         {
             CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
             Countries = CountryCodes.ToDictionary(x => x.CountryCodeID, x => x.Name);
+        }
+
+        [RelayCommand]
+        public async Task LoadCustomers()
+        {
+            var query = _customersContext.GetCustomersQuery(SearchText).OrderBy(c => c.FirstName);
+            var result = await _customersContext.LoadAsync(query);
+
+            CustomersView = new PagedCollectionView(result.Entities);
         }
 
         [RelayCommand]
@@ -151,31 +132,35 @@ namespace SampleCRM.Web.Models
         }
 
         [RelayCommand]
-        public void Search()
-        {
-            _customersSearchParameter.Value = SearchText;
-            CustomersDataSource.Load();
-        }
-
-        [RelayCommand]
-        public void SearchCancel()
+        public async Task SearchCancel()
         {
             SearchText = string.Empty;
-            Search();
+            await LoadCustomers();
         }
 
         [RelayCommand]
-        public void SearchOrder()
+        public async Task LoadOrdersForSelectedCustomer()
         {
-            _ordersSearchParameter.Value = SearchOrderText;
-            OrdersDataSource.Load();
+            // orders tab is selected
+            if (SelectedDetailsTabIndex == 1 && SelectedCustomer != null)
+            {
+                var query = _orderContext.GetOrdersOfCustomerQuery(SelectedCustomer.CustomerID, SearchOrderText).OrderByDescending(o => o.OrderDateUTC);
+                var result = await _orderContext.LoadAsync(query);
+
+                foreach (var order in result.Entities)
+                {
+                    order.CountryCodes = CountryCodes;
+                }
+
+                OrdersView = new PagedCollectionView(result.Entities);
+            }
         }
 
         [RelayCommand]
-        public void SearchOrderCancel()
+        public async Task SearchOrderCancel()
         {
             SearchOrderText = string.Empty;
-            SearchOrder();
+            await LoadOrdersForSelectedCustomer();
         }
 
         [RelayCommand]
@@ -200,7 +185,7 @@ namespace SampleCRM.Web.Models
             var result = await OrderAddEditWindow.Show(order, _orderContext);
             if (result)
             {
-                OrdersDataSource.Load();
+                await LoadOrdersForSelectedCustomer();
             }
         }
 
@@ -217,7 +202,7 @@ namespace SampleCRM.Web.Models
 
             if (result)
             {
-                CustomersDataSource.Load();
+                await LoadCustomers();
             }
         }
 
@@ -257,7 +242,7 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private void OnDeleteSubmitCompleted(SubmitOperation so)
+        private async void OnDeleteSubmitCompleted(SubmitOperation so)
         {
             if (so.HasError)
             {
@@ -274,7 +259,7 @@ namespace SampleCRM.Web.Models
             }
             else
             {
-                CustomersDataSource.Load();
+                await LoadCustomers();
             }
         }
         #endregion
