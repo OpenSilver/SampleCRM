@@ -272,7 +272,7 @@
                              PlaceholderText="Search Name"
                              Style="{StaticResource MaterialDesign_TextBox_Style}" />
                     <Button x:Name="btnSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
-                               Content="" Command="{Binding SearchCommand}"
+                               Content="" Command="{Binding LoadCustomersCommand}"
                                FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                     <Button Grid.Column="2" Style="{StaticResource SearchButtonStyle}" 
@@ -283,7 +283,7 @@
 
                 <DataGrid Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" Margin="5" x:Name="grdCustomers"  
                           HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding CustomersDataSource.Data}"
+                          ItemsSource="{Binding CustomersView}"
                           SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
                           AlternatingRowBackground="Transparent" RowBackground="Transparent"
                           IsReadOnly="True"                          
@@ -457,7 +457,7 @@
                                  PlaceholderText="Search Order ID"
                                  Style="{StaticResource MaterialDesign_TextBox_Style}" />
                         <Button x:Name="btnOrderSearch" Grid.Column="1" Style="{StaticResource SearchButtonStyle}"
-                                   Content="" Command="{Binding SearchOrderCommand}"
+                                   Content="" Command="{Binding LoadOrdersForSelectedCustomerCommand}"
                                    FontSize="12" FontFamily="{StaticResource FontAwesome}" 
                                    VerticalAlignment="Center" Opacity="0.75" Foreground="White" Cursor="Hand" />
                         <Button Grid.Column="2" Style="{StaticResource SearchButtonStyle}"
@@ -467,7 +467,7 @@
                     </Grid>
 
                     <DataGrid x:Name="grdOrders" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
-                              ItemsSource="{Binding OrdersDataSource.Data}"
+                              ItemsSource="{Binding OrdersView}"
                               SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                               HorizontalContentAlignment="Stretch"
                               IsReadOnly="True"
