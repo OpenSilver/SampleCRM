@@ -24,7 +24,7 @@
             </riaControls:DomainDataSource.SortDescriptors>
         </riaControls:DomainDataSource>
 
-        <DataTemplate x:Key="dtWideCustomers" DataType="models:Customers">
+        <DataTemplate x:Key="dtWideCustomers" DataType="models:Customer">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -130,7 +130,7 @@
                 </DataField>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="dtNarrowCustomers" DataType="models:Customers">
+        <DataTemplate x:Key="dtNarrowCustomers" DataType="models:Customer">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

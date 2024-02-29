@@ -12,19 +12,21 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class TaxTypes
+    public partial class CountryCode
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaxTypes()
+        public CountryCode()
         {
-            this.Products = new HashSet<Products>();
+            this.Customers = new HashSet<Customer>();
+            this.Orders = new HashSet<Order>();
         }
     
-        [Key]public long TaxTypeID { get; set; }
+        [Key]public string CountryCodeID { get; set; }
         public string Name { get; set; }
-        public string Rate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

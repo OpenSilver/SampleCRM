@@ -25,25 +25,25 @@ namespace SampleCRM.Web.Views
         private bool _ordersTabSelected;
 
         #region DataContext Properties
-        public IEnumerable<Models.CountryCodes> CountryCodes
+        public IEnumerable<Models.CountryCode> CountryCodes
         {
-            get { return (IEnumerable<Models.CountryCodes>)GetValue(CountryCodesProperty); }
+            get { return (IEnumerable<Models.CountryCode>)GetValue(CountryCodesProperty); }
             set { SetValue(CountryCodesProperty, value); }
         }
         public static readonly DependencyProperty CountryCodesProperty =
-            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCodes>), typeof(Customers), new PropertyMetadata(null));
+            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCode>), typeof(Customers), new PropertyMetadata(null));
 
-        public Models.Customers SelectedCustomer
+        public Models.Customer SelectedCustomer
         {
-            get { return (Models.Customers)GetValue(SelectedCustomerProperty); }
+            get { return (Models.Customer)GetValue(SelectedCustomerProperty); }
             set { SetValue(SelectedCustomerProperty, value); }
         }
         public static readonly DependencyProperty SelectedCustomerProperty =
-            DependencyProperty.Register("SelectedCustomer", typeof(Models.Customers), typeof(Customers),
+            DependencyProperty.Register("SelectedCustomer", typeof(Models.Customer), typeof(Customers),
                 new PropertyMetadata(
                     new PropertyChangedCallback((s, t) =>
                     {
-                        var value = t.NewValue as Models.Customers;
+                        var value = t.NewValue as Models.Customer;
                         var page = (Customers)s;
 
                         page.AnySelectedCustomer = value != null;
@@ -91,17 +91,17 @@ namespace SampleCRM.Web.Views
                     })));
 
 
-        public Models.Orders SelectedOrder
+        public Models.Order SelectedOrder
         {
-            get { return (Models.Orders)GetValue(SelectedOrderProperty); }
+            get { return (Models.Order)GetValue(SelectedOrderProperty); }
             set { SetValue(SelectedOrderProperty, value); }
         }
         public static readonly DependencyProperty SelectedOrderProperty =
-            DependencyProperty.Register("SelectedOrder", typeof(Models.Orders), typeof(Customers),
+            DependencyProperty.Register("SelectedOrder", typeof(Models.Order), typeof(Customers),
                 new PropertyMetadata(
                     new PropertyChangedCallback((s, t) =>
                     {
-                        var value = t.NewValue as Models.Orders;
+                        var value = t.NewValue as Models.Order;
                         //var page = (Customers)s;
                         if (value != null)
                         {
@@ -141,7 +141,7 @@ namespace SampleCRM.Web.Views
             if (e.HasError)
                 return;
 
-            var customers = e.Entities.Cast<Models.Customers>();
+            var customers = e.Entities.Cast<Models.Customer>();
             foreach (var customer in customers)
                 customer.CountryCodes = CountryCodes;
         }
@@ -229,9 +229,9 @@ namespace SampleCRM.Web.Views
 
         private void grdCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Customers)
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Customer)
             {
-                SelectedCustomer = e.AddedItems[0] as Models.Customers;
+                SelectedCustomer = e.AddedItems[0] as Models.Customer;
             }
             else
             {
@@ -300,9 +300,9 @@ namespace SampleCRM.Web.Views
 #if DEBUG
             Console.WriteLine("grdOrders_SelectionChanged, {0} Items Added", e.AddedItems.Count);
 #endif
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Orders)
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Order)
             {
-                SelectedOrder = e.AddedItems[0] as Models.Orders;
+                SelectedOrder = e.AddedItems[0] as Models.Order;
             }
             else
             {
@@ -318,7 +318,7 @@ namespace SampleCRM.Web.Views
 
             if (_customersContext.Customers.CanRemove)
             {
-                _customersContext.Customers.Remove(SelectedCustomer);
+                _customersContext.Customers.Remove((Entity)SelectedCustomer);
                 _customersContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
@@ -349,7 +349,7 @@ namespace SampleCRM.Web.Views
 
         private async void btnNewCustomer_Click(object sender, RoutedEventArgs e)
         {
-            var result = await CustomerAddEditWindow.Show(new Models.Customers
+            var result = await CustomerAddEditWindow.Show(new Models.Customer
             {
                 IsEditMode = true,
                 CountryCodes = CountryCodes,
@@ -385,7 +385,7 @@ namespace SampleCRM.Web.Views
             if (SelectedCustomer == null)
                 return;
 
-            var order = new Models.Orders
+            var order = new Models.Order
             {
                 IsEditMode = true,
                 CountryCodes = CountryCodes,

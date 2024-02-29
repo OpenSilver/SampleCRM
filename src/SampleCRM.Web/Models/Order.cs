@@ -12,12 +12,12 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class Orders
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Orders()
+        public Order()
         {
-            this.OrderItems = new HashSet<OrderItems>();
+            this.OrderItems = new HashSet<OrderItem>();
         }
     
         [Key]public long OrderID { get; set; }
@@ -38,11 +38,11 @@ namespace SampleCRM.Web.Models
         public long Status { get; set; }
         public string TrackingNumber { get; set; }
     
-        public virtual CountryCodes CountryCodes { get; set; }
-        public virtual Customers Customers { get; set; }
+        public virtual CountryCode CountryCode { get; set; }
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderItems> OrderItems { get; set; }
-        public virtual PaymentTypes PaymentTypes { get; set; }
-        public virtual OrderStatus OrderStatus { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual PaymentType PaymentType1 { get; set; }
+        public virtual OrderStatu OrderStatu { get; set; }
     }
 }

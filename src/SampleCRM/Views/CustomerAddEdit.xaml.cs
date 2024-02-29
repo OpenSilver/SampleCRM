@@ -9,17 +9,17 @@ namespace SampleCRM.Web.Views
     {
         public event EventHandler CustomerAdded;
 
-        public Models.Customers CustomerViewModel
+        public Models.Customer CustomerViewModel
         {
-            get { return (Models.Customers)GetValue(CustomerViewModelProperty); }
+            get { return (Models.Customer)GetValue(CustomerViewModelProperty); }
             set { SetValue(CustomerViewModelProperty, value); }
         }
         public static readonly DependencyProperty CustomerViewModelProperty =
-            DependencyProperty.Register("CustomerViewModel", typeof(Models.Customers), typeof(CustomerAddEdit),
+            DependencyProperty.Register("CustomerViewModel", typeof(Models.Customer), typeof(CustomerAddEdit),
                 new PropertyMetadata(new PropertyChangedCallback((s, t) =>
                 {
                     var page = s as CustomerAddEdit;
-                    var value = t.NewValue as Models.Customers;
+                    var value = t.NewValue as Models.Customer;
 #if DEBUG
                     Console.WriteLine($"CustomerAddEdit, Customer: {value.FirstName} selected");
 #endif
@@ -63,7 +63,7 @@ namespace SampleCRM.Web.Views
         {
             if (customersContext.Customers.CanAdd)
             {
-                customersContext.Customers.Add(CustomerViewModel);
+                customersContext.Customers.Add((Entity)CustomerViewModel);
                 customersContext.SubmitChanges(OnAddSubmitCompleted, null);
             }
             else

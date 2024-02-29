@@ -141,39 +141,36 @@
     <Compile Include="Images.ashx.cs">
       <DependentUpon>Images.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Categories.cs">
+    <Compile Include="Models\Category.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CountModel.cs" />
-    <Compile Include="Models\CountryCodes.cs">
+    <Compile Include="Models\CountryCode.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customers.cs">
+    <Compile Include="Models\Customer.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DbVersion.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderItems.cs">
+    <Compile Include="Models\Order.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Orders.cs">
+    <Compile Include="Models\OrderItem.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderStatus.cs">
+    <Compile Include="Models\OrderStatu.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PaymentTypes.cs">
+    <Compile Include="Models\PaymentType.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Products.cs">
+    <Compile Include="Models\Product.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RegistrationData.cs" />
     <Compile Include="Models\Shared\User.shared.cs" />
-    <Compile Include="Models\Shippers.cs">
-      <DependentUpon>SampleCRMModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SampleCRMModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,7 +186,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleCRMModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\TaxTypes.cs">
+    <Compile Include="Models\Shipper.cs">
+      <DependentUpon>SampleCRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaxType.cs">
       <DependentUpon>SampleCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />

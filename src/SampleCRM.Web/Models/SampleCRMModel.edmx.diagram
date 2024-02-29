@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c545c373002f4aefbed4551dbfc79d72" Name="Diagram1">
-        <EntityTypeShape EntityType="SampleCRMModel.Categories" Width="1.5" PointX="3" PointY="15.25" />
-        <EntityTypeShape EntityType="SampleCRMModel.CountryCodes" Width="1.5" PointX="0.75" PointY="3.625" />
-        <EntityTypeShape EntityType="SampleCRMModel.Customers" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="SampleCRMModel.Category" Width="1.5" PointX="3" PointY="17.875" />
+        <EntityTypeShape EntityType="SampleCRMModel.CountryCode" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="SampleCRMModel.Customer" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="SampleCRMModel.DbVersion" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SampleCRMModel.OrderItems" Width="1.5" PointX="7.5" PointY="3.125" />
-        <EntityTypeShape EntityType="SampleCRMModel.Orders" Width="1.5" PointX="5.25" PointY="1.875" />
-        <EntityTypeShape EntityType="SampleCRMModel.OrderStatus" Width="1.5" PointX="3" PointY="11.875" />
-        <EntityTypeShape EntityType="SampleCRMModel.PaymentTypes" Width="1.5" PointX="3" PointY="9.625" />
-        <EntityTypeShape EntityType="SampleCRMModel.Products" Width="1.5" PointX="5.25" PointY="15" />
-        <EntityTypeShape EntityType="SampleCRMModel.Shippers" Width="1.5" PointX="7.75" PointY="6.75" />
-        <EntityTypeShape EntityType="SampleCRMModel.TaxTypes" Width="1.5" PointX="3" PointY="18" />
+        <EntityTypeShape EntityType="SampleCRMModel.OrderItem" Width="1.5" PointX="7.5" PointY="3.125" />
+        <EntityTypeShape EntityType="SampleCRMModel.Order" Width="1.5" PointX="5.25" PointY="1.875" />
+        <EntityTypeShape EntityType="SampleCRMModel.OrderStatu" Width="1.5" PointX="3" PointY="11.875" />
+        <EntityTypeShape EntityType="SampleCRMModel.PaymentType" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="SampleCRMModel.Product" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="SampleCRMModel.Shipper" Width="1.5" PointX="7.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SampleCRMModel.TaxType" Width="1.5" PointX="3" PointY="15.25" />
         <AssociationConnector Association="SampleCRMModel.FK_Products_0_0" />
         <AssociationConnector Association="SampleCRMModel.FK_Customers_0_0" />
         <AssociationConnector Association="SampleCRMModel.FK_Orders_3_0" />

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
-    public partial class Products : Entity
+    public partial class Product : Entity
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
@@ -19,8 +19,8 @@ namespace SampleCRM.Web.Models
 
         public bool IsNew => string.IsNullOrEmpty(ProductID);
 
-        private IEnumerable<Categories> _categoriesCombo;
-        public IEnumerable<Categories> CategoriesCombo
+        private IEnumerable<Category> _categoriesCombo;
+        public IEnumerable<Category> CategoriesCombo
         {
             get { return _categoriesCombo; }
             set

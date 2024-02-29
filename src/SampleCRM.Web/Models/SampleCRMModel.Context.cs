@@ -25,16 +25,16 @@ namespace SampleCRM.Web.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<CountryCodes> CountryCodes { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<DbVersion> DbVersion { get; set; }
-        public virtual DbSet<OrderItems> OrderItems { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<OrderStatus> OrderStatus { get; set; }
-        public virtual DbSet<PaymentTypes> PaymentTypes { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<Shippers> Shippers { get; set; }
-        public virtual DbSet<TaxTypes> TaxTypes { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CountryCode> CountryCodes { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<DbVersion> DbVersions { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderStatu> OrderStatus { get; set; }
+        public virtual DbSet<PaymentType> PaymentTypes { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Shipper> Shippers { get; set; }
+        public virtual DbSet<TaxType> TaxTypes { get; set; }
     }
 }

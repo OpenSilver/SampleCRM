@@ -12,23 +12,23 @@ namespace SampleCRM.Web
     public class OrderService : SampleCRMService
     {
         [Query]
-        public IQueryable<Orders> GetOrders(string search) =>
+        public IQueryable<Order> GetOrders(string search) =>
             _context.Orders.OrderByDescending(o => o.OrderDateUTC)
                            .Where(x => x.OrderID.ToString().Contains(search) 
                                        || search == "")
                            .AsQueryable();
 
         [Query]
-        public IQueryable<Orders> GetLatestOrders(int limit, string search) => 
+        public IQueryable<Order> GetLatestOrders(int limit, string search) => 
             GetOrders(search).Take(limit);
 
         [Query]
-        public IQueryable<Orders> GetOrdersOfCustomer(long customerId, string search) => 
+        public IQueryable<Order> GetOrdersOfCustomer(long customerId, string search) => 
             GetOrders(search).Where(x => x.CustomerID == customerId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteOrder(Orders order)
+        public void DeleteOrder(Order order)
         {
             var dorder = _context.Orders.FirstOrDefault(x => x.OrderID == order.OrderID);
             if (dorder == null)
@@ -40,7 +40,7 @@ namespace SampleCRM.Web
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertOrder(Orders order)
+        public void InsertOrder(Order order)
         {
             order.OrderID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
             if (order.OrderID < 0)
@@ -60,7 +60,7 @@ namespace SampleCRM.Web
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateOrder(Orders order)
+        public void UpdateOrder(Order order)
         {
             order.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 #if DEBUG

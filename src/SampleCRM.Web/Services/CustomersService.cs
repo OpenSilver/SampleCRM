@@ -13,17 +13,17 @@ namespace SampleCRM.Web
     public class CustomersService : SampleCRMService
     {
         [Query]
-        public IQueryable<Customers> GetCustomers(string search) =>
+        public IQueryable<Customer> GetCustomers(string search) =>
             _context.Customers
                     .Where(x => x.FirstName.ToLower().Contains(search.ToLower())
                             || x.LastName.ToLower().Contains(search.ToLower())
                             || search == "");
 
         [Query]
-        public IQueryable<Customers> GetCustomersWithoutPictures(string search) =>
+        public IQueryable<Customer> GetCustomersWithoutPictures(string search) =>
             GetCustomers(search)
             .ToList()
-            .Select(x => new Customers
+            .Select(x => new Customer
             {
                 CustomerID = x.CustomerID,
                 AddressLine1 = x.AddressLine1,
@@ -56,14 +56,14 @@ namespace SampleCRM.Web
             }).AsQueryable();
 
         [Query]
-        public IQueryable<Customers> GetLatestCustomers(string search, int limit) =>
+        public IQueryable<Customer> GetLatestCustomers(string search, int limit) =>
             GetCustomersWithoutPictures(search)
                 .OrderByDescending(x => x.CreatedOnUTC)
                 .Take(limit);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteCustomer(Customers customer)
+        public void DeleteCustomer(Customer customer)
         {
             var dCustomer = _context.Customers.FirstOrDefault(x => x.CustomerID == customer.CustomerID);
             if (dCustomer == null)
@@ -75,7 +75,7 @@ namespace SampleCRM.Web
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertCustomer(Customers customer)
+        public void InsertCustomer(Customer customer)
         {
             customer.CustomerID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1);
             if (customer.CustomerID < 0)
@@ -88,14 +88,14 @@ namespace SampleCRM.Web
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateCustomer(Customers customer)
+        public void UpdateCustomer(Customer customer)
         {
             customer.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Customers.AddOrUpdate(customer);
             _context.SaveChanges();
         }
 
-        public Customers GetCustomerById(long customerId) =>
+        public Customer GetCustomerById(long customerId) =>
             GetCustomers(string.Empty).SingleOrDefault(x => x.CustomerID == customerId);
 
         public byte[] GetCustomerPicture(long customerId)

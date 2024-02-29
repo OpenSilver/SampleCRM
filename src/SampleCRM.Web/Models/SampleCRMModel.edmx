@@ -310,55 +310,55 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SampleCRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SampleCRMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="SampleCRMModel.Categories" />
-          <EntitySet Name="CountryCodes" EntityType="SampleCRMModel.CountryCodes" />
-          <EntitySet Name="Customers" EntityType="SampleCRMModel.Customers" />
-          <EntitySet Name="DbVersion" EntityType="SampleCRMModel.DbVersion" />
-          <EntitySet Name="OrderItems" EntityType="SampleCRMModel.OrderItems" />
-          <EntitySet Name="Orders" EntityType="SampleCRMModel.Orders" />
-          <EntitySet Name="OrderStatus" EntityType="SampleCRMModel.OrderStatus" />
-          <EntitySet Name="PaymentTypes" EntityType="SampleCRMModel.PaymentTypes" />
-          <EntitySet Name="Products" EntityType="SampleCRMModel.Products" />
-          <EntitySet Name="Shippers" EntityType="SampleCRMModel.Shippers" />
-          <EntitySet Name="TaxTypes" EntityType="SampleCRMModel.TaxTypes" />
+          <EntitySet Name="Categories" EntityType="SampleCRMModel.Category" />
+          <EntitySet Name="CountryCodes" EntityType="SampleCRMModel.CountryCode" />
+          <EntitySet Name="Customers" EntityType="SampleCRMModel.Customer" />
+          <EntitySet Name="DbVersions" EntityType="SampleCRMModel.DbVersion" />
+          <EntitySet Name="OrderItems" EntityType="SampleCRMModel.OrderItem" />
+          <EntitySet Name="Orders" EntityType="SampleCRMModel.Order" />
+          <EntitySet Name="OrderStatus" EntityType="SampleCRMModel.OrderStatu" />
+          <EntitySet Name="PaymentTypes" EntityType="SampleCRMModel.PaymentType" />
+          <EntitySet Name="Products" EntityType="SampleCRMModel.Product" />
+          <EntitySet Name="Shippers" EntityType="SampleCRMModel.Shipper" />
+          <EntitySet Name="TaxTypes" EntityType="SampleCRMModel.TaxType" />
           <AssociationSet Name="FK_Products_0_0" Association="SampleCRMModel.FK_Products_0_0">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Customers_0_0" Association="SampleCRMModel.FK_Customers_0_0">
-            <End Role="CountryCodes" EntitySet="CountryCodes" />
-            <End Role="Customers" EntitySet="Customers" />
+            <End Role="CountryCode" EntitySet="CountryCodes" />
+            <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_3_0" Association="SampleCRMModel.FK_Orders_3_0">
-            <End Role="CountryCodes" EntitySet="CountryCodes" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="CountryCode" EntitySet="CountryCodes" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_1_0" Association="SampleCRMModel.FK_Orders_1_0">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItems_0_0" Association="SampleCRMModel.FK_OrderItems_0_0">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItems_1_0" Association="SampleCRMModel.FK_OrderItems_1_0">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderItems" EntitySet="OrderItems" />
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_0_0" Association="SampleCRMModel.FK_Orders_0_0">
-            <End Role="PaymentTypes" EntitySet="PaymentTypes" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="PaymentType" EntitySet="PaymentTypes" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_2_0" Association="SampleCRMModel.FK_Orders_2_0">
-            <End Role="OrderStatus" EntitySet="OrderStatus" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderStatu" EntitySet="OrderStatus" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_1_0" Association="SampleCRMModel.FK_Products_1_0">
-            <End Role="TaxTypes" EntitySet="TaxTypes" />
-            <End Role="Products" EntitySet="Products" />
+            <End Role="TaxType" EntitySet="TaxTypes" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Categories">
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
           </Key>
@@ -366,18 +366,18 @@
           <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="Binary" MaxLength="2147483647" FixedLength="false" />
-          <NavigationProperty Name="Products" Relationship="SampleCRMModel.FK_Products_0_0" FromRole="Categories" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="SampleCRMModel.FK_Products_0_0" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="CountryCodes">
+        <EntityType Name="CountryCode">
           <Key>
             <PropertyRef Name="CountryCodeID" />
           </Key>
           <Property Name="CountryCodeID" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customers" Relationship="SampleCRMModel.FK_Customers_0_0" FromRole="CountryCodes" ToRole="Customers" />
-          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_3_0" FromRole="CountryCodes" ToRole="Orders" />
+          <NavigationProperty Name="Customers" Relationship="SampleCRMModel.FK_Customers_0_0" FromRole="CountryCode" ToRole="Customer" />
+          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_3_0" FromRole="CountryCode" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Customers">
+        <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
@@ -409,8 +409,8 @@
           <Property Name="TotalChildren" Type="Int64" />
           <Property Name="YearlyIncome" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="LastModifiedOnUTC" Type="Int64" />
-          <NavigationProperty Name="CountryCodes" Relationship="SampleCRMModel.FK_Customers_0_0" FromRole="Customers" ToRole="CountryCodes" />
-          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_1_0" FromRole="Customers" ToRole="Orders" />
+          <NavigationProperty Name="CountryCode1" Relationship="SampleCRMModel.FK_Customers_0_0" FromRole="Customer" ToRole="CountryCode" />
+          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_1_0" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="DbVersion">
           <Key>
@@ -418,7 +418,7 @@
           </Key>
           <Property Name="Version" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="OrderItems">
+        <EntityType Name="OrderItem">
           <Key>
             <PropertyRef Name="OrderID" />
             <PropertyRef Name="OrderLine" />
@@ -430,10 +430,10 @@
           <Property Name="Quantity" Type="Int64" Nullable="false" />
           <Property Name="TaxType" Type="Int64" Nullable="false" />
           <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <NavigationProperty Name="Products" Relationship="SampleCRMModel.FK_OrderItems_0_0" FromRole="OrderItems" ToRole="Products" />
-          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_OrderItems_1_0" FromRole="OrderItems" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="SampleCRMModel.FK_OrderItems_0_0" FromRole="OrderItem" ToRole="Product" />
+          <NavigationProperty Name="Order" Relationship="SampleCRMModel.FK_OrderItems_1_0" FromRole="OrderItem" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Orders">
+        <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
@@ -454,29 +454,29 @@
           <Property Name="ShippedDateUTC" Type="Int64" />
           <Property Name="Status" Type="Int64" Nullable="false" />
           <Property Name="TrackingNumber" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CountryCodes" Relationship="SampleCRMModel.FK_Orders_3_0" FromRole="Orders" ToRole="CountryCodes" />
-          <NavigationProperty Name="Customers" Relationship="SampleCRMModel.FK_Orders_1_0" FromRole="Orders" ToRole="Customers" />
-          <NavigationProperty Name="OrderItems" Relationship="SampleCRMModel.FK_OrderItems_1_0" FromRole="Orders" ToRole="OrderItems" />
-          <NavigationProperty Name="PaymentTypes" Relationship="SampleCRMModel.FK_Orders_0_0" FromRole="Orders" ToRole="PaymentTypes" />
-          <NavigationProperty Name="OrderStatus" Relationship="SampleCRMModel.FK_Orders_2_0" FromRole="Orders" ToRole="OrderStatus" />
+          <NavigationProperty Name="CountryCode" Relationship="SampleCRMModel.FK_Orders_3_0" FromRole="Order" ToRole="CountryCode" />
+          <NavigationProperty Name="Customer" Relationship="SampleCRMModel.FK_Orders_1_0" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="OrderItems" Relationship="SampleCRMModel.FK_OrderItems_1_0" FromRole="Order" ToRole="OrderItem" />
+          <NavigationProperty Name="PaymentType1" Relationship="SampleCRMModel.FK_Orders_0_0" FromRole="Order" ToRole="PaymentType" />
+          <NavigationProperty Name="OrderStatu" Relationship="SampleCRMModel.FK_Orders_2_0" FromRole="Order" ToRole="OrderStatu" />
         </EntityType>
-        <EntityType Name="OrderStatus">
+        <EntityType Name="OrderStatu">
           <Key>
             <PropertyRef Name="Status" />
           </Key>
           <Property Name="Status" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_2_0" FromRole="OrderStatus" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_2_0" FromRole="OrderStatu" ToRole="Order" />
         </EntityType>
-        <EntityType Name="PaymentTypes">
+        <EntityType Name="PaymentType">
           <Key>
             <PropertyRef Name="PaymentTypeID" />
           </Key>
           <Property Name="PaymentTypeID" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_0_0" FromRole="PaymentTypes" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="SampleCRMModel.FK_Orders_0_0" FromRole="PaymentType" ToRole="Order" />
         </EntityType>
-        <EntityType Name="Products">
+        <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
@@ -498,11 +498,11 @@
           <Property Name="Size" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="StockUnits" Type="Int64" Nullable="false" />
           <Property Name="TaxType" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Categories" Relationship="SampleCRMModel.FK_Products_0_0" FromRole="Products" ToRole="Categories" />
-          <NavigationProperty Name="OrderItems" Relationship="SampleCRMModel.FK_OrderItems_0_0" FromRole="Products" ToRole="OrderItems" />
-          <NavigationProperty Name="TaxTypes" Relationship="SampleCRMModel.FK_Products_1_0" FromRole="Products" ToRole="TaxTypes" />
+          <NavigationProperty Name="Category" Relationship="SampleCRMModel.FK_Products_0_0" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="OrderItems" Relationship="SampleCRMModel.FK_OrderItems_0_0" FromRole="Product" ToRole="OrderItem" />
+          <NavigationProperty Name="TaxType1" Relationship="SampleCRMModel.FK_Products_1_0" FromRole="Product" ToRole="TaxType" />
         </EntityType>
-        <EntityType Name="Shippers">
+        <EntityType Name="Shipper">
           <Key>
             <PropertyRef Name="ShipperID" />
           </Key>
@@ -510,119 +510,119 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TaxTypes">
+        <EntityType Name="TaxType">
           <Key>
             <PropertyRef Name="TaxTypeID" />
           </Key>
           <Property Name="TaxTypeID" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Rate" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="SampleCRMModel.FK_Products_1_0" FromRole="TaxTypes" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="SampleCRMModel.FK_Products_1_0" FromRole="TaxType" ToRole="Product" />
         </EntityType>
         <Association Name="FK_Products_0_0">
-          <End Type="SampleCRMModel.Categories" Role="Categories" Multiplicity="1" />
-          <End Type="SampleCRMModel.Products" Role="Products" Multiplicity="*" />
+          <End Type="SampleCRMModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="SampleCRMModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
+            <Principal Role="Category">
               <PropertyRef Name="CategoryID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customers_0_0">
-          <End Type="SampleCRMModel.CountryCodes" Role="CountryCodes" Multiplicity="1" />
-          <End Type="SampleCRMModel.Customers" Role="Customers" Multiplicity="*" />
+          <End Type="SampleCRMModel.CountryCode" Role="CountryCode" Multiplicity="1" />
+          <End Type="SampleCRMModel.Customer" Role="Customer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CountryCodes">
+            <Principal Role="CountryCode">
               <PropertyRef Name="CountryCodeID" />
             </Principal>
-            <Dependent Role="Customers">
+            <Dependent Role="Customer">
               <PropertyRef Name="CountryCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_3_0">
-          <End Type="SampleCRMModel.CountryCodes" Role="CountryCodes" Multiplicity="0..1" />
-          <End Type="SampleCRMModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="SampleCRMModel.CountryCode" Role="CountryCode" Multiplicity="0..1" />
+          <End Type="SampleCRMModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CountryCodes">
+            <Principal Role="CountryCode">
               <PropertyRef Name="CountryCodeID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="ShipCountryCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_1_0">
-          <End Type="SampleCRMModel.Customers" Role="Customers" Multiplicity="1" />
-          <End Type="SampleCRMModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="SampleCRMModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="SampleCRMModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
+            <Principal Role="Customer">
               <PropertyRef Name="CustomerID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItems_0_0">
-          <End Type="SampleCRMModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="SampleCRMModel.OrderItems" Role="OrderItems" Multiplicity="*" />
+          <End Type="SampleCRMModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="SampleCRMModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
+            <Principal Role="Product">
               <PropertyRef Name="ProductID" />
             </Principal>
-            <Dependent Role="OrderItems">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItems_1_0">
-          <End Type="SampleCRMModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="SampleCRMModel.OrderItems" Role="OrderItems" Multiplicity="*" />
+          <End Type="SampleCRMModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="SampleCRMModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Orders">
+            <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="OrderItems">
+            <Dependent Role="OrderItem">
               <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_0_0">
-          <End Type="SampleCRMModel.PaymentTypes" Role="PaymentTypes" Multiplicity="0..1" />
-          <End Type="SampleCRMModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="SampleCRMModel.PaymentType" Role="PaymentType" Multiplicity="0..1" />
+          <End Type="SampleCRMModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PaymentTypes">
+            <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="PaymentType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_2_0">
-          <End Type="SampleCRMModel.OrderStatus" Role="OrderStatus" Multiplicity="1" />
-          <End Type="SampleCRMModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="SampleCRMModel.OrderStatu" Role="OrderStatu" Multiplicity="1" />
+          <End Type="SampleCRMModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="OrderStatus">
+            <Principal Role="OrderStatu">
               <PropertyRef Name="Status" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="Order">
               <PropertyRef Name="Status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_1_0">
-          <End Type="SampleCRMModel.TaxTypes" Role="TaxTypes" Multiplicity="1" />
-          <End Type="SampleCRMModel.Products" Role="Products" Multiplicity="*" />
+          <End Type="SampleCRMModel.TaxType" Role="TaxType" Multiplicity="1" />
+          <End Type="SampleCRMModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TaxTypes">
+            <Principal Role="TaxType">
               <PropertyRef Name="TaxTypeID" />
             </Principal>
-            <Dependent Role="Products">
+            <Dependent Role="Product">
               <PropertyRef Name="TaxType" />
             </Dependent>
           </ReferentialConstraint>
@@ -634,7 +634,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SampleCRMModelStoreContainer" CdmEntityContainer="SampleCRMEntities">
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SampleCRMModel.Categories">
+            <EntityTypeMapping TypeName="SampleCRMModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -644,7 +644,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CountryCodes">
-            <EntityTypeMapping TypeName="SampleCRMModel.CountryCodes">
+            <EntityTypeMapping TypeName="SampleCRMModel.CountryCode">
               <MappingFragment StoreEntitySet="CountryCodes">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CountryCodeID" ColumnName="CountryCodeID" />
@@ -652,7 +652,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="SampleCRMModel.Customers">
+            <EntityTypeMapping TypeName="SampleCRMModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="LastModifiedOnUTC" ColumnName="LastModifiedOnUTC" />
                 <ScalarProperty Name="YearlyIncome" ColumnName="YearlyIncome" />
@@ -685,7 +685,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DbVersion">
+          <EntitySetMapping Name="DbVersions">
             <EntityTypeMapping TypeName="SampleCRMModel.DbVersion">
               <MappingFragment StoreEntitySet="DbVersion">
                 <ScalarProperty Name="Version" ColumnName="Version" />
@@ -693,7 +693,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderItems">
-            <EntityTypeMapping TypeName="SampleCRMModel.OrderItems">
+            <EntityTypeMapping TypeName="SampleCRMModel.OrderItem">
               <MappingFragment StoreEntitySet="OrderItems">
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="TaxType" ColumnName="TaxType" />
@@ -706,7 +706,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SampleCRMModel.Orders">
+            <EntityTypeMapping TypeName="SampleCRMModel.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -729,7 +729,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="SampleCRMModel.OrderStatus">
+            <EntityTypeMapping TypeName="SampleCRMModel.OrderStatu">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -737,7 +737,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
-            <EntityTypeMapping TypeName="SampleCRMModel.PaymentTypes">
+            <EntityTypeMapping TypeName="SampleCRMModel.PaymentType">
               <MappingFragment StoreEntitySet="PaymentTypes">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
@@ -745,7 +745,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SampleCRMModel.Products">
+            <EntityTypeMapping TypeName="SampleCRMModel.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="TaxType" ColumnName="TaxType" />
                 <ScalarProperty Name="StockUnits" ColumnName="StockUnits" />
@@ -769,7 +769,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shippers">
-            <EntityTypeMapping TypeName="SampleCRMModel.Shippers">
+            <EntityTypeMapping TypeName="SampleCRMModel.Shipper">
               <MappingFragment StoreEntitySet="Shippers">
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -778,7 +778,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaxTypes">
-            <EntityTypeMapping TypeName="SampleCRMModel.TaxTypes">
+            <EntityTypeMapping TypeName="SampleCRMModel.TaxType">
               <MappingFragment StoreEntitySet="TaxTypes">
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -800,7 +800,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

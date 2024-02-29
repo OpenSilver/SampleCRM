@@ -7,7 +7,7 @@ namespace SampleCRM.Web.Views
     {
         private ProductsContext _context;
 
-        public static async Task<bool> Show(Models.Products product, ProductsContext context)
+        public static async Task<bool> Show(Models.Product product, ProductsContext context)
         {
             var window = new ProductsAddEditWindow(product, context);
             await window.ShowAndWait();
@@ -19,7 +19,7 @@ namespace SampleCRM.Web.Views
             InitializeComponent();
         }
 
-        public ProductsAddEditWindow(Models.Products product, ProductsContext context)
+        public ProductsAddEditWindow(Models.Product product, ProductsContext context)
             : this()
         {
             DataContext = product;

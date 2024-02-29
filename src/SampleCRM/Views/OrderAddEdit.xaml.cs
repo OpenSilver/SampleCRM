@@ -10,17 +10,17 @@ namespace SampleCRM.Web.Views
         public event EventHandler OrderAdded;
         public event EventHandler OrderUpdated;
 
-        public Models.Orders Order
+        public Models.Order Order
         {
-            get { return (Models.Orders)GetValue(OrderProperty); }
+            get { return (Models.Order)GetValue(OrderProperty); }
             set { SetValue(OrderProperty, value); }
         }
         public static readonly DependencyProperty OrderProperty =
-            DependencyProperty.Register("CustomerViewModel", typeof(Models.Orders), typeof(OrderAddEdit),
+            DependencyProperty.Register("CustomerViewModel", typeof(Models.Order), typeof(OrderAddEdit),
                 new PropertyMetadata(new PropertyChangedCallback((s, t) =>
                 {
                     var page = s as OrderAddEdit;
-                    var value = t.NewValue as Models.Orders;
+                    var value = t.NewValue as Models.Order;
 #if DEBUG
                     Console.WriteLine($"OrderAddEdit, Item: {value.OrderID} selected");
 #endif
@@ -44,7 +44,7 @@ namespace SampleCRM.Web.Views
             if ((context.Orders.CanAdd && Order.IsNew) || context.Orders.CanEdit)
             {
                 if (Order.IsNew)
-                    context.Orders.Add(Order);
+                    context.Orders.Add((Entity)Order);
 
                 context.SubmitChanges(OnAddSubmitCompleted, null);
             }
@@ -58,7 +58,7 @@ namespace SampleCRM.Web.Views
         {
             if (context.Orders.CanRemove)
             {
-                context.Orders.Remove(Order);
+                context.Orders.Remove((Entity)Order);
                 context.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else

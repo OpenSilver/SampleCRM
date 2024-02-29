@@ -11,28 +11,28 @@ namespace SampleCRM.Web
     public class OrderStatusService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderStatus> GetOrderStatus() => _context.OrderStatus;
+        public IQueryable<OrderStatu> GetOrderStatus() => _context.OrderStatus;
 
-        public OrderStatus GetOrderStatusById(long statusId) => 
+        public OrderStatu GetOrderStatusById(long statusId) => 
             GetOrderStatus().SingleOrDefault(x => x.Status == statusId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteStatus(OrderStatus status)
+        public void DeleteStatus(OrderStatu status)
         {
             _context.OrderStatus.Remove(status);
         }
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertStatus(OrderStatus status)
+        public void InsertStatus(OrderStatu status)
         {
             _context.OrderStatus.AddOrUpdate(status);
         }
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateStatus(OrderStatus status)
+        public void UpdateStatus(OrderStatu status)
         {
             _context.OrderStatus.AddOrUpdate(status);
         }

@@ -14,21 +14,21 @@ namespace SampleCRM.Web.Views
         private CategoryContext _categoryContext = new CategoryContext();
 
 
-        public IEnumerable<Models.Categories> CategoryCollection
+        public IEnumerable<Models.Category> CategoryCollection
         {
-            get { return (IEnumerable<Models.Categories>)GetValue(CategoryCollectionProperty); }
+            get { return (IEnumerable<Models.Category>)GetValue(CategoryCollectionProperty); }
             set { SetValue(CategoryCollectionProperty, value); }
         }
         public static readonly DependencyProperty CategoryCollectionProperty =
-            DependencyProperty.Register("CategoryCollection", typeof(IEnumerable<Models.Categories>), typeof(Categories), new PropertyMetadata(null));
+            DependencyProperty.Register("CategoryCollection", typeof(IEnumerable<Models.Category>), typeof(Categories), new PropertyMetadata(null));
 
-        public Models.Categories SelectedCategory
+        public Models.Category SelectedCategory
         {
-            get { return (Models.Categories)GetValue(SelectedCategoryProperty); }
+            get { return (Models.Category)GetValue(SelectedCategoryProperty); }
             set { SetValue(SelectedCategoryProperty, value); }
         }
         public static readonly DependencyProperty SelectedCategoryProperty =
-            DependencyProperty.Register("SelectedCategory", typeof(Models.Categories), typeof(Categories), new PropertyMetadata(null));
+            DependencyProperty.Register("SelectedCategory", typeof(Models.Category), typeof(Categories), new PropertyMetadata(null));
 
 
         public Categories()

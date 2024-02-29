@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
-    public partial class OrderItems : Entity
+    public partial class OrderItem : Entity
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
@@ -53,8 +53,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<TaxTypes> _taxTypes;
-        public IEnumerable<TaxTypes> TaxTypes
+        private IEnumerable<TaxType> _taxTypes;
+        public IEnumerable<TaxType> TaxTypes
         {
             get { return _taxTypes; }
             set
@@ -96,8 +96,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private Products _product;
-        public Products Product
+        private Product _product;
+        public Product Product
         {
             get { return _product; }
             set

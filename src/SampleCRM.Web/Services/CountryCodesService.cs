@@ -11,22 +11,22 @@ namespace SampleCRM.Web
     public class CountryCodesService : SampleCRMService
     {
         [Query]
-        public IQueryable<CountryCodes> GetCountries() => 
+        public IQueryable<CountryCode> GetCountries() => 
             _context.CountryCodes.OrderBy(c => c.Name);
 
-        public CountryCodes GetCountryById(string countryCodeID) =>
+        public CountryCode GetCountryById(string countryCodeID) =>
             GetCountries().SingleOrDefault(x => x.CountryCodeID == countryCodeID);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteCountry(CountryCodes country) => _context.CountryCodes.Remove(country);
+        public void DeleteCountry(CountryCode country) => _context.CountryCodes.Remove(country);
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertCountry(CountryCodes country) => _context.CountryCodes.AddOrUpdate(country);
+        public void InsertCountry(CountryCode country) => _context.CountryCodes.AddOrUpdate(country);
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateCountry(CountryCodes country) => _context.CountryCodes.AddOrUpdate(country);
+        public void UpdateCountry(CountryCode country) => _context.CountryCodes.AddOrUpdate(country);
     }
 }

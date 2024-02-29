@@ -12,32 +12,33 @@ namespace SampleCRM.Web
     public class OrderItemsService : SampleCRMService
     {
         [Query]
-        public IQueryable<OrderItems> GetOrderItems(string search) => 
+        public IQueryable<OrderItem> GetOrderItems(string search) => 
             _context.OrderItems.OrderBy(o => o.OrderLine)
                            .Where(x => x.ProductID.ToString().Contains(search) 
                                        || x.OrderID.ToString().Contains(search)
                                        || search == "")
                            .AsQueryable();
 
-        public OrderItems GetOrderItemById(int orderId, int orderLine) => 
+        public OrderItem GetOrderItemById(int orderId, int orderLine) => 
             GetOrderItems(string.Empty)
                 .SingleOrDefault(x => x.OrderID == orderId && x.OrderLine == orderLine);
 
         [Query]
-        public IQueryable<OrderItems> GetOrderItemsOfOrder(long orderId, string search) => 
+        public IQueryable<OrderItem> GetOrderItemsOfOrder(long orderId, string search) => 
             GetOrderItems(search)
                 .Where(x => x.OrderID == orderId);
 
         [Query]
-        public IQueryable<OrderItems> GetOrderItemsOfProduct(string productId, string search) => 
+        public IQueryable<OrderItem> GetOrderItemsOfProduct(string productId, string search) => 
             GetOrderItems(search)
                 .Where(x => x.ProductID == productId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteOrderItem(OrderItems orderItem)
+        public void DeleteOrderItem(OrderItem orderItem)
         {
-            var dOrderItem = _context.OrderItems.FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
+            var dOrderItem = _context.OrderItems
+                                     .FirstOrDefault(x => x.OrderID == orderItem.OrderID && x.OrderLine == orderItem.OrderLine);
             if (dOrderItem == null)
                 return;
 
@@ -47,12 +48,12 @@ namespace SampleCRM.Web
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertOrderItem(OrderItems orderItem)
+        public void InsertOrderItem(OrderItem orderItem)
         {
             var lastItem = _context.OrderItems
-                                          .Where(x => x.OrderID == orderItem.OrderID)
-                                          .OrderByDescending(x => x.OrderLine)
-                                          .FirstOrDefault();
+                                   .Where(x => x.OrderID == orderItem.OrderID)
+                                   .OrderByDescending(x => x.OrderLine)
+                                   .FirstOrDefault();
             if (lastItem == null)
             {
                 orderItem.OrderLine = 1;
@@ -77,7 +78,7 @@ namespace SampleCRM.Web
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateOrderItem(OrderItems orderItem)
+        public void UpdateOrderItem(OrderItem orderItem)
         {
             _context.OrderItems.AddOrUpdate(orderItem);
             _context.SaveChanges();

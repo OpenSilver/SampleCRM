@@ -11,17 +11,17 @@ namespace SampleCRM.Web.Views
         public event EventHandler ProductAdded;
         public event EventHandler ProductUpdated;
 
-        public Models.Products ProductViewModel
+        public Models.Product ProductViewModel
         {
-            get { return (Models.Products)GetValue(ProductViewModelProperty); }
+            get { return (Models.Product)GetValue(ProductViewModelProperty); }
             set { SetValue(ProductViewModelProperty, value); }
         }
         public static readonly DependencyProperty ProductViewModelProperty =
-            DependencyProperty.Register("ProductViewModel", typeof(Models.Products), typeof(ProductAddEdit), 
+            DependencyProperty.Register("ProductViewModel", typeof(Models.Product), typeof(ProductAddEdit), 
                 new PropertyMetadata(new PropertyChangedCallback((s,t) =>
                 {
                     var page = s as ProductAddEdit;
-                    var value = t.NewValue as Models.Products;
+                    var value = t.NewValue as Models.Product;
 #if DEBUG
                     if (value.IsNew)
                         Console.WriteLine("ProductAddEdit, New Product Generated");
@@ -88,7 +88,7 @@ namespace SampleCRM.Web.Views
 
                 if (ProductViewModel.IsNew)
                 {
-                    context.Products.Add(ProductViewModel);
+                    context.Products.Add((Entity)ProductViewModel);
                 }
 
                 context.SubmitChanges(OnAddSubmitCompleted, null);
@@ -106,7 +106,7 @@ namespace SampleCRM.Web.Views
 #if DEBUG
                 Console.WriteLine($"ProductAddEdit, Delete, Product Id: {ProductViewModel.ProductID}");
 #endif
-                context.Products.Remove(ProductViewModel);
+                context.Products.Remove((Entity)ProductViewModel);
                 context.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else

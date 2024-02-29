@@ -18,17 +18,17 @@ namespace SampleCRM.Web.Views
         #endregion
 
         #region Properties
-        public Models.Products SelectedProduct
+        public Models.Product SelectedProduct
         {
-            get { return (Models.Products)GetValue(SelectedProductProperty); }
+            get { return (Models.Product)GetValue(SelectedProductProperty); }
             set { SetValue(SelectedProductProperty, value); }
         }
         public static readonly DependencyProperty SelectedProductProperty =
-            DependencyProperty.Register("SelectedProduct", typeof(Models.Products), typeof(Products),
+            DependencyProperty.Register("SelectedProduct", typeof(Models.Product), typeof(Products),
                 new PropertyMetadata(
                     new PropertyChangedCallback((s, t) =>
                     {
-                        var value = t.NewValue as Models.Products;
+                        var value = t.NewValue as Models.Product;
                         //var page = (Products)s;
                         if (value != null)
                         {
@@ -59,13 +59,13 @@ namespace SampleCRM.Web.Views
 #endif
                     })));
 
-        public IEnumerable<Models.Categories> CategoriesCombo
+        public IEnumerable<Models.Category> CategoriesCombo
         {
-            get { return (IEnumerable<Models.Categories>)GetValue(CategoriesComboProperty); }
+            get { return (IEnumerable<Models.Category>)GetValue(CategoriesComboProperty); }
             set { SetValue(CategoriesComboProperty, value); }
         }
         public static readonly DependencyProperty CategoriesComboProperty =
-            DependencyProperty.Register("CategoriesCombo", typeof(IEnumerable<Models.Categories>), typeof(Products), new PropertyMetadata(null));
+            DependencyProperty.Register("CategoriesCombo", typeof(IEnumerable<Models.Category>), typeof(Products), new PropertyMetadata(null));
 
 
         #endregion
@@ -113,7 +113,7 @@ namespace SampleCRM.Web.Views
             if (e.HasError)
                 return;
 
-            var products = e.Entities.Cast<Models.Products>();
+            var products = e.Entities.Cast<Models.Product>();
             foreach (var product in products)
                 product.CategoriesCombo = CategoriesCombo;
             
@@ -124,7 +124,7 @@ namespace SampleCRM.Web.Views
 
         private async void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            var result = await ProductsAddEditWindow.Show(new Models.Products
+            var result = await ProductsAddEditWindow.Show(new Models.Product
             {
                 CategoriesCombo = CategoriesCombo,
                 CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
@@ -156,9 +156,9 @@ namespace SampleCRM.Web.Views
                 return;
             }
 
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Products)
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Product)
             {
-                SelectedProduct = e.AddedItems[0] as Models.Products;
+                SelectedProduct = e.AddedItems[0] as Models.Product;
                 if (SelectedProduct != null)
                 {
                     if (SelectedProduct.CategoriesCombo == null)

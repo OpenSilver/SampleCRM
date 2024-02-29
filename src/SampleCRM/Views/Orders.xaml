@@ -14,7 +14,7 @@
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
-        <DataTemplate x:Key="dtWideOrders" DataType="models:Orders">
+        <DataTemplate x:Key="dtWideOrders" DataType="models:Order">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -134,7 +134,7 @@
                 </DataField>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="dtNarrowOrders" DataType="models:Orders">
+        <DataTemplate x:Key="dtNarrowOrders" DataType="models:Order">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

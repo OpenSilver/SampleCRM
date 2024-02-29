@@ -11,28 +11,28 @@ namespace SampleCRM.Web
     public class ShippersService: SampleCRMService
     {
         [Query]
-        public IQueryable<Shippers> GetShippers() => _context.Shippers.OrderBy(s => s.Name);
+        public IQueryable<Shipper> GetShippers() => _context.Shippers.OrderBy(s => s.Name);
 
-        public Shippers GetShipperById(long shipperId) => 
+        public Shipper GetShipperById(long shipperId) => 
             GetShippers().SingleOrDefault(x => x.ShipperID == shipperId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteShippers(Shippers shipper)
+        public void DeleteShippers(Shipper shipper)
         {
             _context.Shippers.Remove(shipper);
         }
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertShippers(Shippers shipper)
+        public void InsertShippers(Shipper shipper)
         {
             _context.Shippers.AddOrUpdate(shipper);
         }
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateShippers(Shippers shipper)
+        public void UpdateShippers(Shipper shipper)
         {
             _context.Shippers.AddOrUpdate(shipper);
         }

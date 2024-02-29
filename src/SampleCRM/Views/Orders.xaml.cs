@@ -30,49 +30,49 @@ namespace SampleCRM.Web.Views
 
         #region DataContext Properties
 
-        public IEnumerable<Models.CountryCodes> CountryCodes
+        public IEnumerable<Models.CountryCode> CountryCodes
         {
-            get { return (IEnumerable<Models.CountryCodes>)GetValue(CountryCodesProperty); }
+            get { return (IEnumerable<Models.CountryCode>)GetValue(CountryCodesProperty); }
             set { SetValue(CountryCodesProperty, value); }
         }
         public static readonly DependencyProperty CountryCodesProperty =
-            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCodes>), typeof(Orders), new PropertyMetadata(null));
+            DependencyProperty.Register("CountryCodes", typeof(IEnumerable<Models.CountryCode>), typeof(Orders), new PropertyMetadata(null));
 
-        public IEnumerable<Models.Shippers> Shippers
+        public IEnumerable<Models.Shipper> Shippers
         {
-            get { return (IEnumerable<Models.Shippers>)GetValue(ShippersProperty); }
+            get { return (IEnumerable<Models.Shipper>)GetValue(ShippersProperty); }
             set { SetValue(ShippersProperty, value); }
         }
         public static readonly DependencyProperty ShippersProperty =
-            DependencyProperty.Register("Shippers", typeof(IEnumerable<Models.Shippers>), typeof(Orders), new PropertyMetadata(null));
+            DependencyProperty.Register("Shippers", typeof(IEnumerable<Models.Shipper>), typeof(Orders), new PropertyMetadata(null));
 
-        public IEnumerable<Models.PaymentTypes> PaymentTypes
+        public IEnumerable<Models.PaymentType> PaymentTypes
         {
-            get { return (IEnumerable<Models.PaymentTypes>)GetValue(PaymentTypesProperty); }
+            get { return (IEnumerable<Models.PaymentType>)GetValue(PaymentTypesProperty); }
             set { SetValue(PaymentTypesProperty, value); }
         }
         public static readonly DependencyProperty PaymentTypesProperty =
-            DependencyProperty.Register("PaymentTypes", typeof(IEnumerable<Models.PaymentTypes>), typeof(Orders), new PropertyMetadata(null));
+            DependencyProperty.Register("PaymentTypes", typeof(IEnumerable<Models.PaymentType>), typeof(Orders), new PropertyMetadata(null));
 
-        public IEnumerable<Models.OrderStatus> Statuses
+        public IEnumerable<Models.OrderStatu> Statuses
         {
-            get { return (IEnumerable<Models.OrderStatus>)GetValue(StatusesProperty); }
+            get { return (IEnumerable<Models.OrderStatu>)GetValue(StatusesProperty); }
             set { SetValue(StatusesProperty, value); }
         }
         public static readonly DependencyProperty StatusesProperty =
-            DependencyProperty.Register("Statuses", typeof(IEnumerable<Models.OrderStatus>), typeof(Orders), new PropertyMetadata(null));
+            DependencyProperty.Register("Statuses", typeof(IEnumerable<Models.OrderStatu>), typeof(Orders), new PropertyMetadata(null));
 
-        public Models.Orders SelectedOrder
+        public Models.Order SelectedOrder
         {
-            get { return (Models.Orders)GetValue(SelectedOrderProperty); }
+            get { return (Models.Order)GetValue(SelectedOrderProperty); }
             set { SetValue(SelectedOrderProperty, value); }
         }
         public static readonly DependencyProperty SelectedOrderProperty =
-            DependencyProperty.Register("SelectedOrder", typeof(Models.Orders), typeof(Orders),
+            DependencyProperty.Register("SelectedOrder", typeof(Models.Order), typeof(Orders),
                 new PropertyMetadata(
                     new PropertyChangedCallback(async (s, t) =>
                     {
-                        var value = t.NewValue as Models.Orders;
+                        var value = t.NewValue as Models.Order;
                         var page = (Orders)s;
 
                         page.AnySelectedOrder = value != null;
@@ -123,17 +123,17 @@ namespace SampleCRM.Web.Views
                     })));
 
 
-        public Models.OrderItems SelectedOrderItem
+        public Models.OrderItem SelectedOrderItem
         {
-            get { return (Models.OrderItems)GetValue(SelectedOrderItemProperty); }
+            get { return (Models.OrderItem)GetValue(SelectedOrderItemProperty); }
             set { SetValue(SelectedOrderItemProperty, value); }
         }
         public static readonly DependencyProperty SelectedOrderItemProperty =
-            DependencyProperty.Register("SelectedOrderItem", typeof(Models.OrderItems), typeof(Customers),
+            DependencyProperty.Register("SelectedOrderItem", typeof(Models.OrderItem), typeof(Customers),
                 new PropertyMetadata(
                     new PropertyChangedCallback((s, t) =>
                     {
-                        var value = t.NewValue as Models.OrderItems;
+                        var value = t.NewValue as Models.OrderItem;
                         //var page = (Customers)s;
                         if (value != null)
                         {
@@ -247,7 +247,7 @@ namespace SampleCRM.Web.Views
             if (e.HasError)
                 return;
 
-            var orders = e.Entities.Cast<Models.Orders>();
+            var orders = e.Entities.Cast<Models.Order>();
             foreach (var order in orders)
             {
                 order.CountryCodes = CountryCodes;
@@ -262,7 +262,7 @@ namespace SampleCRM.Web.Views
         private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
         private async Task LoadStatuses() => Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
 
-        private async Task LoadCustomer(Models.Orders order)
+        private async Task LoadCustomer(Models.Order order)
         {
             if (order == null)
                 return;
@@ -270,7 +270,7 @@ namespace SampleCRM.Web.Views
             if (order.Customer == null || order.Customer.CustomerID != order.CustomerID)
                 order.Customer = (await _customersContext.LoadAsync(_customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID))).Entities.FirstOrDefault();
         }
-        private async Task LoadProduct(Models.OrderItems orderItem)
+        private async Task LoadProduct(Models.OrderItem orderItem)
         {
             if (orderItem == null)
                 return;
@@ -280,7 +280,7 @@ namespace SampleCRM.Web.Views
                 orderItem.Product = (await _productsContext.LoadAsync(_productsContext.GetProductByIdQuery(orderItem.ProductID))).Entities.FirstOrDefault();
             }
         }
-        private async Task LoadTaxRate(Models.OrderItems orderItem)
+        private async Task LoadTaxRate(Models.OrderItem orderItem)
         {
             if (orderItem == null)
                 return;
@@ -305,9 +305,9 @@ namespace SampleCRM.Web.Views
 
         private void grdOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Orders)
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.Order)
             {
-                SelectedOrder = e.AddedItems[0] as Models.Orders;
+                SelectedOrder = e.AddedItems[0] as Models.Order;
             }
             else
             {
@@ -324,7 +324,7 @@ namespace SampleCRM.Web.Views
         }
         private async Task ArrangeOrderAddEditWindow()
         {
-            var newOrder = new Models.Orders
+            var newOrder = new Models.Order
             {
                 IsEditMode = true
             };
@@ -358,7 +358,7 @@ namespace SampleCRM.Web.Views
 
             if (_orderContext.Orders.CanRemove)
             {
-                _orderContext.Orders.Remove(SelectedOrder);
+                _orderContext.Orders.Remove((Entity)SelectedOrder);
                 _orderContext.SubmitChanges(OnDeleteSubmitCompleted, null);
             }
             else
@@ -419,7 +419,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        private void UpdateComboDataForOrder(Models.Orders order)
+        private void UpdateComboDataForOrder(Models.Order order)
         {
             order.CountryCodes = CountryCodes;
             order.Shippers = Shippers;
@@ -434,9 +434,9 @@ namespace SampleCRM.Web.Views
 
         private void grdOrderItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.OrderItems)
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Models.OrderItem)
             {
-                SelectedOrderItem = e.AddedItems[0] as Models.OrderItems;
+                SelectedOrderItem = e.AddedItems[0] as Models.OrderItem;
             }
             else
             {
@@ -470,7 +470,7 @@ namespace SampleCRM.Web.Views
             if (SelectedOrder == null)
                 throw (new ArgumentNullException("Selected Order can't be null"));
 
-            var newOrderItem = new Models.OrderItems
+            var newOrderItem = new Models.OrderItem
             {
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,
@@ -501,7 +501,7 @@ namespace SampleCRM.Web.Views
             if (e.HasError)
                 return;
 
-            var orderItems = e.Entities.Cast<Models.OrderItems>();
+            var orderItems = e.Entities.Cast<Models.OrderItem>();
 
             foreach (var item in orderItems)
             {

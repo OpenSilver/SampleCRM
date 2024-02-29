@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
-    public partial class Customers : Entity
+    public partial class Customer : Entity
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
@@ -45,8 +45,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<CountryCodes> _countryCodes;
-        public IEnumerable<CountryCodes> CountryCodes
+        private IEnumerable<CountryCode> _countryCodes;
+        public IEnumerable<CountryCode> CountryCodes
         {
             get { return _countryCodes; }
             set

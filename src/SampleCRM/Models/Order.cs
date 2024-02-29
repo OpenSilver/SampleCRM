@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SampleCRM.Web.Models
 {
-    public partial class Orders : Entity
+    public partial class Order : Entity
     {
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
@@ -86,8 +86,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<Shippers> _shippers;
-        public IEnumerable<Shippers> Shippers
+        private IEnumerable<Shipper> _shippers;
+        public IEnumerable<Shipper> Shippers
         {
             get { return _shippers; }
             set
@@ -100,8 +100,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<PaymentTypes> _paymentTypes;
-        public IEnumerable<PaymentTypes> PaymentTypes
+        private IEnumerable<PaymentType> _paymentTypes;
+        public IEnumerable<PaymentType> PaymentTypes
         {
             get { return _paymentTypes; }
             set
@@ -114,8 +114,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<CountryCodes> _countryCodes;
-        public IEnumerable<CountryCodes> CountryCodes
+        private IEnumerable<CountryCode> _countryCodes;
+        public IEnumerable<CountryCode> CountryCodes
         {
             get { return _countryCodes; }
             set
@@ -130,8 +130,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private IEnumerable<OrderStatus> _statuses;
-        public IEnumerable<OrderStatus> Statuses
+        private IEnumerable<OrderStatu> _statuses;
+        public IEnumerable<OrderStatu> Statuses
         {
             get { return _statuses; }
             set
@@ -174,8 +174,8 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        private Customers _customer = new Customers();
-        public Customers Customer
+        private Customer _customer = new Customer();
+        public Customer Customer
         {
             get { return _customer; }
             set

@@ -12,12 +12,12 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public Product()
         {
-            this.OrderItems = new HashSet<OrderItems>();
+            this.OrderItems = new HashSet<OrderItem>();
         }
     
         [Key]public string ProductID { get; set; }
@@ -39,9 +39,9 @@ namespace SampleCRM.Web.Models
         public long StockUnits { get; set; }
         public long TaxType { get; set; }
     
-        public virtual Categories Categories { get; set; }
+        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderItems> OrderItems { get; set; }
-        public virtual TaxTypes TaxTypes { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual TaxType TaxType1 { get; set; }
     }
 }

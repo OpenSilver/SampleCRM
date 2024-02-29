@@ -12,18 +12,10 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class PaymentTypes
+    public partial class Shipper
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaymentTypes()
-        {
-            this.Orders = new HashSet<Orders>();
-        }
-    
-        [Key]public long PaymentTypeID { get; set; }
+        [Key]public long ShipperID { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public string Phone { get; set; }
     }
 }

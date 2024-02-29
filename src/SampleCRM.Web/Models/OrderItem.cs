@@ -12,7 +12,7 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class OrderItems
+    public partial class OrderItem
     {
         [Key]public long OrderID { get; set; }
         [Key]public long OrderLine { get; set; }
@@ -22,7 +22,7 @@ namespace SampleCRM.Web.Models
         public long TaxType { get; set; }
         public decimal UnitPrice { get; set; }
     
-        public virtual Products Products { get; set; }
-        public virtual Orders Orders { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

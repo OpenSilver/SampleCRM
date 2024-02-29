@@ -11,28 +11,28 @@ namespace SampleCRM.Web
     public class TaxTypesService : SampleCRMService
     {
         [Query]
-        public IQueryable<TaxTypes> GetTaxTypes() => _context.TaxTypes.OrderBy(t => t.Name);
+        public IQueryable<TaxType> GetTaxTypes() => _context.TaxTypes.OrderBy(t => t.Name);
 
-        public TaxTypes GetTaxTypeById(long taxTypeId) => 
+        public TaxType GetTaxTypeById(long taxTypeId) => 
             GetTaxTypes().SingleOrDefault(x => x.TaxTypeID == taxTypeId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteTaxTypes(TaxTypes taxType)
+        public void DeleteTaxTypes(TaxType taxType)
         {
             _context.TaxTypes.Remove(taxType);
         }
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertTaxTypes(TaxTypes taxType)
+        public void InsertTaxTypes(TaxType taxType)
         {
             _context.TaxTypes.AddOrUpdate(taxType);
         }
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateTaxTypes(TaxTypes taxType)
+        public void UpdateTaxTypes(TaxType taxType)
         {
             _context.TaxTypes.AddOrUpdate(taxType);
         }

@@ -11,28 +11,28 @@ namespace SampleCRM.Web
     public class PaymentTypeService : SampleCRMService
     {
         [Query]
-        public IQueryable<PaymentTypes> GetPaymentTypes() => _context.PaymentTypes;
+        public IQueryable<PaymentType> GetPaymentTypes() => _context.PaymentTypes;
 
-        public PaymentTypes GetPaymentTypeById(long paymentTypeId) => 
+        public PaymentType GetPaymentTypeById(long paymentTypeId) => 
             GetPaymentTypes().SingleOrDefault(x => x.PaymentTypeID == paymentTypeId);
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeletePaymentType(PaymentTypes paymentType)
+        public void DeletePaymentType(PaymentType paymentType)
         {
             _context.PaymentTypes.Remove(paymentType);
         }
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertPaymentType(PaymentTypes paymentType)
+        public void InsertPaymentType(PaymentType paymentType)
         {
             _context.PaymentTypes.AddOrUpdate(paymentType);
         }
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdatePaymentType(PaymentTypes paymentType)
+        public void UpdatePaymentType(PaymentType paymentType)
         {
             _context.PaymentTypes.AddOrUpdate(paymentType);
         }

@@ -12,12 +12,12 @@ namespace SampleCRM.Web.Models
     using System;using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     
-    public partial class Customers
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customers()
+        public Customer()
         {
-            this.Orders = new HashSet<Orders>();
+            this.Orders = new HashSet<Order>();
         }
     
         [Key]public long CustomerID { get; set; }
@@ -49,8 +49,8 @@ namespace SampleCRM.Web.Models
         public Nullable<decimal> YearlyIncome { get; set; }
         public Nullable<long> LastModifiedOnUTC { get; set; }
     
-        public virtual CountryCodes CountryCodes { get; set; }
+        public virtual CountryCode CountryCode1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

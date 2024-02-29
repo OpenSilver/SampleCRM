@@ -12,12 +12,12 @@ namespace SampleCRM.Web
     public class ProductsService : SampleCRMService
     {
         [Query]
-        public IQueryable<Products> GetProducts(string search) =>
+        public IQueryable<Product> GetProducts(string search) =>
             _context.Products
                     .Where(x => x.Name.ToLower().Contains(search.ToLower())
                             || search == "");
 
-        //public IQueryable<Products> GetProductsCombo() =>
+        //public IQueryable<Product> GetProductsCombo() =>
         //    GetProducts(string.Empty)
         //        .ToList()
         //        .Select(x => new Products
@@ -28,10 +28,10 @@ namespace SampleCRM.Web
         //        .AsQueryable();
 
         [Query]
-        public IQueryable<Products> GetProductsWithoutPictures(string search) =>
+        public IQueryable<Product> GetProductsWithoutPictures(string search) =>
             GetProducts(search)
                 .ToList()
-                .Select(x => new Products
+                .Select(x => new Product
                 {
                     ProductID = x.ProductID,
                     Name = x.Name,
@@ -55,7 +55,7 @@ namespace SampleCRM.Web
                 .AsQueryable();
 
         [Query]
-        public IQueryable<Products> GetTopSaleProducts(int limit) =>
+        public IQueryable<Product> GetTopSaleProducts(int limit) =>
             GetProducts(string.Empty)
                 .Join(_context.OrderItems, p => p.ProductID, oi => oi.ProductID, (p, oi) => new { Product = p, OrderItem = oi })
                 .Join(_context.Orders, oi => oi.OrderItem.OrderID, o => o.OrderID, (oi, o) => new { oi.Product, o.OrderID })
@@ -64,7 +64,7 @@ namespace SampleCRM.Web
                 .Take(5)
                 .Select(group => group.Key)
                 .ToList()
-                .Select(x => new Products
+                .Select(x => new Product
                 {
                     ProductID = x.ProductID,
                     Name = x.Name,
@@ -73,7 +73,7 @@ namespace SampleCRM.Web
                 })
                 .AsQueryable();
 
-        public Products GetProductById(string productId) =>
+        public Product GetProductById(string productId) =>
             GetProducts(string.Empty).SingleOrDefault(x => x.ProductID == productId);
 
         public byte[] GetProductPicture(string productId)
@@ -84,7 +84,7 @@ namespace SampleCRM.Web
 
         [Delete]
         [RestrictAccessReadonlyMode]
-        public void DeleteProduct(Products product)
+        public void DeleteProduct(Product product)
         {
             var dProduct = _context.Products.FirstOrDefault(x => x.ProductID == product.ProductID);
             if (dProduct == null)
@@ -96,7 +96,7 @@ namespace SampleCRM.Web
 
         [Insert]
         [RestrictAccessReadonlyMode]
-        public void InsertProduct(Products product)
+        public void InsertProduct(Product product)
         {
             product.ProductID = new Random().Next((int)Math.Pow(10, 12), (int)Math.Pow(10, 13) - 1).ToString();
             product.CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -114,7 +114,7 @@ namespace SampleCRM.Web
 
         [Update]
         [RestrictAccessReadonlyMode]
-        public void UpdateProduct(Products product)
+        public void UpdateProduct(Product product)
         {
             product.LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             _context.Products.AddOrUpdate(product);
