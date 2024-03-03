@@ -39,8 +39,8 @@ namespace SampleCRM.Web
             if (customerid < 1)
                 throw new MissingFieldException($"{QUERYPARAM_CUSTOMER_ID} required");
 
-            var customerService = new CustomersService();
-            var pict = customerService.GetCustomerPicture(customerid);
+            var sampleCRMService = new SampleCRMService();
+            var pict = sampleCRMService.GetCustomerPicture(customerid);
             context.Response.ContentType = "image/jpeg";
             context.Response.BinaryWrite(pict);
         }
@@ -53,8 +53,8 @@ namespace SampleCRM.Web
                 if (string.IsNullOrEmpty(productId))
                     throw new MissingFieldException($"{QUERYPARAM_PRODUCT_ID} required");
 
-                var productService = new ProductsService();
-                var pict = productService.GetProductPicture(productId);
+                var sampleCRMService = new SampleCRMService();
+                var pict = sampleCRMService.GetProductPicture(productId);
                 context.Response.ContentType = "image/jpeg";
                 context.Response.BinaryWrite(pict);
             }

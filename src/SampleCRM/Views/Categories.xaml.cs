@@ -11,7 +11,7 @@ namespace SampleCRM.Web.Views
 {
     public partial class Categories : BasePage
     {
-        private CategoryContext _categoryContext = new CategoryContext();
+        private SampleCRMContext _categoryContext = new SampleCRMContext();
 
 
         public IEnumerable<Models.Category> CategoryCollection

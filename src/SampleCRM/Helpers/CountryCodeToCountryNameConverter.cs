@@ -14,7 +14,7 @@ namespace SampleCRM.Web.Views
                 var countryCode = value as string;
                 if (!string.IsNullOrEmpty(countryCode))
                 {
-                    var countryCodesContext = new CountryCodesContext();
+                    var countryCodesContext = new SampleCRMContext();
                     var query = countryCodesContext.GetCountryByIdQuery(countryCode);
                     var entityObj = countryCodesContext.Load(query);
                     value = entityObj.Entities.FirstOrDefault();

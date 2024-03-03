@@ -60,7 +60,7 @@
                                           LoadedData="productsDataSource_LoadedData"
                                           AutoLoad="False">
                 <riaControls:DomainDataSource.DomainContext>
-                    <domain:ProductsContext />
+                    <domain:SampleCRMContext />
                 </riaControls:DomainDataSource.DomainContext>
                 <riaControls:DomainDataSource.QueryParameters>
                     <riaControls:Parameter ParameterName="search" Value="" />

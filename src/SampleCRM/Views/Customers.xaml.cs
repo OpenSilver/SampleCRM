@@ -13,13 +13,13 @@ namespace SampleCRM.Web.Views
     public partial class Customers : BasePage
     {
         #region Contexts
-        private CustomersContext _customersContext => customersDataSource.DomainContext as CustomersContext;
-        private OrderContext _orderContext => ordersDataSource.DomainContext as OrderContext;
+        private SampleCRMContext _customersContext => customersDataSource.DomainContext as SampleCRMContext;
+        private SampleCRMContext _orderContext => ordersDataSource.DomainContext as SampleCRMContext;
 
-        private CountryCodesContext _countryCodesContext = new CountryCodesContext();
-        private OrderStatusContext _orderStatusContext = new OrderStatusContext();
-        private ShippersContext _shippersContext = new ShippersContext();
-        private PaymentTypeContext _paymentTypesContext = new PaymentTypeContext();
+        private SampleCRMContext _countryCodesContext = new SampleCRMContext();
+        private SampleCRMContext _orderStatusContext = new SampleCRMContext();
+        private SampleCRMContext _shippersContext = new SampleCRMContext();
+        private SampleCRMContext _paymentTypesContext = new SampleCRMContext();
         #endregion
 
         private bool _ordersTabSelected;

@@ -17,7 +17,7 @@
         <riaControls:DomainDataSource x:Key="countryCodesDataSource" 
                                                   QueryName="GetCountries" AutoLoad="True">
             <riaControls:DomainDataSource.DomainContext>
-                <domain:CountryCodesContext />
+                <domain:SampleCRMContext />
             </riaControls:DomainDataSource.DomainContext>
             <riaControls:DomainDataSource.SortDescriptors>
                 <riaControls:SortDescriptor PropertyPath="Name" Direction="Ascending" />
@@ -287,7 +287,7 @@
                                                   QueryName="GetCustomers" LoadedData="customersDataSource_LoadedData"
                                                   PageSize="5" LoadSize="5" AutoLoad="False">
                     <riaControls:DomainDataSource.DomainContext>
-                        <domain:CustomersContext />
+                        <domain:SampleCRMContext />
                     </riaControls:DomainDataSource.DomainContext>
                     <riaControls:DomainDataSource.QueryParameters>
                         <riaControls:Parameter ParameterName="search" Value="" />
@@ -476,7 +476,7 @@
                                                       QueryName="GetOrdersOfCustomer"
                                                       PageSize="10" LoadSize="10" AutoLoad="False">
                         <riaControls:DomainDataSource.DomainContext>
-                            <domain:OrderContext />
+                            <domain:SampleCRMContext />
                         </riaControls:DomainDataSource.DomainContext>
                         <riaControls:DomainDataSource.QueryParameters>
                             <riaControls:Parameter ParameterName="search" Value="" />

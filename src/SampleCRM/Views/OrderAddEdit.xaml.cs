@@ -39,7 +39,7 @@ namespace SampleCRM.Web.Views
             grdWide.Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
         }
 
-        public void Save(OrderContext context)
+        public void Save(SampleCRMContext context)
         {
             if ((context.Orders.CanAdd && Order.IsNew) || context.Orders.CanEdit)
             {
@@ -54,7 +54,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        public void Delete(OrderContext context)
+        public void Delete(SampleCRMContext context)
         {
             if (context.Orders.CanRemove)
             {

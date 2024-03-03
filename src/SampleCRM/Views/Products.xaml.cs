@@ -13,8 +13,8 @@ namespace SampleCRM.Web.Views
     public partial class Products : BasePage
     {
         #region Contexts
-        private ProductsContext _productsContext => productsDataSource.DomainContext as ProductsContext;
-        private CategoryContext _categoryContext = new CategoryContext();
+        private SampleCRMContext _productsContext => productsDataSource.DomainContext as SampleCRMContext;
+        private SampleCRMContext _categoryContext = new SampleCRMContext();
         #endregion
 
         #region Properties

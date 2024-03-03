@@ -1,5 +1,4 @@
 ﻿using OpenRiaServices.Controls;
-using SampleCRM.Web;
 using SampleCRM.Web.Models;
 using SampleCRM.Web.Views;
 using System;

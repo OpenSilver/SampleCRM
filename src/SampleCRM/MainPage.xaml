@@ -28,7 +28,7 @@
         <riaControls:DomainDataSource Name="countDataSource" QueryName="GetAllCountsQuery" 
                                       AutoLoad="True" LoadedData="countDataSource_LoadedData">
             <riaControls:DomainDataSource.DomainContext>
-                <domain:CountContext />
+                <domain:SampleCRMContext />
             </riaControls:DomainDataSource.DomainContext>
         </riaControls:DomainDataSource>
 

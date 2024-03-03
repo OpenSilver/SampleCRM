@@ -75,7 +75,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        public void Save(ProductsContext context)
+        public void Save(SampleCRMContext context)
         {
             if ((ProductViewModel.IsNew && context.Products.CanAdd) || context.Products.CanEdit)
             {
@@ -99,7 +99,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        public void Delete(ProductsContext context)
+        public void Delete(SampleCRMContext context)
         {
             if (context.Products.CanRemove)
             {

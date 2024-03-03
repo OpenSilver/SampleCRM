@@ -53,7 +53,7 @@
                         <riaControls:DomainDataSource Name="nProductsDataSource" QueryName="GetProducts"            
                                       PageSize="10" LoadSize="10" AutoLoad="True">
                             <riaControls:DomainDataSource.DomainContext>
-                                <domain:ProductsContext />
+                                <domain:SampleCRMContext />
                             </riaControls:DomainDataSource.DomainContext>
                             <riaControls:DomainDataSource.QueryParameters>
                                 <riaControls:Parameter ParameterName="search" Value="{Binding SearchText, ElementName=nAcbProducts, UpdateSourceTrigger=PropertyChanged}" />
@@ -177,7 +177,7 @@
                             <riaControls:DomainDataSource Name="wProductsDataSource" QueryName="GetProducts"            
                                       PageSize="10" LoadSize="10" AutoLoad="True">
                                 <riaControls:DomainDataSource.DomainContext>
-                                    <domain:ProductsContext />
+                                    <domain:SampleCRMContext />
                                 </riaControls:DomainDataSource.DomainContext>
                                 <riaControls:DomainDataSource.QueryParameters>
                                     <riaControls:Parameter ParameterName="search" Value="{Binding SearchText, ElementName=wAcbProducts, UpdateSourceTrigger=PropertyChanged}" />

@@ -59,7 +59,7 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        public void Save(CustomersContext customersContext)
+        public void Save(SampleCRMContext customersContext)
         {
             if (customersContext.Customers.CanAdd)
             {

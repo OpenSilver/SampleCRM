@@ -5,9 +5,9 @@ namespace SampleCRM.Web.Views
 {
     public partial class CustomerAddEditWindow : BaseChildWindow
     {
-        private CustomersContext _customerContext;
+        private SampleCRMContext _customerContext;
 
-        public static async Task<bool> Show(Models.Customer customer, CustomersContext customersContext)
+        public static async Task<bool> Show(Models.Customer customer, SampleCRMContext customersContext)
         {
             var window = new CustomerAddEditWindow(customer, customersContext);
             await window.ShowAndWait();
@@ -20,7 +20,7 @@ namespace SampleCRM.Web.Views
             InnerControl = customerAddEditView;
         }
 
-        public CustomerAddEditWindow(Models.Customer customer, CustomersContext customersContext)
+        public CustomerAddEditWindow(Models.Customer customer, SampleCRMContext customersContext)
             : this()
         {
             _customerContext = customersContext;

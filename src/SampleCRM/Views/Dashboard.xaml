@@ -37,7 +37,7 @@
                     <riaControls:DomainDataSource Name="customersDataSource" QueryName="GetLatestCustomersQuery" 
                                                   AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
-                            <domain:CustomersContext />
+                            <domain:SampleCRMContext />
                         </riaControls:DomainDataSource.DomainContext>
                         <riaControls:DomainDataSource.QueryParameters>
                             <riaControls:Parameter ParameterName="search" Value="" />
@@ -87,7 +87,7 @@
                     <riaControls:DomainDataSource Name="ordersDataSource" QueryName="GetLatestOrdersQuery" 
                                                       AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
-                            <domain:OrderContext />
+                            <domain:SampleCRMContext />
                         </riaControls:DomainDataSource.DomainContext>
                         <riaControls:DomainDataSource.QueryParameters>
                             <riaControls:Parameter ParameterName="limit" Value="5" />
@@ -121,7 +121,7 @@
                     <riaControls:DomainDataSource Name="productsDataSource" QueryName="GetTopSaleProductsQuery" 
                                                       AutoLoad="True">
                         <riaControls:DomainDataSource.DomainContext>
-                            <domain:ProductsContext />
+                            <domain:SampleCRMContext />
                         </riaControls:DomainDataSource.DomainContext>
                         <riaControls:DomainDataSource.QueryParameters>
                             <riaControls:Parameter ParameterName="limit" Value="5" />
