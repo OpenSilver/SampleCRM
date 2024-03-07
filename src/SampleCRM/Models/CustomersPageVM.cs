@@ -16,7 +16,7 @@ namespace SampleCRM.Web.Models
     public partial class CustomersPageVM : ObservableObject
     {
         #region Properties
-        public static Dictionary<string, string> Countries { get; private set; }
+        public static Dictionary<string, string> Countries { get; private set; } = new();
 
         private readonly CustomersContext _customersContext = new();
         private readonly OrderContext _orderContext = new();
