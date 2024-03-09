@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Navigation;
 
 namespace SampleCRM.Web.Models
 {
+
     public partial class CustomersPageVM : ObservableObject
     {
         #region Properties
