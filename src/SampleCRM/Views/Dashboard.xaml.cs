@@ -1,7 +1,4 @@
-﻿using OpenRiaServices.DomainServices.Client;
-using SampleCRM.LoginUI;
-using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace SampleCRM.Web.Views
