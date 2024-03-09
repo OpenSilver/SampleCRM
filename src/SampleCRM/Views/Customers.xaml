@@ -13,7 +13,7 @@
         <local:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
-        <DataTemplate x:Key="dtWideCustomers" DataType="models:Customers">
+        <DataTemplate x:Key="dtWideCustomers" DataType="models:Customer">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -229,7 +229,7 @@
     <local:BasePage.DataContext>
         <models:CustomersPageVM/>
     </local:BasePage.DataContext>
-    
+
     <Grid x:Name="LayoutRoot" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -367,7 +367,9 @@
                                 <TextBlock Style="{StaticResource CardText}" Text="{Binding LastModifiedOnUTC, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,5,5">
-                                    <Button x:Name="btnDelete" Click="btnDelete_Click" Style="{StaticResource SecondaryButtonStyle}">
+                                    <Button x:Name="btnDelete" 
+                                            Command="{Binding DataContext.DeleteSelectedCustomerCommand, ElementName=grdTbCustomer}"
+                                            Style="{StaticResource SecondaryButtonStyle}">
                                         <StackPanel Style="{StaticResource ButtonPanelStyle}">
                                             <TextBlock Text="" Style="{StaticResource ButtonIconStyle}" Foreground="{StaticResource DangerBrush}" />
                                             <TextBlock Text="Delete" Style="{StaticResource ButtonTextStyle}" />

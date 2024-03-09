@@ -45,25 +45,25 @@ namespace SampleCRM.Web.Models
         private bool isOrderItemsTabSelected;
 
         [ObservableProperty]
-        private IEnumerable<CountryCodes> countryCodes;
+        private IEnumerable<CountryCode> countryCodes;
 
         [ObservableProperty]
-        private IEnumerable<Shippers> shippers;
+        private IEnumerable<Shipper> shippers;
 
         [ObservableProperty]
-        private IEnumerable<PaymentTypes> paymentTypes;
+        private IEnumerable<PaymentType> paymentTypes;
 
         [ObservableProperty]
-        private IEnumerable<OrderStatus> statuses;
+        private IEnumerable<OrderStatu> statuses;
 
         [ObservableProperty]
-        private Orders selectedOrder;
+        private Order selectedOrder;
 
         [ObservableProperty]
         private string searchText = string.Empty;
 
         [ObservableProperty]
-        private OrderItems selectedOrderItem;
+        private OrderItem selectedOrderItem;
 
         [ObservableProperty]
         private string searchOrderItemText = string.Empty;
@@ -71,7 +71,7 @@ namespace SampleCRM.Web.Models
         #endregion
 
         #region Handle changing properties
-        partial void OnSelectedOrderChanged(Orders value)
+        partial void OnSelectedOrderChanged(Order value)
         {
             Task.Run(async () =>
             {
@@ -83,7 +83,7 @@ namespace SampleCRM.Web.Models
 #endif
         }
 
-        partial void OnSelectedOrderItemChanged(OrderItems value)
+        partial void OnSelectedOrderItemChanged(OrderItem value)
         {
 #if DEBUG
             Console.WriteLine($"OrderItems, OrderItem: {value.OrderID}, {value.OrderLine} selected");
@@ -111,7 +111,7 @@ namespace SampleCRM.Web.Models
         private async Task LoadCountryCodes() => CountryCodes = (await _countryCodesContext.LoadAsync(_countryCodesContext.GetCountriesQuery())).Entities;
         private async Task LoadStatuses() => Statuses = (await _orderStatusContext.LoadAsync(_orderStatusContext.GetOrderStatusQuery())).Entities;
 
-        private async Task LoadCustomer(Orders order)
+        private async Task LoadCustomer(Order order)
         {
             if (order == null)
                 return;
@@ -119,7 +119,7 @@ namespace SampleCRM.Web.Models
             if (order.Customer == null || order.Customer.CustomerID != order.CustomerID)
                 order.Customer = (await _customersContext.LoadAsync(_customersContext.GetCustomerByIdQuery(SelectedOrder.CustomerID))).Entities.FirstOrDefault();
         }
-        private async Task LoadProduct(OrderItems orderItem)
+        private async Task LoadProduct(OrderItem orderItem)
         {
             if (orderItem == null)
                 return;
@@ -129,7 +129,7 @@ namespace SampleCRM.Web.Models
                 orderItem.Product = (await _productsContext.LoadAsync(_productsContext.GetProductByIdQuery(orderItem.ProductID))).Entities.FirstOrDefault();
             }
         }
-        private async Task LoadTaxRate(OrderItems orderItem)
+        private async Task LoadTaxRate(OrderItem orderItem)
         {
             if (orderItem == null)
                 return;
@@ -199,7 +199,7 @@ namespace SampleCRM.Web.Models
 
         private async Task ArrangeOrderAddEditWindow()
         {
-            var newOrder = new Orders
+            var newOrder = new Order
             {
                 IsEditMode = true
             };
@@ -210,7 +210,7 @@ namespace SampleCRM.Web.Models
                 await LoadOrders();
         }
 
-        private void UpdateComboDataForOrder(Orders order)
+        private void UpdateComboDataForOrder(Order order)
         {
             order.CountryCodes = CountryCodes;
             order.Shippers = Shippers;
@@ -297,7 +297,7 @@ namespace SampleCRM.Web.Models
             if (SelectedOrder == null)
                 throw (new ArgumentNullException("Selected Order can't be null"));
 
-            var newOrderItem = new Models.OrderItems
+            var newOrderItem = new OrderItem
             {
                 IsEditMode = true,
                 OrderID = SelectedOrder.OrderID,

@@ -41,19 +41,19 @@ namespace SampleCRM.Web.Models
 
         // todo: remove this property after applying similar changes to Orders
         [ObservableProperty]
-        private IEnumerable<CountryCodes> countryCodes;
+        private IEnumerable<CountryCode> countryCodes;
 
         [ObservableProperty]
         private bool isOrdersTabSelected;
 
         [ObservableProperty]
-        private Customers selectedCustomer;
+        private Customer selectedCustomer;
 
         [ObservableProperty]
         private string searchText = string.Empty;
 
         [ObservableProperty]
-        private Orders selectedOrder;
+        private Order selectedOrder;
 
         [ObservableProperty]
         private string searchOrderText = string.Empty;
@@ -66,14 +66,14 @@ namespace SampleCRM.Web.Models
             //Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
-        partial void OnSelectedCustomerChanged(Customers value)
+        partial void OnSelectedCustomerChanged(Customer value)
         {
             Task.Run(async () => await AsyncHelper.RunAsync(LoadOrdersForSelectedCustomer));
             //Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
 #if DEBUG
-        partial void OnSelectedOrderChanged(Orders value)
+        partial void OnSelectedOrderChanged(Order value)
         {
             Console.WriteLine($"Orders, Order: {value?.OrderID} selected");
         }
@@ -172,7 +172,7 @@ namespace SampleCRM.Web.Models
             if (SelectedCustomer == null)
                 return;
 
-            var order = new Orders
+            var order = new Order
             {
                 IsEditMode = true,
                 CountryCodes = CountryCodes,
@@ -194,7 +194,7 @@ namespace SampleCRM.Web.Models
         public async Task NewCustomer()
         {
             var countryCode = CountryCodes.FirstOrDefault();
-            var result = await CustomerAddEditWindow.Show(new Customers
+            var result = await CustomerAddEditWindow.Show(new Customer
             {
                 IsEditMode = true,
                 CountryCode = countryCode?.CountryCodeID,
