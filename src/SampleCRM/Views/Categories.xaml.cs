@@ -14,14 +14,6 @@ namespace SampleCRM.Web.Views
         {
             base.OnSizeChanged(sender, e);
             gridCategories.Columns.Last().Visibility = BoolToVisibilityConverter.Convert(!IsMobileUI);
-
-            //gridCategories.RowEditEnded += GridCategories_RowEditEnded;
         }
-
-        //private void GridCategories_RowEditEnded(object sender, System.Windows.Controls.DataGridRowEditEndedEventArgs e)
-        //{
-        //    e.
-        //    throw new System.NotImplementedException();
-        //}
     }
 }
