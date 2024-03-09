@@ -50,24 +50,26 @@ namespace SampleCRM.Web.Models
         private Customers selectedCustomer;
 
         [ObservableProperty]
-        private string searchText = "";
+        private string searchText = string.Empty;
 
         [ObservableProperty]
         private Orders selectedOrder;
 
         [ObservableProperty]
-        private string searchOrderText = "";
+        private string searchOrderText = string.Empty;
         #endregion
 
         #region Handle changing properties
         partial void OnIsOrdersTabSelectedChanged(bool value)
         {
-            Task.Run(async () => await LoadOrdersForSelectedCustomer());
+            Task.Run(async () => await AsyncHelper.RunAsync(LoadOrdersForSelectedCustomer));
+            //Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
         partial void OnSelectedCustomerChanged(Customers value)
         {
-            Task.Run(async () => await LoadOrdersForSelectedCustomer());
+            Task.Run(async () => await AsyncHelper.RunAsync(LoadOrdersForSelectedCustomer));
+            //Task.Run(async () => await LoadOrdersForSelectedCustomer());
         }
 
 #if DEBUG
@@ -83,7 +85,7 @@ namespace SampleCRM.Web.Models
         public async Task Initialize()
         {
             await AsyncHelper.RunAsync(LoadCountryCodes);
-            await LoadCustomers();
+            await AsyncHelper.RunAsync(LoadCustomers);
         }
 
         private async Task LoadCountryCodes()
@@ -135,7 +137,7 @@ namespace SampleCRM.Web.Models
         public async Task SearchCancel()
         {
             SearchText = string.Empty;
-            await LoadCustomers();
+            await AsyncHelper.RunAsync(LoadCustomers);
         }
 
         [RelayCommand]
@@ -201,7 +203,7 @@ namespace SampleCRM.Web.Models
 
             if (result)
             {
-                await LoadCustomers();
+                await AsyncHelper.RunAsync(LoadCustomers);
             }
         }
 
@@ -258,7 +260,7 @@ namespace SampleCRM.Web.Models
             }
             else
             {
-                await LoadCustomers();
+                await AsyncHelper.RunAsync(LoadCustomers);
             }
         }
         #endregion
