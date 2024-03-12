@@ -7,23 +7,29 @@ namespace SampleCRM.Web.Models
 {
     public partial class Product : Entity
     {
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        partial void OnCategoryIDChanged()
         {
-            if (e.PropertyName == nameof(CategoryID))
-            {
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(CategoryName)));
-            }
-
-            base.OnPropertyChanged(e);
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(CategoryName)));
         }
 
         public bool IsNew => string.IsNullOrEmpty(ProductID);
 
-        private IEnumerable<Category> _categoriesCombo;
+        private static IEnumerable<Category> _categoriesCombo;
         public IEnumerable<Category> CategoriesCombo
         {
-            get { return _categoriesCombo; }
-            set
+            get
+            {
+                if (_categoriesCombo == null)
+                {
+                    var context = new CategoryContext();
+                    context.Load(context.GetCategoriesQuery(), op =>
+                    {
+                        CategoriesCombo = op.Entities;
+                    }, null);
+                }
+                return _categoriesCombo;
+            }
+            private set
             {
                 if (_categoriesCombo != value)
                 {
@@ -34,7 +40,7 @@ namespace SampleCRM.Web.Models
             }
         }
 
-        public string CategoryName => CategoriesCombo.FirstOrDefault(x => x.CategoryID == CategoryID)?.Name;
+        public string CategoryName => CategoriesCombo?.FirstOrDefault(x => x.CategoryID == CategoryID)?.Name;
 
         public string PictureUrl
         {
