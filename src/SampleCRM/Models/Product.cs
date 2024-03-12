@@ -1,4 +1,5 @@
 ﻿using OpenRiaServices.DomainServices.Client;
+using SampleCRM.Web.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace SampleCRM.Web.Models
                     context.Load(context.GetCategoriesQuery(), op =>
                     {
                         CategoriesCombo = op.Entities;
-                    }, null);
+                    });
                 }
                 return _categoriesCombo;
             }

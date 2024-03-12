@@ -4,19 +4,9 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
                 xmlns:models="clr-namespace:SampleCRM.Web.Models"
                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
                 Style="{StaticResource PageStyle}">
-    <local:BasePage.Resources>
-        
-    </local:BasePage.Resources>
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
 
     <local:BasePage.DataContext>
         <models:ProductsPageVM/>

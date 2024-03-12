@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OpenRiaServices.DomainServices.Client;
+using System;
 using System.Threading.Tasks;
 
 namespace SampleCRM.Web.Views
 {
-    public class AsyncHelper
+    public static class AsyncHelper
     {
         public static IBusyCapablePage ContentPage { get; set; }
 
@@ -16,21 +17,33 @@ namespace SampleCRM.Web.Views
         {
             try
             {
-                if (ContentPage != null)
-                    ContentPage.MakeBusy(true);
+                MakeBusy(true);
 
                 await action();
 
-                if (ContentPage != null)
-                    ContentPage.MakeBusy(false);
+                MakeBusy(false);
             }
             catch (Exception ex)
             {
-                if (ContentPage != null)
-                    ContentPage.MakeBusy(false);
+                MakeBusy(false);
 
                 throw ex;
             }
+        }
+
+        public static void MakeBusy(bool busy)
+        {
+            ContentPage?.MakeBusy(busy);
+        }
+
+        public static void Load<TEntity>(this DomainContext context, EntityQuery<TEntity> query, Action<LoadOperation<TEntity>> callback) where TEntity : Entity
+        {
+            MakeBusy(true);
+            context.Load(query, result =>
+            {
+                callback(result);
+                MakeBusy(false);
+            }, null);
         }
     }
 }
