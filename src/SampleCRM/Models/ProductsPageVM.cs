@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +14,6 @@ namespace SampleCRM.Web.Models
     {
         #region Properties
         private readonly ProductsContext _productsContext = new();
-        private readonly CategoryContext _categoryContext = new();
 
         private ICollectionView _productsView;
         public ICollectionView ProdcutsView
@@ -29,9 +27,6 @@ namespace SampleCRM.Web.Models
 
         [ObservableProperty]
         private string searchText = string.Empty;
-
-        [ObservableProperty]
-        private IEnumerable<Models.Category> categoriesCombo;
 
         #endregion
 
@@ -51,9 +46,6 @@ namespace SampleCRM.Web.Models
 #endif
             if (SelectedProduct != null && isUserSelectedProduct)
             {
-                if (SelectedProduct.CategoriesCombo == null)
-                    SelectedProduct.CategoriesCombo = CategoriesCombo;
-
                 if (SelectedProduct.Picture == null || SelectedProduct.Picture.Length < 2)
                     _productsContext.GetProductPicture(SelectedProduct.ProductID, GetProductPicture_Completed, null);
                 else
@@ -87,7 +79,6 @@ namespace SampleCRM.Web.Models
         [RelayCommand]
         public async Task Initialize()
         {
-            await AsyncHelper.RunAsync(LoadCategoriesCombo);
             await AsyncHelper.RunAsync(LoadProducts);
         }
 
@@ -98,19 +89,13 @@ namespace SampleCRM.Web.Models
             var result = await _productsContext.LoadAsync(query);
 
             ProdcutsView = new PagedCollectionView(result.Entities);
-
-            foreach (var product in result.Entities)
-                product.CategoriesCombo = CategoriesCombo;
         }
-
-        private async Task LoadCategoriesCombo() => CategoriesCombo = (await _categoryContext.LoadAsync(_categoryContext.GetCategoriesQuery())).Entities;
 
         [RelayCommand]
         public async Task NewProduct()
         {
             var result = await ProductsAddEditWindow.Show(new Product
             {
-                CategoriesCombo = CategoriesCombo,
                 CreatedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 LastModifiedOnUTC = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
             }, _productsContext);
