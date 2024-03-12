@@ -81,18 +81,16 @@
                     </DataGrid.Columns>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="RowEditEnded">
-                            <i:InvokeCommandAction Command="{Binding FormRowEditEndedCommand}"
-                                                   PassEventArgsToCommand="True" EventArgsParameterPath="EditAction"/>
+                            <i:InvokeCommandAction Command="{Binding CheckChangesCommand}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="EditEnded">
-                            <i:InvokeCommandAction Command="{Binding FormEditEndedCommand}"
-                                                   PassEventArgsToCommand="True" EventArgsParameterPath="EditAction"/>
+                            <i:InvokeCommandAction Command="{Binding CheckChangesCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="2">
                     <Button x:Name="SaveButton" 
-                            IsEnabled="{Binding SaveEnabled}"
+                            IsEnabled="{Binding HasChanges}"
                             Command="{Binding SaveCommand}" 
                             Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,10,0">
                         <StackPanel Style="{StaticResource ButtonPanelStyle}">
@@ -101,7 +99,7 @@
                         </StackPanel>
                     </Button>
                     <Button x:Name="RejectButton" 
-                            IsEnabled="{Binding RejectEnabled}"
+                            IsEnabled="{Binding HasChanges}"
                             Command="{Binding RejectCommand}"   
                             Style="{StaticResource SecondaryButtonStyle}" >
                         <StackPanel Style="{StaticResource ButtonPanelStyle}">

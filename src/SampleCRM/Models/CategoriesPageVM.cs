@@ -4,7 +4,6 @@ using OpenRiaServices.DomainServices.Client;
 using SampleCRM.Web.Views;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace SampleCRM.Web.Models
 {
@@ -20,17 +19,14 @@ namespace SampleCRM.Web.Models
         private Category selectedCategory;
 
         [ObservableProperty]
-        private bool saveEnabled;
-
-        [ObservableProperty]
-        private bool rejectEnabled;
+        private bool hasChanges;
         #endregion
 
         #region Commands
 
         [RelayCommand]
-        public async Task Initialize() 
-            => await AsyncHelper.RunAsync(async () 
+        public async Task Initialize()
+            => await AsyncHelper.RunAsync(async ()
                 => CategoryCollection = (await _categoryContext.LoadAsync(_categoryContext.GetCategoriesQuery())).Entities);
 
         [RelayCommand]
@@ -44,16 +40,9 @@ namespace SampleCRM.Web.Models
         }
 
         [RelayCommand]
-        public void FormEditEnded(DataGridEditAction e) => CheckChanges();
-
-        [RelayCommand]
-        public void FormRowEditEnded(DataGridEditAction e) => CheckChanges();
-
-        private void CheckChanges()
+        public void CheckChanges()
         {
-            var hasChanges = _categoryContext.HasChanges;
-            SaveEnabled = hasChanges;
-            RejectEnabled = hasChanges;
+            HasChanges = _categoryContext.HasChanges;
         }
 
         private void OnSubmitCompleted(SubmitOperation so)
@@ -62,7 +51,7 @@ namespace SampleCRM.Web.Models
             {
                 if (so.Error.Message.StartsWith("Submit operation failed. Access to operation"))
                 {
-                    ErrorWindow.Show("Access Denied", "Insuficient User Role", so.Error.Message);
+                    ErrorWindow.Show("Access Denied", "Insufficient User Role", so.Error.Message);
                 }
                 else
                 {
