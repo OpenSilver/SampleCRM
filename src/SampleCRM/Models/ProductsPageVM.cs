@@ -57,7 +57,7 @@ namespace SampleCRM.Web.Models
         {
             var result = await ProductsAddEditWindow.Show(SelectedProduct, _productsContext);
             if (result)
-                await AsyncHelper.RunAsync(LoadProducts);
+                LoadProducts();
         }
 
         private async void GetProductPicture_Completed(InvokeOperation<byte[]> operation)
@@ -75,20 +75,20 @@ namespace SampleCRM.Web.Models
 
         #endregion
 
-        #region Commands
-        [RelayCommand]
-        public async Task Initialize()
+        public ProductsPageVM()
         {
-            await AsyncHelper.RunAsync(LoadProducts);
+            LoadProducts();
         }
 
+        #region Commands
         [RelayCommand]
-        public async Task LoadProducts()
+        public void LoadProducts()
         {
             var query = _productsContext.GetProductsQuery(SearchText).OrderBy(c => c.Name);
-            var result = await _productsContext.LoadAsync(query);
-
-            ProdcutsView = new PagedCollectionView(result.Entities);
+            _productsContext.Load(query, result =>
+            {
+                ProdcutsView = new PagedCollectionView(result.Entities);
+            });
         }
 
         [RelayCommand]
@@ -101,14 +101,14 @@ namespace SampleCRM.Web.Models
             }, _productsContext);
 
             if (result)
-                await AsyncHelper.RunAsync(LoadProducts);
+                LoadProducts();
         }
 
         [RelayCommand]
-        public async Task SearchCancel()
+        public void SearchCancel()
         {
             SearchText = string.Empty;
-            await AsyncHelper.RunAsync(LoadProducts);
+            LoadProducts();
         }
 
         #endregion
