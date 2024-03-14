@@ -11,13 +11,67 @@
     <local:BasePage.DataContext>
         <models:ProductsPageVM/>
     </local:BasePage.DataContext>
-    
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+            <!-- DefaultState definition -->
+            <VisualState x:Name="DefaultState">
+                <Storyboard>
+                    <!-- Set the third column width back to 305 pixels -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdHead" 
+                                               Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="305"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Position the search grid back to its original location -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+
+            <!-- MobileState definition -->
+            <VisualState x:Name="MobileState">
+                <Storyboard>
+                    <!-- Adjust the third column width to fill the screen -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdHead" 
+                                               Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="1*"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Reposition the search grid for the mobile layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" 
+                                               Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,10"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
     <ContentControl Style="{StaticResource MaterialDesign_Card_Style}">
         <Grid x:Name="grdHead">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="405" />
+                <ColumnDefinition Width="305" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

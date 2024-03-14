@@ -220,6 +220,145 @@
         </DataTemplate>
     </local:BasePage.Resources>
 
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+            <VisualState x:Name="DefaultState">
+                <Storyboard>
+                    <!-- Adjustments for grdHead layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdHead" Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="305"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Adjustments for grdSearch layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch" Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Since ThicknessAnimationUsingKeyFrames is not available, we will not animate the margin, but set it directly in XAML when this state is active -->
+                    <!-- This will be set outside of storyboard as a visual state setter if needed -->
+
+                    <!-- Adjustments for customerCard layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="customerCard" Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="customerCard" Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Adjustments for grdCustomerDetails layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdCustomerDetails" Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdCustomerDetails" Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Adjustments for grdTbCustomer layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbCustomer" Storyboard.TargetProperty="(Grid.RowDefinitions)[0].Height">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2*"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbCustomer" Storyboard.TargetProperty="(Grid.RowDefinitions)[1].Height">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbCustomer" Storyboard.TargetProperty="(Grid.ColumnDefinitions)[0].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2*"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbCustomer" Storyboard.TargetProperty="(Grid.ColumnDefinitions)[1].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="4*"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Change DataTemplate for formCustomer -->
+                    <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="formCustomer" Storyboard.TargetProperty="EditTemplate">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource dtWideCustomers}"/>
+                    </ObjectAnimationUsingKeyFrames>-->
+
+                    <!-- Adjustments for grdTbOrders layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrders" Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="305"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderSearch" Storyboard.TargetProperty="(Grid.Column)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderSearch" Storyboard.TargetProperty="(Grid.Row)">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+            <VisualState x:Name="MobileState">
+                <Storyboard>
+
+                    <!-- Update grdHead layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="columnDefGrdHead2">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="*"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Update grdSearch layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Column)" Storyboard.TargetName="grdSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="grdSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <!--<ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="grdSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,10"/>
+                    </ThicknessAnimationUsingKeyFrames>-->
+
+                    <!-- Update customerCard layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="customerCard">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Column)" Storyboard.TargetName="customerCard">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Update grdCustomerDetails layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Column)" Storyboard.TargetName="grdCustomerDetails">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="grdCustomerDetails">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                    </ObjectAnimationUsingKeyFrames>
+
+                    <!-- Update grdTbCustomer layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.TargetName="rowDefGrdTbCustomer0">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.TargetName="rowDefGrdTbCustomer1">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"/>
+                    </ObjectAnimationUsingKeyFrames>-->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="colDefGrdTbCustomer0">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2*"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="colDefGrdTbCustomer1">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"/>
+                    </ObjectAnimationUsingKeyFrames>-->
+
+                    <!-- Change DataTemplate for formCustomer -->
+                    <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="EditTemplate" Storyboard.TargetName="formCustomer">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource dtNarrowCustomers}"/>
+                    </ObjectAnimationUsingKeyFrames>-->
+
+                    <!-- Update grdTbOrders layout -->
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="columnDefGrdTbOrders2">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="*"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Column)" Storyboard.TargetName="grdOrderSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Grid.Row)" Storyboard.TargetName="grdOrderSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <!--<ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="grdOrderSearch">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="0,0,0,10"/>
+                    </ThicknessAnimationUsingKeyFrames>-->
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding InitializeCommand}"/>
@@ -239,9 +378,9 @@
         <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Grid.Row="0">
             <Grid x:Name="grdHead">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="405" />
+                    <ColumnDefinition x:Name="columnDefGrdHead0" Width="Auto" />
+                    <ColumnDefinition x:Name="columnDefGrdHead1" Width="*" />
+                    <ColumnDefinition x:Name="columnDefGrdHead2" Width="305" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -329,8 +468,8 @@
                 <ScrollViewer x:Name="scrTbCustomer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbCustomer">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition x:Name="colDefGrdTbCustomer0" Width="*"/>
+                            <ColumnDefinition x:Name="colDefGrdTbCustomer1" Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Border x:Name="customerCard" Grid.Column="0" Background="{StaticResource CustomerCardBackground}" 
                                 DataContext="{Binding SelectedCustomer, Mode=OneWay}">
@@ -421,9 +560,9 @@
                      IsSelected="{Binding IsOrdersTabSelected, Mode=TwoWay}">
                 <Grid x:Name="grdTbOrders" Margin="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="405" />
+                        <ColumnDefinition x:Name="columnDefGrdTbOrders0" Width="Auto" />
+                        <ColumnDefinition x:Name="columnDefGrdTbOrders1" Width="*" />
+                        <ColumnDefinition x:Name="columnDefGrdTbOrders2" Width="305" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

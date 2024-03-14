@@ -61,9 +61,18 @@ namespace SampleCRM.Web.Views
             }
         }
 
-        protected virtual void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        protected virtual void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             IsMobileUI = ActualWidth <= MaxMobileWidth;
+
+            if (IsMobileUI)
+            {
+                VisualStateManager.GoToState(this, "MobileState", false);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "DefaultState", false);
+            }
         }
 
         public bool IsMobileUI
