@@ -261,80 +261,6 @@
         <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
             <VisualState x:Name="DefaultState">
                 <Storyboard>
-                    <!-- Set column width back to original for default state -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdHead"
-                                       Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="305"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Set the position of the search grid back to its default state -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch"
-                                       Storyboard.TargetProperty="(Grid.Column)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdSearch"
-                                       Storyboard.TargetProperty="(Grid.Row)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Reset positions for order card -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="orderCard"
-                                       Storyboard.TargetProperty="(Grid.Row)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="orderCard"
-                                       Storyboard.TargetProperty="(Grid.Column)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Reset positions and sizes for order details grid -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderDetails"
-                                       Storyboard.TargetProperty="(Grid.Row)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderDetails"
-                                       Storyboard.TargetProperty="(Grid.Column)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Set row heights back to original for default state -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrder"
-                                       Storyboard.TargetProperty="(Grid.RowDefinitions)[0].Height">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="2*"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrder"
-                                       Storyboard.TargetProperty="(Grid.RowDefinitions)[1].Height">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Set column widths back to original for default state -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrder"
-                                       Storyboard.TargetProperty="(Grid.ColumnDefinitions)[0].Width">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="2*"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrder"
-                                       Storyboard.TargetProperty="(Grid.ColumnDefinitions)[1].Width">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="4*"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Update DataTemplate for formOrder -->
-                    <!-- Note: Just as with the MobileState, changing the DataTemplate is not standard in VisualState animations and might need to be handled differently depending on your environment. -->
-
-                    <!-- Reset column width for order items section -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdTbOrderItems"
-                                       Storyboard.TargetProperty="(Grid.ColumnDefinitions)[2].Width">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="305"/>
-                    </ObjectAnimationUsingKeyFrames>
-
-                    <!-- Reset position of the order item search grid -->
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderItemSearch"
-                                       Storyboard.TargetProperty="(Grid.Column)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
-                    </ObjectAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grdOrderItemSearch"
-                                       Storyboard.TargetProperty="(Grid.Row)">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
-                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </VisualState>
             <VisualState x:Name="MobileState">
@@ -506,9 +432,13 @@
             <TabItem x:Name="tbOrder" Header="Order" Style="{StaticResource MaterialDesign_TabItem_Style}">
                 <ScrollViewer x:Name="scrTbOrder" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
                     <Grid x:Name="grdTbOrder">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="4*"/>
                         </Grid.ColumnDefinitions>
                         <Border x:Name="orderCard" Grid.Column="0" 
                                 Background="{StaticResource CustomerCardBackground}" 
@@ -616,7 +546,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Grid x:Name="grdOrderItemSearch" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" >
+                    <Grid x:Name="grdOrderItemSearch" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="16" />
