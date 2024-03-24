@@ -98,9 +98,8 @@
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel x:Name="wrpList" 
-                                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                   Width="{Binding ElementName=lstProducts, Path=ActualWidth}" 
-                                   Height="{Binding ElementName=lstProducts, Path=ActualHeight}"/>
+                                   ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                   Width="{Binding ElementName=lstProducts, Path=ActualWidth}"  />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
