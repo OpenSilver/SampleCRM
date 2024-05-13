@@ -78,7 +78,7 @@
       <HintPath>$(SolutionDir)packages\OpenRiaServices.Server.4.6.0\lib\net45\OpenRiaServices.DomainServices.Server.dll</HintPath>
     </Reference>
     <Reference Include="OpenSilver.AI.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenSilver.AI.Server.2.2.0-private-2024-03-05\lib\OpenSilver.AI.Server.dll</HintPath>
+      <HintPath>..\packages\OpenSilver.AI.Server.2.2.0\lib\OpenSilver.AI.Server.dll</HintPath>
     </Reference>
     <Reference Include="SQLiteMembershipProvider, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)packages\SQLiteMembershipProvider.1.1.0.0\lib\net40\SQLiteMembershipProvider.dll</HintPath>

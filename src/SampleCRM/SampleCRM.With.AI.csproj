@@ -48,6 +48,8 @@
     <None Remove="Assets\List.png" />
     <None Remove="Assets\ListInBox.png" />
     <None Remove="Assets\Locked.png" />
+    <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_AutoCompleteBox_Styles.xaml" />
+    <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataPager_Styles.xaml" />
     <None Remove="Assets\MaterialDesign_Styles_Kit\MaterialDesign_NumericUpDown_Styles.xaml" />
     <None Remove="Assets\MenuIcon.png" />
     <None Remove="Assets\Microsoft.png" />
@@ -144,6 +146,9 @@
     <Content Include="Assets\MenuIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_AutoCompleteBox_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_Button_Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,6 +171,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataGrid_Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DataPager_Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\MaterialDesign_Styles_Kit\MaterialDesign_DatePicker_Styles.xaml">
@@ -254,14 +262,17 @@
     <Content Include="Views\Login\RegistrationForm.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <PackageReference Include="OpenSilver" Version="2.2.0-preview-2024-02-22-121917-3dfa79ab" />
-    <PackageReference Include="OpenSilver.AI.Client" Version="2.2.0-private-2024-03-05" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.0.0" />
+	<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  
+    <PackageReference Include="OpenSilver" Version="2.2.0" />
+    <PackageReference Include="OpenSilver.AI.Client" Version="2.2.0" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="2.2.0" />
 
-    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.0.0">
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="2.2.0" />
+
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="2.2.0">
 
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
