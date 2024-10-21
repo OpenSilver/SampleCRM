@@ -14,46 +14,46 @@
             <Canvas.Resources>
                 <!-- Storyboard -->
                 <Storyboard x:Key="ColorChangeStoryboard" RepeatBehavior="Forever">
-                    <ColorAnimation Storyboard.TargetName="e0001" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1"/>
-                    <ColorAnimation Storyboard.TargetName="e0002" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
-                    <ColorAnimation Storyboard.TargetName="e0003" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
-                    <ColorAnimation Storyboard.TargetName="e0004" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.3"/>
-                    <ColorAnimation Storyboard.TargetName="e0005" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.4"/>
-                    <ColorAnimation Storyboard.TargetName="e0006" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.5"/>
-                    <ColorAnimation Storyboard.TargetName="e0007" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.6"/>
-                    <ColorAnimation Storyboard.TargetName="e0008" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.7"/>
-                    <ColorAnimation Storyboard.TargetName="e0009" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.8"/>
-                    <ColorAnimation Storyboard.TargetName="e0010" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.9"/>
-                    <ColorAnimation Storyboard.TargetName="e0011" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.0"/>
-                    <ColorAnimation Storyboard.TargetName="e0012" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.1"/>
-                    <ColorAnimation Storyboard.TargetName="e0013" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.2"/>
-                    <ColorAnimation Storyboard.TargetName="e0014" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.3"/>
-                    <ColorAnimation Storyboard.TargetName="e0015" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.4"/>
-                    <ColorAnimation Storyboard.TargetName="e0016" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.5"/>
-                    <ColorAnimation Storyboard.TargetName="e0017" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.6"/>
-                    <ColorAnimation Storyboard.TargetName="e0018" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.7"/>
-                    <ColorAnimation Storyboard.TargetName="e0019" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.8"/>
-                    <ColorAnimation Storyboard.TargetName="e0020" Storyboard.TargetProperty="Fill" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.9"/>
+                    <ColorAnimation Storyboard.TargetName="e0001" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1"/>
+                    <ColorAnimation Storyboard.TargetName="e0002" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.1"/>
+                    <ColorAnimation Storyboard.TargetName="e0003" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.2"/>
+                    <ColorAnimation Storyboard.TargetName="e0004" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.3"/>
+                    <ColorAnimation Storyboard.TargetName="e0005" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.4"/>
+                    <ColorAnimation Storyboard.TargetName="e0006" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.5"/>
+                    <ColorAnimation Storyboard.TargetName="e0007" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.6"/>
+                    <ColorAnimation Storyboard.TargetName="e0008" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.7"/>
+                    <ColorAnimation Storyboard.TargetName="e0009" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.8"/>
+                    <ColorAnimation Storyboard.TargetName="e0010" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:0.9"/>
+                    <ColorAnimation Storyboard.TargetName="e0011" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.0"/>
+                    <ColorAnimation Storyboard.TargetName="e0012" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.1"/>
+                    <ColorAnimation Storyboard.TargetName="e0013" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.2"/>
+                    <ColorAnimation Storyboard.TargetName="e0014" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.3"/>
+                    <ColorAnimation Storyboard.TargetName="e0015" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.4"/>
+                    <ColorAnimation Storyboard.TargetName="e0016" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.5"/>
+                    <ColorAnimation Storyboard.TargetName="e0017" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.6"/>
+                    <ColorAnimation Storyboard.TargetName="e0018" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.7"/>
+                    <ColorAnimation Storyboard.TargetName="e0019" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.8"/>
+                    <ColorAnimation Storyboard.TargetName="e0020" Storyboard.TargetProperty="Fill.Color" To="#0085FF" Duration="0:0:0.1" BeginTime="0:0:1.9"/>
 
-                    <ColorAnimation Storyboard.TargetName="e0001" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.4"/>
-                    <ColorAnimation Storyboard.TargetName="e0002" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.5"/>
-                    <ColorAnimation Storyboard.TargetName="e0003" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.6"/>
-                    <ColorAnimation Storyboard.TargetName="e0004" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.7"/>
-                    <ColorAnimation Storyboard.TargetName="e0005" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.8"/>
-                    <ColorAnimation Storyboard.TargetName="e0006" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.9"/>
-                    <ColorAnimation Storyboard.TargetName="e0007" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.0"/>
-                    <ColorAnimation Storyboard.TargetName="e0008" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.1"/>
-                    <ColorAnimation Storyboard.TargetName="e0009" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.2"/>
-                    <ColorAnimation Storyboard.TargetName="e0010" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.3"/>
-                    <ColorAnimation Storyboard.TargetName="e0011" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.4"/>
-                    <ColorAnimation Storyboard.TargetName="e0012" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.5"/>
-                    <ColorAnimation Storyboard.TargetName="e0013" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.6"/>
-                    <ColorAnimation Storyboard.TargetName="e0014" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.7"/>
-                    <ColorAnimation Storyboard.TargetName="e0015" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.8"/>
-                    <ColorAnimation Storyboard.TargetName="e0016" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.9"/>
-                    <ColorAnimation Storyboard.TargetName="e0017" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.0"/>
-                    <ColorAnimation Storyboard.TargetName="e0018" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.1"/>
-                    <ColorAnimation Storyboard.TargetName="e0019" Storyboard.TargetProperty="Fill" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.2"/>
+                    <ColorAnimation Storyboard.TargetName="e0001" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.4"/>
+                    <ColorAnimation Storyboard.TargetName="e0002" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.5"/>
+                    <ColorAnimation Storyboard.TargetName="e0003" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.6"/>
+                    <ColorAnimation Storyboard.TargetName="e0004" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.7"/>
+                    <ColorAnimation Storyboard.TargetName="e0005" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.8"/>
+                    <ColorAnimation Storyboard.TargetName="e0006" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:0.9"/>
+                    <ColorAnimation Storyboard.TargetName="e0007" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.0"/>
+                    <ColorAnimation Storyboard.TargetName="e0008" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.1"/>
+                    <ColorAnimation Storyboard.TargetName="e0009" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.2"/>
+                    <ColorAnimation Storyboard.TargetName="e0010" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.3"/>
+                    <ColorAnimation Storyboard.TargetName="e0011" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.4"/>
+                    <ColorAnimation Storyboard.TargetName="e0012" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.5"/>
+                    <ColorAnimation Storyboard.TargetName="e0013" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.6"/>
+                    <ColorAnimation Storyboard.TargetName="e0014" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.7"/>
+                    <ColorAnimation Storyboard.TargetName="e0015" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.8"/>
+                    <ColorAnimation Storyboard.TargetName="e0016" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:1.9"/>
+                    <ColorAnimation Storyboard.TargetName="e0017" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.0"/>
+                    <ColorAnimation Storyboard.TargetName="e0018" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.1"/>
+                    <ColorAnimation Storyboard.TargetName="e0019" Storyboard.TargetProperty="Fill.Color" To="#26FFFFFF" Duration="0:0:0.1" BeginTime="0:0:2.2"/>
                 </Storyboard>
             </Canvas.Resources>
             <Canvas.Triggers>
