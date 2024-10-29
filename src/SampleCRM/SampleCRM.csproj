@@ -265,14 +265,14 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
-    <PackageReference Include="OpenSilver" Version="3.1.0-preview-2024-10-21-080052-2b26d374" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="3.1.0-preview-2024-09-23-102838-695e190e" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="3.1.0-preview-2024-09-23-102838-695e190e" />
-    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="3.1.0-preview-2024-09-23-102838-695e190e">
+    <PackageReference Include="OpenSilver" Version="3.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="3.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="3.0.0" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.CodeGen.4.6" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="OpenSilver.OpenRiaServices.DomainDataSource.4.6" Version="3.1.0-preview-2024-09-23-102838-695e190e" />
+    <PackageReference Include="OpenSilver.OpenRiaServices.DomainDataSource.4.6" Version="3.0.0" />
     <!--<PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />-->
     
     <Page Include="App.xaml">
