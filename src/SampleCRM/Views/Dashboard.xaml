@@ -6,14 +6,14 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                  xmlns:domain="clr-namespace:SampleCRM.Web" 
                  xmlns:riaControls="clr-namespace:OpenRiaServices.Controls;assembly=OpenRiaServices.Controls.DomainServices"
-                 mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
-                 Style="{StaticResource PageStyle}">
+                 mc:Ignorable="d"
+                 Style="{StaticResource PageStyle}" d:DesignWidth="884" d:DesignHeight="616">
     <local:BasePage.Resources>
         <local:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
     </local:BasePage.Resources>
 
-    <ScrollViewer x:Name="scrDashboard" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+    <ScrollViewer x:Name="scrDashboard" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Background="#FF3B7E88">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
                 <VisualState x:Name="DefaultState">
@@ -67,24 +67,25 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid x:Name="grdDashboard">
+        <Grid x:Name="grdDashboard" Background="#FF3B7E88">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="rowDef0" MinHeight="200" />
+                <RowDefinition x:Name="rowDef1" MinHeight="100" />
+                <RowDefinition x:Name="rowDef2" MinHeight="100" />
+                <RowDefinition x:Name="rowDef3"  />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnDef0" Width="*" />
                 <ColumnDefinition x:Name="columnDef1" Width="20" />
                 <ColumnDefinition x:Name="columnDef2" Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition x:Name="rowDef0" Height="*" MinHeight="300" />
-                <RowDefinition x:Name="rowDef1" Height="*" MinHeight="400" />
-                <RowDefinition x:Name="rowDef2" Height="Auto" />
-            </Grid.RowDefinitions>
             <ContentControl x:Name="cntCustomers" Style="{StaticResource MaterialDesign_Card_Style}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Stretch">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="100" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Latest Customers" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                    <TextBlock Text="Employees" Style="{StaticResource HeaderTextStyle}" FontSize="31" Height="40" Margin="0,48,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                     <riaControls:DomainDataSource Name="customersDataSource" QueryName="GetLatestCustomersQuery" 
                                                   AutoLoad="True">
@@ -97,11 +98,11 @@
                         </riaControls:DomainDataSource.QueryParameters>
                     </riaControls:DomainDataSource>
                     <DataGrid x:Name="grdCustomers" HorizontalContentAlignment="Stretch"
-                              ItemsSource="{Binding Data, ElementName=customersDataSource}"
+                              ItemsSource="{Binding SampleData.Employees}"
                               IsReadOnly="True"
                               Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Grid.Row="1">
-                        <DataGrid.Columns>
+                              AutoGenerateColumns="True" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Grid.Row="1">
+                        <!--<DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding CustomerID}" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTemplateColumn Header="Name" IsReadOnly="True" CellStyle="{StaticResource DataGridCell}">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -123,8 +124,9 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" CellStyle="{StaticResource DataGridCell}" />
-                        </DataGrid.Columns>
+                        </DataGrid.Columns>-->
                     </DataGrid>
+                    <Image Source="/SampleCRM;component/assets/back.png" Width="40" Height="40" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 </Grid>
             </ContentControl>
             <ContentControl x:Name="cntOrders" Style="{StaticResource MaterialDesign_Card_Style}" Grid.Column="0" Grid.Row="1">
@@ -133,7 +135,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Latest Orders" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                    <TextBlock Text="Latest Orders" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" FontSize="30" Margin="0,7,0,10" />
 
                     <riaControls:DomainDataSource Name="ordersDataSource" QueryName="GetLatestOrdersQuery" 
                                                       AutoLoad="True">
@@ -151,7 +153,7 @@
                               ItemsSource="{Binding Data, ElementName=ordersDataSource}"
                               IsReadOnly="True"
                               Style="{StaticResource MaterialDesign_DataGrid_Style}"
-                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True">
+                              AutoGenerateColumns="False" CanUserReorderColumns="True" CanUserSortColumns="True" CanUserResizeColumns="True" Margin="2,2,2,2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Order Id" Binding="{Binding OrderID}" CellStyle="{StaticResource DataGridCell}" />
                             <DataGridTextColumn Header="Customer Id" Binding="{Binding CustomerID}" CellStyle="{StaticResource DataGridCell}" />
@@ -166,7 +168,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Top Sale Products" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" />
+                    <TextBlock Text="Top Sale Products" Grid.Row="0" Style="{StaticResource HeaderTextStyle}" FontSize="30" Margin="0,7,0,10" />
 
                     <riaControls:DomainDataSource Name="productsDataSource" QueryName="GetTopSaleProductsQuery" 
                                                       AutoLoad="True">
@@ -203,6 +205,13 @@
                     </DataGrid>
                 </Grid>
             </ContentControl>
+            <Border CornerRadius="20" BorderThickness="1" Background="#33FFFFFF" BorderBrush="#00808080" Margin="0,0,0,10" VerticalAlignment="Bottom" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="2" Grid.RowSpan="2" >
+                <StackPanel Orientation="Horizontal" Background="#00D4D4D4" HorizontalAlignment="Center" Margin="20" >
+                    <Image Source="/SampleCRM;component/assets/home2.png" Width="42" Height="42" Stretch="Fill" Visibility="Visible" IsEnabled="True"/>
+                    <Image Source="/SampleCRM;component/assets/sitemap2.png" Width="42" Height="42" Stretch="Fill" Margin="20,0,0,0" Visibility="Visible" IsEnabled="True"/>
+                    <Image Source="/SampleCRM;component/assets/book2.png" Width="42" Height="42" Stretch="Fill" Margin="20,0,0,0" Visibility="Visible" IsEnabled="True"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </ScrollViewer>
 </local:BasePage>
