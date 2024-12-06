@@ -1,8 +1,6 @@
-﻿using DotNetForHtml5;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.JSInterop;
-using SampleCRM.Browser.Interop;
+using OpenSilver.WebAssembly;
 
 namespace SampleCRM.Browser.Pages
 {
@@ -13,14 +11,10 @@ namespace SampleCRM.Browser.Pages
         {
         }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             base.OnInitialized();
-            Cshtml5Initializer.Initialize(new UnmarshalledJavaScriptExecutionHandler(JSRuntime));
-            Program.RunApplication();
+            await Runner.RunApplicationAsync<SampleCRM.App>();
         }
-
-        [Inject]
-        private IJSRuntime JSRuntime { get; set; }
     }
 }
