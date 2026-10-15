@@ -71,6 +71,7 @@
     <None Remove="Controls\RequiredTextBlock.xaml" />
     <None Remove="EmptyOpenSilverMigrationApplication.csproj.vspscc" />
     <None Remove="MyTemplate_rename_me_after_export.vstemplate" />
+    <None Remove="Views\Assistant.xaml" />
     <None Remove="Views\Categories.xaml" />
     <None Remove="Views\CustomerAddEdit.xaml" />
     <None Remove="Views\CustomerAddEditWindow.xaml" />
@@ -265,6 +266,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
+    <PackageReference Include="ChatWithData" Version="3.1.0-private-2026-10-15-4" />
     <PackageReference Include="OpenSilver" Version="3.1.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="3.1.0" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="3.1.0" />
@@ -286,6 +288,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RequiredTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Assistant.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CustomerAddEdit.xaml">

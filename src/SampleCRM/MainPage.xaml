@@ -34,7 +34,7 @@
 
         <Border Grid.Row="1" Grid.ColumnSpan="99" Grid.RowSpan="99" x:Name="ContentBorder">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/Dashboard" 
-                              Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+                              Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri=" " MappedUri="/Views/Dashboard.xaml" />
@@ -110,6 +110,13 @@
                                     <Run FontWeight="Bold" Text=")" />
                                 </TextBlock>
                             </HyperlinkButton>
+                            <HyperlinkButton x:Name="lnkAssistant" Style="{StaticResource LinkStyle}"
+                                     NavigateUri="/Assistant" TargetName="ContentFrame">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" VerticalAlignment="Center" />
+                                    <TextBlock FontWeight="Bold" Text="Assistant" />
+                                </StackPanel>
+                            </HyperlinkButton>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -171,6 +178,13 @@
                                         <Run Text="{Binding CountModel.CategoryCount, Mode=OneWay}" />
                                         <Run Text=")" />
                                     </TextBlock>
+                                </StackPanel>
+                            </HyperlinkButton>
+                            <HyperlinkButton x:Name="mlnkAssistant" Style="{StaticResource MobileLinkStyle}"
+                                             NavigateUri="/Assistant" TargetName="ContentFrame">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontSize="12" FontFamily="{StaticResource FontAwesome}" Margin="5,1,5,0" Opacity="0.25" VerticalAlignment="Center" />
+                                    <TextBlock FontWeight="Bold" Text="Assistant" />
                                 </StackPanel>
                             </HyperlinkButton>
                         </StackPanel>
