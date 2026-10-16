@@ -266,7 +266,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
-    <PackageReference Include="ChatWithData" Version="3.1.0-private-2026-10-16-1" />
+    <PackageReference Include="ChatWithData" Version="3.1.0-private-2026-10-16-3" />
     <PackageReference Include="OpenSilver" Version="3.4.0-preview-2026-10-14-142335-eaa9a26d" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.4.6" Version="3.4.0-preview-2026-03-23-151023-9602449b" />
     <PackageReference Include="OpenSilver.OpenRiaServices.Client.Core.4.6" Version="3.4.0-preview-2026-03-23-151023-9602449b" />
