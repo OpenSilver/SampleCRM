@@ -20,7 +20,6 @@ namespace SampleCRM.Web.Views
         public BaseUserControl()
         {
             Loaded += BaseUserControl_Loaded;
-            Application.Current.MainWindow.SizeChanged += MainWindow_SizeChanged;
         }
 
         private void MainWindow_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -31,6 +30,7 @@ namespace SampleCRM.Web.Views
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Application.Current.MainWindow.SizeChanged += MainWindow_SizeChanged;
             ArrangeLayout();
         }
 

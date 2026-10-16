@@ -345,7 +345,7 @@
     <Style TargetType="CalendarDayButton" BasedOn="{StaticResource MaterialDesign_CalendarDayButton_Style}" />
         
     <!--Calender Button-->
-    <Style x:Key="MaterialDesign_CalendarButton_Style" TargetType="controlsPrimitives:CalendarButton">
+    <Style x:Key="MaterialDesign_CalendarButton_Style" TargetType="CalendarButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontSize" Value="10" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -355,7 +355,7 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controlsPrimitives:CalendarButton">
+                <ControlTemplate TargetType="CalendarButton">
                     <Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -475,7 +475,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="controlsPrimitives:CalendarButton" BasedOn="{StaticResource MaterialDesign_CalendarButton_Style}" />
+    <Style TargetType="CalendarButton" BasedOn="{StaticResource MaterialDesign_CalendarButton_Style}" />
 
     <!--DatePickerTextBox-->
     <Style x:Key="MaterialDesign_DatePickerTextBox_Style" TargetType="DatePickerTextBox">

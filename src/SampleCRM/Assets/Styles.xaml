@@ -457,7 +457,7 @@
     </Style>
 
     <!-- LoginRegistration Window Style -->
-    <Style x:Key="LogRegWindowStyle" TargetType="controls:ChildWindow">
+    <Style x:Key="LogRegWindowStyle" TargetType="ChildWindow">
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="TabNavigation" Value="Cycle"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -479,7 +479,7 @@
         <Setter Property="OverlayOpacity" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controls:ChildWindow">
+                <ControlTemplate TargetType="ChildWindow">
                     <Grid x:Name="Root">
                         <Grid.Resources>
                             <Style x:Key="ButtonStyle" TargetType="Button">
@@ -1502,7 +1502,7 @@
         <Setter Property="HeaderVisibility" Value="Visible" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="toolkit:DataForm">
+                <ControlTemplate TargetType="DataForm">
                     <Grid DataField.IsFieldGroup="True">
                         <Grid.Resources>
                             <Style x:Key="ButtonGeneric" TargetType="Button">
