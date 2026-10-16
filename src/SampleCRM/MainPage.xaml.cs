@@ -82,6 +82,11 @@ namespace SampleCRM
             }
         }
 
+        private void Assistant_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Navigate(new Uri("/Assistant", UriKind.Relative));
+        }
+
         private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             e.Handled = true;

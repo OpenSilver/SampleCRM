@@ -182,7 +182,7 @@
             <StackPanel Orientation="Horizontal">
                 <login:LoginStatus />
                 <HyperlinkButton x:Name="lnkAssistant" Style="{StaticResource AiButtonStyle}"
-                                 NavigateUri="/Assistant" TargetName="ContentFrame"/>
+                                 Click="Assistant_Click"/>
                 <!--<HyperlinkButton x:Name="lnkSettings" Style="{StaticResource LinkStyle}"
                                 NavigateUri="/Settings" TargetName="ContentFrame">
                     <StackPanel Orientation="Horizontal">
