@@ -1,4 +1,5 @@
 using OpenSilver.AI.Client;
+using OpenSilver.AI.Controls.Helpers;
 using SampleCRM.Web.Models;
 using System.Reflection;
 
@@ -8,6 +9,7 @@ namespace SampleCRM.Web.Views
     {
         public Assistant()
         {
+            ThemeSelector.InitializeAI(ThemesSelection.Dark);
             InitializeComponent();
 
             MyConversationalUI.RiaGeneratedMetadata = new RiaGeneratedMetadata()
